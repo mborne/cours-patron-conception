@@ -273,6 +273,16 @@ apporte par rapport aux règles de conception?
 Les patrons de conception ont été défini par le « Gang of Four » (Erich Gamma, Richard Helm, Ralph Johnson et John Vlissides)
 
 Attention : Il n'existe pas un nombre fini de patron de conception (vous pourrez définir vos patrons de conception)
+---
+
+# Les designs patterns
+
+## Formalisme
+
+* Un nom
+* Un problème
+* Une solution
+* Des conséquences (avantages et inconvénients) 
 
 ---
 
@@ -319,7 +329,8 @@ de communications entre objet au sein d'une application.
 
 ## Autres familles 
 
-* Patron de conception architecturaux 
+* Patron de conception architecturaux qui traitent des styles d'architecture de logiciel
+https://en.wikipedia.org/wiki/Architectural_pattern
 
 
 ---
@@ -368,6 +379,27 @@ de communications entre objet au sein d'une application.
 
 ---
 
+# Les designs patterns
+
+## Patron de conception architecturaux
+
+Quelques exemples parmis tant d'autres :
+
+* Model-View-Controller (MVC) (avec plusieurs variantes)
+* Event-Driven architecture
+* En couche
+* Broker Pattern
+* Peer-to-peer
+* Pipeline (http://www.informit.com/articles/article.aspx?p=366887&seqNum=8)
+
+Et des hordes de patterns en fonction des domaines : 
+
+* Voir SOA patterns, http://soapatterns.org/ pour les patrons en lien avec
+les architectures orientés services
+
+
+---
+
 # A vous maintenant!
 
 Comment progresser?
@@ -388,9 +420,6 @@ Les framework sont truffés de patterns : Recherchez les fabriques, les monteurs
 
 * WIKIBOOK, Patrons de conception/Patrons du « Gang of Four »
 https://fr.wikibooks.org/wiki/Patrons_de_conception/Patrons_du_%C2%AB_Gang_of_Four_%C2%BB
-
-* Design Patterns in the JDK, Brian Du Preez
-http://www.javacodegeeks.com/2011/03/design-patterns-in-jdk.html
 
 ---
 
