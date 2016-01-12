@@ -15,6 +15,7 @@ En outre, il faut avoir en tête (et prioriser) des critères qualités :
 * Testabilité
 * Performance
 * Evolutivité
+* Réutilisabilité
 * ...
 
 ---
@@ -39,8 +40,8 @@ Le but :
 
 ## Les bases de la P.O.O.
 ## Les principes de conception
-## Les designs patterns
 ## Les anti-patterns
+## Les designs patterns
 ## A vous maintenant!
 
 ---
@@ -110,24 +111,18 @@ De plus, certains concepts ne sont pas présents dans tous les langages :
 
 Alors, comment fait-on pour s'y retrouver avec ces outils?
 
-* Comprendre le rôle de ces outils
-* Appliquer des règles de conception
-
+* On comprend le rôle de ces outils
+* On applique des règles de conception
+* On met en place des conventions (organisation des codes, nommage : forme et terminologie)
+* On applique des patrons de conception pour faciliter la compréhension de l'architecture
 
 ---
 
 # Les principes de conception
 
 Les patrons de conception que nous allons bientôt voir sont (entre autres) une 
-mise en pratique de principes de conception qu'il faut avoir en tête.
-
----
-
-# Les principes de conception
-
-## Abstraction
-
-TODO
+mise en pratique de principes de conception qui s'ajoutent aux principes
+de base de la P.O.O. (abstraction, encapsulation, etc.) et qu'il faut avoir en tête.
 
 ---
 
@@ -135,11 +130,11 @@ TODO
 
 ## SOLID (1/2)
 
-* Single Responsibility
+* (S)ingle Responsibility
 
 Une classe remplit une fonction et une seule.
 
-* Open Closed
+* (O)pen Closed
 
 Une classe est ouverte à l’extension, mais fermée aux modifications. 
 
@@ -149,18 +144,74 @@ Une classe est ouverte à l’extension, mais fermée aux modifications.
 
 ## SOLID (2/2)
 
-* Liskov Substitution Principle
+* (L)iskov Substitution Principle
 
 Lorsqu’une classe se substitue à une autre, son contrat de fonctionnement est respecté.
 
-* Interface Segregation
+* (I)nterface Segregation
 
-On crée des interfaces séparées pour les différents contrats
+Préférer plusieurs interfaces spécifiques pour chaque client plutôt qu'une seule interface générale.
 
-* Dependency Inversion
+* (D)ependency Inversion
 
-Le contrat n’étant pas porté par le module contenant la classe qui l’implémente, mais par le 
-module ayant besoin de cette classe, la dépendance est inversée par rapport au sens commun
+Il faut dépendre des interfaces, pas des implémentations (classe concrète).
+
+---
+
+# Les principes de conception
+
+## DRY : Don't Repeat Yourself
+
+Le copier/coller n'est pas une méthode acceptable de réutilisation des codes. 
+
+Quand on veut réutiliser un code, on le met en facteur.
+
+
+## YAGNI : you ain't gonna need it
+
+On ne code que ce qui est utile. On n'ajoute pas des codes en se disant que ça 
+servira un jour.
+
+---
+
+# Les principes de conception
+
+## Identifier et encapsuler ce qui varie (1/2)
+
+Cas d'école : J'identifie le besoin d'écrire mes logs dans la console
+ou dans un fichier...
+
+```
+class MaClasse {
+    
+    public void faireUnTruc(){
+        System.out.println("Je fais un truc");
+        // ...
+    }
+    
+}
+```
+
+---
+
+# Les principes de conception
+
+## Identifier et encapsuler ce qui varie (2/2)
+
+... je fais abstraction sur l'écriture des logs
+
+```
+class MaClasse {
+    
+    private Logger logger ;
+    
+    public void faireUnTruc(){
+        logger.info("Je fais un truc");
+    }
+    
+}
+```
+
 
 ---
 
@@ -171,32 +222,22 @@ module ayant besoin de cette classe, la dépendance est inversée par rapport au
 * On hérite d'une classe seulement si on peut dire "EST-UN"
 * On n'hérite pas d'une classe dans le but de réutiliser ces méthodes!
 
+Exemple d'erreur :
 
----
-
-# Les designs patterns
-
-On y est! Alors, les patrons de conception, Quésako?
-
-## Définition
-
-TODO : définition du larousse
-
-## 
-
-Plus vulgairement : Ce sont des agencements de classes et d'objets qui peuvent 
-inspirer la conception d'un logiciel sur des problématiques qui ont déjà été rencontrée par d'autres.
-
-## Historique
-
-Gang of four
-
-Attention : Il n'existe pas un nombre fini de patron de conception (vous pourrez définir vos patrons de conception)
-
+```
+class Personne extends XMLDocument {
+    
+}
+```
 
 ---
 
 # Les anti-patterns
+
+Avant de mettre un nom sur des modèles de conception, on va mettre un nom
+sur des erreurs de conception courrantes : Les anti-pattern!
+
+## Intérêt
 
 * Identifier les erreurs de conception classique
 * Mettre un nom sur le laid
@@ -206,7 +247,128 @@ court à la défense de solution foireuse)
 
 ---
 
-## A vous maintenant!
+# Les anti-patterns
+
+* Réinvention de la roue
+* Programmation spaguettis
+* Objet divin
+* Abstraction inverse
+* Marteau doré
+* Coulée de lave
+
+
+---
+
+# Les designs patterns
+
+On y est! Alors, les patrons de conception, Quésako? Qu'est-ce que ça nous 
+apporte par rapport aux règles de conception?
+
+---
+
+# Les designs patterns
+
+## Historique
+
+Les patrons de conception ont été défini par le « Gang of Four » (Erich Gamma, Richard Helm, Ralph Johnson et John Vlissides)
+
+Attention : Il n'existe pas un nombre fini de patron de conception (vous pourrez définir vos patrons de conception)
+
+---
+
+# Les designs patterns
+
+## Intérêts (1/2)
+
+* Trouver de l'inspiration dans la recherche d'une solution
+* Utiliser un vocabulaire commun
+* Uniformiser la conception (MVC, IoC, MQ, etc.), donc faciliter la compréhension des codes
+
+---
+
+# Les designs patterns
+
+## Intérêts (2/2)
+
+En pratique, vous retrouverez plus facilement vos petits en Java et dans les frameworks orienté objet
+une fois que vous connaîtrez le vocabulaire commun (```*Builder, *Factory, *::getInstance, addChild, etc.```)
+
+Aussi, vous pourrez rechercher des solutions aux problèmes classiques que vous rencontrez :
+
+* Comment faire un interpréteur?
+* Comment faire un undo/redo?
+* Est-ce qu'il y a un framework MVC pour ce langage?
+
+Mieux : Vous utiliserez mieux les frameworks quand vous utiliserez pleinement les MVC, 
+les événements, l'injection de dépendance, etc.
+
+---
+
+# Les designs patterns
+
+## Famille de patrons de conception du GoF
+
+TODO reprendre ces description
+
+* Les patrons de création (creational patterns) qui décrivent des techniques
+d'initialisation des objets.
+* Les patrons de structure (structural patterns) qui décrivent des organisations 
+classiques de classes
+* Les patrons de comportement (behavioral patterns) qui décrivent des méthodes
+de communications entre objet au sein d'une application.
+
+## Autres familles 
+
+* Patron de conception architecturaux 
+
+
+---
+
+# Les designs patterns
+
+## Patron de création
+
+* Singleton
+* Prototype
+* Fabrique
+* Fabrique abstraite
+* Monteur
+
+---
+
+# Les designs patterns
+
+## Patron de structure
+
+* Pont
+* Façade
+* Adaptateur
+* Objet composite
+* Proxy
+* Poids-mouche
+* Décorateur
+
+---
+
+# Les designs patterns
+
+## Patron de comportement
+
+* Chaîne de responsabilité
+* Commande
+* Interpréteur
+* Itérateur
+* Médiateur
+* Mémento
+* Observateur
+* État
+* Stratégie
+* Patron de méthode
+* Visiteur
+
+---
+
+# A vous maintenant!
 
 Comment progresser?
 
@@ -214,10 +376,29 @@ Comment progresser?
 
 * Identifier les patrons de conception dans les codes existants
 
+Les framework sont truffés de patterns : Recherchez les fabriques, les monteurs, les stratégies, les décorateurs, etc.
+
 * Concevoir des codes en pensant règle de conception et patron de conception
 
 * Concevoir des codes en les testant unitairement (on ne peut pas tester des codes qui sont mal conçus)
 
+---
+
+# Bibliographie
+
+* WIKIBOOK, Patrons de conception/Patrons du « Gang of Four »
+https://fr.wikibooks.org/wiki/Patrons_de_conception/Patrons_du_%C2%AB_Gang_of_Four_%C2%BB
+
+* Design Patterns in the JDK, Brian Du Preez
+http://www.javacodegeeks.com/2011/03/design-patterns-in-jdk.html
+
+---
+
+# Bibliographie
+
+* Tête la première dans les Design Patterns
+
+<img src="http://ecx.images-amazon.com/images/I/516XECZXY3L.jpg" />
 
 
 
