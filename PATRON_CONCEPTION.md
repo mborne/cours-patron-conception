@@ -30,7 +30,7 @@ Ce cours ne sera pas un catalogue des patrons de conception, mais plutôt :
 * La présentation d'erreur de conception en P.O.O. (anti-pattern)
 * La présentation des principes et de l'intérêt des patrons de conception (design patterns)
 
-Le but : 
+Le but :
 * Vous donner des éléments pour progresser dans la conception de logiciel
 * Vous faire comprendre l'intérêt des patrons de conception dans cette démarche
 
@@ -61,7 +61,7 @@ Le but :
 
 ## Les concepts de base
 
-Par rapport aux aggrégats de variables (struct), on dispose d'outils 
+Par rapport aux aggrégats de variables (struct), on dispose d'outils
 permettant d'assurer la cohérence des variables formant l'aggrégat
 
 * Constructeurs : Fonction init que l'on est obligé d'appeler
@@ -83,7 +83,7 @@ permettant d'assurer la cohérence des variables formant l'aggrégat
 
 ## Les concepts "avancés"
 
-Avec les concepts avancés, on dispose aussi et surtout d'outils 
+Avec les concepts avancés, on dispose aussi et surtout d'outils
 pour faire varier le comportement d'un programme en faisant varier les classes!
 
 
@@ -97,7 +97,7 @@ Méditons sur quelques exemples de code!
 
 # Les bases de la P.O.O.
 
-Attention : Ces concepts varient en fonction des langages! 
+Attention : Ces concepts varient en fonction des langages!
 
 De plus, certains concepts ne sont pas présents dans tous les langages :
 
@@ -120,7 +120,7 @@ Alors, comment fait-on pour s'y retrouver avec ces outils?
 
 # Les principes de conception
 
-Les patrons de conception que nous allons bientôt voir sont (entre autres) une 
+Les patrons de conception que nous allons bientôt voir sont (entre autres) une
 mise en pratique de principes de conception qui s'ajoutent aux principes
 de base de la P.O.O. (abstraction, encapsulation, etc.) et qu'il faut avoir en tête.
 
@@ -136,7 +136,7 @@ Une classe remplit une fonction et une seule.
 
 * (O)pen Closed
 
-Une classe est ouverte à l’extension, mais fermée aux modifications. 
+Une classe est ouverte à l’extension, mais fermée aux modifications.
 
 ---
 
@@ -162,14 +162,14 @@ Il faut dépendre des interfaces, pas des implémentations (classe concrète).
 
 ## DRY : Don't Repeat Yourself
 
-Le copier/coller n'est pas une méthode acceptable de réutilisation des codes. 
+Le copier/coller n'est pas une méthode acceptable de réutilisation des codes.
 
 Quand on veut réutiliser un code, on le met en facteur.
 
 
 ## YAGNI : you ain't gonna need it
 
-On ne code que ce qui est utile. On n'ajoute pas des codes en se disant que ça 
+On ne code que ce qui est utile. On n'ajoute pas des codes en se disant que ça
 servira un jour.
 
 ---
@@ -183,12 +183,12 @@ ou dans un fichier...
 
 ```
 class MaClasse {
-    
+
     public void faireUnTruc(){
         System.out.println("Je fais un truc");
         // ...
     }
-    
+
 }
 ```
 
@@ -202,13 +202,13 @@ class MaClasse {
 
 ```
 class MaClasse {
-    
+
     private Logger logger ;
-    
+
     public void faireUnTruc(){
         logger.info("Je fais un truc");
     }
-    
+
 }
 ```
 
@@ -226,7 +226,7 @@ Exemple d'erreur :
 
 ```
 class Personne extends XMLDocument {
-    
+
 }
 ```
 
@@ -261,7 +261,7 @@ court à la défense de solution foireuse)
 
 # Les designs patterns
 
-On y est! Alors, les patrons de conception, Quésako? Qu'est-ce que ça nous 
+On y est! Alors, les patrons de conception, Quésako? Qu'est-ce que ça nous
 apporte par rapport aux règles de conception?
 
 ---
@@ -282,7 +282,7 @@ Attention : Il n'existe pas un nombre fini de patron de conception (vous pourrez
 * Un nom
 * Un problème
 * Une solution
-* Des conséquences (avantages et inconvénients) 
+* Des conséquences (avantages et inconvénients)
 
 ---
 
@@ -309,7 +309,7 @@ Aussi, vous pourrez rechercher des solutions aux problèmes classiques que vous 
 * Comment faire un undo/redo?
 * Est-ce qu'il y a un framework MVC pour ce langage?
 
-Mieux : Vous utiliserez mieux les frameworks quand vous utiliserez pleinement les MVC, 
+Mieux : Vous utiliserez mieux les frameworks quand vous utiliserez pleinement les MVC,
 les événements, l'injection de dépendance, etc.
 
 ---
@@ -322,12 +322,12 @@ TODO reprendre ces description
 
 * Les patrons de création (creational patterns) qui décrivent des techniques
 d'initialisation des objets.
-* Les patrons de structure (structural patterns) qui décrivent des organisations 
+* Les patrons de structure (structural patterns) qui décrivent des organisations
 classiques de classes
 * Les patrons de comportement (behavioral patterns) qui décrivent des méthodes
 de communications entre objet au sein d'une application.
 
-## Autres familles 
+## Autres familles
 
 * Patron de conception architecturaux qui traitent des styles d'architecture de logiciel
 https://en.wikipedia.org/wiki/Architectural_pattern
@@ -394,7 +394,7 @@ Quelques exemples parmis tant d'autres :
 * Peer-to-peer
 * Pipeline (http://www.informit.com/articles/article.aspx?p=366887&seqNum=8)
 
-Et des hordes de patterns en fonction des domaines : 
+Et des hordes de patterns en fonction des domaines :
 
 * Voir SOA patterns, http://soapatterns.org/ pour les patrons en lien avec
 les architectures orientés services
@@ -423,9 +423,9 @@ Les framework sont truffés de patterns : Recherchez les fabriques, les monteurs
 * WIKIBOOK, Patrons de conception/Patrons du « Gang of Four »
 https://fr.wikibooks.org/wiki/Patrons_de_conception/Patrons_du_%C2%AB_Gang_of_Four_%C2%BB
 
-* Design Patterns, sourcemaking.com
-https://sourcemaking.com/design_patterns
+* [Design Patterns sur sourcemaking.com](https://sourcemaking.com/design_patterns)
 
+* [AntiPatterns sur sourcemaking.com](https://sourcemaking.com/antipatterns)
 
 ---
 
@@ -434,14 +434,3 @@ https://sourcemaking.com/design_patterns
 * Tête la première dans les Design Patterns
 
 <img src="http://ecx.images-amazon.com/images/I/516XECZXY3L.jpg" />
-
-
-
-
-
-
-
-
-
-
-
