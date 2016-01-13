@@ -341,9 +341,9 @@ https://en.wikipedia.org/wiki/Architectural_pattern
 
 * Singleton
 * Prototype
-* Fabrique
-* Fabrique abstraite
-* Monteur
+* Factory (Fabrique)
+* AbstractFactory (Fabrique abstraite)
+* Builder (Monteur)
 
 ---
 
@@ -351,13 +351,13 @@ https://en.wikipedia.org/wiki/Architectural_pattern
 
 ## Patron de structure
 
-* Pont
-* Façade
-* Adaptateur
-* Objet composite
+* Decorator (Décorateur)
+* Adapter (Adaptateur)
+* Composite (Objet composite)
+* Facade (Façade)
+* Bridge (Pont)
 * Proxy
-* Poids-mouche
-* Décorateur
+* FlyWeigth (Poids-mouche)
 
 ---
 
@@ -365,17 +365,19 @@ https://en.wikipedia.org/wiki/Architectural_pattern
 
 ## Patron de comportement
 
-* Chaîne de responsabilité
-* Commande
-* Interpréteur
-* Itérateur
-* Médiateur
-* Mémento
-* Observateur
-* État
-* Stratégie
-* Patron de méthode
-* Visiteur
+* Chain of responsability (Chaîne de responsabilité)
+* Command (Commande)
+* Interpreter (Interpréteur)
+* Iterator (Itérateur)
+* Mediator (Médiateur)
+* Memento (Mémento)
+* Observer (Observateur)
+* State (État)
+* Strategy (Stratégie)
+* Template Method (Patron de méthode)
+* Visitor (Visiteur)
+
+* Null Object (objet null)
 
 ---
 
@@ -420,6 +422,10 @@ Les framework sont truffés de patterns : Recherchez les fabriques, les monteurs
 
 * WIKIBOOK, Patrons de conception/Patrons du « Gang of Four »
 https://fr.wikibooks.org/wiki/Patrons_de_conception/Patrons_du_%C2%AB_Gang_of_Four_%C2%BB
+
+* Design Patterns, sourcemaking.com
+https://sourcemaking.com/design_patterns
+
 
 ---
 
