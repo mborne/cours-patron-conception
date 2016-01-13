@@ -1,11 +1,11 @@
 # Singleton
 
-## Problème
+## Problème
 
 * La classe ne doit être instanciée qu'une seule fois
 * L'instance doit être accessible statiquement
 
-## Solution
+## Solution
 
 <div style="text-align: center">
 ![UML Singleton](uml/UML_DP_Singleton.png)

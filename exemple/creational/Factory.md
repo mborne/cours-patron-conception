@@ -1,7 +1,7 @@
 
 # Factory
 
-## Problème
+## Problème
 
 La fabrique s'adresse à la problématique de la création d'instance dérivées d'une classe.
 

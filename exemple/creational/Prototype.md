@@ -1,6 +1,6 @@
 # Prototype 
 
-## Problème
+## Problème
 
 On souhaite créer une instance qui soit une copie conforme d'une autre.
 
@@ -22,7 +22,7 @@ Toutes les classes dérivées implémentent une méthode "clone" renvoyant une c
 
 Les exemples sont légions, l'API dispose d'une interface Cloneable.
 
-## Mise en garde
+## Mise en garde
 
 Il convient d'être attentif aux copies des variables membres, en particulier pour les objets qui peuvent être modifiés après la construction (notion d'[Immutable Objects](http://docs.oracle.com/javase/tutorial/essential/concurrency/immutable.html)).
 

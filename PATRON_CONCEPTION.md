@@ -237,7 +237,7 @@ class Personne extends XMLDocument {
 Avant de mettre un nom sur des modèles de conception, on va mettre un nom
 sur des erreurs de conception courrantes : Les anti-pattern!
 
-## Intérêt
+## Intérêt
 
 * Identifier les erreurs de conception classique
 * Mettre un nom sur le laid
@@ -268,7 +268,7 @@ apporte par rapport aux règles de conception?
 
 # Les designs patterns
 
-## Historique
+## Historique
 
 Les patrons de conception ont été défini par le « Gang of Four » (Erich Gamma, Richard Helm, Ralph Johnson et John Vlissides)
 
@@ -277,7 +277,7 @@ Attention : Il n'existe pas un nombre fini de patron de conception (vous pourrez
 
 # Les designs patterns
 
-## Formalisme
+## Formalisme
 
 * Un nom
 * Un problème
@@ -288,7 +288,7 @@ Attention : Il n'existe pas un nombre fini de patron de conception (vous pourrez
 
 # Les designs patterns
 
-## Intérêts (1/2)
+## Intérêts (1/2)
 
 * Trouver de l'inspiration dans la recherche d'une solution
 * Utiliser un vocabulaire commun
@@ -298,7 +298,7 @@ Attention : Il n'existe pas un nombre fini de patron de conception (vous pourrez
 
 # Les designs patterns
 
-## Intérêts (2/2)
+## Intérêts (2/2)
 
 En pratique, vous retrouverez plus facilement vos petits en Java et dans les frameworks orienté objet
 une fois que vous connaîtrez le vocabulaire commun (```*Builder, *Factory, *::getInstance, addChild, etc.```)
@@ -316,7 +316,7 @@ les événements, l'injection de dépendance, etc.
 
 # Les designs patterns
 
-## Famille de patrons de conception du GoF
+## Famille de patrons de conception du GoF
 
 TODO reprendre ces description
 
