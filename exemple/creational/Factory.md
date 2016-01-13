@@ -1,5 +1,5 @@
 
-# Factory 
+# Factory
 
 ## Problème
 
@@ -18,7 +18,7 @@ Animal animal = null ;
 if ( typeAnimal.equals("chat") ){
     animal = new Chat() ;
 }else if (typeAnimal.equals("chien")){
-    animal = new Chien() ;    
+    animal = new Chien() ;
 }else{
     throw new AnimalTypeNotFound(typeAnimal);
 }
@@ -34,7 +34,7 @@ En cas d'ajout d'un type d'animal, on doit modifier tous les codes créant des a
 ![UML Prototype](uml/UML_DP_Fabrique.png)
 </div>
 
-Appliqué à notre exemple, une AnimalFactory devient l'entité responsable de 
+Appliqué à notre exemple, une AnimalFactory devient l'entité responsable de
 la création d'un animal en fonction de son type.
 
 
@@ -44,7 +44,7 @@ class AnimalFactory {
         if ( typeAnimal.equals("chat") ){
             return new Chat() ;
         }else if (typeAnimal.equals("chien")){
-            return new Chien() ;    
+            return new Chien() ;
         }else{
             throw new AnimalTypeNotFound(typeAnimal);
         }
@@ -61,9 +61,9 @@ animal.setNom(nomAnimal);
 
 ## Variantes
 
-On trouvera de nombreuse variante du concept de fabrique :
+On trouvera de nombreuses variantes du concept de fabrique :
 
-* La fabrique statique 
+* La fabrique statique
 
 Animal.createByType("chien")
 
@@ -74,13 +74,13 @@ Animal.createByType("chien")
 
 ## Exemple en Java
 
-Les fabriques sont nombreuses dans l'API java et dans les bibliothèques. 
+Les fabriques sont nombreuses dans l'API java et dans les bibliothèques.
 
 * [com.vividsolutions.jts.geom.GeometryFactory](http://www.vividsolutions.com/jts/javadoc/com/vividsolutions/jts/geom/GeometryFactory.html)
 
 Création de géométrie de différent type (Point, LineString, Polygon, etc.)
 
-* [java.sql.DriverManager](https://docs.oracle.com/javase/7/docs/api/java/sql/DriverManager.html) 
+* [java.sql.DriverManager](https://docs.oracle.com/javase/7/docs/api/java/sql/DriverManager.html)
 
 C'est une variante sous forme d'une fabrique statique
 
@@ -91,16 +91,3 @@ Connection connection = DriverManager.getConnection("jdbc:postgresql:mabase")
 ## Lien(s) utile(s)
 
 https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique
-
-
-
-
-
-
-
-
-
-
-
-
-

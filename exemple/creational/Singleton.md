@@ -1,4 +1,4 @@
-# Singleton 
+# Singleton
 
 ## Problème
 
@@ -15,11 +15,11 @@ Exemple d'implémentation
 
 ```
 class Singleton {
-    
-    private static Singleton instance ; 
+
+    private static Singleton instance ;
 
     private Singleton(){
-        
+
     }
 
     public static Singleton getInstance(){
@@ -41,14 +41,8 @@ class Singleton {
 
 * Il y a plusieurs variante d'implémentation
 * Les implémentations thread safe sont fonction du langage
-* La singletonite est un anti-pattern.
+* La singletonite est un anti-pattern
 
 ## Lien(s) utile(s)
 
 https://fr.wikibooks.org/wiki/Patrons_de_conception/Singleton
-
-
-
-
-
-
