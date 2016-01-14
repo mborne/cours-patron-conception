@@ -1,21 +1,21 @@
 # Méditation
 
-Quelques exemples de codes à méditer pour bien comprendre l'intérêt 
+Quelques exemples de codes à méditer pour bien comprendre l'intérêt
 des différents concepts de la P.O.O.
 
 ---
 
 ## Intérêt des aggrégats de variables
 
-Avant :
+Sans :
 
 ```
 function centroid( double[] tabX, double[] tabY ){
-    //... 
+    //...
 }
 ```
 
-Après :
+Avec :
 
 ```
 
@@ -25,13 +25,15 @@ struct Coordinate {
 }
 
 function centroid( Coordinate[] coordinate ){
-    //... 
+    //...
 }
 ```
 
+=> Que se passe-t'il si on ajoute une dimension "z"?
+
 ---
 
-## Intérêt des Constructeurs
+## Intérêt des constructeurs
 
 Avant :
 
@@ -46,6 +48,8 @@ Après :
 ```
 Coordinate c = new Coordinate(3.0,4.0) ;
 ```
+
+=> Quels sont les différences (protection contre erreur de codage? valeur par défaut?)
 
 ---
 
@@ -64,18 +68,20 @@ class User {
 
 ## Intérêt de l'encapsultation (2/2)
 
-Stocker dans un fichier et revenir dans un an : Vous aurez envie 
-de remplacer "age" par "birthDate"
+Stocker dans un fichier et revenir dans un an... Avoir envie
+de remplacer "age" par "birthDate"...
+
+Avec les getters/setters :
 
 ```
 class User {
     public String username ;
     public Date birthDate ;
-    
+
     public int getAge(){
         // calcul à partir de birthDate
     }
-    
+
     @deprecated
     public void setAge(int age){
         // calcul à partir de birthDate
@@ -85,6 +91,35 @@ class User {
 
 ---
 
+## Intérêt du polymorphisme
+
+TODO exemple trivial sans abstract.
+
+---
+
+## Intérêt de abstract
+
+TODO exemple trivial.
+
+---
+
+## Intérêt des interfaces
+
+TODO LoggerInterface / ConsoleLogger / FileLogger
+
+Remarque : Noter que ce qui varie avec le polymorphisme, c'est l'initialisation,
+la création des objets.
+
+---
+
+## Couplage interface et abstract
+
+TODO LoggerInterface <= AbstractLogger <- ConsoleLogger
 
 
 
+
+
+
+
+---

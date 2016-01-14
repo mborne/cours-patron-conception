@@ -4,51 +4,71 @@
 
 # Introduction
 
+
+---
+
 ## Pourquoi faire des efforts de conception?
 
 Il faut avoir en tête la seule constante du développement : Le changement!
 
-En outre, il faut avoir en tête (et prioriser) des critères qualités :
-
-* Fiabilité
-* Maintenabilité
-* Testabilité
-* Performance
-* Evolutivité
-* Réutilisabilité
+* Modification des fonctionnalités et modèles
+* Changement de cible (desktop, serveur, mobile, etc.)
+* Augmentation des volumes de données (parallélisation, etc.)
+* Obsolescence des outils
+* Choix politique (base de données, etc.)
 * ...
 
 ---
 
-# Introduction
+## Quels sont les critères qualités d'un programme?
 
-## Comment va-t'on procéder?
+On vise (et on priorise!) plusieurs critères :
 
-Ce cours ne sera pas un catalogue des patrons de conception, mais plutôt :
+* Fiabilité
+* Maintenabilité
+* Performance
+* Evolutivité
+* Réutilisabilité
+* Portabilité
+* Testabilité
+* ...
 
-* Un rappel des principales règles de conception en P.O.O.
-* La présentation d'erreur de conception en P.O.O. (anti-pattern)
-* La présentation des principes et de l'intérêt des patrons de conception (design patterns)
 
-Le but :
-* Vous donner des éléments pour progresser dans la conception de logiciel
-* Vous faire comprendre l'intérêt des patrons de conception dans cette démarche
+---
+
+## Les patrons de conception dans tout ça?
+
+C'est ce nous allons voir!
+
+Nous allons ballayer un ensemble de prérequis pour bien les comprendre :
+
+* Rappel sur les bases de la P.O.O.
+* Rappel sur les principes de conceptions
+
+Nous verrons quelques mauvaises pratiques à travers les anti-patterns. Puis,
+nous nous attarderons sur les bonnes pratiques en parcourant les design pattern.
 
 ---
 
 # Plan
 
-## Les bases de la P.O.O.
-## Les principes de conception
-## Les anti-patterns
-## Les designs patterns
-## A vous maintenant!
+* Introduction
+* Les bases de la P.O.O.
+* Les principes de conception
+* Les anti-patterns
+* Les designs patterns
+* Les patrons de création
+* Les patrons de structure
+* Les patrons de comportement
+* A vous maintenant!
 
 ---
 
 # Les bases de la P.O.O.
 
-## Les concepts de base
+---
+
+## Les concepts de base (1/3)
 
 * Classe et objet
 * Méthode et constructeur
@@ -57,9 +77,7 @@ Le but :
 
 ---
 
-# Les bases de la P.O.O.
-
-## Les concepts de base
+## Les concepts de base (2/3)
 
 Par rapport aux aggrégats de variables (struct), on dispose d'outils
 permettant d'assurer la cohérence des variables formant l'aggrégat
@@ -69,52 +87,33 @@ permettant d'assurer la cohérence des variables formant l'aggrégat
 
 ---
 
-# Les bases de la P.O.O.
+## Les concepts de base (3/3)
 
-## Les concepts "avancés"
+On dispose d'outils pour des modélisations complexes :
 
 * Les relations (composition, aggrégation)
 * Polymorphisme et héritage
 * Classe abstraite et interface
 
----
-
-# Les bases de la P.O.O.
-
-## Les concepts "avancés"
-
-Avec les concepts avancés, on dispose aussi et surtout d'outils
-pour faire varier le comportement d'un programme en faisant varier les classes!
+Ces concepts permettent aussi de faire varier le comportement
+d'un programme en faisant varier les classes.
 
 
 ---
 
-# Les bases de la P.O.O.
+## Bien comprendre l'intérêt de ces concepts!
 
-Méditons sur quelques exemples de code!
+[Quelques exemples à méditer](meditation.html)
 
 ---
 
-# Les bases de la P.O.O.
+## Les concepts avancés
 
-Attention : Ces concepts varient en fonction des langages!
-
-De plus, certains concepts ne sont pas présents dans tous les langages :
+Les langages ont leurs spécificités qui doivent être prises en compte dans la conception :
 
 * Garbage collector
-* Introspection et réflexion
 * Programmation générique/template
-
----
-
-# Les bases de la P.O.O.
-
-Alors, comment fait-on pour s'y retrouver avec ces outils?
-
-* On comprend le rôle de ces outils
-* On applique des règles de conception
-* On met en place des conventions (organisation des codes, nommage : forme et terminologie)
-* On applique des patrons de conception pour faciliter la compréhension de l'architecture
+* Introspection et réflexion
 
 ---
 
@@ -126,39 +125,33 @@ de base de la P.O.O. (abstraction, encapsulation, etc.) et qu'il faut avoir en t
 
 ---
 
-# Les principes de conception
-
 ## SOLID (1/2)
 
-* (S)ingle Responsibility
+### (S)ingle Responsibility
 
 Une classe remplit une fonction et une seule.
 
-* (O)pen Closed
+### (O)pen Closed
 
 Une classe est ouverte à l’extension, mais fermée aux modifications.
 
 ---
 
-# Les principes de conception
-
 ## SOLID (2/2)
 
-* (L)iskov Substitution Principle
+### (L)iskov Substitution Principle
 
 Lorsqu’une classe se substitue à une autre, son contrat de fonctionnement est respecté.
 
-* (I)nterface Segregation
+### (I)nterface Segregation
 
 Préférer plusieurs interfaces spécifiques pour chaque client plutôt qu'une seule interface générale.
 
-* (D)ependency Inversion
+### (D)ependency Inversion
 
 Il faut dépendre des interfaces, pas des implémentations (classe concrète).
 
 ---
-
-# Les principes de conception
 
 ## DRY : Don't Repeat Yourself
 
@@ -173,8 +166,6 @@ On ne code que ce qui est utile. On n'ajoute pas des codes en se disant que ça
 servira un jour.
 
 ---
-
-# Les principes de conception
 
 ## Identifier et encapsuler ce qui varie (1/2)
 
@@ -193,8 +184,6 @@ class MaClasse {
 ```
 
 ---
-
-# Les principes de conception
 
 ## Identifier et encapsuler ce qui varie (2/2)
 
@@ -215,69 +204,105 @@ class MaClasse {
 
 ---
 
-# Les principes de conception
-
 ## Préférer la composition à l'héritage
 
 * On hérite d'une classe seulement si on peut dire "EST-UN"
 * On n'hérite pas d'une classe dans le but de réutiliser ces méthodes!
-
-Exemple d'erreur :
-
-```
-class Personne extends XMLDocument {
-
-}
-```
+* On préfère les états aux classes dérivées (rôle d'utilisateur)
 
 ---
 
 # Les anti-patterns
 
-Avant de mettre un nom sur des modèles de conception, on va mettre un nom
-sur des erreurs de conception courrantes : Les anti-pattern!
-
-## Intérêt
-
-* Identifier les erreurs de conception classique
-* Mettre un nom sur le laid
-
-(On admettra aussi une force rhétorique dans l'utilisation de ces termes pour couper
-court à la défense de solution foireuse)
+Avant de mettre un nom sur des modèles de conception, on va mettre un nom sur des erreurs de conception courrantes : Les anti-pattern!
 
 ---
 
-# Les anti-patterns
+## Principe des anti-patterns
 
-* Réinvention de la roue
-* Programmation spaguettis
-* Objet divin
-* Abstraction inverse
-* Marteau doré
-* Coulée de lave
+* Nommer des erreurs de conception classique
+* Faciliter l'identification des erreurs de conception
 
+---
+
+## Réinventer la roue carrée
+
+Ne pas s'appuyer sur une solution existante.
+
+---
+
+## Programmation spaguettis
+
+Le rôle des différents éléments du système n'est pas identifiable. Il est difficile une partie du code sans altérer le fonctionnement.
+
+---
+
+## Objet divin
+
+L'objet divin supporte un trop grand nombre de responsabilité.
+
+---
+
+## Abstraction inverse
+
+Le composant ne fournit pas les abstractions nécessaires, mais seulement les méthodes
+les plus compliquées.
+
+Les abstractions sont effectuées dans les clients.
+
+---
+
+## Marteau doré
+
+Avec un bon marteau, tous les problèmes sont des clous!
+
+Un outil est placé comme solution à tous les problèmes. Il peut être question
+d'une bibliothèque, d'une base de données, d'une suite de logiciel, etc.
+
+---
+
+## Coulée de lave
+
+Un code non finalisé est mis en production. Il n'est plus possible de le refactorer.
+
+Ce problème peut concerner aussi bien des bibliothèques que des API.
 
 ---
 
 # Les designs patterns
 
-On y est! Alors, les patrons de conception, Quésako? Qu'est-ce que ça nous
-apporte par rapport aux règles de conception?
+On y est! Alors, les patrons de conception, Quésako?
 
 ---
 
-# Les designs patterns
+## Définition
 
-## Historique
+Le concept de patron de conception a été défini par le « Gang of Four » (Erich Gamma, Richard Helm, Ralph Johnson et John Vlissides) dans le livre "Design Patterns -- Elements of Reusable Object-Oriented Software" (1994).
 
-Les patrons de conception ont été défini par le « Gang of Four » (Erich Gamma, Richard Helm, Ralph Johnson et John Vlissides)
+Un design pattern est la description d'une solution réutilisable pour un problème de conception.
 
-Attention : Il n'existe pas un nombre fini de patron de conception (vous pourrez définir vos patrons de conception)
 ---
 
-# Les designs patterns
+## Famille de patrons de conception du GoF
 
-## Formalisme
+* Les patrons de création (creational patterns) qui décrivent des techniques
+d'initialisation des objets.
+* Les patrons de structure (structural patterns) qui décrivent des organisations
+classiques de classes
+* Les patrons de comportement (behavioral patterns) qui décrivent des méthodes
+de communications entre objet au sein d'une application.
+
+---
+
+## Autres familles de patrons de conception
+
+* Les patrons architecturaux qui traitent des styles d'architecture de logiciel (MVC, micro-service, etc.)
+* Des familles de patrons spécifiques à des domaines d'application (cloud computing, etc.)
+* Des familles de patrons spécifiques à des frameworks (spring, etc.)
+
+---
+
+## Formalisme des design patterns
 
 * Un nom
 * Un problème
@@ -286,22 +311,20 @@ Attention : Il n'existe pas un nombre fini de patron de conception (vous pourrez
 
 ---
 
-# Les designs patterns
+## Intérêts des design patterns (1/2)
 
-## Intérêts (1/2)
-
-* Trouver de l'inspiration dans la recherche d'une solution
 * Utiliser un vocabulaire commun
-* Uniformiser la conception (MVC, IoC, MQ, etc.), donc faciliter la compréhension des codes
+* Trouver de l'inspiration dans la recherche d'une solution
+* Uniformiser la conception (MVC, IoC, MQ, etc.)
+* Faciliter la compréhension des codes
 
 ---
 
-# Les designs patterns
-
-## Intérêts (2/2)
+## Intérêts des design patterns (2/2)
 
 En pratique, vous retrouverez plus facilement vos petits en Java et dans les frameworks orienté objet
 une fois que vous connaîtrez le vocabulaire commun (```*Builder, *Factory, *::getInstance, addChild, etc.```)
+et que vous serez à même de comprendre les architecture en identifiant les patterns.
 
 Aussi, vous pourrez rechercher des solutions aux problèmes classiques que vous rencontrez :
 
@@ -316,28 +339,10 @@ les événements, l'injection de dépendance, etc.
 
 # Les designs patterns
 
-## Famille de patrons de conception du GoF
-
-TODO reprendre ces description
-
-* Les patrons de création (creational patterns) qui décrivent des techniques
-d'initialisation des objets.
-* Les patrons de structure (structural patterns) qui décrivent des organisations
-classiques de classes
-* Les patrons de comportement (behavioral patterns) qui décrivent des méthodes
-de communications entre objet au sein d'une application.
-
-## Autres familles
-
-* Patron de conception architecturaux qui traitent des styles d'architecture de logiciel
-https://en.wikipedia.org/wiki/Architectural_pattern
-
 
 ---
 
-# Les designs patterns
-
-## Patron de création
+# Les patrons de création
 
 * Singleton
 * Prototype
@@ -347,9 +352,7 @@ https://en.wikipedia.org/wiki/Architectural_pattern
 
 ---
 
-# Les designs patterns
-
-## Patron de structure
+# Les patrons de structure
 
 * Decorator (Décorateur)
 * Adapter (Adaptateur)
@@ -361,9 +364,7 @@ https://en.wikipedia.org/wiki/Architectural_pattern
 
 ---
 
-# Les designs patterns
-
-## Patron de comportement
+# Les patrons de comportement
 
 * Chain of responsability (Chaîne de responsabilité)
 * Command (Commande)
@@ -381,11 +382,11 @@ https://en.wikipedia.org/wiki/Architectural_pattern
 
 ---
 
-# Les designs patterns
+# Les patrons de conception architecturaux
 
-## Patron de conception architecturaux
+---
 
-Quelques exemples parmis tant d'autres :
+## Quelques exemples de patron de conception architecturaux
 
 * Model-View-Controller (MVC) (avec plusieurs variantes)
 * Event-Driven architecture
@@ -399,6 +400,14 @@ Et des hordes de patterns en fonction des domaines :
 * Voir SOA patterns, http://soapatterns.org/ pour les patrons en lien avec
 les architectures orientés services
 
+---
+
+## "Le" patron Model-View-Controler (MVC)
+
+### Les variantes du MVC
+
+* Variante WEB usuelle : FrontController & Router
+* Variante MVC2 où chaque vue à son propre controlleur
 
 ---
 
