@@ -55,7 +55,7 @@ Coordinate c = new Coordinate(3.0,4.0) ;
 
 ## Intérêt de l'encapsultation (1/2)
 
-C'est simple comme classe : Innutile de mettre ça private?
+Est-il utile de mettre les attributs private?
 
 ```
 class User {
@@ -68,8 +68,8 @@ class User {
 
 ## Intérêt de l'encapsultation (2/2)
 
-Stocker dans un fichier et revenir dans un an... Avoir envie
-de remplacer "age" par "birthDate"...
+Après avoir stocké dans un fichier et revenir dans un an! On aura alors envie
+de remplacer "age" par "birthDate" (un invariant temporel).
 
 Avec les getters/setters :
 
@@ -93,33 +93,190 @@ class User {
 
 ## Intérêt du polymorphisme
 
-TODO exemple trivial sans abstract.
+* Un élément graphique dans une interface
+
+```
+class Widget {
+
+    private Dimension dimension ;
+
+    public void paint(Painter painter){
+        System.out.println("Rendu du widget");
+    }
+
+}
+```
+
+* Un élément graphique particulier
+
+```
+class Button extends Widget {
+
+    private String text ;
+
+    public Button(String text){
+        this.text = text ;
+    }
+
+    public void paint(Painter painter){
+        super.paint(painter);
+        System.out.println("Rendu du texte : "+text);
+    }
+}
+```
 
 ---
 
 ## Intérêt de abstract
 
-TODO exemple trivial.
+Les classes dérivées ont une partie du fonctionnement en commun.
+
+### Exemple avec des fonctions utilitaires
+
+```
+enum LogLevel {
+    TRACE,
+    DEBUG,
+    WARN,
+    ERROR
+}
+```
+
+```
+class AbstractLogger {
+
+    // comportement commun aux classes mères
+
+    public void trace(String message){
+        log(LogLevel.TRACE,message);
+    }
+
+    public void debug(String message){
+        log(LogLevel.DEBUG,message);
+    }
+
+    public void warn(String message){
+        log(LogLevel.WARN,message);
+    }
+
+    public void error(String message){
+        log(LogLevel.WARN,message);
+    }
+
+    /*
+     * Seul comportement a implémenter sur les classes dérivées
+     */
+    public abstract void log(LogLevel level, String message ) ;
+
+}
+```
+
+```
+class ConsoleLogger {
+
+    public void log(LogLevel level, String message ) {
+        System.out.println("["+level+"] "+message);
+    }
+
+}
+```
+
+
+```
+class DatabaseLogger {
+
+    private Connection connection;
+
+    public DatabaseLogger(Connection connection){
+        this.connection = connection ;
+    }
+
+    public void log(LogLevel level, String message ) {
+        // stockage du message dans une table de log
+    }
+
+}
+```
+
+Remarque : Noter que ce qui varie avec le polymorphisme, c'est l'initialisation,
+la création des objets.
+
 
 ---
 
 ## Intérêt des interfaces
 
-TODO LoggerInterface / ConsoleLogger / FileLogger
+Les interfaces fournissent la seule définition du contrat qui sera respecté par
+les classes dérivées : La liste des méthodes supportées.
 
-Remarque : Noter que ce qui varie avec le polymorphisme, c'est l'initialisation,
-la création des objets.
+```
+interface LocationProvider {
+
+    public Coordinate getLocation() ;
+
+}
+```
 
 ---
 
 ## Couplage interface et abstract
 
-TODO LoggerInterface <= AbstractLogger <- ConsoleLogger
+Il est parfois intéresssant de procéder sur trois niveaux
 
+* Une interface
 
+```
+interface LoggerInterface {
 
+    public void trace(String message) ;
 
+    public void debug(String message) ;
 
+    public void warn(String message) ;
 
+    public void error(String message) ;
 
+    public void log(LogLevel level, String message ) ;
+
+}
+```
+
+* Une classe abstraite qui implémente les parties communes
+
+```
+abstract class AbstractLogger implements LoggerInterface {
+
+    public void trace(String message){
+        log(LogLevel.TRACE,message);
+    }
+
+    public void debug(String message){
+        log(LogLevel.DEBUG,message);
+    }
+
+    public void warn(String message){
+        log(LogLevel.WARN,message);
+    }
+
+    public void error(String message){
+        log(LogLevel.WARN,message);
+    }
+
+}
+```
+
+* Des classes concrètes
+
+```
+class ConsoleLogger extends AbstractLogger {
+    public void log(LogLevel level, String message ) {
+        // écriture du message dans la console
+    }
+}
+```
+
+```
+class DatabaseLogger extends AbstractLogger {
+    // écriture du message dans une table
+}
 ---

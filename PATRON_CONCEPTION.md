@@ -111,6 +111,7 @@ d'un programme en faisant varier les classes.
 
 Les langages ont leurs spécificités qui doivent être prises en compte dans la conception :
 
+* Property (getter/setter "magiques")
 * Garbage collector
 * Programmation générique/template
 * Introspection et réflexion
@@ -239,13 +240,13 @@ Le rôle des différents éléments du système n'est pas identifiable. Il est d
 
 ## Objet divin
 
-L'objet divin supporte un trop grand nombre de responsabilité.
+L'objet divin porte un trop grand nombre de responsabilités.
 
 ---
 
 ## Abstraction inverse
 
-Le composant ne fournit pas les abstractions nécessaires, mais seulement les méthodes
+Un composant ne fournit pas les abstractions nécessaires, mais seulement les méthodes
 les plus compliquées.
 
 Les abstractions sont effectuées dans les clients.
@@ -344,39 +345,40 @@ les événements, l'injection de dépendance, etc.
 
 # Les patrons de création
 
-* Singleton
-* Prototype
-* Factory (Fabrique)
-* AbstractFactory (Fabrique abstraite)
-* Builder (Monteur)
+* [Singleton](creational/Singleton.html)
+* [Prototype](creational/Prototype.html)
+* [Factory (Fabrique)](creational/Factory.html)
+* [FactoryMethod](creational/FactoryMethod.html)
+* [Builder (Monteur)](creational/Builder.html)
+* [AbstractFactory (Fabrique abstraite)](creational/AbstractFactory.html)
 
 ---
 
 # Les patrons de structure
 
-* Decorator (Décorateur)
-* Adapter (Adaptateur)
+* [Facade (Façade)](structural/Facade.html)
+* [Decorator (Décorateur)](structural/Decorator.html)
 * Composite (Objet composite)
-* Facade (Façade)
+* Adapter (Adaptateur)
 * Bridge (Pont)
 * Proxy
-* FlyWeigth (Poids-mouche)
+* Flyweigth (Poids-mouche)
 
 ---
 
 # Les patrons de comportement
 
+* Iterator (Itérateur)
+* Strategy (Stratégie)
+* Visitor (Visiteur)
 * Chain of responsability (Chaîne de responsabilité)
 * Command (Commande)
 * Interpreter (Interpréteur)
-* Iterator (Itérateur)
 * Mediator (Médiateur)
 * Memento (Mémento)
 * Observer (Observateur)
 * State (État)
-* Strategy (Stratégie)
 * Template Method (Patron de méthode)
-* Visitor (Visiteur)
 
 * Null Object (objet null)
 
