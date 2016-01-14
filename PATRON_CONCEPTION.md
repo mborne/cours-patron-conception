@@ -413,7 +413,9 @@ les architectures orientés services
 
 # A vous maintenant!
 
-Comment progresser?
+---
+
+## Comment progresser?
 
 * Comprendre et apprendre les principaux patrons de conception
 
@@ -430,11 +432,15 @@ Les framework sont truffés de patterns : Recherchez les fabriques, les monteurs
 # Bibliographie
 
 * WIKIBOOK, Patrons de conception/Patrons du « Gang of Four »
-https://fr.wikibooks.org/wiki/Patrons_de_conception/Patrons_du_%C2%AB_Gang_of_Four_%C2%BB
+[https://fr.wikibooks.org/wiki/Patrons_de_conception/Patrons_du_%C2%AB_Gang_of_Four_%C2%BB](https://fr.wikibooks.org/wiki/Patrons_de_conception/Patrons_du_%C2%AB_Gang_of_Four_%C2%BB)
 
 * [Design Patterns sur sourcemaking.com](https://sourcemaking.com/design_patterns)
 
+Catalogue des principaux patrons de conception avec des exemples dans plusieurs langages.
+
 * [AntiPatterns sur sourcemaking.com](https://sourcemaking.com/antipatterns)
+
+Catalogue des principaux anti-pattern.
 
 ---
 
