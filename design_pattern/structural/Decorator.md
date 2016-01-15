@@ -10,7 +10,7 @@ On hérite de la classe existante et on compose.
 
 ## Exemple
 
-On représente des personnages dans un jeu. Ces personnages ont un poid
+On représente des personnages dans un jeu. Ces personnages ont un poids
 qui est utilisé par le moteur physique.
 
 
@@ -74,7 +74,7 @@ A l'usage :
 Personnage personnage = new Humain();
 personnage = new PersonnageAvecHache(personnage);
 personnage = new PersonnageAvecChapeau(personnage);
-System.out.println(personnage.getWeight()); // 80 + 15 + 8
+System.out.println(personnage.getWeight()); // 80 + 15 + 2
 ```
 
 
