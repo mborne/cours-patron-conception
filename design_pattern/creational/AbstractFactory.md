@@ -13,4 +13,4 @@ d'un ensemble d'objet.
 
 ## Exemple
 
-* [Fabrique abstraite pour des widget d'interface WIN32 et OSX](https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique_abstraite#Java)
+* [Fabrique abstraite pour des widgets d'interface WIN32 et OSX](https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique_abstraite#Java)
