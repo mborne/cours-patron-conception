@@ -39,7 +39,7 @@ class Singleton {
 
 ## Mise en garde
 
-* Il y a plusieurs variante d'implémentation
+* Il y a plusieurs variantes d'implémentation
 * Les implémentations thread safe sont fonction du langage
 * La singletonite est un anti-pattern
 
