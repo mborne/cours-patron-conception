@@ -3,7 +3,7 @@
 
 ## Problème
 
-La fabrique s'adresse à la problématique de la création d'instance dérivées d'une classe.
+La fabrique s'adresse à la problématique de la création d'instances dérivées d'une classe.
 
 On dispose par exemple de la hiérarchie suivante :
 
@@ -69,7 +69,7 @@ Animal.createByType("chien")
 
 * Les fabriques basées sur des prototypes
 
-* Les fabriques utilitaires qui ne créées pas des instances de type différent, mais avec des états initiaux différents
+* Les fabriques utilitaires qui ne créent pas des instances de types différents, mais avec des états initiaux différents
 
 
 ## Exemple en Java
@@ -78,7 +78,7 @@ Les fabriques sont nombreuses dans l'API java et dans les bibliothèques.
 
 * [com.vividsolutions.jts.geom.GeometryFactory](http://www.vividsolutions.com/jts/javadoc/com/vividsolutions/jts/geom/GeometryFactory.html)
 
-Création de géométrie de différent type (Point, LineString, Polygon, etc.)
+Création de géométrie de différents types (Point, LineString, Polygon, etc.)
 
 * [java.sql.DriverManager](https://docs.oracle.com/javase/7/docs/api/java/sql/DriverManager.html)
 
