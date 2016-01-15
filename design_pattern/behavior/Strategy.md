@@ -9,7 +9,7 @@ d'un traitement.
 
 ### Cas d'école sur un traitement simple
 
-Prenons le cas d'une classe de traitement qui appliquer les trois étapes suivantes :
+Prenons le cas d'une classe de traitement qui applique les trois étapes suivantes :
 
 * Charger une image PNG
 * Passer l'image en niveau de gris
@@ -41,7 +41,7 @@ class Traitement {
 On expose cette classe sous forme d'un exécutable appelé ainsi :
 
 ```
-traitement-image input.png ouput.png
+traitement-image input.png output.png
 ```
 
 ```
@@ -73,7 +73,7 @@ class Traitement {
         Image image = readImagePNG(input);
         if ( method.equals("grayScale") ){
             grayScale(image) ;
-        }else if ( method.equals("blur") ){
+        }else if ( method.equals("blur") ){
             blur(image) ;
         }
         writeImagePNG(image,output);
@@ -165,7 +165,7 @@ class TraitementCLI {
     public static void main(String args[]){
         File input    = new File(args[0]);
         File output   = new File(args[1]);    
-        String method = args[1] ;
+        String method = args[2] ;
 
         Map<String, Traitement> traitements = new HashMap<String, Traitement>();
         traitements.put(TraitementGrayScale.NAME, new TraitementGrayScale());
@@ -179,7 +179,7 @@ class TraitementCLI {
 ```
 
 A première vue, on pourrait être satisfait d'une telle conception. Dommage :
-On souhaite maintenant pouvoir appliquer deux traitements successif!
+On souhaite maintenant pouvoir appliquer deux traitements successifs !
 
 Avec l'héritage, on obtient soit :
 * Une explosion combinatoire (TraitementBlur, TraitementGrayScale, TraitementGrayScaleBlur, TraitementBlurGrayScale)
