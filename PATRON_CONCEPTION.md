@@ -9,7 +9,7 @@
 
 ## Pourquoi faire des efforts de conception?
 
-Il faut avoir en tête la seule constante du développement : Le changement!
+Il faut avoir en tête la seule constante du développement : Le changement !
 
 * Modification des fonctionnalités et modèles
 * Changement de cible (desktop, serveur, mobile, etc.)
@@ -22,7 +22,7 @@ Il faut avoir en tête la seule constante du développement : Le changement!
 
 ## Quels sont les critères qualités d'un programme?
 
-On vise (et on priorise!) plusieurs critères :
+On vise (et on priorise !) plusieurs critères :
 
 * Fiabilité
 * Maintenabilité
@@ -43,7 +43,7 @@ C'est ce nous allons voir!
 Nous allons ballayer un ensemble de prérequis pour bien les comprendre :
 
 * Rappel sur les bases de la P.O.O.
-* Rappel sur les principes de conceptions
+* Rappel sur les principes de conception
 
 Nous verrons quelques mauvaises pratiques à travers les anti-patterns. Puis,
 nous nous attarderons sur les bonnes pratiques en parcourant les design pattern.
@@ -79,7 +79,7 @@ nous nous attarderons sur les bonnes pratiques en parcourant les design pattern.
 
 ## Les concepts de base (2/3)
 
-Par rapport aux aggrégats de variables (struct), on dispose d'outils
+Par rapport aux aggrégats de variables (struct en C), on dispose d'outils
 permettant d'assurer la cohérence des variables formant l'aggrégat
 
 * Constructeurs : Fonction init que l'on est obligé d'appeler
@@ -208,14 +208,14 @@ class MaClasse {
 ## Préférer la composition à l'héritage
 
 * On hérite d'une classe seulement si on peut dire "EST-UN"
-* On n'hérite pas d'une classe dans le but de réutiliser ces méthodes!
+* On n'hérite pas d'une classe dans le but de réutiliser ces méthodes !
 * On préfère les états aux classes dérivées (rôle d'utilisateur)
 
 ---
 
 # Les anti-patterns
 
-Avant de mettre un nom sur des modèles de conception, on va mettre un nom sur des erreurs de conception courrantes : Les anti-pattern!
+Avant de mettre un nom sur des modèles de conception, on va mettre un nom sur des erreurs de conception courrantes : Les anti-pattern !
 
 ---
 
@@ -232,7 +232,7 @@ Ne pas s'appuyer sur une solution existante.
 
 ---
 
-## Programmation spaguettis
+## Programmation spaghetti
 
 Le rôle des différents éléments du système n'est pas identifiable. Il est difficile une partie du code sans altérer le fonctionnement.
 
@@ -291,7 +291,7 @@ d'initialisation des objets.
 * Les patrons de structure (structural patterns) qui décrivent des organisations
 classiques de classes
 * Les patrons de comportement (behavioral patterns) qui décrivent des méthodes
-de communications entre objet au sein d'une application.
+de communications entre objets au sein d'une application.
 
 ---
 
@@ -323,9 +323,9 @@ de communications entre objet au sein d'une application.
 
 ## Intérêts des design patterns (2/2)
 
-En pratique, vous retrouverez plus facilement vos petits en Java et dans les frameworks orienté objet
+En pratique, vous retrouverez plus facilement vos petits en Java et dans les frameworks orientés objet
 une fois que vous connaîtrez le vocabulaire commun (```*Builder, *Factory, *::getInstance, addChild, etc.```)
-et que vous serez à même de comprendre les architecture en identifiant les patterns.
+et que vous serez à même de comprendre les architectures en identifiant les patterns.
 
 Aussi, vous pourrez rechercher des solutions aux problèmes classiques que vous rencontrez :
 
@@ -423,7 +423,7 @@ les architectures orientés services
 
 * Identifier les patrons de conception dans les codes existants
 
-Les framework sont truffés de patterns : Recherchez les fabriques, les monteurs, les stratégies, les décorateurs, etc.
+Les frameworks sont truffés de patterns : Recherchez les fabriques, les monteurs, les stratégies, les décorateurs, etc.
 
 * Concevoir des codes en pensant règle de conception et patron de conception
 
