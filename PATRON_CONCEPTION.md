@@ -359,7 +359,7 @@ les événements, l'injection de dépendance, etc.
 * [Facade (Façade)](structural/Facade.html)
 * [Decorator (Décorateur)](structural/Decorator.html)
 * Composite (Objet composite)
-* Adapter (Adaptateur)
+* [Adapter (Adaptateur)](structural/Adapter.html)
 * Bridge (Pont)
 * Proxy
 * Flyweigth (Poids-mouche)
