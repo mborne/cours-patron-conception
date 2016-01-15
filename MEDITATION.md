@@ -49,7 +49,7 @@ Après :
 Coordinate c = new Coordinate(3.0,4.0) ;
 ```
 
-=> Quels sont les différences (protection contre erreur de codage? valeur par défaut?)
+=> Quels sont les différences ? (protection contre erreur de codage? valeur par défaut?)
 
 ---
 
@@ -68,7 +68,7 @@ class User {
 
 ## Intérêt de l'encapsultation (2/2)
 
-Après avoir stocké dans un fichier et revenir dans un an! On aura alors envie
+Après avoir stocké dans un fichier et revenir dans un an ! On aura alors envie
 de remplacer "age" par "birthDate" (un invariant temporel).
 
 Avec les getters/setters :
@@ -207,7 +207,7 @@ la création des objets.
 ## Intérêt des interfaces
 
 Les interfaces fournissent la seule définition du contrat qui sera respecté par
-les classes dérivées : La liste des méthodes supportées.
+les classes dérivées : la liste des méthodes supportées.
 
 ```
 interface LocationProvider {
