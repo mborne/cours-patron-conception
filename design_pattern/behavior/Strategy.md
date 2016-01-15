@@ -287,6 +287,7 @@ class ImageProcessorComposite implements ImageProcessorStrategy {
 File input    = new File(args[0]);
 File output   = new File(args[1]);    
 
+// On imagera qu'on peut gérer le paramètre méthode sous forme d'une expression.
 ImageProcessorComposite compositeStrategy = new ImageProcessorComposite();
 compositeStrategy.add(new TraitementGrayScale());
 compositeStrategy.add(new TraitementBlur());
