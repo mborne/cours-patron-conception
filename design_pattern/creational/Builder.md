@@ -15,8 +15,8 @@ En outre, ce patron de conception est utile quand :
 
 ## Solution
 
-* On met en place un nombre minimum de constructeur
-* On utilise délégue la complexité de création des instances à des objets dédiés : Director et Builder
+* On met en place un nombre minimum de constructeurs
+* On délégue la complexité de création des instances à des objets dédiés : Director et Builder
 
 
 ![UML Builder](uml/UML_DP_Builder.png)
@@ -123,7 +123,7 @@ MonteurPizza monteurPizzaPiquante = new MonteurPizzaPiquante();
 serveur.setMonteurPizza(monteurPizzaHawaii);
 serveur.construirePizza();
 
-Pizza pizzas = serveur.getPizza();
+Pizza pizza = serveur.getPizza();
 ```
 
 ## Variantes
@@ -131,7 +131,7 @@ Pizza pizzas = serveur.getPizza();
 La terminologie builder est généralisée à toute création par partie d'objet via la séquence suivante :
 
 * Récupération d'un builder
-* Définition de la cible par appel successif au builder (add, set, etc...)
+* Définition de la cible par appels successifs au builder (add, set, etc...)
 * Récupération de l'instance produite (getProduct)
 
 En outre, la distinction n'est pas toujours faite entre "Director" et "Builder".
