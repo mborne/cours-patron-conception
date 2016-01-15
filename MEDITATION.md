@@ -131,25 +131,14 @@ class Button extends Widget {
 
 Les classes dérivées ont une partie du fonctionnement en commun.
 
-### Exemple avec des fonctions utilitaires
+---
 
-```
-enum LogLevel {
-    TRACE,
-    DEBUG,
-    WARN,
-    ERROR
-}
-```
+### Exemple avec des fonctions utilitaires
 
 ```
 class AbstractLogger {
 
     // comportement commun aux classes mères
-
-    public void trace(String message){
-        log(LogLevel.TRACE,message);
-    }
 
     public void debug(String message){
         log(LogLevel.DEBUG,message);
@@ -163,9 +152,7 @@ class AbstractLogger {
         log(LogLevel.WARN,message);
     }
 
-    /*
-     * Seul comportement a implémenter sur les classes dérivées
-     */
+    //Seul comportement a implémenter sur les classes dérivées
     public abstract void log(LogLevel level, String message ) ;
 
 }
@@ -207,7 +194,7 @@ la création des objets.
 ## Intérêt des interfaces
 
 Les interfaces fournissent la seule définition du contrat qui sera respecté par
-les classes dérivées : la liste des méthodes supportées.
+les classes dérivées : La liste des méthodes supportées.
 
 ```
 interface LocationProvider {
@@ -216,6 +203,22 @@ interface LocationProvider {
 
 }
 ```
+
+Les classes ont une grande liberté sur la méthode
+d'implémentation des contrats définit à travers les interfaces.
+
+---
+
+## Mise en garde sur les interface
+
+Il ne suffit pas de mettre en place une interface pour avoir
+de la souplesse sur les implémentations possibles :
+
+* L'implémentation de certains contrats est plus complexes que d'autres.
+* L'implémentation d'un contrat peut s'avérer sous-performante en fonction des
+classes concrètes (exemple : Accès par clée sur un tableau, accès ligne par ligne via SQL, etc.)
+
+=> Il faut bien réflechir aux implications des choix effectués dans la conception de l'interface.
 
 ---
 
@@ -228,8 +231,6 @@ Il est parfois intéresssant de procéder sur trois niveaux
 ```
 interface LoggerInterface {
 
-    public void trace(String message) ;
-
     public void debug(String message) ;
 
     public void warn(String message) ;
@@ -241,14 +242,14 @@ interface LoggerInterface {
 }
 ```
 
+---
+
+## Couplage interface et abstract (suite)
+
 * Une classe abstraite qui implémente les parties communes
 
 ```
 abstract class AbstractLogger implements LoggerInterface {
-
-    public void trace(String message){
-        log(LogLevel.TRACE,message);
-    }
 
     public void debug(String message){
         log(LogLevel.DEBUG,message);
@@ -259,11 +260,15 @@ abstract class AbstractLogger implements LoggerInterface {
     }
 
     public void error(String message){
-        log(LogLevel.WARN,message);
+        log(LogLevel.ERROR,message);
     }
 
 }
 ```
+
+---
+
+## Couplage interface et abstract (suite)
 
 * Des classes concrètes
 
@@ -279,4 +284,6 @@ class ConsoleLogger extends AbstractLogger {
 class DatabaseLogger extends AbstractLogger {
     // écriture du message dans une table
 }
----
+```
+
+etc.

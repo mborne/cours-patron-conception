@@ -369,7 +369,7 @@ les événements, l'injection de dépendance, etc.
 # Les patrons de comportement
 
 * [Iterator (Itérateur)](behavior/Iterator.html)
-* Strategy (Stratégie)
+* [Strategy (Stratégie)](behavior/Strategy.html)
 * Visitor (Visiteur)
 * Chain of responsability (Chaîne de responsabilité)
 * Command (Commande)
