@@ -380,7 +380,7 @@ les événements, l'injection de dépendance, etc.
 * State (État)
 * Template Method (Patron de méthode)
 
-* Null Object (objet null)
+* [Null Object (objet null)](behavior/NullObject.html)
 
 ---
 
