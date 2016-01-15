@@ -2,13 +2,13 @@
 
 ## Problème
 
-L'idée est la même que pour les adaptateurs dans la vie courrante :
-On fait face à deux interfaces qui ont des fonctionnalités équivalente mais qui
-sont incompatible. On va créer un intermédiaire.
+L'idée est la même que pour les adaptateurs dans la vie courante :
+On fait face à deux interfaces qui ont des fonctionnalités équivalentes mais qui
+sont incompatibles. On va créer un intermédiaire.
 
 ## Exemple
 
-On dispose d'un algorithme qui effectue la concaténation de chaîne de caractères
+On dispose d'un algorithme qui effectue la concaténation de chaînes de caractères
 avec un séparateur.
 
 ```
