@@ -12,7 +12,7 @@ des objets concrets.
 
 ## Exemple
 
-* Connection à une base de données
+* Connexion à une base de données
 
 ```
 interface Connection {
