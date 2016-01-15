@@ -3,7 +3,7 @@
 ## Problème
 
 On dispose d'un système complexe faisant intervenir de nombreuses classes
-en relation les unes les autres.
+en relation les unes avec les autres.
 
 On souhaite fournir une abstraction pour les cas d'usage simple.
 
@@ -23,7 +23,7 @@ interface TriangulationBuilder {
 ```
 
 On identifie qu'à l'usage, de nombreux clients vont se contenter de trianguler
-des "tableaux" de point. On met en place une simplification :
+des "tableaux" de points. On met en place une simplification :
 
 ```
 class TriangulationFacade {
