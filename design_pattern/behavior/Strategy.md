@@ -187,7 +187,7 @@ Avec l'héritage, on obtient soit :
 
 Qu'est-ce qu'on a raté :
 
-* Privilégier la composition à l'héritage s'applique aussi pour l'ensulation des traitements
+* Privilégier la composition à l'héritage s'applique aussi pour l'encapsulation des traitements
 * Principe de responsabilité unique (Traitement effectue le calcul tout en orchestrant la lecture et les écritures)
 
 
