@@ -1,4 +1,4 @@
-# Decorator
+# Facade
 
 ## Problème
 

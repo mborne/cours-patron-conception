@@ -52,7 +52,7 @@ class AnimalFactory {
 }
 ```
 
-Les autres codes sont insensibles à la l'ajout d'un nouveau type.
+Les autres codes sont insensibles à l'ajout d'un nouveau type.
 
 ```
 Animal animal = animalFactory.createAnimal(typeAnimal) ;

@@ -38,7 +38,7 @@ On vise (et on priorise !) plusieurs critères :
 
 ## Les patrons de conception dans tout ça?
 
-C'est ce nous allons voir!
+C'est ce que nous allons voir!
 
 Nous allons ballayer un ensemble de prérequis pour bien les comprendre :
 
@@ -208,7 +208,7 @@ class MaClasse {
 ## Préférer la composition à l'héritage
 
 * On hérite d'une classe seulement si on peut dire "EST-UN"
-* On n'hérite pas d'une classe dans le but de réutiliser ces méthodes !
+* On n'hérite pas d'une classe dans le but de réutiliser ses méthodes !
 * On préfère les états aux classes dérivées (rôle d'utilisateur)
 
 ---
@@ -234,7 +234,7 @@ Ne pas s'appuyer sur une solution existante.
 
 ## Programmation spaghetti
 
-Le rôle des différents éléments du système n'est pas identifiable. Il est difficile une partie du code sans altérer le fonctionnement.
+Le rôle des différents éléments du système n'est pas identifiable. Il est difficile de modifier une partie du code sans en altérer le fonctionnement.
 
 ---
 
@@ -388,7 +388,7 @@ les événements, l'injection de dépendance, etc.
 
 ---
 
-## Quelques exemples de patron de conception architecturaux
+## Quelques exemples de patrons de conception architecturaux
 
 * Model-View-Controller (MVC) (avec plusieurs variantes)
 * Event-Driven architecture
