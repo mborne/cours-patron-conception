@@ -1,8 +1,8 @@
 # Iterator
 
-## Problème
+## Problème
 
-On veut des algorithmes capables de fonctionner sur des collections (tableaux, des listes, des sets, etc.)
+On veut des algorithmes capables de fonctionner sur des collections (tableaux, listes, sets, etc.)
 
 ## Solution
 
@@ -17,11 +17,11 @@ interface Iterator {
 
 En procédant ainsi, on obtient quelques avantages par rapport aux interfaces des collections :
 
-* Moins consommateur de mémoire qu'une approche où on renvoie des collections concrète
+* Moins consommateur de mémoire qu'une approche où on renvoie des collections concrètes
 * Plus simple à adapter (au sens du patron de conception adapter) qu'une interface offrant un random access
 
-De plus, quand les itérateurs sont parties intégrantes des bibliothèques standards, s'appuyer sur les itérateurs
-permet généralement de supporter la plus part des collections. On évite ainsi d'être amené à faire des copies
+De plus, quand les itérateurs font partie intégrante des bibliothèques standards, s'appuyer sur les itérateurs
+permet généralement de supporter la plupart des collections. On évite ainsi d'être amené à faire des copies
 pour exploiter les algorithmes.
 
 
