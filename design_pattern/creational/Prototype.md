@@ -20,7 +20,7 @@ Toutes les classes dérivées implémentent une méthode "clone" renvoyant une c
 
 ## Exemple dans l'API Java
 
-Les exemples sont légions, l'API dispose d'une interface Cloneable.
+Les exemples sont légion, l'API dispose d'une interface Cloneable.
 
 ## Mise en garde
 
