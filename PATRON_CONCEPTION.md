@@ -221,7 +221,7 @@ Avant de mettre un nom sur des modèles de conception, on va mettre un nom sur d
 
 ## Principe des anti-patterns
 
-* Nommer des erreurs de conception classique
+* Nommer des erreurs de conception classiques
 * Faciliter l'identification des erreurs de conception
 
 ---
@@ -289,7 +289,7 @@ Un design pattern est la description d'une solution réutilisable pour un probl�
 * Les patrons de création (creational patterns) qui décrivent des techniques
 d'initialisation des objets.
 * Les patrons de structure (structural patterns) qui décrivent des organisations
-classiques de classes
+classiques de classes.
 * Les patrons de comportement (behavioral patterns) qui décrivent des méthodes
 de communications entre objets au sein d'une application.
 

@@ -68,7 +68,7 @@ class User {
 
 ## Intérêt de l'encapsultation (2/2)
 
-Après avoir stocké dans un fichier et revenir dans un an ! On aura alors envie
+Stocker dans un fichier et revenir dans un an! On aura alors envie
 de remplacer "age" par "birthDate" (un invariant temporel).
 
 Avec les getters/setters :
@@ -84,7 +84,7 @@ class User {
 
     @deprecated
     public void setAge(int age){
-        // calcul à partir de birthDate
+        // calcul de birthDate à partir de l'age
     }
 }
 ```
@@ -107,7 +107,9 @@ class Widget {
 }
 ```
 
-* Un élément graphique particulier
+---
+
+* Un élément graphique spécial : Button
 
 ```
 class Button extends Widget {
@@ -184,10 +186,6 @@ class DatabaseLogger {
 
 }
 ```
-
-Remarque : Noter que ce qui varie avec le polymorphisme, c'est l'initialisation,
-la création des objets.
-
 
 ---
 
