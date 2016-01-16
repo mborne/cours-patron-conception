@@ -358,7 +358,7 @@ les événements, l'injection de dépendance, etc.
 
 * [Facade (Façade)](structural/Facade.html)
 * [Decorator (Décorateur)](structural/Decorator.html)
-* Composite (Objet composite)
+* [Composite (Objet composite)](structural/Composite.html)
 * [Adapter (Adaptateur)](structural/Adapter.html)
 * Bridge (Pont)
 * Proxy

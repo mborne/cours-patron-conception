@@ -7,7 +7,7 @@ la distinction entre les noeuds porteurs d'enfants et les feuilles.
 
 ## Solution
 
-![structural](uml/UML_Composite.png)
+![UML Composite](uml/UML_Composite.png)
 Source [<https://en.wikipedia.org/wiki/Composite_pattern>](https://en.wikipedia.org/wiki/Composite_pattern)
 
 ## Exemple
@@ -35,8 +35,9 @@ class Circle implements Shape {
 }
 ```
 
+
 ```
-class Circle implements Shape {
+class CompositeShape implements Shape {
     
     protected List<Shape> children = new ArrayList<Shape>();
     

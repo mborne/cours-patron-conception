@@ -135,7 +135,7 @@ Les classes dérivées ont une partie du fonctionnement en commun.
 
 ---
 
-### Exemple avec des fonctions utilitaires
+### Exemple avec des fonctions utilitaires (1/2)
 
 ```
 class AbstractLogger {
@@ -159,6 +159,10 @@ class AbstractLogger {
 
 }
 ```
+
+---
+
+### Exemple avec des fonctions utilitaires (2/2)
 
 ```
 class ConsoleLogger {
@@ -220,7 +224,7 @@ classes concrètes (exemple : Accès par clée sur un tableau, accès ligne par 
 
 ---
 
-## Couplage interface et abstract
+## Couplage interface et abstract (1/3)
 
 Il est parfois intéresssant de procéder sur trois niveaux
 
@@ -242,7 +246,7 @@ interface LoggerInterface {
 
 ---
 
-## Couplage interface et abstract (suite)
+## Couplage interface et abstract (2/3)
 
 * Une classe abstraite qui implémente les parties communes
 
@@ -266,7 +270,7 @@ abstract class AbstractLogger implements LoggerInterface {
 
 ---
 
-## Couplage interface et abstract (suite)
+## Couplage interface et abstract (3/3)
 
 * Des classes concrètes
 
