@@ -376,7 +376,7 @@ les événements, l'injection de dépendance, etc.
 * Interpreter (Interpréteur)
 * Mediator (Médiateur)
 * Memento (Mémento)
-* Observer (Observateur)
+* [Observer (Observateur)](behavior/Observer.html)
 * State (État)
 * Template Method (Patron de méthode)
 
@@ -390,7 +390,7 @@ les événements, l'injection de dépendance, etc.
 
 ## Quelques exemples de patrons de conception architecturaux
 
-* Model-View-Controller (MVC) (avec plusieurs variantes)
+* "Le" Model-View-Controller (MVC) (avec de plusieurs variantes)
 * Event-Driven architecture
 * En couche
 * Broker Pattern
@@ -401,15 +401,6 @@ Et des hordes de patterns en fonction des domaines :
 
 * Voir SOA patterns, http://soapatterns.org/ pour les patrons en lien avec
 les architectures orientés services
-
----
-
-## "Le" patron Model-View-Controler (MVC)
-
-### Les variantes du MVC
-
-* Variante WEB usuelle : FrontController & Router
-* Variante MVC2 où chaque vue à son propre controlleur
 
 ---
 
