@@ -435,6 +435,10 @@ Catalogue des principaux patrons de conception avec des exemples dans plusieurs 
 
 Catalogue des principaux anti-pattern.
 
+* [Design Patterns du Gang of Four appliqués à Java, Régis POUILLER, developpez.com](http://rpouiller.developpez.com/tutoriel/java/design-patterns-gang-of-four/)
+
+Explication de l'intérêt des patterns du GoF et implémentation en Java.
+
 ---
 
 # Bibliographie
