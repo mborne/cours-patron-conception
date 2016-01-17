@@ -365,7 +365,7 @@ les événements, l'injection de dépendance, etc.
 
 * [Iterator (Itérateur)](behavior/Iterator.html)
 * [Strategy (Stratégie)](behavior/Strategy.html)
-* Visitor (Visiteur)
+* [Visitor (Visiteur)](behavior/Visitor.html)
 * Chain of responsability (Chaîne de responsabilité)
 * Command (Commande)
 * Interpreter (Interpréteur)
