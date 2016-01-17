@@ -142,7 +142,7 @@ Une classe est ouverte à l’extension, mais fermée aux modifications.
 
 ### (L)iskov Substitution Principle
 
-Lorsqu’une classe se substitue à une autre, son contrat de fonctionnement est respecté.
+Lorsqu’une classe se substitue à une autre, le programme continue de fonctionner.
 
 ### (I)nterface Segregation
 
