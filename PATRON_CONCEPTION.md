@@ -459,7 +459,7 @@ Principes de conception, critères qualités, styles d'architecture, etc.
 # Bibliographie
 
 * WIKIBOOK, Patrons de conception/Patrons du « Gang of Four »
-[https://fr.wikibooks.org/wiki/Patrons_de_conception/Patrons_du_%C2%AB_Gang_of_Four_%C2%BB](https://fr.wikibooks.org/wiki/Patrons_de_conception/Patrons_du_%C2%AB_Gang_of_Four_%C2%BB)
+[https://fr.wikibooks.org/wiki/Patrons_de_conception](https://fr.wikibooks.org/wiki/Patrons_de_conception)
 
 * [Design Patterns sur sourcemaking.com](https://sourcemaking.com/design_patterns)
 
