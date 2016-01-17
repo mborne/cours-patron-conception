@@ -18,17 +18,11 @@ interface Iterator {
 En procédant ainsi, on obtient quelques avantages par rapport aux interfaces des collections :
 
 * Moins consommateur de mémoire qu'une approche où on renvoie des collections concrètes
-* Plus simple à adapter (au sens du patron de conception adapter) qu'une interface offrant un random access
+* Plus simple à adapter (au sens du patron de conception adapter) qu'une interface offrant plus riche du type "Array", "List".
 
 De plus, quand les itérateurs font partie intégrante des bibliothèques standards, s'appuyer sur les itérateurs
 permet généralement de supporter la plupart des collections. On évite ainsi d'être amené à faire des copies
 pour exploiter les algorithmes.
-
-
-## Remarque
-
-Les itérateurs sont souvent intégrés dans les API de base des langages
-de programmation.
 
 
 ## Variantes
@@ -39,7 +33,7 @@ Il existe de nombreuses variantes de ce patron de conception :
 
 * ReverseIterator : Permet de représenter un itérateur effectuant un parcours en sens inverse
 
-* CircularIterator (CGAL) : Iterateur sans début et sans fin revenant en position initiale (parcours des sommets d'un polygone)
+* CircularIterator (CGAL) : Itérateur sans début et sans fin revenant en position initiale (parcours des sommets d'un polygone)
 
 
 ## Resources

@@ -9,14 +9,14 @@ d'un traitement.
 
 ### Cas d'école sur un traitement simple
 
-Prenons le cas d'une classe de traitement qui applique les trois étapes suivantes :
+Prenons le cas d'une application qui applique les trois étapes suivantes :
 
 * Charger une image PNG
 * Passer l'image en niveau de gris
 * Stocker l'image résultante
 
 ```
-class Traitement {
+class Application {
 
     public void run(File input, File output){
         Image image = readImagePNG(input);
@@ -45,13 +45,13 @@ traitement-image input.png output.png
 ```
 
 ```
-class TraitementCLI {
+class ApplicationCLI {
 
     public static void main(String args[]){
         File input  = new File(args[0]);
         File output = new File(args[1]);
-        Traitement traitement = new Traitement();
-        traitement.run(input,output);
+        Application application = new Application();
+        application.run(input,output);
     }
 
 }
@@ -67,7 +67,7 @@ method := grayScale|blur
 ### Première tentative sans strategy (switch)
 
 ```
-class Traitement {
+class Application {
 
     public void run(File input, File output, String method){
         Image image = readImagePNG(input);
@@ -99,19 +99,19 @@ class Traitement {
 
 Problème :
 
-* Ajouter un algorithme implique la mise à jour de run
-* La classe traitement aura tendance à devenir un objet divin
-* A terme, si les algorithmes ont des paramètres spécifiques, il faudra ajouter des attributs sur la classe Traitement
+* Ajouter un algorithme implique la mise à jour de run (Violation du principe ouvert/fermé)
+* La classe Application aura tendance à devenir un objet divin
+* A terme, si les algorithmes ont des paramètres spécifiques, il faudra ajouter des attributs sur la classe Application
 
 
 ### Deuxième tentative sans strategy (abstract)
 
 Exploitons donc le polymorphisme!
 
-* Classe abstraite Traitement
+* Classe abstraite Application
 
 ```
-abstract class Traitement {
+abstract class Application {
 
     public void run(File input, File output){
         Image image = readImagePNG(input);
@@ -134,7 +134,7 @@ abstract class Traitement {
 * Implémentation GrayScale
 
 ```
-class TraitementGrayScale extends Traitement {
+class ApplicationGrayScale extends Application {
 
     private final static String NAME = "grayScale" ;
 
@@ -147,7 +147,7 @@ class TraitementGrayScale extends Traitement {
 * Implémentation Blur
 
 ```
-class TraitementBlur extends Traitement {
+class ApplicationBlur extends Application {
 
     private final static String NAME = "blur" ;
 
@@ -157,22 +157,22 @@ class TraitementBlur extends Traitement {
 }
 ```
 
-* TraitementCLI
+* ApplicationCLI
 
 ```
-class TraitementCLI {
+class ApplicationCLI {
 
     public static void main(String args[]){
         File input    = new File(args[0]);
         File output   = new File(args[1]);    
         String method = args[2] ;
 
-        Map<String, Traitement> traitements = new HashMap<String, Traitement>();
-        traitements.put(TraitementGrayScale.NAME, new TraitementGrayScale());
-        traitements.put(TraitementBlur.NAME, new TraitementBlur());
+        Map<String, Application> applications = new HashMap<String, Application>();
+        applications.put(ApplicationGrayScale.NAME, new ApplicationGrayScale());
+        applications.put(ApplicationBlur.NAME, new ApplicationBlur());
 
-        Traitement traitement = traitements.get(method);
-        traitement.run(input,output);
+        Application application = applications.get(method);
+        application.run(input,output);
     }
 
 }
@@ -182,27 +182,35 @@ A première vue, on pourrait être satisfait d'une telle conception. Dommage :
 On souhaite maintenant pouvoir appliquer deux traitements successifs !
 
 Avec l'héritage, on obtient soit :
-* Une explosion combinatoire (TraitementBlur, TraitementGrayScale, TraitementGrayScaleBlur, TraitementBlurGrayScale)
+* Une explosion combinatoire (ApplicationBlur, ApplicationGrayScale, ApplicationGrayScaleBlur, ApplicationBlurGrayScale)
 * Des écritures/relectures de fichiers
 
-Qu'est-ce qu'on a raté :
-
-* Privilégier la composition à l'héritage s'applique aussi pour l'encapsulation des traitements
-* Principe de responsabilité unique (Traitement effectue le calcul tout en orchestrant la lecture et les écritures)
-
+Qu'est-ce qu'on a raté : 
+* Le principe de responsabilité unique (Application effectue le calcul tout en orchestrant la lecture et les écritures).
+* Privilégier la composition à l'héritage s'applique aussi pour l'encapsulation des traitements.
 
 ### Solution avec une stratégie
 
-Au lieu d'hériter, on va encapsuler un objet dont le seul rôle se limitera à appliquer la méthode
+Au lieu d'hériter, on va encapsuler un objet dont le seul rôle se limitera à appliquer le traitement.
 
+
+* ImageProcessorStrategy : Interface pour la stratégie de traitement
 
 ```
-class Traitement {
+interface ImageProcessorStrategy {
+    public void process(Image image) ;
+}
+```
+
+* Application encapsulant un traitement
+
+```
+class Application {
 
     private ImageProcessorStrategy processor ;
 
-    public Traitement(ImageProcessorStrategy processor){
-        this.method = method ;
+    public Application(ImageProcessorStrategy processor){
+        this.processor = processor ;
     }
 
     public void run(File input, File output){
@@ -221,13 +229,6 @@ class Traitement {
 }
 ```
 
-* ImageProcessorStrategy : Interface pour la stratégie de traitement
-
-```
-interface ImageProcessorStrategy {
-    public void process(Image image) ;
-}
-```
 
 * Implémentation de la stratégie GrayScale
 
@@ -256,7 +257,7 @@ class ImageProcessorBlur implements ImageProcessorStrategy {
 }
 ```
 
-* Composition de stratégies
+* [Composite](../structural/Composite.html) sur ImageProcessorStrategy
 
 ```
 class ImageProcessorComposite implements ImageProcessorStrategy {
@@ -289,11 +290,11 @@ File output   = new File(args[1]);
 
 // On imagera qu'on peut gérer le paramètre méthode sous forme d'une expression.
 ImageProcessorComposite compositeStrategy = new ImageProcessorComposite();
-compositeStrategy.add(new TraitementGrayScale());
-compositeStrategy.add(new TraitementBlur());
+compositeStrategy.add(new ApplicationGrayScale());
+compositeStrategy.add(new ApplicationBlur());
 
-Traitement traitement = new Traitement(compositeStrategy);
-traitement.run(input,output);
+Application application = new Application(compositeStrategy);
+application.run(input,output);
 ```
 
 Où est le changement? On peut appliquer le même principe sur la lecture ou l'écriture des fichiers!

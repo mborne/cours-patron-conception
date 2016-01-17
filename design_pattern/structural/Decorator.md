@@ -19,8 +19,6 @@ qui est utilisé par le moteur physique.
 ```
 interface Personnage {
     public double getWeight() ;
-
-    public void render() ;
 }
 ```
 
@@ -81,7 +79,7 @@ System.out.println(personnage.getWeight()); // 80 + 15 + 2
 ## Autres exemples en Java
 
 * [BufferedReader/Reader](https://docs.oracle.com/javase/7/docs/api/java/io/BufferedReader.html)
-
+* [LineNumberReader/BufferedReader](https://docs.oracle.com/javase/7/docs/api/java/io/LineNumberReader.html)
 
 ## Liens utiles
 

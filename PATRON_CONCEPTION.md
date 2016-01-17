@@ -211,6 +211,8 @@ class MaClasse {
 * On n'hérite pas d'une classe dans le but de réutiliser ses méthodes !
 * On préfère les états aux classes dérivées (rôle d'utilisateur)
 
+Nous verrons en détail pourquoi quand nous aborderons le patron [Strategy](architectural/Strategy.html).
+
 ---
 
 # Les anti-patterns
@@ -385,12 +387,11 @@ les événements, l'injection de dépendance, etc.
 
 ## Quelques exemples de patrons de conception architecturaux
 
+* Architecture en couche
+* [MapReduce](architectural/MapReduce.html)
 * [Model-View-Controller (MVC)](architectural/MVC.html)
 * Event-Driven architecture
-* En couche
 * Broker Pattern
-* Peer-to-peer
-* Pipeline (http://www.informit.com/articles/article.aspx?p=366887&seqNum=8)
 
 Et des hordes de patterns en fonction des domaines :
 
