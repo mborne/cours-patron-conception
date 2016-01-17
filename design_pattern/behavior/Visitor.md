@@ -68,7 +68,7 @@ class GeometryRenderer implements GeometryVisitor {
 
 La méthode accept convertit un polymorphisme par héritage en polymorphisme
 paramétrique. Pour bien comprendre ce mécanisme, il faut bien comprendre
-les mécanismes de résolution dans le cadre du polymorphisme paramétrique.
+les mécanismes de résolution des liens dans le cadre du polymorphisme paramétrique.
 
 
 ## Mise en garde
@@ -76,7 +76,7 @@ les mécanismes de résolution dans le cadre du polymorphisme paramétrique.
 
 ### Extension des hiérarchies
 
-Quand la hiérarchie est étendue par un tiers, ce tiers ne pourra pas 
+Quand la hiérarchie est étendue par un tiers, ce tiers ne pourra pas facilement
 étendre l'interface du visitor original.
 
 Par conséquent, les visiteurs existants seront généralement incapables de gérer 
@@ -97,11 +97,13 @@ matière de polymorphisme paramétrique.
 
 * Traverse visitor : En plus de parcourir la hiérarchie, on parcourt les enfants
 
-* Double dispatching
+* Double dispatching : 
 
+```
 Visitor.visit(Visitable a, Visitable b);
+```
 
 Cas d'usage : Calcul de distance, d'intersection, d'union, etc. entre deux géométries.
 
-* Paramètre de retour
+
 
