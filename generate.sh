@@ -8,5 +8,11 @@ hash markdown-to-slides 2> /dev/null || { echo "#setup markdown-styles\nsudo npm
 rm -rf dist
 
 generate-md --input ./design_pattern --output ./dist
-markdown-to-slides PATRON_CONCEPTION.md -o dist/index.html
 
+markdown-to-slides PATRON_CONCEPTION.md \
+	--style layout/slides/style.css \
+	--script layout/slides/script.js \
+	--template layout/slides/template.html \
+	-o dist/index.html
+
+cp -r lib/* dist/.

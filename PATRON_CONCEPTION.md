@@ -1,4 +1,11 @@
+
 # Les patrons de conception
+
+<br />
+
+<div class="center">
+    <img src="img/lego3-selection.jpg" />
+</div>
 
 ---
 
@@ -263,6 +270,13 @@ Les abstractions sont effectuées dans les clients.
 
 Avec un bon marteau, tous les problèmes sont des clous!
 
+<div class="center">
+    <img src="img/golden-hammer.jpg" alt="Marteau d'or" />
+    <br />
+    (En vente sur
+    <a href="http://www.engravingawardsgifts.com/sledgehammers.html">engravingawardsgifts.com</a>)
+</div>
+
 Un outil est placé comme solution à tous les problèmes. Il peut être question
 d'une bibliothèque, d'une base de données, d'une suite de logiciel, etc.
 
@@ -362,18 +376,16 @@ de communications entre objets au sein d'une application.
 
 ## Intérêts des design patterns (2/2)
 
-En pratique, vous retrouverez plus facilement vos petits en Java et dans les frameworks orientés objet
-une fois que vous connaîtrez le vocabulaire commun (```*Builder, *Factory, *::getInstance, addChild, etc.```)
-et que vous serez à même de comprendre les architectures en identifiant les patterns.
+En pratique, vous retrouverez plus facilement vos petits en Java et dans les frameworks orientés objet :
+
+* Connaissance du vocabulaire commun (```*Builder, *Factory, *::getInstance, addChild, etc.```).
+* Compréhension des architectures par identification des patterns.
 
 Aussi, vous pourrez rechercher des solutions aux problèmes classiques que vous rencontrez :
 
 * Comment faire un interpréteur?
 * Comment faire un undo/redo?
 * Est-ce qu'il y a un framework MVC pour ce langage?
-
-Mieux : Vous utiliserez mieux les frameworks quand vous utiliserez pleinement les MVC,
-les événements, l'injection de dépendance, etc.
 
 ---
 
