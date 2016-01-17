@@ -10,7 +10,8 @@ capable de traiter des volumes de données importants par distribution des trait
 L'algorithme procède par décomposition des données en lot (map) puis par fusion
 des résultats (reduce).
 
-![MapReduce](https://fr.wikipedia.org/wiki/MapReduce#/media/File:Mapreduce.png)
+![MapReduce](uml/MapReduce.png)
+
 source : [<https://fr.wikipedia.org/wiki/MapReduce>](https://fr.wikipedia.org/wiki/MapReduce)
 
 ## Cas des bases de données
@@ -19,10 +20,9 @@ Les bases de données distribuées appliquent ce principe pour traiter les requ�
 
 ## Exemples
 
-* [Comptage de mot en MapReduce avec Hadoop](https://wiki.apache.org/hadoop/WordCount)
+* [Comptage de mot en MapReduce avec Hadoop (wiki.apache.org)](https://wiki.apache.org/hadoop/WordCount)
 
-* [MapReduce by examples](http://fr.slideshare.net/andreaiacono/mapreduce-34478449)
-
+* [MapReduce by examples (slideshare.net)](http://fr.slideshare.net/andreaiacono/mapreduce-34478449) : 
 Exemple de comptage, somme, moyenne, K-Means en MapReduce
 
 
