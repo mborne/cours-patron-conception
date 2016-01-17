@@ -89,15 +89,16 @@ permettant d'assurer la cohérence des variables formant l'aggrégat
 
 ## Les concepts de base (3/3)
 
-On dispose d'outils pour des modélisations complexes :
+On dispose aussi d'outils pour des modélisations complexes :
 
 * Les relations (composition, aggrégation)
 * Polymorphisme et héritage
 * Classe abstraite et interface
 
-Ces concepts permettent aussi de faire varier le comportement
-d'un programme en faisant varier les classes.
+Généralement, ces outils sont plutôt bien maîtrisé pour modéliser
+des données (objet de domaine).
 
+Nous verrons ici comment on peut les exploiter efficacement pour faire varier le comportement d'un programme.
 
 ---
 
@@ -211,7 +212,7 @@ class MaClasse {
 * On n'hérite pas d'une classe dans le but de réutiliser ses méthodes !
 * On préfère les états aux classes dérivées (rôle d'utilisateur)
 
-Nous verrons en détail pourquoi quand nous aborderons le patron [Strategy](architectural/Strategy.html).
+(Nous verrons en détail pourquoi quand nous aborderons le patron [Strategy](behavior/Strategy.html))
 
 ---
 
@@ -269,6 +270,39 @@ d'une bibliothèque, d'une base de données, d'une suite de logiciel, etc.
 Un code non finalisé est mis en production. Il n'est plus possible de le refactorer.
 
 Ce problème peut concerner aussi bien des bibliothèques que des API.
+
+---
+
+## Premature Optimisation (1/2)
+
+"Premature optimization is the root of all evil" (Donald Knuth)
+
+* Gaspillage d'énergie pour des gains médiocres (voire négatifs).
+* Complexité rendant impossible les optimisations globales.
+* Complexité mettant en péril la qualité du logiciel (stabilité, maintenabilité, portabilité, etc.)
+
+Exemple : 
+
+* Optimiser le parcours séquentiel d'un tableau au point qu'il devient impossible d'exploiter un indexe.
+* "Je n'ai pas besoin des arcs entrants pour cet algorithme, je fais un graphe dédié qui consommera moins de mémoire!" : Qu'importe si le programme réel passe son temps à faire des copies...
+
+---
+
+## Premature Optimisation (2/2)
+
+"Premature optimization is the root of all evil" (Donald Knuth)
+
+mais...
+
+* Il ne faut pas en conclure qu'on doit ignorer l'optimisation dans la conception!
+* Il faut rester prudent sur cette affirmation pour les bibliothèques de bas niveau!
+* Parfois, on prévilégie la performance à la portabilité.
+
+Proposition de méthode :
+
+* Se concentrer sur les optimisations globales (structure efficace, indexation, gestion des caches, etc.) dans la conception.
+* Coder en mettant en place des tests et des benchs.
+* Profiler et réaliser les optimisations locales sur les fonctions souvent appelées.
 
 ---
 
