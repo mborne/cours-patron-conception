@@ -6,8 +6,8 @@ En l'absence de cadre, une application qui se complexifie à tendance à se tran
 en un plat de spaghetti. 
 
 On se retrouve avec des composants qui font du rendu et des calculs. Dans le cas particulier
-des applications web, on peine pour réaliser les appels entre les différentes pages.
-
+des applications web, on peine pour réaliser les appels entre les différentes pages, on mélange 
+le contrôle des paramètres et la génération des requêtes SQL, etc.
 
 ## Principe
 
@@ -23,6 +23,8 @@ Pour plus de modularité et de clarté, on effectue une séparation claire entre
 Les applications web ont des besoins spécifiques à l'utilisation 
 du protocole HTTP. Généralement, le fonctionnement est le suivant.
 
+### Dispatching des requêtes sur des actions
+
 Les controlleurs porteurs d'actions correspondant chacune à 
 une fonctionnalité/page.
 
@@ -31,21 +33,30 @@ souvent à l'aide d'expression régulière :
 
 - "/books" : Action afficher la liste des livres (BookController.listAction)
 - "/books/{id}" : Action afficher le livre d'identifiant "id" (BookController.showBook)
-x
+
+### Action : contrôles des paramètres et récupérations des résultats
+
 L'action récupère et contrôle les paramètres de la requête. A l'aide
 des paramètres, elle effectue un traitement et renvoie un résultat.
+
+### Response
 
 Le résultat d'une action peut être une response directement affichable. Une réponse texte, 
 une réponse XML, etc. Dans ce cas, la réponse est renvoyées directement au client.
 
-Sinon, l'action définit des variables qui seront affichée par la vue. Par exemple,
-une variables "books" books correspondant à la liste des livres à afficher.
+### View
 
-Ces variables sont transmise à la vue qui se charge du rendu.
+Quand la construction de la réponse demande une mise en forme, l'action définit 
+des variables utiles pour le rendu (exemple : une variable "books" 
+correspondant à la liste des livres à afficher).
+
+Ces variables sont transmise à la vue qui se charge du rendu se charge de la 
+génération du code HTML.
 
 Ci après, un code illustrant ces principes dans le cadre de la gestion
 d'une liste de livre.
 
+### Exemple de code
 
 * BookController.php : Exemple de controller
 
@@ -99,16 +110,14 @@ Remarque :
 * On utilise ici un moteur de template ([TWIG](http://twig.sensiolabs.org/doc/tags/for.html)). Java dispose d'outils analogues (JSP)
 * On soulignera l'utilisation d'un ORM (Doctrine) pour accéder aux données ```$this->getRepository("Books")->findAll()```. Ce composant se repose sur le patron DAO qui pose entre autre la notion de Repository pour modéliser les accès aux données.
 
-```
 
-
-Exemple de framework :
+### Exemple de framework
 
 * PHP : [Symfony2](http://symfony.com/doc/current/index.html), [CodeIgniter](https://codeigniter.com/userguide3/tutorial/index.html)
 * Java : Spring
 
 
-## Version simplifiée dédiée au WEB
+### Variantes côté serveur
 
 Il existe une version simplifiée du mode de fonctionnement illustré précédemment.
 
@@ -124,6 +133,33 @@ Dans une moindre mesure, on se rapproche de cette simplicité dans les micro-fra
 
 * [SpringBoot en Java](http://projects.spring.io/spring-boot/#quick-start)
 
+### Variante côté navigateur
+
+Une des tendance actuelle consiste à mettre en place des API REST renvoyant des
+données en JSON. La génération du code HTML est effectuées dans le navigateur
+en JavaScript. On trouvera des MVC côté client tel :
+
+* [AngularJS](https://docs.angularjs.org/tutorial/step_07)
+* [Backbone.js](http://backbonejs.org/#Getting-started)
+* [Ember.js](http://emberjs.com/)
+
+## Et pour les applications classiques ou mobile?
+
+Les frameworks dédiés à la création d'application s'appuient généralement
+sur ce concept pour la gestion des IHM.
+
+* Qt (C++), utilisé par QuantumGIS
+
+On retrouve le concept de controller dans la gestion des événéments de l'interface.
+Les composants de l'interface génèrent des signaux (ex : "clicked" pour un bouton) qui sont connecté
+à des slots (ex : "chooseFile" pour l'action à effectuer).
+
+[Exemple d'application QT](http://doc.qt.io/qt-5/qtwidgets-mainwindows-application-example.html)
+
+On retrouve le concept de "View" dans l'utilisation des ".ui" qui servent à 
+générer le code de l'interface (ajout des boutons, des menus, etc.)
+
+* DotNet avec XAML pour les vues
 
 ## Resources
 
