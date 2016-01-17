@@ -445,7 +445,8 @@ Stockage des sessions, des caches, etc.
 
 * Tête la première dans les Design Patterns, O'Reilly
 
-Présente les designs patterns à travers des problématiques concrètes de conception
+Présente les designs patterns à travers des problématiques concrètes de conception. Le style 
+d'écriture rend la lecture plus agréable que le parcours d'un catalogue.
 
 * Design Patterns, Catalogue de modèles de conceptions réutilisables, Vuibert
 
