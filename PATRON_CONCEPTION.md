@@ -388,15 +388,12 @@ les événements, l'injection de dépendance, etc.
 ## Quelques exemples de patrons de conception architecturaux
 
 * Architecture en couche
+* Architecture micro-service
 * [MapReduce](architectural/MapReduce.html)
 * [Model-View-Controller (MVC)](architectural/MVC.html)
-* Event-Driven architecture
-* Broker Pattern
+* Event-Driven architecture/Message Oriented Middleware (MOM)
 
-Et des hordes de patterns en fonction des domaines :
-
-* Voir SOA patterns, http://soapatterns.org/ pour les patrons en lien avec
-les architectures orientés services
+Et bien d'autres en fonction des domaines (réseau, cloud computing, etc.)
 
 ---
 
