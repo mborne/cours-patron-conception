@@ -1,7 +1,12 @@
 # Les patrons de conception
 
+## Contenu
+
+* dist/index.html : La présentation
+* dist/meditation.html : exemple de code pour rappel de P.O.O.
+
+## Génération du html
+
 ```
-npm install markdown-to-slides -g
-npm install markdown-to-html -g
-markdown-to-slides PATRON_CONCEPTION.md -o patron-conception.html
+sh generate.sh
 ```

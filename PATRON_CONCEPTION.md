@@ -338,11 +338,6 @@ les événements, l'injection de dépendance, etc.
 
 ---
 
-# Les designs patterns
-
-
----
-
 # Les patrons de création
 
 * [Singleton](creational/Singleton.html)
