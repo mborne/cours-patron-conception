@@ -399,6 +399,26 @@ les architectures orientés services
 
 ---
 
+## Les stacks applicatives
+
+Dans la mesure où les composants remplacent les bibliothèques, les stacks 
+applicatives traduisent des patrons de conception architecturaux.
+
+* RabbitMQ/ActiveMQ
+
+Utilisation de pile de message pour les traitements asynchrones, distribués, sur 
+des systèmes hétérogènes.
+
+* Service de stockage de fichier (Amazone S3, Ceph, etc.)
+
+Utilisation de serveur dédiés au stockage de fichiers téléchargeables.
+
+* Stockage clé valeur (memcached, redis, etc.)
+
+Stockage des sessions, des caches, etc.
+
+---
+
 # A vous maintenant!
 
 ---
@@ -407,13 +427,33 @@ les architectures orientés services
 
 * Comprendre et apprendre les principaux patrons de conception
 
-* Identifier les patrons de conception dans les codes existants
+* Identifier les patrons de conception dans les codes existants : Rechercher les fabriques, les monteurs, les stratégies, les décorateurs, etc.
 
-Les frameworks sont truffés de patterns : Recherchez les fabriques, les monteurs, les stratégies, les décorateurs, etc.
+* Expérimenter!
 
 * Concevoir des codes en pensant règle de conception et patron de conception
 
 * Concevoir des codes en les testant unitairement (on ne peut pas tester des codes qui sont mal conçus)
+
+* Comprendre des architectures : Pourquoi stocker des sessions PHP dans memcached et des fichiers dans des serveurs tiers?
+
+---
+
+# Bibliographie
+
+* Design Patterns: Elements of Reusable Object-Oriented Software (Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides)
+
+* Tête la première dans les Design Patterns, O'Reilly
+
+Présente les designs patterns à travers des problématiques concrètes de conception
+
+* Design Patterns, Catalogue de modèles de conceptions réutilisables, Vuibert
+
+* Microsoft Application Architecture Guide, 2nd Edition
+
+Disponible gratuitement au format PDF, ce guide initialement rédigé à l'attention
+des développeurs DotNet traite des problématiques générales sur l'architecture logicielle :
+Principes de conception, critères qualités, styles d'architecture, etc.
 
 ---
 
@@ -434,10 +474,5 @@ Catalogue des principaux anti-pattern.
 
 Explication de l'intérêt des patterns du GoF et implémentation en Java.
 
----
 
-# Bibliographie
 
-* Tête la première dans les Design Patterns
-
-<img src="http://ecx.images-amazon.com/images/I/516XECZXY3L.jpg" />
