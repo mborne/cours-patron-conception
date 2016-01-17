@@ -1,7 +1,15 @@
 # Méditation
 
 Quelques exemples de codes à méditer pour bien comprendre l'intérêt
-des différents concepts de la P.O.O.
+des différents concepts de la P.O.O. : 
+
+* [Intérêt des aggrégats de variables](#int-r-t-des-aggr-gats-de-variables)
+* [Intérêt des constructeurs](#int-r-t-des-constructeurs)
+* [Intérêt de l'encapsultation](#int-r-t-de-l-encapsultation)
+* [Intérêt du polymorphisme](#int-r-t-du-polymorphisme)
+* [Intérêt de abstract](#int-r-t-de-abstract)
+* [Intérêt des interfaces](#int-r-t-des-interfaces)
+* [Couplage interface et abstract](#couplage-interface-et-abstract)
 
 ---
 
@@ -53,7 +61,7 @@ Coordinate c = new Coordinate(3.0,4.0) ;
 
 ---
 
-## Intérêt de l'encapsultation (1/2)
+## Intérêt de l'encapsultation
 
 Est-il utile de mettre les attributs private?
 
@@ -64,14 +72,11 @@ class User {
 }
 ```
 
----
-
-## Intérêt de l'encapsultation (2/2)
-
 Stocker dans un fichier et revenir dans un an! On aura alors envie
 de remplacer "age" par "birthDate" (un invariant temporel).
 
-Avec les getters/setters :
+Avec les getters/setters, on peut modifier la structure interne
+sans 
 
 ```
 class User {
@@ -89,9 +94,18 @@ class User {
 }
 ```
 
+Attention : 
+
+* Il ne suffit pas de mettre des accesseurs pour résoudre tous les problèmes!
+* Certains accesseurs exposent trop d'information sur la structure interne (des collections par exemple)
+
+
 ---
 
 ## Intérêt du polymorphisme
+
+Comparer l'approche suivante à un "switch" pour effectuer le rendu d'un 
+composant d'interface graphique :
 
 * Un élément graphique dans une interface
 
@@ -106,8 +120,6 @@ class Widget {
 
 }
 ```
-
----
 
 * Un élément graphique spécial : Button
 
@@ -133,9 +145,7 @@ class Button extends Widget {
 
 Les classes dérivées ont une partie du fonctionnement en commun.
 
----
-
-### Exemple avec des fonctions utilitaires (1/2)
+### Exemple avec des fonctions utilitaires
 
 ```
 class AbstractLogger {
@@ -159,10 +169,6 @@ class AbstractLogger {
 
 }
 ```
-
----
-
-### Exemple avec des fonctions utilitaires (2/2)
 
 ```
 class ConsoleLogger {
@@ -209,8 +215,6 @@ interface LocationProvider {
 Les classes ont une grande liberté sur la méthode
 d'implémentation des contrats définit à travers les interfaces.
 
----
-
 ## Mise en garde sur les interface
 
 Il ne suffit pas de mettre en place une interface pour avoir
@@ -222,9 +226,7 @@ classes concrètes (exemple : Accès par clée sur un tableau, accès ligne par 
 
 => Il faut bien réflechir aux implications des choix effectués dans la conception de l'interface.
 
----
-
-## Couplage interface et abstract (1/3)
+# Couplage interface et abstract
 
 Il est parfois intéresssant de procéder sur trois niveaux
 
@@ -243,10 +245,6 @@ interface LoggerInterface {
 
 }
 ```
-
----
-
-## Couplage interface et abstract (2/3)
 
 * Une classe abstraite qui implémente les parties communes
 
@@ -268,10 +266,6 @@ abstract class AbstractLogger implements LoggerInterface {
 }
 ```
 
----
-
-## Couplage interface et abstract (3/3)
-
 * Des classes concrètes
 
 ```
@@ -284,7 +278,9 @@ class ConsoleLogger extends AbstractLogger {
 
 ```
 class DatabaseLogger extends AbstractLogger {
-    // écriture du message dans une table
+    public void log(LogLevel level, String message ) {
+        // écriture du message dans une table
+    }
 }
 ```
 

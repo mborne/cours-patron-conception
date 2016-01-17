@@ -95,7 +95,7 @@ On dispose aussi d'outils pour des modélisations complexes :
 * Polymorphisme et héritage
 * Classe abstraite et interface
 
-Généralement, ces outils sont plutôt bien maîtrisé pour modéliser
+Généralement, ces outils sont plutôt bien maîtrisés pour modéliser
 des données (objet de domaine).
 
 Nous verrons ici comment on peut les exploiter efficacement pour faire varier le comportement d'un programme.
@@ -104,7 +104,10 @@ Nous verrons ici comment on peut les exploiter efficacement pour faire varier le
 
 ## Bien comprendre l'intérêt de ces concepts!
 
-[Quelques exemples à méditer](meditation.html)
+* Il ne suffit pas de connaître vaguement ces concepts pour bien programmer en P.O.O.
+* Les patrons de conception font appel à des utilisations avancées de ces concepts.
+
+=> [Méditons quelques exemples](ex_base_poo.html)
 
 ---
 

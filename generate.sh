@@ -9,4 +9,4 @@ rm -rf dist
 
 generate-md --input ./design_pattern --output ./dist
 markdown-to-slides PATRON_CONCEPTION.md -o dist/index.html
-markdown-to-slides MEDITATION.md -o dist/meditation.html
+
