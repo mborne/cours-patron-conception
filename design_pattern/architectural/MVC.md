@@ -143,6 +143,15 @@ en JavaScript. On trouvera des MVC côté client tel :
 * [Backbone.js](http://backbonejs.org/#Getting-started)
 * [Ember.js](http://emberjs.com/)
 
+### Avantages
+
+* Plus simple à maintenir (on retrouve facilement les actions et vues
+correspondant aux pages)
+* Plus simple à sécuriser (on vérifie plus facilement le contrôle des paramètres)
+* Débride la croissance de l'application
+* Facilite le travail en équipe (à chacun son contrôleur)
+* Séparation des rôles : développeurs backend/frontend
+
 ## Et pour les applications classiques ou mobile?
 
 Les frameworks dédiés à la création d'application s'appuient généralement

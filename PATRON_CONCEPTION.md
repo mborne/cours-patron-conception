@@ -385,7 +385,7 @@ les événements, l'injection de dépendance, etc.
 
 ## Quelques exemples de patrons de conception architecturaux
 
-* "Le" Model-View-Controller (MVC) (avec de plusieurs variantes)
+* [Model-View-Controller (MVC)](architectural/MVC.html)
 * Event-Driven architecture
 * En couche
 * Broker Pattern
