@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>MVC</title>
+    <link type="text/css" rel="stylesheet" href="../assets/css/github-markdown.css">
+    <link type="text/css" rel="stylesheet" href="../assets/css/pilcrow.css">
+    <link type="text/css" rel="stylesheet" href="../assets/css/hljs-github.min.css"/>
+  </head>
+  <body>
+    <article class="markdown-body"><h1 id="mvc"><a class="header-link" href="#mvc"></a>MVC</h1>
+<h2 id="probl-me"><a class="header-link" href="#probl-me"></a>Problème</h2>
+<p>En l&#39;absence de cadre, une application qui se complexifie à tendance à se transformer
+en un plat de spaghetti. </p>
+<p>On se retrouve avec des composants qui font du rendu et des calculs. Dans le cas particulier
+des applications web, on peine pour réaliser les appels entre les différentes pages, on mélange 
+le contrôle des paramètres et la génération des requêtes SQL, etc.</p>
+<h2 id="principe"><a class="header-link" href="#principe"></a>Principe</h2>
+<p>Pour plus de modularité et de clarté, on effectue une séparation claire entre :</p>
+<ul class="list">
+<li>Des vues qui gère l&#39;affichage</li>
+<li>Des modèles qui correspondent à la modélisation</li>
+<li>Des controlleurs qui gère l&#39;appel aux traitements</li>
+</ul>
+<h2 id="variante-de-mvc-d-di-au-web"><a class="header-link" href="#variante-de-mvc-d-di-au-web"></a>Variante de MVC dédié au WEB</h2>
+<p>Les applications web ont des besoins spécifiques à l&#39;utilisation 
+du protocole HTTP. Généralement, le fonctionnement est le suivant.</p>
+<h3 id="dispatching-des-requ-tes-sur-des-actions"><a class="header-link" href="#dispatching-des-requ-tes-sur-des-actions"></a>Dispatching des requêtes sur des actions</h3>
+<p>Les controlleurs porteurs d&#39;actions correspondant chacune à 
+une fonctionnalité/page.</p>
+<p>Un composant (Router) dirige chaque requête vers une action particulière, 
+souvent à l&#39;aide d&#39;expression régulière :</p>
+<ul class="list">
+<li>&quot;/books&quot; : Action afficher la liste des livres (BookController.listAction)</li>
+<li>&quot;/books/{id}&quot; : Action afficher le livre d&#39;identifiant &quot;id&quot; (BookController.showBook)</li>
+</ul>
+<h3 id="action-contr-les-des-param-tres-et-r-cup-rations-des-r-sultats"><a class="header-link" href="#action-contr-les-des-param-tres-et-r-cup-rations-des-r-sultats"></a>Action : contrôles des paramètres et récupérations des résultats</h3>
+<p>L&#39;action récupère et contrôle les paramètres de la requête. A l&#39;aide
+des paramètres, elle effectue un traitement et renvoie un résultat.</p>
+<h3 id="response"><a class="header-link" href="#response"></a>Response</h3>
+<p>Le résultat d&#39;une action peut être une response directement affichable. Une réponse texte, 
+une réponse XML, etc. Dans ce cas, la réponse est renvoyées directement au client.</p>
+<h3 id="view"><a class="header-link" href="#view"></a>View</h3>
+<p>Quand la construction de la réponse demande une mise en forme, l&#39;action définit 
+des variables utiles pour le rendu (exemple : une variable &quot;books&quot; 
+correspondant à la liste des livres à afficher).</p>
+<p>Ces variables sont transmise à la vue qui se charge du rendu se charge de la 
+génération du code HTML.</p>
+<p>Ci après, un code illustrant ces principes dans le cadre de la gestion
+d&#39;une liste de livre.</p>
+<h3 id="exemple-de-code"><a class="header-link" href="#exemple-de-code"></a>Exemple de code</h3>
+<ul class="list">
+<li>BookController.php : Exemple de controller</li>
+</ul>
+<pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BookController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Controller</span> </span>{
+
+    @Route(<span class="hljs-string">"/books"</span>,name=<span class="hljs-string">"book_index"</span>)
+    <span class="hljs-keyword">public</span> void listAction(Request <span class="hljs-variable">$request</span>){
+        <span class="hljs-variable">$books</span> = <span class="hljs-variable">$this</span>-&gt;getRepository(<span class="hljs-string">"Books"</span>)-&gt;findAll();
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$this</span>-&gt;render(
+            <span class="hljs-string">'Books:list.html.twig'</span>,
+            [
+                <span class="hljs-string">"books"</span> =&gt; <span class="hljs-variable">$books</span>
+            ]
+        );
+    }
+
+
+    @Route(<span class="hljs-string">"/books/{id}"</span>,name=<span class="hljs-string">"book_view"</span>)
+    <span class="hljs-keyword">public</span> void viewAction(Request <span class="hljs-variable">$request</span>){
+        <span class="hljs-variable">$id</span> = <span class="hljs-variable">$request</span>-&gt;getParam(<span class="hljs-string">'id'</span>) ;
+        <span class="hljs-variable">$book</span> = <span class="hljs-variable">$this</span>-&gt;getRepository(<span class="hljs-string">"Books"</span>)-&gt;find(<span class="hljs-variable">$id</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$this</span>-&gt;render(
+            <span class="hljs-string">'Books:view.html.twig'</span>,
+            [
+                <span class="hljs-string">"book"</span> =&gt; <span class="hljs-variable">$book</span>
+            ]
+        );
+    }
+
+}</code></pre><ul class="list">
+<li>views/Books/list.html.twig : Exemple de vue</li>
+</ul>
+<pre class="hljs"><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
+{% for book in books %}
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>    
+        <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"</span></span></span><span class="hljs-expression">{{ <span class="hljs-variable">path</span>('<span class="hljs-variable">book</span>_<span class="hljs-variable"><span class="hljs-keyword">view</span></span>',{<span class="hljs-variable">id</span>: <span class="hljs-variable">book.id</span>}) }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-value">"</span>&gt;</span>
+            </span><span class="hljs-expression">{{ <span class="hljs-variable">book.name</span> }}</span><span class="xml">
+        <span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+{% endfor %}
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span></span></code></pre><p>Remarque :</p>
+<ul class="list">
+<li>On soulignera l&#39;utilisation du mécanisme de routage pour générer des URL</li>
+<li>On utilise ici un moteur de template (<a href="http://twig.sensiolabs.org/doc/tags/for.html">TWIG</a>). Java dispose d&#39;outils analogues (JSP)</li>
+<li>On soulignera l&#39;utilisation d&#39;un ORM (Doctrine) pour accéder aux données <code>$this-&gt;getRepository(&quot;Books&quot;)-&gt;findAll()</code>. Ce composant se repose sur le patron DAO qui pose entre autre la notion de Repository pour modéliser les accès aux données.</li>
+</ul>
+<h3 id="exemple-de-framework"><a class="header-link" href="#exemple-de-framework"></a>Exemple de framework</h3>
+<ul class="list">
+<li>PHP : <a href="http://symfony.com/doc/current/index.html">Symfony2</a>, <a href="https://codeigniter.com/userguide3/tutorial/index.html">CodeIgniter</a></li>
+<li>Java : Spring</li>
+</ul>
+<h3 id="variantes-c-t-serveur"><a class="header-link" href="#variantes-c-t-serveur"></a>Variantes côté serveur</h3>
+<p>Il existe une version simplifiée du mode de fonctionnement illustré précédemment.</p>
+<p>Au lieu de créer de classes, on définit des fonctions anonymes pour traiter les 
+résultats des requêtes.</p>
+<p>Exemple de framework :</p>
+<ul class="list">
+<li><a href="http://expressjs.com/en/starter/hello-world.html">Express en NodeJS</a></li>
+<li><a href="http://silex.sensiolabs.org/">Silex en PHP</a></li>
+</ul>
+<p>Dans une moindre mesure, on se rapproche de cette simplicité dans les micro-framework :</p>
+<ul class="list">
+<li><a href="http://projects.spring.io/spring-boot/#quick-start">SpringBoot en Java</a></li>
+</ul>
+<h3 id="variante-c-t-navigateur"><a class="header-link" href="#variante-c-t-navigateur"></a>Variante côté navigateur</h3>
+<p>Une des tendance actuelle consiste à mettre en place des API REST renvoyant des
+données en JSON. La génération du code HTML est effectuées dans le navigateur
+en JavaScript. On trouvera des MVC côté client tel :</p>
+<ul class="list">
+<li><a href="https://docs.angularjs.org/tutorial/step_07">AngularJS</a></li>
+<li><a href="http://backbonejs.org/#Getting-started">Backbone.js</a></li>
+<li><a href="http://emberjs.com/">Ember.js</a></li>
+</ul>
+<h3 id="avantages"><a class="header-link" href="#avantages"></a>Avantages</h3>
+<ul class="list">
+<li>Plus simple à maintenir (on retrouve facilement les actions et vues
+correspondant aux pages)</li>
+<li>Plus simple à sécuriser (on vérifie plus facilement le contrôle des paramètres)</li>
+<li>Débride la croissance de l&#39;application</li>
+<li>Facilite le travail en équipe (à chacun son contrôleur)</li>
+<li>Séparation des rôles : développeurs backend/frontend</li>
+</ul>
+<h2 id="et-pour-les-applications-classiques-ou-mobile-"><a class="header-link" href="#et-pour-les-applications-classiques-ou-mobile-"></a>Et pour les applications classiques ou mobile?</h2>
+<p>Les frameworks dédiés à la création d&#39;application s&#39;appuient généralement
+sur ce concept pour la gestion des IHM.</p>
+<ul class="list">
+<li>Qt (C++), utilisé par QuantumGIS</li>
+</ul>
+<p>On retrouve le concept de controller dans la gestion des événéments de l&#39;interface.
+Les composants de l&#39;interface génèrent des signaux (ex : &quot;clicked&quot; pour un bouton) qui sont connecté
+à des slots (ex : &quot;chooseFile&quot; pour l&#39;action à effectuer).</p>
+<p><a href="http://doc.qt.io/qt-5/qtwidgets-mainwindows-application-example.html">Exemple d&#39;application QT</a></p>
+<p>On retrouve le concept de &quot;View&quot; dans l&#39;utilisation des &quot;.ui&quot; qui servent à 
+générer le code de l&#39;interface (ajout des boutons, des menus, etc.)</p>
+<ul class="list">
+<li>DotNet avec XAML pour les vues</li>
+</ul>
+<h2 id="resources"><a class="header-link" href="#resources"></a>Resources</h2>
+<ul class="list">
+<li><a href="http://symfony.com/doc/current/book/from_flat_php_to_symfony2.html">Symfony versus Flat PHP</a></li>
+</ul>
+    </article>
+  </body>
+</html>

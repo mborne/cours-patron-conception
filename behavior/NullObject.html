@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>Null Object</title>
+    <link type="text/css" rel="stylesheet" href="../assets/css/github-markdown.css">
+    <link type="text/css" rel="stylesheet" href="../assets/css/pilcrow.css">
+    <link type="text/css" rel="stylesheet" href="../assets/css/hljs-github.min.css"/>
+  </head>
+  <body>
+    <article class="markdown-body"><h1 id="null-object"><a class="header-link" href="#null-object"></a>Null Object</h1>
+<h2 id="probl-me-nullpointerexception"><a class="header-link" href="#probl-me-nullpointerexception"></a>Problème : NullPointerException</h2>
+<p>Pour simplifier et sécuriser les codes, on souhaite simplifier la gestion
+des références nulles.</p>
+<h2 id="probl-me"><a class="header-link" href="#probl-me"></a>Problème</h2>
+<p>On s&#39;appuie sur une interface pour l&#39;envoi de mail :</p>
+<pre class="hljs"><code><span class="hljs-interface"><span class="hljs-keyword">interface</span> MailerInterface </span>{
+
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> sendMail(
+        <span class="hljs-built_in">String</span> to,
+        <span class="hljs-built_in">String</span> title,
+        <span class="hljs-built_in">String</span> body
+    );
+
+}</code></pre><p>On laisse le choix à l&#39;utilisateur d&#39;une classe &quot;Client&quot; d&#39;envoyer ou non un
+mail en fin de traitement à un administrateur :</p>
+<pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title">Client</span> {
+
+    <span class="hljs-keyword">private</span> MailerInterface mailer ;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Client</span>(<span class="hljs-params"></span>)</span>{
+        <span class="hljs-keyword">this</span>.mailer = <span class="hljs-keyword">null</span> ;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setMailer</span>(<span class="hljs-params">MailerInterface mailer</span>)</span>{
+        <span class="hljs-keyword">this</span>.mailer = mailer ;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doSomething</span>(<span class="hljs-params"></span>)</span>{
+        <span class="hljs-comment">//... traitement ...</span>
+
+        <span class="hljs-keyword">if</span> ( <span class="hljs-keyword">null</span> != <span class="hljs-keyword">this</span>.mailer ){
+            <span class="hljs-keyword">this</span>.mailer.sendMail(
+                <span class="hljs-string">"admin@acme.org"</span>,
+                <span class="hljs-string">"Traitement des donnnées"</span>,
+                <span class="hljs-string">"Le traitement a été effectué."</span>
+            );
+        }
+    }
+
+}</code></pre><p>Problème : On multiplie les contrôles <code>null != this.mailer</code></p>
+<h1 id="solution"><a class="header-link" href="#solution"></a>Solution</h1>
+<ul class="list">
+<li>Créer un NullMailer</li>
+</ul>
+<pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NullMailer</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">MailerInterface</span> </span>{
+    public <span class="hljs-keyword">void</span> sendMail(
+        <span class="hljs-built_in">String</span> to,
+        <span class="hljs-built_in">String</span> title,
+        <span class="hljs-built_in">String</span> body
+    ){
+        <span class="hljs-comment">// ne fait rien</span>
+    }
+}</code></pre><ul class="list">
+<li>Faire à un NullMailer plutôt que &quot;null&quot;</li>
+</ul>
+<pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Client</span> </span>{
+
+    <span class="hljs-keyword">private</span> MailerInterface mailer ;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Client</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-keyword">this</span>.mailer = <span class="hljs-keyword">new</span> NullMailer() ;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setMailer</span><span class="hljs-params">(MailerInterface mailer)</span></span>{
+        <span class="hljs-keyword">assert</span>( <span class="hljs-keyword">this</span>.mailer != <span class="hljs-keyword">null</span> );
+        <span class="hljs-keyword">this</span>.mailer = mailer ;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doSomething</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-comment">// traitement...</span>
+
+        <span class="hljs-comment">// contrôle innutile</span>
+        <span class="hljs-keyword">this</span>.mailer.sendMail(
+            <span class="hljs-string">"admin@acme.org"</span>,
+            <span class="hljs-string">"Traitement des donnnées"</span>,
+            <span class="hljs-string">"Le traitement a été effectué."</span>
+        );
+    }
+
+}</code></pre><h2 id="remarque"><a class="header-link" href="#remarque"></a>Remarque</h2>
+<p>Penser à composer NullObject et Singleton dans le cas où l&#39;initialisation
+de NullObject est fréquente.</p>
+<h2 id="variante"><a class="header-link" href="#variante"></a>Variante</h2>
+<ul class="list">
+<li><p>Une collection vide peut jouer le même rôle qu&#39;un objet null. Il est d&#39;ailleurs conseillé
+de renvoyer des listes vides plutôt que des listes nulles.</p>
+</li>
+<li><p>Une valeur par défaut est préférable à un traitement spécifique en son absence.</p>
+</li>
+</ul>
+    </article>
+  </body>
+</html>
