@@ -1,0 +1,250 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>Strategy</title>
+    <link type="text/css" rel="stylesheet" href="../assets/css/github-markdown.css">
+    <link type="text/css" rel="stylesheet" href="../assets/css/pilcrow.css">
+    <link type="text/css" rel="stylesheet" href="../assets/css/hljs-github.min.css"/>
+  </head>
+  <body>
+    <article class="markdown-body"><h1 id="strategy"><a class="header-link" href="#strategy"></a>Strategy</h1>
+<h2 id="probl-me"><a class="header-link" href="#probl-me"></a>Problème</h2>
+<p>On souhaite pouvoir faire varier dynamiquement le comportement d&#39;une partie
+d&#39;un traitement.</p>
+<h2 id="exemple"><a class="header-link" href="#exemple"></a>Exemple</h2>
+<h3 id="cas-d-cole-sur-un-traitement-simple"><a class="header-link" href="#cas-d-cole-sur-un-traitement-simple"></a>Cas d&#39;école sur un traitement simple</h3>
+<p>Prenons le cas d&#39;une application qui applique les trois étapes suivantes :</p>
+<ul class="list">
+<li>Charger une image PNG</li>
+<li>Passer l&#39;image en niveau de gris</li>
+<li>Stocker l&#39;image résultante</li>
+</ul>
+<pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title">Application</span> {
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span>(<span class="hljs-params">File input, File output</span>)</span>{
+        Image image = readImagePNG(input);
+        grayScale(image) ;
+        writeImagePNG(image,output)
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">grayScale</span>(<span class="hljs-params">Image image</span>)</span>{
+        <span class="hljs-comment">// Transforme en niveau de gris</span>
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> Image <span class="hljs-title">readImagePNG</span>(<span class="hljs-params">File input</span>)</span>{
+        <span class="hljs-comment">// Chargement de l'image PNG</span>
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> Image <span class="hljs-title">writeImagePNG</span>(<span class="hljs-params">File output, Image image</span>)</span>{
+        <span class="hljs-comment">// Sauvegarde de l'image PNG</span>
+    }
+}</code></pre><p>On expose cette classe sous forme d&#39;un exécutable appelé ainsi :</p>
+<pre class="hljs"><code>traitement-image <span class="hljs-tag">input</span><span class="hljs-class">.png</span> output.png</code></pre><pre class="hljs"><code><span class="hljs-keyword">class</span> ApplicationCLI {
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> main(String args[]){
+        <span class="hljs-keyword">File</span> input  = <span class="hljs-keyword">new</span> <span class="hljs-keyword">File</span>(args[<span class="hljs-number">0</span>]);
+        <span class="hljs-keyword">File</span> output = <span class="hljs-keyword">new</span> <span class="hljs-keyword">File</span>(args[<span class="hljs-number">1</span>]);
+        Application application = <span class="hljs-keyword">new</span> Application();
+        application.run(input,output);
+    }
+
+}</code></pre><p>On souhaite maintenant permettre le choix sur le traitement appliqué :</p>
+<pre class="hljs"><code>traitement-image &lt;input&gt; &lt;output&gt; [<span class="hljs-keyword">method</span>]
+<span class="hljs-keyword">method</span> := grayScale|blur</code></pre><h3 id="premi-re-tentative-sans-strategy-switch-"><a class="header-link" href="#premi-re-tentative-sans-strategy-switch-"></a>Première tentative sans strategy (switch)</h3>
+<pre class="hljs"><code>class <span class="hljs-type">Application</span> {
+
+    public <span class="hljs-type">void</span> run(<span class="hljs-type">File</span> input, <span class="hljs-type">File</span> output, <span class="hljs-type">String</span> <span class="hljs-keyword">method</span>){
+        <span class="hljs-type">Image</span> image = readImagePNG(input);
+        <span class="hljs-keyword">if</span> ( <span class="hljs-keyword">method</span>.equals(<span class="hljs-string">"grayScale"</span>) ){
+            grayScale(image) ;
+        }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( <span class="hljs-keyword">method</span>.equals(<span class="hljs-string">"blur"</span>) ){
+            blur(image) ;
+        }
+        writeImagePNG(image,output);
+    }
+
+    protected <span class="hljs-type">void</span> grayScale(<span class="hljs-type">Image</span> image){
+        // <span class="hljs-type">Applique</span> un grayScale sur l'image
+    }
+
+    protected <span class="hljs-type">void</span> blur(<span class="hljs-type">Image</span> image){
+        // <span class="hljs-type">Applique</span> un blur sur l'image
+    }
+
+    protected <span class="hljs-type">Image</span> readImagePNG(<span class="hljs-type">File</span> input){
+        // <span class="hljs-type">Chargement</span> de l'image <span class="hljs-type">PNG</span>
+    }
+
+    protected <span class="hljs-type">Image</span> writeImagePNG(<span class="hljs-type">File</span> output, <span class="hljs-type">Image</span> image){
+        // <span class="hljs-type">Sauvegarde</span> de l'image <span class="hljs-type">PNG</span>
+    }
+}</code></pre><p>Problème :</p>
+<ul class="list">
+<li>Ajouter un algorithme implique la mise à jour de run (Violation du principe ouvert/fermé)</li>
+<li>La classe Application aura tendance à devenir un objet divin</li>
+<li>A terme, si les algorithmes ont des paramètres spécifiques, il faudra ajouter des attributs sur la classe Application</li>
+</ul>
+<h3 id="deuxi-me-tentative-sans-strategy-abstract-"><a class="header-link" href="#deuxi-me-tentative-sans-strategy-abstract-"></a>Deuxième tentative sans strategy (abstract)</h3>
+<p>Exploitons donc le polymorphisme!</p>
+<ul class="list">
+<li>Classe abstraite Application</li>
+</ul>
+<pre class="hljs"><code><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Application</span> {
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span>(<span class="hljs-params">File input, File output</span>)</span>{
+        Image image = readImagePNG(input);
+        process(image);
+        writeImagePNG(image,output);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">process</span>(<span class="hljs-params">Image image</span>) </span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Image <span class="hljs-title">readImagePNG</span>(<span class="hljs-params">File input</span>)</span>{
+        <span class="hljs-comment">// Chargement de l'image PNG</span>
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Image <span class="hljs-title">writeImagePNG</span>(<span class="hljs-params">File output, Image image</span>)</span>{
+        <span class="hljs-comment">// Sauvegarde de l'image PNG</span>
+    }
+}</code></pre><ul class="list">
+<li>Implémentation GrayScale</li>
+</ul>
+<pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ApplicationGrayScale</span> <span class="hljs-keyword"><span class="hljs-keyword">extends</span></span> <span class="hljs-title">Application</span> {</span>
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> static <span class="hljs-type">String</span> <span class="hljs-type">NAME</span> = <span class="hljs-string">"grayScale"</span> ;
+
+    public void process(<span class="hljs-type">Image</span> image){
+        <span class="hljs-comment">// applique traitement grayScale...</span>
+    }
+}</code></pre><ul class="list">
+<li>Implémentation Blur</li>
+</ul>
+<pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ApplicationBlur</span> <span class="hljs-keyword"><span class="hljs-keyword">extends</span></span> <span class="hljs-title">Application</span> {</span>
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> static <span class="hljs-type">String</span> <span class="hljs-type">NAME</span> = <span class="hljs-string">"blur"</span> ;
+
+    public void process(<span class="hljs-type">Image</span> image){
+        <span class="hljs-comment">// applique traitement blur...</span>
+    }
+}</code></pre><ul class="list">
+<li>ApplicationCLI</li>
+</ul>
+<pre class="hljs"><code>class <span class="hljs-type">ApplicationCLI</span> {
+
+    public <span class="hljs-keyword">static</span> <span class="hljs-type">void</span> main(<span class="hljs-type">String</span> args[]){
+        <span class="hljs-type">File</span> input    = new <span class="hljs-type">File</span>(args[<span class="hljs-number">0</span>]);
+        <span class="hljs-type">File</span> output   = new <span class="hljs-type">File</span>(args[<span class="hljs-number">1</span>]);    
+        <span class="hljs-type">String</span> <span class="hljs-keyword">method</span> = args[<span class="hljs-number">2</span>] ;
+
+        <span class="hljs-type">Map</span>&lt;<span class="hljs-type">String</span>, <span class="hljs-type">Application</span>&gt; applications = new <span class="hljs-type">HashMap</span>&lt;<span class="hljs-type">String</span>, <span class="hljs-type">Application</span>&gt;();
+        applications.put(<span class="hljs-type">ApplicationGrayScale</span>.<span class="hljs-type">NAME</span>, new <span class="hljs-type">ApplicationGrayScale</span>());
+        applications.put(<span class="hljs-type">ApplicationBlur</span>.<span class="hljs-type">NAME</span>, new <span class="hljs-type">ApplicationBlur</span>());
+
+        <span class="hljs-type">Application</span> application = applications.get(<span class="hljs-keyword">method</span>);
+        application.run(input,output);
+    }
+
+}</code></pre><p>A première vue, on pourrait être satisfait d&#39;une telle conception. Dommage :
+On souhaite maintenant pouvoir appliquer deux traitements successifs !</p>
+<p>Avec l&#39;héritage, on obtient soit :</p>
+<ul class="list">
+<li>Une explosion combinatoire (ApplicationBlur, ApplicationGrayScale, ApplicationGrayScaleBlur, ApplicationBlurGrayScale)</li>
+<li>Des écritures/relectures de fichiers</li>
+</ul>
+<p>Qu&#39;est-ce qu&#39;on a raté : </p>
+<ul class="list">
+<li>Le principe de responsabilité unique (Application effectue le calcul tout en orchestrant la lecture et les écritures).</li>
+<li>Privilégier la composition à l&#39;héritage s&#39;applique aussi pour l&#39;encapsulation des traitements.</li>
+</ul>
+<h3 id="solution-avec-une-strat-gie"><a class="header-link" href="#solution-avec-une-strat-gie"></a>Solution avec une stratégie</h3>
+<p>Au lieu d&#39;hériter, on va encapsuler un objet dont le seul rôle se limitera à appliquer le traitement.</p>
+<ul class="list">
+<li>ImageProcessorStrategy : Interface pour la stratégie de traitement</li>
+</ul>
+<pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title">ImageProcessorStrategy</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">process</span>(<span class="hljs-params">Image image</span>) </span>;
+}</code></pre><ul class="list">
+<li>Application encapsulant un traitement</li>
+</ul>
+<pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title">Application</span> {
+
+    <span class="hljs-keyword">private</span> ImageProcessorStrategy processor ;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Application</span>(<span class="hljs-params">ImageProcessorStrategy processor</span>)</span>{
+        <span class="hljs-keyword">this</span>.processor = processor ;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span>(<span class="hljs-params">File input, File output</span>)</span>{
+        Image image = readImagePNG(input);
+        processor.process(image);
+        writeImagePNG(image,output);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Image <span class="hljs-title">readImagePNG</span>(<span class="hljs-params">File input</span>)</span>{
+        <span class="hljs-comment">// Chargement de l'image PNG</span>
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Image <span class="hljs-title">writeImagePNG</span>(<span class="hljs-params">File output, Image image</span>)</span>{
+        <span class="hljs-comment">// Sauvegarde de l'image PNG</span>
+    }
+}</code></pre><ul class="list">
+<li>Implémentation de la stratégie GrayScale</li>
+</ul>
+<pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ImageProcessorGrayScale</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ImageProcessorStrategy</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> String NAME = <span class="hljs-string">"grayScale"</span> ;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">process</span><span class="hljs-params">(Image image)</span></span>{
+        <span class="hljs-comment">// applique traitement grayScale...</span>
+    }
+
+}</code></pre><ul class="list">
+<li>Implémentation Blur</li>
+</ul>
+<pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ImageProcessorBlur</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ImageProcessorStrategy</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> String NAME = <span class="hljs-string">"blur"</span> ;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">process</span><span class="hljs-params">(Image image)</span></span>{
+        <span class="hljs-comment">// applique traitement blur...</span>
+    }
+}</code></pre><ul class="list">
+<li><a href="../structural/Composite.html">Composite</a> sur ImageProcessorStrategy</li>
+</ul>
+<pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ImageProcessorComposite</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ImageProcessorStrategy</span> </span>{
+
+    <span class="hljs-keyword">private</span> List&lt;ImageProcessorStrategy&gt; strategies ;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ImageProcessorComposite</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-keyword">this</span>.strategies = <span class="hljs-keyword">new</span> ArrayList&lt;ImageProcessorStrategy&gt;();
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(ImageProcessorStrategy strategy)</span></span>{
+        <span class="hljs-keyword">this</span>.strategies.add(strategy) ;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">process</span><span class="hljs-params">(Image image)</span></span>{
+        <span class="hljs-comment">// applique les sous-stratégies</span>
+        <span class="hljs-keyword">for</span> ( ImageProcessorStrategy strategy : strategies ){
+            strategy.process(image);
+        }
+    }
+
+}</code></pre><ul class="list">
+<li>A l&#39;utilisation</li>
+</ul>
+<pre class="hljs"><code><span class="hljs-keyword">File</span> input    = <span class="hljs-keyword">new</span> <span class="hljs-keyword">File</span>(args[<span class="hljs-number">0</span>]);
+<span class="hljs-keyword">File</span> output   = <span class="hljs-keyword">new</span> <span class="hljs-keyword">File</span>(args[<span class="hljs-number">1</span>]);    
+
+// <span class="hljs-keyword">On</span> imagera qu<span class="hljs-attribute">'on</span> peut gérer le paramètre méthode sous forme d<span class="hljs-attribute">'une</span> expression.
+ImageProcessorComposite compositeStrategy = <span class="hljs-keyword">new</span> ImageProcessorComposite();
+compositeStrategy.add(<span class="hljs-keyword">new</span> ApplicationGrayScale());
+compositeStrategy.add(<span class="hljs-keyword">new</span> ApplicationBlur());
+
+Application application = <span class="hljs-keyword">new</span> Application(compositeStrategy);
+application.run(input,output);</code></pre><p>Où est le changement? On peut appliquer le même principe sur la lecture ou l&#39;écriture des fichiers!</p>
+    </article>
+  </body>
+</html>

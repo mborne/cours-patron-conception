@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>Facade</title>
+    <link type="text/css" rel="stylesheet" href="../assets/css/github-markdown.css">
+    <link type="text/css" rel="stylesheet" href="../assets/css/pilcrow.css">
+    <link type="text/css" rel="stylesheet" href="../assets/css/hljs-github.min.css"/>
+  </head>
+  <body>
+    <article class="markdown-body"><h1 id="facade"><a class="header-link" href="#facade"></a>Facade</h1>
+<h2 id="probl-me"><a class="header-link" href="#probl-me"></a>Problème</h2>
+<p>On dispose d&#39;un système complexe faisant intervenir de nombreuses classes
+en relation les unes avec les autres.</p>
+<p>On souhaite fournir une abstraction pour les cas d&#39;usage simple.</p>
+<h2 id="exemple"><a class="header-link" href="#exemple"></a>Exemple</h2>
+<p>On fournit une classe qui construit dynamiquement une triangulation
+à partir d&#39;un semi de points :</p>
+<pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title">TriangulationBuilder</span> {
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Vertex <span class="hljs-title">addVertex</span>(<span class="hljs-params"> Coordinate coordinate </span>) </span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Triangulation <span class="hljs-title">getTriangulation</span>(<span class="hljs-params"></span>) </span>;
+
+}</code></pre><p>On identifie qu&#39;à l&#39;usage, de nombreux clients vont se contenter de trianguler
+des &quot;tableaux&quot; de points. On met en place une simplification :</p>
+<pre class="hljs"><code><span class="hljs-keyword">class</span> TriangulationFacade {
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Triangulation <span class="hljs-title">tesselate</span><span class="hljs-params">(Coordinate[] coordinates)</span></span>{
+        TriangulationBuilder builder = <span class="hljs-keyword">new</span> TriangulationBuilder();
+        <span class="hljs-keyword">for</span> ( <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; coordinates.length; i++ ){
+            builder.addVertex(coordinates[<span class="hljs-number">0</span>]);
+        }
+        <span class="hljs-keyword">return</span> builder.getTriangulation();
+    }
+
+}</code></pre>    </article>
+  </body>
+</html>

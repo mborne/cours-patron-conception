@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>Adapter</title>
+    <link type="text/css" rel="stylesheet" href="../assets/css/github-markdown.css">
+    <link type="text/css" rel="stylesheet" href="../assets/css/pilcrow.css">
+    <link type="text/css" rel="stylesheet" href="../assets/css/hljs-github.min.css"/>
+  </head>
+  <body>
+    <article class="markdown-body"><h1 id="adapter"><a class="header-link" href="#adapter"></a>Adapter</h1>
+<h2 id="probl-me"><a class="header-link" href="#probl-me"></a>Problème</h2>
+<p>L&#39;idée est la même que pour les adaptateurs dans la vie courante :
+On fait face à deux interfaces qui ont des fonctionnalités équivalentes mais qui
+sont incompatibles. On va créer un intermédiaire.</p>
+<h2 id="exemple"><a class="header-link" href="#exemple"></a>Exemple</h2>
+<p>On dispose d&#39;un algorithme qui effectue la concaténation de chaînes de caractères
+avec un séparateur.</p>
+<pre class="hljs"><code>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EnumerationUtils</span> </span>{
+
+    public <span class="hljs-literal">static</span> <span class="hljs-built_in">String</span> concat(Enumeration&lt;<span class="hljs-built_in">String</span>&gt; items, <span class="hljs-built_in">String</span> separator){
+        <span class="hljs-comment">//...</span>
+    }
+
+}</code></pre><p>Pas de chance : Nous devons appliquer cet algorithme sur un Iterator<String>.</p>
+<p>On remarque que niveau fonctionnement, les deux interfaces Iterator et Enumeration sont sensiblement
+similaires :</p>
+<ul class="list">
+<li><a href="https://docs.oracle.com/javase/7/docs/api/java/util/Enumeration.html">Enumeration</a></li>
+<li><a href="https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html">Iterator</a></li>
+</ul>
+<p>On va donc pouvoir créer un adaptateur :</p>
+<pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IteratorToEnumationAdapter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Enumeration</span>&lt;<span class="hljs-title">String</span>&gt; </span>{
+
+    <span class="hljs-keyword">private</span> Iterator&lt;String&gt; adaptee ;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Adapter</span><span class="hljs-params">(Iterator&lt;String&gt; adaptee)</span></span>{
+        <span class="hljs-keyword">this</span>.adaptee = adaptee ;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">hasMoreElements</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-function"><span class="hljs-keyword">return</span> adaptee.<span class="hljs-title">hasNext</span><span class="hljs-params">()</span> </span>;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function">String <span class="hljs-title">nextElement</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-function"><span class="hljs-keyword">return</span> adaptee.<span class="hljs-title">next</span><span class="hljs-params">()</span> </span>;
+    }
+
+}</code></pre><p>Puis, appeler l&#39;algorithme comme suit :</p>
+<pre class="hljs"><code><span class="hljs-keyword">Iterator</span>&lt;String&gt; items ;
+<span class="hljs-comment">//...</span>
+System.<span class="hljs-keyword">out</span>.println(EnumerationUtils.<span class="hljs-keyword">concat</span>(
+    <span class="hljs-keyword">new</span> IteratorToEnumationAdapter(items)
+));</code></pre><h2 id="remarque"><a class="header-link" href="#remarque"></a>Remarque</h2>
+<p>Le livre &quot;tête la première dans les designs patterns&quot; traite le cas inverse
+et l&#39;adaptation partielle (absence de la fonction &quot;remove&quot; sur les Enumeration)</p>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>FactoryMethod</title>
+    <link type="text/css" rel="stylesheet" href="../assets/css/github-markdown.css">
+    <link type="text/css" rel="stylesheet" href="../assets/css/pilcrow.css">
+    <link type="text/css" rel="stylesheet" href="../assets/css/hljs-github.min.css"/>
+  </head>
+  <body>
+    <article class="markdown-body"><h1 id="factorymethod"><a class="header-link" href="#factorymethod"></a>FactoryMethod</h1>
+<h2 id="probl-me"><a class="header-link" href="#probl-me"></a>Problème</h2>
+<p>On dispose d&#39;une classe abstraite et on souhaite faire abstraction sur la création
+des objets concrets.</p>
+<div style="text-align: center">
+<img src="uml/UML_DP_FactoryMethod.png" alt="UML Prototype">
+</div>
+
+
+<h2 id="exemple"><a class="header-link" href="#exemple"></a>Exemple</h2>
+<ul class="list">
+<li>Connexion à une base de données</li>
+</ul>
+<pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Connection</span> </span>{
+
+}</code></pre><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PostgregsqlConnection</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Connection</span> </span>{
+
+}</code></pre><ul class="list">
+<li>Fabrique abstraite pour les connexions</li>
+</ul>
+<pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title">ConnectionFactory</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Connection <span class="hljs-title">createConnection</span>(<span class="hljs-params">String dbname</span>) </span>;
+}</code></pre><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PostgregsqlConnectionFactory</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ConnectionFactory</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Connection <span class="hljs-title">createConnection</span><span class="hljs-params">(String dbname)</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PostgregsqlConnection(dbname);
+    }
+}</code></pre>    </article>
+  </body>
+</html>
