@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Refactoring de code</title>
+		<style>
+			body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+h1, h2, h3 {
+	font-weight: 400;
+	margin-bottom: 0;
+}
+.remark-slide-content h1 { font-size: 3em; }
+.remark-slide-content h2 { font-size: 2em; }
+.remark-slide-content h3 { font-size: 1.6em; }
+.footnote {
+	position: absolute;
+	bottom: 3em;
+}
+li p { line-height: 1.25em; }
+.red { color: #fa0000; }
+.large { font-size: 2em; }
+a, a > code {
+	color: rgb(249, 38, 114);
+	text-decoration: none;
+}
+code {
+	background: none repeat scroll 0 0 #F8F8FF;
+  border: 1px solid #DEDEDE;
+  border-radius: 3px 	;
+  padding: 0 0.2em;
+}
+.remark-code, .remark-inline-code { font-family: "Bitstream Vera Sans Mono", "Courier", monospace; }
+.remark-code-line-highlighted     { background-color: #373832; }
+.pull-left {
+	float: left;
+	width: 47%;
+}
+.pull-right {
+	float: right;
+	width: 47%;
+}
+.pull-right ~ p {
+	clear: both;
+}
+#slideshow .slide .content code {
+	font-size: 0.8em;
+}
+#slideshow .slide .content pre code {
+	font-size: 0.9em;
+	padding: 15px;
+}
+.main-title, .title {
+	background: #272822;
+	color: #777872;
+	text-shadow: 0 0 20px #333;
+}
+.title h1, .title h2, .main-title h1, .main-title h2 {
+	color: #f3f3f3;
+	line-height: 0.8em;
+}
+/* Custom */
+.remark-code {
+	display: block;
+	padding: 0.5em;
+}
+
+/* ext */
+
+h1, h2, h3 {
+    color: #1C1C1C !important;
+}
+
+.remark-slide-content {
+    background-color: red !important; /* For browsers that do not support gradients */
+    background: linear-gradient(#E0ECF8, white) !important;
+}
+
+.footer {
+    bottom: 12px;
+    opacity: 0.5;
+    position: absolute;
+    left: 20%;
+}
+
+
+
+
+
+		</style>
+	</head>
+	<body>
+		<textarea id="source">
+# Refactoring de code
+
+Nous allons rapidement balayer quelques points théoriques essentiels 
+avant de retourner à la pratique.
+
+Remarque : Nous traiterons principalement le refactoring "local" de code, pas la refonte 
+complète d'applications ou de systèmes.
+
+---
+
+# Plan
+
+* Principe
+* Notion de changement cassant
+* Notion de changements de comportement
+* Importance des tests
+* Numérotation des versions
+* Gestion de l'historique
+* Code public et privé (notion d'API)
+* Importance des tests
+* Techniques de refactoring
+* Quand refactorer?
+
+---
+
+# Principe
+
+Améliorer la conception d'un code existant pour :
+
+* Le rendre plus robuste (correction de bug)
+* Le rendre plus générique (réponse à de nouvelles fonctionnalités)
+
+---
+
+# Notion de changement cassant
+
+Un changement cassant est une modification du code qui implique une mise à jour
+du code client.
+
+Exemple : Modification d'un prototype de fonction
+
+On portera une attention aux changements cassants que l'on évitera 
+dans la mesure du possible.
+
+---
+
+# Notion changements de comportement
+
+On s'interdira tout changement de comportement en l'absence d'un changement
+cassant.
+
+Le but : Forcer la prise en compte des modifications dans les codes clients.
+
+Remarque : On pourra procéder par extension du comportement en jouant sur des
+valeurs par défaut.
+
+---
+
+# Numérotation des versions
+
+Il est important de :
+
+* Tagger/Releaser des versions stables des codes
+* D'adopter une convension de nommage pour les versions
+
+La convension généralement utilisée est <major>.<minor>.<patch> (1.2.5) où :
+
+* <major> traduit une version majeure porteuse de changement cassant
+* <minor> traduit des ajouts de fonctionnalité sans changement cassant
+* <patch> traduit une correction de bug sans ajout de fonctionnalité
+
+Les clients peuvent ainsi maîtriser les montées en version tout en récupérant
+automatiquement les correctifs.
+
+Remarque : Les bibliothèques fournissent des CHANGELOG pour accompagner le changement.
+
+---
+
+# Gestion de l'historique
+
+La gestion des versions est intimement liée à la gestion de l'historique.
+
+Il est fortement conseillé d'adopter un workflow clair dans la gestion
+des branches et des tags.
+
+(Voir [git-flow](http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/))
+
+
+---
+
+# Code public et privé (notion d'API)
+
+Au sein d'une même bibliothèque, on trouvera parfois la notion de code privé et de code public (Impl, namespace detail, etc.)
+
+Il ne faut jamais dépendre d'un tel code dans une bibliothèque tierces où on peut s'y autoriser des changements cassants non documenté.
+
+---
+
+# Importance des tests
+
+Les tests unitaires et fonctionnels vont permettre de se protéger contre les
+régressions.
+
+Quand on refactor du code, le comportement des clients de ce code ne doit pas changer.
+
+---
+
+# Techniques de refactoring
+
+Outre l'introduction de pattern, il existe une multitude de modification classique qui tendent à améliorer la qualité d'un code :
+
+* Renommage de variable
+* Extraction de méthode
+* Extraction d'une interface
+* Introduction d'un patron de conception
+
+A l'instar des patrons de conception, ces techniques peuvent être catoguées :
+
+[Catalogue sur refactoring.com](http://www.refactoring.com/catalog/)
+
+Ce catalogue permet une meilleure organisation des connaissances.
+
+---
+
+# Quand refactorer?
+
+Un code est rarement totalement satisfaisant, mais le luxe de pouvoir réfactorer 
+un code sans but est rarement offert aux développeurs. 
+
+Généralement, on refactorera un code à l'occasion d'actions concrètes :
+
+* Industrialisation de prototype (travaux de recherche par ex.)
+* Ajout de fonctionnalités
+* Correction de bug
+* Optimisation
+* Portage de l'application (android, win->linux, etc.)
+* ...
+
+
+
+
+
+
+
+
+
+
+		</textarea>
+        
+		<script src="js/remark-latest.min.js"></script>
+        <script src="js/jquery-2.2.0.min.js"></script>
+		<script>
+			var slideshow = remark.create();
+		</script>
+		<script>/* footer */
+$('.remark-slide-content').each(function(index,data){
+    var footer = '<span class="footer">ENSG - Les patrons de conception, Mickaël BORNE, Janvier 2016</span>' ;
+    $(data).append(footer) ;
+});
+</script>
+	</body>
+</html>

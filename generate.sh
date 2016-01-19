@@ -15,4 +15,10 @@ markdown-to-slides PATRON_CONCEPTION.md \
 	--template layout/slides/template.html \
 	-o dist/index.html
 
+markdown-to-slides REFACTORING.md \
+	--style layout/slides/style.css \
+	--script layout/slides/script.js \
+	--template layout/slides/template.html \
+	-o dist/refactoring.html
+
 cp -r lib/* dist/.
