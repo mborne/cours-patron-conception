@@ -83,7 +83,10 @@ La gestion des versions est intimement liée à la gestion de l'historique.
 Il est fortement conseillé d'adopter un workflow clair dans la gestion
 des branches et des tags.
 
-(Voir [git-flow](http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/))
+Voir :
+
+* [A successful Git branching model, Vincent Driessen](http://nvie.com/posts/a-successful-git-branching-model/)
+* [git-flow](http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/)
 
 
 ---
