@@ -1,12 +1,8 @@
 # Les patrons de conception
 
-## Contenu
+[ENSG](http://www.ensg.eu/) janvier 2016
 
-* dist/index.html : La présentation
-* dist/meditation.html : exemple de code pour rappel de P.O.O.
+* [Version en ligne (mborne.github.io)](http://mborne.github.io/cours-patron-conception/)
 
-## Génération du html
+* Question, remarque, référence manquante, etc. : [Merci d'ajouter une issue](https://github.com/mborne/cours-patron-conception/issues)
 
-```
-sh generate.sh
-```
