@@ -10,7 +10,7 @@
   </head>
   <body>
     <article class="markdown-body"><h1 id="factorymethod"><a class="header-link" href="#factorymethod"></a>FactoryMethod</h1>
-<h2 id="probl-me"><a class="header-link" href="#probl-me"></a>Problème</h2>
+<h2 id="problème"><a class="header-link" href="#problème"></a>Problème</h2>
 <p>On dispose d&#39;une classe abstraite et on souhaite faire abstraction sur la création
 des objets concrets.</p>
 <div style="text-align: center">
@@ -31,9 +31,9 @@ des objets concrets.</p>
 </ul>
 <pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title">ConnectionFactory</span> {
     <span class="hljs-function"><span class="hljs-keyword">public</span> Connection <span class="hljs-title">createConnection</span>(<span class="hljs-params">String dbname</span>) </span>;
-}</code></pre><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PostgregsqlConnectionFactory</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ConnectionFactory</span> </span>{
-    <span class="hljs-function"><span class="hljs-keyword">public</span> Connection <span class="hljs-title">createConnection</span><span class="hljs-params">(String dbname)</span> </span>{
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PostgregsqlConnection(dbname);
+}</code></pre><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PostgregsqlConnectionFactory</span> <span class="hljs-keyword"><span class="hljs-keyword">implements</span> <span class="hljs-type">ConnectionFactory</span></span> </span>{
+    <span class="hljs-keyword">public</span> Connection createConnection(<span class="hljs-keyword">String</span> dbname) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-type">PostgregsqlConnection</span>(dbname);
     }
 }</code></pre>    </article>
   </body>

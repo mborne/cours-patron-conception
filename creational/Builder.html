@@ -10,7 +10,7 @@
   </head>
   <body>
     <article class="markdown-body"><h1 id="builder"><a class="header-link" href="#builder"></a>Builder</h1>
-<h2 id="probl-me"><a class="header-link" href="#probl-me"></a>Problème</h2>
+<h2 id="problème"><a class="header-link" href="#problème"></a>Problème</h2>
 <p>Les fabriques traitent principalement de l&#39;instanciation de classes en présence d&#39;une hiérarchie.</p>
 <p>Le patron de conception &quot;Builder&quot; s&#39;attaque à l&#39;instanciation de classes où
 la complexité est liée à la complexité des objets et relations entre ces objets.</p>
@@ -31,18 +31,18 @@ la complexité est liée à la complexité des objets et relations entre ces obj
 <h3 id="un-produit-pizza"><a class="header-link" href="#un-produit-pizza"></a>Un produit Pizza</h3>
 <pre class="hljs"><code><span class="hljs-comment">/* Produit */</span>
 <span class="hljs-keyword">class</span> Pizza {
-    <span class="hljs-keyword">private</span> <span class="hljs-built_in">String</span> pate = <span class="hljs-string">""</span>;
-    <span class="hljs-keyword">private</span> <span class="hljs-built_in">String</span> sauce = <span class="hljs-string">""</span>;
-    <span class="hljs-keyword">private</span> <span class="hljs-built_in">String</span> garniture = <span class="hljs-string">""</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">String</span> pate = <span class="hljs-string">""</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">String</span> sauce = <span class="hljs-string">""</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">String</span> garniture = <span class="hljs-string">""</span>;
 
-    <span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> setPate(<span class="hljs-built_in">String</span> pate){
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> setPate(<span class="hljs-keyword">String</span> pate){
         <span class="hljs-keyword">this</span>.pate = pate;
     }
 
-    <span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> setSauce(<span class="hljs-built_in">String</span> sauce){
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> setSauce(<span class="hljs-keyword">String</span> sauce){
         <span class="hljs-keyword">this</span>.sauce = sauce;
     }
-    <span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> setGarniture(<span class="hljs-built_in">String</span> garniture) {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> setGarniture(<span class="hljs-keyword">String</span> garniture) {
         <span class="hljs-keyword">this</span>.garniture = garniture;
     }
 }</code></pre><h3 id="un-monteur-abstrait-de-pizza"><a class="header-link" href="#un-monteur-abstrait-de-pizza"></a>Un monteur abstrait de pizza</h3>
@@ -71,7 +71,7 @@ la complexité est liée à la complexité des objets et relations entre ces obj
   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">monterPate</span><span class="hljs-params">()</span>      </span>{ pizza.setPate(<span class="hljs-string">"feuilletée"</span>); }
   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">monterSauce</span><span class="hljs-params">()</span>     </span>{ pizza.setSauce(<span class="hljs-string">"piquante"</span>); }
   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">monterGarniture</span><span class="hljs-params">()</span> </span>{ pizza.setGarniture(<span class="hljs-string">"pepperoni+salami"</span>); }
-}</code></pre><h3 id="un-serveur-dans-le-r-le-du-directeur"><a class="header-link" href="#un-serveur-dans-le-r-le-du-directeur"></a>Un serveur dans le rôle du Directeur</h3>
+}</code></pre><h3 id="un-serveur-dans-le-rôle-du-directeur"><a class="header-link" href="#un-serveur-dans-le-rôle-du-directeur"></a>Un serveur dans le rôle du Directeur</h3>
 <pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Serveur</span> </span>{
     <span class="hljs-keyword">private</span> MonteurPizza monteurPizza;
 
@@ -89,15 +89,15 @@ la complexité est liée à la complexité des objets et relations entre ces obj
         monteurPizza.monterSauce();
         monteurPizza.monterGarniture();
     }
-}</code></pre><h3 id="exemple-d-utilisation"><a class="header-link" href="#exemple-d-utilisation"></a>Exemple d&#39;utilisation</h3>
-<pre class="hljs"><code>Serveur serveur = new Serveur()<span class="hljs-comment">;</span>
-MonteurPizza monteurPizzaHawaii  = new MonteurPizzaHawaii()<span class="hljs-comment">;</span>
-MonteurPizza monteurPizzaPiquante = new MonteurPizzaPiquante()<span class="hljs-comment">;</span>
+}</code></pre><h3 id="exemple-d'utilisation"><a class="header-link" href="#exemple-d'utilisation"></a>Exemple d&#39;utilisation</h3>
+<pre class="hljs"><code><span class="hljs-type">Serveur</span> serveur = <span class="hljs-function"><span class="hljs-keyword">new</span> <span class="hljs-title">Serveur</span>();
+<span class="hljs-title">MonteurPizza</span> <span class="hljs-title">monteurPizzaHawaii</span>  = <span class="hljs-title">new</span> <span class="hljs-title">MonteurPizzaHawaii</span>();
+<span class="hljs-title">MonteurPizza</span> <span class="hljs-title">monteurPizzaPiquante</span> = <span class="hljs-title">new</span> <span class="hljs-title">MonteurPizzaPiquante</span>();
 
-serveur.setMonteurPizza(monteurPizzaHawaii)<span class="hljs-comment">;</span>
-serveur.construirePizza()<span class="hljs-comment">;</span>
+<span class="hljs-title">serveur</span>.<span class="hljs-title">setMonteurPizza</span>(monteurPizzaHawaii);
+<span class="hljs-title">serveur</span>.<span class="hljs-title">construirePizza</span>();
 
-Pizza pizza = serveur.getPizza()<span class="hljs-comment">;</span></code></pre><h2 id="variantes"><a class="header-link" href="#variantes"></a>Variantes</h2>
+<span class="hljs-title">Pizza</span> <span class="hljs-title">pizza</span> = <span class="hljs-title">serveur</span>.<span class="hljs-title">getPizza</span>();</span></code></pre><h2 id="variantes"><a class="header-link" href="#variantes"></a>Variantes</h2>
 <p>La terminologie builder est généralisée à toute création par partie d&#39;objet via la séquence suivante :</p>
 <ul class="list">
 <li>Récupération d&#39;un builder</li>
@@ -112,25 +112,25 @@ Pizza pizza = serveur.getPizza()<span class="hljs-comment">;</span></code></pre>
 <li><p><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Calendar.Builder.html">CalendarBuilder</a></p>
 </li>
 </ul>
-<pre class="hljs"><code>Calendar cal = <span class="hljs-keyword">new</span> Calendar.Builder()
-    .setCalendarType(<span class="hljs-string">"iso8601"</span>)
+<pre class="hljs"><code><span class="hljs-keyword">Calendar </span>cal = new <span class="hljs-keyword">Calendar.Builder()
+</span>    .setCalendarType(<span class="hljs-string">"iso8601"</span>)
     .setWeekDate(<span class="hljs-number">2013</span>, <span class="hljs-number">1</span>, MONDAY)
-    .build()
-;</code></pre><ul class="list">
+    .<span class="hljs-keyword">build()
+</span><span class="hljs-comment">;</span></code></pre><ul class="list">
 <li>ProcessBuilder</li>
 </ul>
 <pre class="hljs"><code><span class="hljs-comment">// Création du builder (argument obligatoire du processus)</span>
-ProcessBuilder pb = new ProcessBuilder(<span class="hljs-string">"myCommand"</span>, <span class="hljs-string">"myArg1"</span>, <span class="hljs-string">"myArg2"</span>);
+ProcessBuilder pb = <span class="hljs-keyword">new</span> ProcessBuilder(<span class="hljs-string">"myCommand"</span>, <span class="hljs-string">"myArg1"</span>, <span class="hljs-string">"myArg2"</span>);
 
 <span class="hljs-comment">// Manipulation du builder (argument optionnels du processus)</span>
-Map <span class="hljs-keyword">env</span> = pb.environment();
-<span class="hljs-keyword">env</span>.put(<span class="hljs-string">"VAR1"</span>, <span class="hljs-string">"myValue"</span>);
-<span class="hljs-keyword">env</span>.remove(<span class="hljs-string">"OTHERVAR"</span>);
-<span class="hljs-keyword">env</span>.put(<span class="hljs-string">"VAR2"</span>, <span class="hljs-keyword">env</span>.get(<span class="hljs-string">"VAR1"</span>) + <span class="hljs-string">"suffix"</span>);
-pb.directory(new File(<span class="hljs-string">"myDir"</span>));
+Map env = pb.environment();
+env.<span class="hljs-built_in">put</span>(<span class="hljs-string">"VAR1"</span>, <span class="hljs-string">"myValue"</span>);
+env.<span class="hljs-built_in">remove</span>(<span class="hljs-string">"OTHERVAR"</span>);
+env.<span class="hljs-built_in">put</span>(<span class="hljs-string">"VAR2"</span>, env.<span class="hljs-built_in">get</span>(<span class="hljs-string">"VAR1"</span>) + <span class="hljs-string">"suffix"</span>);
+pb.directory(<span class="hljs-keyword">new</span> <span class="hljs-built_in">File</span>(<span class="hljs-string">"myDir"</span>));
 
 <span class="hljs-comment">// Récupération du processus</span>
-Process p = pb.start();</code></pre><h2 id="liens-utiles"><a class="header-link" href="#liens-utiles"></a>Liens utiles</h2>
+<span class="hljs-built_in">Process</span> p = pb.start();</code></pre><h2 id="liens-utiles"><a class="header-link" href="#liens-utiles"></a>Liens utiles</h2>
 <ul class="list">
 <li><p><a href="https://kodelog.wordpress.com/tag/telescopic-constructor-pattern/">Discussion sur l&#39;intérêt des beans couplés au design pattern Builder</a></p>
 </li>

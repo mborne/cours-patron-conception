@@ -10,7 +10,7 @@
   </head>
   <body>
     <article class="markdown-body"><h1 id="factory"><a class="header-link" href="#factory"></a>Factory</h1>
-<h2 id="probl-me"><a class="header-link" href="#probl-me"></a>Problème</h2>
+<h2 id="problème"><a class="header-link" href="#problème"></a>Problème</h2>
 <p>La fabrique s&#39;adresse à la problématique de la création d&#39;instances dérivées d&#39;une classe.</p>
 <p>On dispose par exemple de la hiérarchie suivante :</p>
 <ul class="list">
@@ -19,15 +19,15 @@
 <li>Chien hérite de Animal</li>
 </ul>
 <p>Supposons que l&#39;on charge un fichier contenant des animaux et que l&#39;on fasse appel à &quot;new&quot; en fonction du type de l&#39;animal, on aura le morceau de code suivant :</p>
-<pre class="hljs"><code>Animal animal = <span class="hljs-built_in">null</span> ;
-<span class="hljs-keyword">if</span> ( typeAnimal<span class="hljs-built_in">.</span><span class="hljs-keyword">equals</span>(<span class="hljs-string">"chat"</span>) ){
-    animal = <span class="hljs-literal">new</span> Chat() ;
-}<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (typeAnimal<span class="hljs-built_in">.</span><span class="hljs-keyword">equals</span>(<span class="hljs-string">"chien"</span>)){
-    animal = <span class="hljs-literal">new</span> Chien() ;
+<pre class="hljs"><code>Animal animal = <span class="hljs-literal">null</span> ;
+<span class="hljs-keyword">if</span> ( typeAnimal.equals(<span class="hljs-string">"chat"</span>) ){
+    animal = <span class="hljs-keyword">new</span> <span class="hljs-type">Chat</span>() ;
+}<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (typeAnimal.equals(<span class="hljs-string">"chien"</span>)){
+    animal = <span class="hljs-keyword">new</span> <span class="hljs-type">Chien</span>() ;
 }<span class="hljs-keyword">else</span>{
-    throw <span class="hljs-literal">new</span> AnimalTypeNotFound(typeAnimal);
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-type">AnimalTypeNotFound</span>(typeAnimal);
 }
-animal<span class="hljs-built_in">.</span>setNom(nomAnimal);</code></pre><p>En cas d&#39;ajout d&#39;un type d&#39;animal, on doit modifier tous les codes créant des animaux.</p>
+animal.setNom(nomAnimal);</code></pre><p>En cas d&#39;ajout d&#39;un type d&#39;animal, on doit modifier tous les codes créant des animaux.</p>
 <h2 id="solution"><a class="header-link" href="#solution"></a>Solution</h2>
 <div style="text-align: center">
 <img src="uml/UML_DP_Fabrique.png" alt="UML Prototype">
@@ -35,11 +35,11 @@ animal<span class="hljs-built_in">.</span>setNom(nomAnimal);</code></pre><p>En c
 
 <p>Appliqué à notre exemple, une AnimalFactory devient l&#39;entité responsable de
 la création d&#39;un animal en fonction de son type.</p>
-<pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AnimalFactory</span> </span>{
-    <span class="hljs-function"><span class="hljs-keyword">public</span> Animal <span class="hljs-title">createAnimal</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> AnimalTypeNotFound </span>{
-        <span class="hljs-keyword">if</span> ( typeAnimal.equals(<span class="hljs-string">"chat"</span>) ){
+<pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title">AnimalFactory</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Animal <span class="hljs-title">createAnimal</span>(<span class="hljs-params"></span>) throws AnimalTypeNotFound </span>{
+        <span class="hljs-keyword">if</span> ( typeAnimal.<span class="hljs-keyword">equals</span>(<span class="hljs-string">"chat"</span>) ){
             <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Chat() ;
-        }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (typeAnimal.equals(<span class="hljs-string">"chien"</span>)){
+        }<span class="hljs-function"><span class="hljs-keyword">else</span> <span class="hljs-title">if</span> (<span class="hljs-params">typeAnimal.<span class="hljs-keyword">equals</span>(<span class="hljs-string">"chien"</span></span>))</span>{
             <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Chien() ;
         }<span class="hljs-keyword">else</span>{
             <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> AnimalTypeNotFound(typeAnimal);
@@ -69,7 +69,7 @@ la création d&#39;un animal en fonction de son type.</p>
 <li><a href="https://docs.oracle.com/javase/7/docs/api/java/sql/DriverManager.html">java.sql.DriverManager</a></li>
 </ul>
 <p>C&#39;est une variante sous forme d&#39;une fabrique statique</p>
-<pre class="hljs"><code>Connection connection = DriverManager.<span class="hljs-function"><span class="hljs-title">getConnection</span><span class="hljs-params">(<span class="hljs-string">"jdbc:postgresql:mabase"</span>)</span></span></code></pre><h2 id="lien-s-utile-s-"><a class="header-link" href="#lien-s-utile-s-"></a>Lien(s) utile(s)</h2>
+<pre class="hljs"><code><span class="hljs-attribute">Connection connection</span> = DriverManager.getConnection(<span class="hljs-string">"jdbc:postgresql:mabase"</span>)</code></pre><h2 id="lien(s)-utile(s)"><a class="header-link" href="#lien(s)-utile(s)"></a>Lien(s) utile(s)</h2>
 <p><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique">https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique</a></p>
     </article>
   </body>
