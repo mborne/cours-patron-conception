@@ -10,12 +10,12 @@
   </head>
   <body>
     <article class="markdown-body"><h1 id="null-object"><a class="header-link" href="#null-object"></a>Null Object</h1>
-<h2 id="probl-me-nullpointerexception"><a class="header-link" href="#probl-me-nullpointerexception"></a>Problème : NullPointerException</h2>
+<h2 id="problème-:-nullpointerexception"><a class="header-link" href="#problème-:-nullpointerexception"></a>Problème : NullPointerException</h2>
 <p>Pour simplifier et sécuriser les codes, on souhaite simplifier la gestion
 des références nulles.</p>
-<h2 id="probl-me"><a class="header-link" href="#probl-me"></a>Problème</h2>
+<h2 id="problème"><a class="header-link" href="#problème"></a>Problème</h2>
 <p>On s&#39;appuie sur une interface pour l&#39;envoi de mail :</p>
-<pre class="hljs"><code><span class="hljs-interface"><span class="hljs-keyword">interface</span> MailerInterface </span>{
+<pre class="hljs"><code><span class="hljs-keyword">interface</span> MailerInterface {
 
     <span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> sendMail(
         <span class="hljs-built_in">String</span> to,
@@ -30,7 +30,7 @@ mail en fin de traitement à un administrateur :</p>
     <span class="hljs-keyword">private</span> MailerInterface mailer ;
 
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Client</span>(<span class="hljs-params"></span>)</span>{
-        <span class="hljs-keyword">this</span>.mailer = <span class="hljs-keyword">null</span> ;
+        <span class="hljs-keyword">this</span>.mailer = <span class="hljs-literal">null</span> ;
     }
 
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setMailer</span>(<span class="hljs-params">MailerInterface mailer</span>)</span>{
@@ -40,7 +40,7 @@ mail en fin de traitement à un administrateur :</p>
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doSomething</span>(<span class="hljs-params"></span>)</span>{
         <span class="hljs-comment">//... traitement ...</span>
 
-        <span class="hljs-keyword">if</span> ( <span class="hljs-keyword">null</span> != <span class="hljs-keyword">this</span>.mailer ){
+        <span class="hljs-keyword">if</span> ( <span class="hljs-literal">null</span> != <span class="hljs-keyword">this</span>.mailer ){
             <span class="hljs-keyword">this</span>.mailer.sendMail(
                 <span class="hljs-string">"admin@acme.org"</span>,
                 <span class="hljs-string">"Traitement des donnnées"</span>,

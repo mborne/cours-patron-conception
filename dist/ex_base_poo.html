@@ -9,7 +9,7 @@
     <link type="text/css" rel="stylesheet" href="assets/css/hljs-github.min.css"/>
   </head>
   <body>
-    <article class="markdown-body"><h1 id="m-ditation"><a class="header-link" href="#m-ditation"></a>Méditation</h1>
+    <article class="markdown-body"><h1 id="méditation"><a class="header-link" href="#méditation"></a>Méditation</h1>
 <p>Quelques exemples de codes à méditer pour bien comprendre l&#39;intérêt
 des différents concepts de la P.O.O. : </p>
 <ul class="list">
@@ -22,32 +22,32 @@ des différents concepts de la P.O.O. : </p>
 <li><a href="#couplage-interface-et-abstract">Couplage interface et abstract</a></li>
 </ul>
 <hr>
-<h2 id="int-r-t-des-aggr-gats-de-variables"><a class="header-link" href="#int-r-t-des-aggr-gats-de-variables"></a>Intérêt des aggrégats de variables</h2>
+<h2 id="intérêt-des-aggrégats-de-variables"><a class="header-link" href="#intérêt-des-aggrégats-de-variables"></a>Intérêt des aggrégats de variables</h2>
 <p>Sans :</p>
-<pre class="hljs"><code>function <span class="hljs-function">centroid</span>( <span class="hljs-value">double</span><span class="hljs-attr_selector">[]</span> tabX, <span class="hljs-value">double</span><span class="hljs-attr_selector">[]</span> tabY ){
+<pre class="hljs"><code>function centroid( double<span class="hljs-selector-attr">[]</span> tabX, double<span class="hljs-selector-attr">[]</span> tabY ){
     <span class="hljs-comment">//...</span>
 }</code></pre><p>Avec :</p>
 <pre class="hljs"><code>
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Coordinate</span> </span>{
+struct <span class="hljs-title">Coordinate</span> {
     <span class="hljs-built_in">double</span> x ;
     <span class="hljs-built_in">double</span> y ;
 }
 
-function centroid( Coordinate[] coordinate ){
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">centroid</span>(<span class="hljs-params"> Coordinate[] coordinate </span>)</span>{
     <span class="hljs-comment">//...</span>
 }</code></pre><p>=&gt; Que se passe-t&#39;il si on ajoute une dimension &quot;z&quot;?</p>
 <hr>
-<h2 id="int-r-t-des-constructeurs"><a class="header-link" href="#int-r-t-des-constructeurs"></a>Intérêt des constructeurs</h2>
+<h2 id="intérêt-des-constructeurs"><a class="header-link" href="#intérêt-des-constructeurs"></a>Intérêt des constructeurs</h2>
 <p>Avant :</p>
-<pre class="hljs"><code>Coordinate c <span class="hljs-comment">;</span>
-c.x = 3.0<span class="hljs-comment">;</span>
-c.y = 3.0<span class="hljs-comment">;</span></code></pre><p>Après :</p>
-<pre class="hljs"><code>Coordinate c = <span class="hljs-keyword">new</span> Coordinate(<span class="hljs-number">3.0</span>,<span class="hljs-number">4.0</span>) ;</code></pre><p>=&gt; Quels sont les différences ? (protection contre erreur de codage? valeur par défaut?)</p>
+<pre class="hljs"><code>Coordinate <span class="hljs-keyword">c</span> <span class="hljs-comment">;
+</span><span class="hljs-keyword">c</span>.<span class="hljs-keyword">x</span> = <span class="hljs-number">3.0</span><span class="hljs-comment">;
+</span><span class="hljs-keyword">c</span>.y = <span class="hljs-number">3.0</span><span class="hljs-comment">;</span></code></pre><p>Après :</p>
+<pre class="hljs"><code><span class="hljs-attribute">Coordinate c</span> = new Coordinate(3.0,4.0) ;</code></pre><p>=&gt; Quels sont les différences ? (protection contre erreur de codage? valeur par défaut?)</p>
 <hr>
-<h2 id="int-r-t-de-l-encapsultation"><a class="header-link" href="#int-r-t-de-l-encapsultation"></a>Intérêt de l&#39;encapsultation</h2>
+<h2 id="intérêt-de-l'encapsultation"><a class="header-link" href="#intérêt-de-l'encapsultation"></a>Intérêt de l&#39;encapsultation</h2>
 <p>Est-il utile de mettre les attributs private?</p>
-<pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>{
-    <span class="hljs-keyword">public</span> String username ;
+<pre class="hljs"><code><span class="hljs-keyword">class</span> User {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">String</span> username ;
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> age ;
 }</code></pre><p>Stocker dans un fichier et revenir dans un an! On aura alors envie
 de remplacer &quot;age&quot; par &quot;birthDate&quot; (un invariant temporel).</p>
@@ -61,7 +61,7 @@ sans </p>
         <span class="hljs-comment">// calcul à partir de birthDate</span>
     }
 
-    <span class="hljs-annotation">@deprecated</span>
+    <span class="hljs-meta">@deprecated</span>
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setAge</span><span class="hljs-params">(<span class="hljs-keyword">int</span> age)</span></span>{
         <span class="hljs-comment">// calcul de birthDate à partir de l'age</span>
     }
@@ -71,7 +71,7 @@ sans </p>
 <li>Certains accesseurs exposent trop d&#39;information sur la structure interne (des collections par exemple)</li>
 </ul>
 <hr>
-<h2 id="int-r-t-du-polymorphisme"><a class="header-link" href="#int-r-t-du-polymorphisme"></a>Intérêt du polymorphisme</h2>
+<h2 id="intérêt-du-polymorphisme"><a class="header-link" href="#intérêt-du-polymorphisme"></a>Intérêt du polymorphisme</h2>
 <p>Comparer l&#39;approche suivante à un &quot;switch&quot; pour effectuer le rendu d&#39;un 
 composant d&#39;interface graphique :</p>
 <ul class="list">
@@ -88,7 +88,7 @@ composant d&#39;interface graphique :</p>
 }</code></pre><ul class="list">
 <li>Un élément graphique spécial : Button</li>
 </ul>
-<pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Button</span> <span class="hljs-keyword"><span class="hljs-keyword">extends</span></span> <span class="hljs-title">Widget</span> {</span>
+<pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Button</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Widget</span> </span>{
 
     <span class="hljs-keyword">private</span> <span class="hljs-type">String</span> text ;
 
@@ -101,7 +101,7 @@ composant d&#39;interface graphique :</p>
         <span class="hljs-type">System</span>.out.println(<span class="hljs-string">"Rendu du texte : "</span>+text);
     }
 }</code></pre><hr>
-<h2 id="int-r-t-de-abstract"><a class="header-link" href="#int-r-t-de-abstract"></a>Intérêt de abstract</h2>
+<h2 id="intérêt-de-abstract"><a class="header-link" href="#intérêt-de-abstract"></a>Intérêt de abstract</h2>
 <p>Les classes dérivées ont une partie du fonctionnement en commun.</p>
 <h3 id="exemple-avec-des-fonctions-utilitaires"><a class="header-link" href="#exemple-avec-des-fonctions-utilitaires"></a>Exemple avec des fonctions utilitaires</h3>
 <pre class="hljs"><code>class AbstractLogger {
@@ -142,7 +142,7 @@ composant d&#39;interface graphique :</p>
     }
 
 }</code></pre><hr>
-<h2 id="int-r-t-des-interfaces"><a class="header-link" href="#int-r-t-des-interfaces"></a>Intérêt des interfaces</h2>
+<h2 id="intérêt-des-interfaces"><a class="header-link" href="#intérêt-des-interfaces"></a>Intérêt des interfaces</h2>
 <p>Les interfaces fournissent la seule définition du contrat qui sera respecté par
 les classes dérivées : La liste des méthodes supportées.</p>
 <pre class="hljs"><code><span class="hljs-keyword">interface</span> <span class="hljs-title">LocationProvider</span> {
@@ -195,11 +195,11 @@ classes concrètes (exemple : Accès par clée sur un tableau, accès ligne par 
 }</code></pre><ul class="list">
 <li>Des classes concrètes</li>
 </ul>
-<pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConsoleLogger</span> <span class="hljs-keyword"><span class="hljs-keyword">extends</span></span> <span class="hljs-title">AbstractLogger</span> {</span>
+<pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConsoleLogger</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractLogger</span> </span>{
     public void log(<span class="hljs-type">LogLevel</span> level, <span class="hljs-type">String</span> message ) {
         <span class="hljs-comment">// écriture du message dans la console</span>
     }
-}</code></pre><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseLogger</span> <span class="hljs-keyword"><span class="hljs-keyword">extends</span></span> <span class="hljs-title">AbstractLogger</span> {</span>
+}</code></pre><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseLogger</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractLogger</span> </span>{
     public void log(<span class="hljs-type">LogLevel</span> level, <span class="hljs-type">String</span> message ) {
         <span class="hljs-comment">// écriture du message dans une table</span>
     }

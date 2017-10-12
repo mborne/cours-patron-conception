@@ -10,7 +10,7 @@
   </head>
   <body>
     <article class="markdown-body"><h1 id="composite"><a class="header-link" href="#composite"></a>Composite</h1>
-<h2 id="probl-me"><a class="header-link" href="#probl-me"></a>Problème</h2>
+<h2 id="problème"><a class="header-link" href="#problème"></a>Problème</h2>
 <p>On manipule un arbre. On souhaite appeler une opération sans faire
 la distinction entre les noeuds porteurs d&#39;enfants et les feuilles.</p>
 <h2 id="solution"><a class="header-link" href="#solution"></a>Solution</h2>
@@ -30,20 +30,20 @@ des groupes de formes (CompositeShape).</p>
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">render</span><span class="hljs-params">()</span></span>{
         System.out.println(<span class="hljs-string">"Rendu du cercle"</span>);
     }
-}</code></pre><pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CompositeShape</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Shape</span> </span>{
+}</code></pre><pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title">CompositeShape</span> <span class="hljs-title">implements</span> <span class="hljs-title">Shape</span> {
 
     <span class="hljs-keyword">protected</span> List&lt;Shape&gt; children = <span class="hljs-keyword">new</span> ArrayList&lt;Shape&gt;();
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(Shape child)</span></span>{
-        <span class="hljs-keyword">this</span>.children.add(child);
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span>(<span class="hljs-params">Shape child</span>)</span>{
+        <span class="hljs-keyword">this</span>.children.<span class="hljs-keyword">add</span>(child);
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(Shape child)</span></span>{
-        <span class="hljs-keyword">this</span>.children.remove(child);
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">remove</span>(<span class="hljs-params">Shape child</span>)</span>{
+        <span class="hljs-keyword">this</span>.children.<span class="hljs-keyword">remove</span>(child);
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">render</span><span class="hljs-params">()</span></span>{
-        System.out.println(<span class="hljs-string">"Rendu du groupe de forme"</span>);
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span>{
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Rendu du groupe de forme"</span>);
         <span class="hljs-keyword">for</span> ( Shape child : children ){
             child.render();
         }

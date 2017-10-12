@@ -10,7 +10,7 @@
   </head>
   <body>
     <article class="markdown-body"><h1 id="decorator"><a class="header-link" href="#decorator"></a>Decorator</h1>
-<h2 id="probl-me"><a class="header-link" href="#probl-me"></a>Problème</h2>
+<h2 id="problème"><a class="header-link" href="#problème"></a>Problème</h2>
 <p>On souhaite pouvoir ajouter dynamiquement de nouvelles responsabilités à une classe existante.</p>
 <h2 id="solution"><a class="header-link" href="#solution"></a>Solution</h2>
 <p>On hérite de la classe existante et on compose.</p>
@@ -52,10 +52,10 @@ qui est utilisé par le moteur physique.</p>
         <span class="hljs-keyword">return</span> original.getWeight() + <span class="hljs-number">2.0</span> ;
     }
 }</code></pre><p>A l&#39;usage :</p>
-<pre class="hljs"><code>Personnage personnage = <span class="hljs-keyword">new</span> Humain();
-personnage = <span class="hljs-keyword">new</span> PersonnageAvecHache(personnage);
-personnage = <span class="hljs-keyword">new</span> PersonnageAvecChapeau(personnage);
-System.<span class="hljs-keyword">out</span>.println(personnage.getWeight()); <span class="hljs-comment">// 80 + 15 + 2</span></code></pre><h2 id="autres-exemples-en-java"><a class="header-link" href="#autres-exemples-en-java"></a>Autres exemples en Java</h2>
+<pre class="hljs"><code>Personnage personnage = <span class="hljs-keyword">new</span> <span class="hljs-type">Humain</span>();
+personnage = <span class="hljs-keyword">new</span> <span class="hljs-type">PersonnageAvecHache</span>(personnage);
+personnage = <span class="hljs-keyword">new</span> <span class="hljs-type">PersonnageAvecChapeau</span>(personnage);
+System.out.println(personnage.getWeight()); <span class="hljs-comment">// 80 + 15 + 2</span></code></pre><h2 id="autres-exemples-en-java"><a class="header-link" href="#autres-exemples-en-java"></a>Autres exemples en Java</h2>
 <ul class="list">
 <li><a href="https://docs.oracle.com/javase/7/docs/api/java/io/BufferedReader.html">BufferedReader/Reader</a></li>
 <li><a href="https://docs.oracle.com/javase/7/docs/api/java/io/LineNumberReader.html">LineNumberReader/BufferedReader</a></li>

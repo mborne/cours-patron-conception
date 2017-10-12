@@ -10,7 +10,7 @@
   </head>
   <body>
     <article class="markdown-body"><h1 id="visitor"><a class="header-link" href="#visitor"></a>Visitor</h1>
-<h2 id="probl-me"><a class="header-link" href="#probl-me"></a>Problème</h2>
+<h2 id="problème"><a class="header-link" href="#problème"></a>Problème</h2>
 <p>On dispose d&#39;une hiérarchie et on souhaite pouvoir profiter
 du polymorphisme en dehors de la hiérarchie.</p>
 <h2 id="solution"><a class="header-link" href="#solution"></a>Solution</h2>
@@ -50,12 +50,12 @@ perdre l&#39;intérêt du polymorphisme :</p>
         System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Can't render!"</span>);
     }
 
-}</code></pre><h2 id="comment-a-marche-"><a class="header-link" href="#comment-a-marche-"></a>Comment ça marche?</h2>
+}</code></pre><h2 id="comment-ça-marche?"><a class="header-link" href="#comment-ça-marche?"></a>Comment ça marche?</h2>
 <p>La méthode accept convertit un polymorphisme par héritage en polymorphisme
 paramétrique. Pour bien comprendre ce mécanisme, il faut bien comprendre
 les mécanismes de résolution des liens dans le cadre du polymorphisme paramétrique.</p>
 <h2 id="mise-en-garde"><a class="header-link" href="#mise-en-garde"></a>Mise en garde</h2>
-<h3 id="extension-des-hi-rarchies"><a class="header-link" href="#extension-des-hi-rarchies"></a>Extension des hiérarchies</h3>
+<h3 id="extension-des-hiérarchies"><a class="header-link" href="#extension-des-hiérarchies"></a>Extension des hiérarchies</h3>
 <p>Quand la hiérarchie est étendue par un tiers, ce tiers ne pourra pas facilement
 étendre l&#39;interface du visitor original.</p>
 <p>Par conséquent, les visiteurs existants seront généralement incapables de gérer 
@@ -64,7 +64,7 @@ le type ajouté.</p>
 <p>La bibliothèque géométrique utilise un GeometryRendererVisitor. Un
 client implémente l&#39;interface Geometry pour ajoute le concept de courbe 
 de bézier. GeometryRendererVisitor ne saura pas effectuer le rendu.</p>
-<h3 id="capacit-des-langages"><a class="header-link" href="#capacit-des-langages"></a>Capacité des langages</h3>
+<h3 id="capacité-des-langages"><a class="header-link" href="#capacité-des-langages"></a>Capacité des langages</h3>
 <p>On doit s&#39;adapter en fonction des capacités des différents langages en
 matière de polymorphisme paramétrique.</p>
 <h2 id="variante"><a class="header-link" href="#variante"></a>Variante</h2>

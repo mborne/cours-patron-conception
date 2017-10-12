@@ -1,0 +1,27 @@
+{
+  "name": "cours-patron-conception",
+  "version": "1.0.0",
+  "description": "[ENSG](http://www.ensg.eu/) janvier 2016",
+  "main": "index.js",
+  "scripts": {
+      "clean": "rm -rf dist",
+      "generate-index": "node_modules/markdown-to-slides/index.js PATRON_CONCEPTION.md --style layout/slides/style.css --script layout/slides/script.js --template layout/slides/template.html -o dist/index.html",
+      "generate-refactoring": "node_modules/markdown-to-slides/index.js REFACTORING.md --style layout/slides/style.css --script layout/slides/script.js --template layout/slides/template.html -o dist/refactoring.html",
+      "generate-design-pattern": "node_modules/markdown-styles/bin/generate-md --input ./design_pattern --output ./dist",
+      "generate": "npm run clean && npm run generate-design-pattern && npm run generate-index && cp -r lib/* dist/."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mborne/cours-patron-conception.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mborne/cours-patron-conception/issues"
+  },
+  "homepage": "https://github.com/mborne/cours-patron-conception#readme",
+  "dependencies": {
+    "markdown-styles": "^3.1.10",
+    "markdown-to-slides": "^1.0.5"
+  }
+}

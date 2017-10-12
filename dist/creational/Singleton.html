@@ -10,7 +10,7 @@
   </head>
   <body>
     <article class="markdown-body"><h1 id="singleton"><a class="header-link" href="#singleton"></a>Singleton</h1>
-<h2 id="probl-me"><a class="header-link" href="#probl-me"></a>Problème</h2>
+<h2 id="problème"><a class="header-link" href="#problème"></a>Problème</h2>
 <ul class="list">
 <li>La classe ne doit être instanciée qu&#39;une seule fois</li>
 <li>L&#39;instance doit être accessible statiquement</li>
@@ -23,20 +23,20 @@
 <p>Exemple d&#39;implémentation</p>
 <pre class="hljs"><code>class Singleton {
 
-   <span class="hljs-keyword"> private</span><span class="hljs-keyword"> static</span> Singleton<span class="hljs-instruction"> instance </span>;
+   <span class="hljs-keyword"> private</span><span class="hljs-keyword"> static</span> Singleton<span class="hljs-built_in"> instance </span>;
 
-   <span class="hljs-keyword"> private</span><span class="hljs-function"> Singleton(</span><span class="hljs-function">)</span>{
+   <span class="hljs-keyword"> private</span> Singleton(){
 
     }
 
-   <span class="hljs-keyword"> public</span><span class="hljs-keyword"> static</span> Singleton<span class="hljs-function"> getInstance(</span><span class="hljs-function">)</span>{
-       <span class="hljs-instruction"> if </span>( null ==<span class="hljs-instruction"> instance </span><span class="hljs-function">)</span>{
-           <span class="hljs-instruction"> instance </span>=<span class="hljs-instruction"> new </span>Singleton(<span class="hljs-function">)</span>;
+   <span class="hljs-keyword"> public</span><span class="hljs-keyword"> static</span> Singleton getInstance(){
+       <span class="hljs-built_in"> if </span>( null ==<span class="hljs-built_in"> instance </span>){
+           <span class="hljs-built_in"> instance </span>=<span class="hljs-built_in"> new </span>Singleton();
         }
-       <span class="hljs-instruction"> return </span>instance ;
+       <span class="hljs-built_in"> return </span>instance ;
     }
 
-}</code></pre><h2 id="exemple-dans-l-api-java"><a class="header-link" href="#exemple-dans-l-api-java"></a>Exemple dans l&#39;API JAVA</h2>
+}</code></pre><h2 id="exemple-dans-l'api-java"><a class="header-link" href="#exemple-dans-l'api-java"></a>Exemple dans l&#39;API JAVA</h2>
 <ul class="list">
 <li>Runtime accessible via System.getRuntime()</li>
 </ul>
@@ -46,7 +46,7 @@
 <li>Les implémentations thread safe sont fonction du langage</li>
 <li>La singletonite est un anti-pattern</li>
 </ul>
-<h2 id="lien-s-utile-s-"><a class="header-link" href="#lien-s-utile-s-"></a>Lien(s) utile(s)</h2>
+<h2 id="lien(s)-utile(s)"><a class="header-link" href="#lien(s)-utile(s)"></a>Lien(s) utile(s)</h2>
 <p><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Singleton">https://fr.wikibooks.org/wiki/Patrons_de_conception/Singleton</a></p>
     </article>
   </body>
