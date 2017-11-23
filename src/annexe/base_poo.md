@@ -3,12 +3,13 @@
 Quelques exemples de codes à méditer pour bien comprendre l'intérêt
 des différents concepts de la P.O.O. : 
 
-* [Intérêt des aggrégats de variables](#int-r-t-des-aggr-gats-de-variables)
-* [Intérêt des constructeurs](#int-r-t-des-constructeurs)
-* [Intérêt de l'encapsultation](#int-r-t-de-l-encapsultation)
-* [Intérêt du polymorphisme](#int-r-t-du-polymorphisme)
-* [Intérêt de abstract](#int-r-t-de-abstract)
-* [Intérêt des interfaces](#int-r-t-des-interfaces)
+* [Intérêt des aggrégats de variables](#intérêt-des-aggrégats-de-variables)
+* [Intérêt des constructeurs](#intérêt-des-constructeurs)
+* [Intérêt de l'encapsulation](#intérêt-de-l'encapsulation)
+* [Intérêt du polymorphisme](#intérêt-du-polymorphisme)
+* [Intérêt de abstract](#intérêt-de-abstract)
+* [Intérêt des interfaces](#intérêt-des-interfaces)
+* [Mise en garde sur les interfaces](#mise-en-garde-sur-les-interface)
 * [Couplage interface et abstract](#couplage-interface-et-abstract)
 
 ---
@@ -61,7 +62,7 @@ Coordinate c = new Coordinate(3.0,4.0) ;
 
 ---
 
-## Intérêt de l'encapsultation
+## Intérêt de l'encapsulation
 
 Est-il utile de mettre les attributs private?
 
@@ -228,7 +229,7 @@ classes concrètes (exemple : Accès par clée sur un tableau, accès ligne par 
 
 # Couplage interface et abstract
 
-Il est parfois intéresssant de procéder sur trois niveaux
+Il est souvent intéresssant de procéder sur trois niveaux d'héritage en présence d'interface
 
 * Une interface
 

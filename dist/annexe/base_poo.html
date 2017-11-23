@@ -13,12 +13,13 @@
 <p>Quelques exemples de codes à méditer pour bien comprendre l&#39;intérêt
 des différents concepts de la P.O.O. : </p>
 <ul class="list">
-<li><a href="#int-r-t-des-aggr-gats-de-variables">Intérêt des aggrégats de variables</a></li>
-<li><a href="#int-r-t-des-constructeurs">Intérêt des constructeurs</a></li>
-<li><a href="#int-r-t-de-l-encapsultation">Intérêt de l&#39;encapsultation</a></li>
-<li><a href="#int-r-t-du-polymorphisme">Intérêt du polymorphisme</a></li>
-<li><a href="#int-r-t-de-abstract">Intérêt de abstract</a></li>
-<li><a href="#int-r-t-des-interfaces">Intérêt des interfaces</a></li>
+<li><a href="#intérêt-des-aggrégats-de-variables">Intérêt des aggrégats de variables</a></li>
+<li><a href="#intérêt-des-constructeurs">Intérêt des constructeurs</a></li>
+<li><a href="#intérêt-de-l&#39;encapsulation">Intérêt de l&#39;encapsulation</a></li>
+<li><a href="#intérêt-du-polymorphisme">Intérêt du polymorphisme</a></li>
+<li><a href="#intérêt-de-abstract">Intérêt de abstract</a></li>
+<li><a href="#intérêt-des-interfaces">Intérêt des interfaces</a></li>
+<li><a href="#mise-en-garde-sur-les-interface">Mise en garde sur les interfaces</a></li>
 <li><a href="#couplage-interface-et-abstract">Couplage interface et abstract</a></li>
 </ul>
 <hr>
@@ -44,7 +45,7 @@ struct <span class="hljs-title">Coordinate</span> {
 </span><span class="hljs-keyword">c</span>.y = <span class="hljs-number">3.0</span><span class="hljs-comment">;</span></code></pre><p>Après :</p>
 <pre class="hljs"><code><span class="hljs-attribute">Coordinate c</span> = new Coordinate(3.0,4.0) ;</code></pre><p>=&gt; Quels sont les différences ? (protection contre erreur de codage? valeur par défaut?)</p>
 <hr>
-<h2 id="intérêt-de-l'encapsultation"><a class="header-link" href="#intérêt-de-l'encapsultation"></a>Intérêt de l&#39;encapsultation</h2>
+<h2 id="intérêt-de-l'encapsulation"><a class="header-link" href="#intérêt-de-l'encapsulation"></a>Intérêt de l&#39;encapsulation</h2>
 <p>Est-il utile de mettre les attributs private?</p>
 <pre class="hljs"><code><span class="hljs-keyword">class</span> User {
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">String</span> username ;
@@ -161,7 +162,7 @@ classes concrètes (exemple : Accès par clée sur un tableau, accès ligne par 
 </ul>
 <p>=&gt; Il faut bien réflechir aux implications des choix effectués dans la conception de l&#39;interface.</p>
 <h1 id="couplage-interface-et-abstract"><a class="header-link" href="#couplage-interface-et-abstract"></a>Couplage interface et abstract</h1>
-<p>Il est parfois intéresssant de procéder sur trois niveaux</p>
+<p>Il est souvent intéresssant de procéder sur trois niveaux d&#39;héritage en présence d&#39;interface</p>
 <ul class="list">
 <li>Une interface</li>
 </ul>

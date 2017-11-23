@@ -4,11 +4,12 @@
   "description": "ENSG - cours patron conception",
   "main": "index.js",
   "scripts": {
-      "clean": "rm -rf dist",
-      "generate-index": "node_modules/markdown-to-slides/index.js PATRON_CONCEPTION.md --style layout/slides/style.css --script layout/slides/script.js --template layout/slides/template.html -o dist/index.html",
-      "generate-refactoring": "node_modules/markdown-to-slides/index.js REFACTORING.md --style layout/slides/style.css --script layout/slides/script.js --template layout/slides/template.html -o dist/refactoring.html",
-      "generate-design-pattern": "node_modules/markdown-styles/bin/generate-md --input ./design_pattern --output ./dist",
-      "generate": "npm run clean && npm run generate-design-pattern && npm run generate-index && cp -r lib/* dist/."
+    "clean": "rm -rf dist",
+    "build-index": "node_modules/markdown-to-slides/index.js src/index.md --style layout/slides/style.css --script layout/slides/script.js --template layout/slides/template.html -o dist/index.html",
+    "build-refactoring": "node_modules/markdown-to-slides/index.js src/refactoring.md --style layout/slides/style.css --script layout/slides/script.js --template layout/slides/template.html -o dist/refactoring.html",
+    "build-design-pattern": "node_modules/markdown-styles/bin/generate-md --input ./src/design_pattern --output ./dist/design_pattern",
+    "build-annexe": "node_modules/markdown-styles/bin/generate-md --input ./src/annexe --output ./dist/annexe",
+    "build": "npm run clean && npm run build-design-pattern && npm run build-refactoring && npm run build-index && npm run build-annexe && cp -r lib/* dist/."
   },
   "repository": {
     "type": "git",

@@ -44,8 +44,8 @@ Principe :
 
 Principalement utilisé pour :
 
-* Gérer les dépendances NodeJS (express par exemple)
-* Gérer l'installation des outils côté serveur (less, grunt mais aussi bower)
+* Gérer les dépendances NodeJS (express par exemple) et les dépendances du front (jquery, bootstrap, openlayers, etc.)
+* Gérer l'installation des outils côté serveur (less, grunt, etc.)
 * Gérer l'exécution de tâche (```npm start``` pour démarrer un serveur)
 * Descripteur du projet : package.json
 * Dépôt central : [npmjs.com](https://www.npmjs.com/)
@@ -55,15 +55,7 @@ Remarque :
 
 * Noter la notion d'installation globale (```npm install -g less```)
 * Noter aussi l'existence de [Grunt](http://gruntjs.com/getting-started) et Gulp pour l'automatiser certaines
-tâches (validation du code JavaScript : lint, minification de code : uglify, )
-
-## JavaScript (front-end) - Bower 
-
-Principalement utilisé pour gérer les bibliothèques tierces utilisées pour la réalisation du front (AngularJS, jQuery, Leaflet et ses plugins, etc.)
-
-* Descripteur du projet : bower.json
-* Dépôt central : [bower.io](http://bower.io/search/)
-* Démarrage rapide : [bower.io/#getting-started](http://bower.io/#getting-started)
+tâches (validation du code JavaScript : lint, minification de code : uglify, etc.)
 
 ## CMake - C++
 

@@ -47,7 +47,7 @@ On vise (et on priorise !) plusieurs critères :
 
 C'est ce que nous allons voir!
 
-Nous allons ballayer un ensemble de prérequis pour bien les comprendre :
+Nous allons balayer un ensemble de prérequis pour bien les comprendre :
 
 * Rappel sur les bases de la P.O.O.
 * Rappel sur les principes de conception
@@ -116,7 +116,7 @@ Nous verrons ici comment on peut les exploiter efficacement pour faire varier le
 * Il ne suffit pas de connaître vaguement ces concepts pour bien programmer en P.O.O.
 * Les patrons de conception font appel à des utilisations avancées de ces concepts.
 
-=> [Méditons quelques exemples](ex_base_poo.html)
+=> [Méditons quelques exemples](annexe/base_poo.html)
 
 ---
 
@@ -224,13 +224,13 @@ class MaClasse {
 * On n'hérite pas d'une classe dans le but de réutiliser ses méthodes !
 * On préfère les états aux classes dérivées (rôle d'utilisateur)
 
-(Nous verrons en détail pourquoi quand nous aborderons le patron [Strategy](behavior/Strategy.html))
+(Nous verrons en détail pourquoi quand nous aborderons le patron [Strategy](design_pattern/behavior/Strategy.html))
 
 ---
 
 # Les anti-patterns
 
-Avant de mettre un nom sur des modèles de conception, on va mettre un nom sur des erreurs de conception courrantes : Les anti-pattern !
+Avant de mettre un nom sur des modèles de conception, on va mettre un nom sur des erreurs de conception courantes : Les anti-pattern !
 
 ---
 
@@ -279,14 +279,14 @@ Avec un bon marteau, tous les problèmes sont des clous!
     <a href="http://www.engravingawardsgifts.com/sledgehammers.html">engravingawardsgifts.com</a>)
 </div>
 
-Un outil est placé comme solution à tous les problèmes. Il peut être question
+Un outil est placé comme solution à tous les problèmes. Il peut s'agir
 d'une bibliothèque, d'une base de données, d'une suite de logiciel, etc.
 
 ---
 
 ## Coulée de lave
 
-Un code non finalisé est mis en production. Il n'est plus possible de le refactorer.
+Un code non finalisé est mis en production. Il n'est plus possible de le réfactorer.
 
 Ce problème peut concerner aussi bien des bibliothèques que des API.
 
@@ -300,7 +300,7 @@ Ce problème peut concerner aussi bien des bibliothèques que des API.
 * Complexité rendant impossible les optimisations globales.
 * Complexité mettant en péril la qualité du logiciel (stabilité, maintenabilité, portabilité, etc.)
 
-Exemple : 
+Exemples :
 
 * Optimiser le parcours séquentiel d'un tableau au point qu'il devient impossible d'exploiter un indexe.
 * "Je n'ai pas besoin des arcs entrants pour cet algorithme, je fais un graphe dédié qui consommera moins de mémoire!" : Qu'importe si le programme réel passe son temps à faire des copies...
@@ -393,21 +393,21 @@ Aussi, vous pourrez rechercher des solutions aux problèmes classiques que vous 
 
 # Les patrons de création
 
-* [Singleton](creational/Singleton.html)
-* [Prototype](creational/Prototype.html)
-* [Factory (Fabrique)](creational/Factory.html)
-* [FactoryMethod](creational/FactoryMethod.html)
-* [Builder (Monteur)](creational/Builder.html)
-* [AbstractFactory (Fabrique abstraite)](creational/AbstractFactory.html)
+* [Singleton](design_pattern/creational/Singleton.html)
+* [Prototype](design_pattern/creational/Prototype.html)
+* [Factory (Fabrique)](design_pattern/creational/Factory.html)
+* [FactoryMethod](design_pattern/creational/FactoryMethod.html)
+* [Builder (Monteur)](design_pattern/creational/Builder.html)
+* [AbstractFactory (Fabrique abstraite)](design_pattern/creational/AbstractFactory.html)
 
 ---
 
 # Les patrons de structure
 
-* [Facade (Façade)](structural/Facade.html)
-* [Decorator (Décorateur)](structural/Decorator.html)
-* [Composite (Objet composite)](structural/Composite.html)
-* [Adapter (Adaptateur)](structural/Adapter.html)
+* [Facade (Façade)](design_pattern/structural/Facade.html)
+* [Decorator (Décorateur)](design_pattern/structural/Decorator.html)
+* [Composite (Objet composite)](design_pattern/structural/Composite.html)
+* [Adapter (Adaptateur)](design_pattern/structural/Adapter.html)
 * Bridge (Pont)
 * Proxy
 * Flyweigth (Poids-mouche)
@@ -416,19 +416,19 @@ Aussi, vous pourrez rechercher des solutions aux problèmes classiques que vous 
 
 # Les patrons de comportement
 
-* [Iterator (Itérateur)](behavior/Iterator.html)
-* [Strategy (Stratégie)](behavior/Strategy.html)
-* [Visitor (Visiteur)](behavior/Visitor.html)
+* [Iterator (Itérateur)](design_pattern/behavior/Iterator.html)
+* [Strategy (Stratégie)](design_pattern/behavior/Strategy.html)
+* [Visitor (Visiteur)](design_pattern/behavior/Visitor.html)
 * Chain of responsability (Chaîne de responsabilité)
 * Command (Commande)
 * Interpreter (Interpréteur)
 * Mediator (Médiateur)
 * Memento (Mémento)
-* [Observer (Observateur)](behavior/Observer.html)
+* [Observer (Observateur)](design_pattern/behavior/Observer.html)
 * State (État)
 * Template Method (Patron de méthode)
 
-* [Null Object (objet null)](behavior/NullObject.html)
+* [Null Object (objet null)](design_pattern/behavior/NullObject.html)
 
 ---
 
@@ -440,8 +440,8 @@ Aussi, vous pourrez rechercher des solutions aux problèmes classiques que vous 
 
 * Architecture en couche
 * Architecture micro-service
-* [MapReduce](architectural/MapReduce.html)
-* [Model-View-Controller (MVC)](architectural/MVC.html)
+* [MapReduce](design_pattern/architectural/MapReduce.html)
+* [Model-View-Controller (MVC)](design_pattern/architectural/MVC.html)
 * [Inversion de contrôle (IoC)](https://github.com/mborne/spring-ioc-principe)
 * Event-Driven architecture/Message Oriented Middleware (MOM)
 
@@ -493,7 +493,7 @@ Stockage des sessions, des caches, etc.
 
 * [TP - Mise en oeuvre des patterns sur des Geometry](https://github.com/mborne/tp-pattern-geometry)
 * [Les grands principes du refactoring de code](refactoring.html)
-* [Outils pour la gestion des dépendances (Java, PHP, NodeJS, JavaScript, C++)](dependances.html)
+* [Outils pour la gestion des dépendances (Java, PHP, NodeJS, JavaScript, C++)](annexe/dependances.html)
 
 ---
 
@@ -532,6 +532,3 @@ Catalogue des principaux anti-pattern.
 * [Design Patterns du Gang of Four appliqués à Java, Régis POUILLER, developpez.com](http://rpouiller.developpez.com/tutoriel/java/design-patterns-gang-of-four/)
 
 Explication de l'intérêt des patterns du GoF et implémentation en Java.
-
-
-
