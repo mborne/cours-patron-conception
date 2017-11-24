@@ -40,7 +40,7 @@ la création d'un animal en fonction de son type.
 
 ```
 class AnimalFactory {
-    public Animal createAnimal() throws AnimalTypeNotFound {
+    public Animal createAnimal(String typeAnimal) throws AnimalTypeNotFound {
         if ( typeAnimal.equals("chat") ){
             return new Chat() ;
         }else if (typeAnimal.equals("chien")){
@@ -65,9 +65,26 @@ On trouvera de nombreuses variantes du concept de fabrique :
 
 * La fabrique statique
 
+```
 Animal.createByType("chien")
+```
 
-* Les fabriques basées sur des prototypes
+* Les fabriques basées sur des prototypes (composition de pattern)
+
+```
+class AnimalFactory throws AnimalTypeNotFound {
+    private Map<String, Animal> prototypes = new HashMap<>();
+    
+    public Animal createAnimal(String typeAnimal){
+        Animal prototype = prototypes.get(typeName);
+        if ( prototype == null ){
+            throw new AnimalTypeNotFound(typeAnimal);
+        }
+        return prototype.clone();
+    }
+}
+```
+
 
 * Les fabriques utilitaires qui ne créent pas des instances de types différents, mais avec des états initiaux différents
 
