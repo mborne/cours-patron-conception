@@ -35,14 +35,14 @@ animal.setNom(nomAnimal);</code></pre><p>En cas d&#39;ajout d&#39;un type d&#39;
 
 <p>Appliqué à notre exemple, une AnimalFactory devient l&#39;entité responsable de
 la création d&#39;un animal en fonction de son type.</p>
-<pre class="hljs"><code><span class="hljs-keyword">class</span> <span class="hljs-title">AnimalFactory</span> {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> Animal <span class="hljs-title">createAnimal</span>(<span class="hljs-params"></span>) throws AnimalTypeNotFound </span>{
-        <span class="hljs-keyword">if</span> ( typeAnimal.<span class="hljs-keyword">equals</span>(<span class="hljs-string">"chat"</span>) ){
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Chat() ;
-        }<span class="hljs-function"><span class="hljs-keyword">else</span> <span class="hljs-title">if</span> (<span class="hljs-params">typeAnimal.<span class="hljs-keyword">equals</span>(<span class="hljs-string">"chien"</span></span>))</span>{
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Chien() ;
+<pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AnimalFactory</span> </span>{
+    <span class="hljs-keyword">public</span> Animal createAnimal(<span class="hljs-keyword">String</span> typeAnimal) throws AnimalTypeNotFound {
+        <span class="hljs-keyword">if</span> ( typeAnimal.equals(<span class="hljs-string">"chat"</span>) ){
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-type">Chat</span>() ;
+        }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (typeAnimal.equals(<span class="hljs-string">"chien"</span>)){
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-type">Chien</span>() ;
         }<span class="hljs-keyword">else</span>{
-            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> AnimalTypeNotFound(typeAnimal);
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-type">AnimalTypeNotFound</span>(typeAnimal);
         }
     }
 }</code></pre><p>Les autres codes sont insensibles à l&#39;ajout d&#39;un nouveau type.</p>
@@ -52,12 +52,21 @@ la création d&#39;un animal en fonction de son type.</p>
 <ul class="list">
 <li>La fabrique statique</li>
 </ul>
-<p>Animal.createByType(&quot;chien&quot;)</p>
-<ul class="list">
-<li><p>Les fabriques basées sur des prototypes</p>
-</li>
-<li><p>Les fabriques utilitaires qui ne créent pas des instances de types différents, mais avec des états initiaux différents</p>
-</li>
+<pre class="hljs"><code><span class="hljs-selector-tag">Animal</span><span class="hljs-selector-class">.createByType</span>(<span class="hljs-string">"chien"</span>)</code></pre><ul class="list">
+<li>Les fabriques basées sur des prototypes (composition de pattern)</li>
+</ul>
+<pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AnimalFactory</span> <span class="hljs-title">throws</span> <span class="hljs-title">AnimalTypeNotFound</span> </span>{
+    <span class="hljs-keyword">private</span> Map&lt;<span class="hljs-keyword">String</span>, Animal&gt; prototypes = <span class="hljs-keyword">new</span> <span class="hljs-type">HashMap</span>&lt;&gt;();
+
+    <span class="hljs-keyword">public</span> Animal createAnimal(<span class="hljs-keyword">String</span> typeAnimal){
+        Animal prototype = prototypes.<span class="hljs-keyword">get</span>(typeName);
+        <span class="hljs-keyword">if</span> ( prototype == <span class="hljs-literal">null</span> ){
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-type">AnimalTypeNotFound</span>(typeAnimal);
+        }
+        <span class="hljs-keyword">return</span> prototype.clone();
+    }
+}</code></pre><ul class="list">
+<li>Les fabriques utilitaires qui ne créent pas des instances de types différents, mais avec des états initiaux différents</li>
 </ul>
 <h2 id="exemple-en-java"><a class="header-link" href="#exemple-en-java"></a>Exemple en Java</h2>
 <p>Les fabriques sont nombreuses dans l&#39;API java et dans les bibliothèques.</p>
