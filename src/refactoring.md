@@ -15,6 +15,7 @@ complète d'applications ou de systèmes.
 * Notion de changements de comportement
 * Importance des tests
 * Numérotation des versions
+* Accompagnement du changement
 * Gestion de l'historique
 * Code public et privé (notion d'API)
 * Importance des tests
@@ -71,8 +72,14 @@ La convension généralement utilisée est ```<major>.<minor>.<patch>``` (exempl
 
 Les clients peuvent ainsi maîtriser les montées en version tout en récupérant automatiquement les correctifs.
 
-Remarque : 
-* Les bibliothèques fournissent des CHANGELOG pour accompagner le changement.
+---
+
+# Accompagnement du changement
+
+* Les fichiers CHANGELOG décrivent les changements et adaptation à réaliser.
+* Les fonctionnalitées qui vont être supprimées peuvent être marquées comme dépréciées dans des versions intermédiaires.
+* Des versions dédiées aux migrations peuvent être mise en oeuvre
+    * Ex : Symfony 2.8 apporte les nouveautés de la version 3.0 en marquant comme dépréciées les fonctionnalités supprimées dans la version 3.0
 
 ---
 
@@ -93,9 +100,9 @@ Voir :
 
 # Code public et privé (notion d'API)
 
-Au sein d'une même bibliothèque, on trouvera parfois la notion de code privé et de code public (Impl, namespace detail, etc.)
+Au sein d'une même bibliothèque, on trouvera parfois la notion de code privé et de code public (Impl, namespace detail, package internal, etc.)
 
-Il ne faut jamais dépendre d'un tel code dans une bibliothèque tierces où on peut s'y autoriser des changements cassants non documenté.
+Il faut éviter de dépendre d'un tel code dans une bibliothèque tierces. On peut s'y autoriser des changements cassants non documenté.
 
 ---
 
