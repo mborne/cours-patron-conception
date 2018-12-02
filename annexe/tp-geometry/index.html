@@ -1,0 +1,246 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <title>tp-geometry/index.md</title>
+  <link type="text/css" rel="stylesheet" href="../assets/css/github-markdown.css">
+  <link type="text/css" rel="stylesheet" href="../assets/css/pilcrow.css">
+  <link type="text/css" rel="stylesheet" href="../assets/css/hljs-github.min.css" />
+
+  <link rel="stylesheet" href="../assets/highlight/styles/github.css">
+  <style>
+    html, body {
+      width: 90%;
+      margin: auto;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <article class="markdown-body">
+    <h1 id="tp-mise-en-oeuvre-des-patterns-sur-des-geometry"><a href="#tp-mise-en-oeuvre-des-patterns-sur-des-geometry" class="anchor"></a>TP - Mise en oeuvre des patterns sur des Geometry</h1><h2 id="introduction"><a href="#introduction" class="anchor"></a>Introduction</h2><p>L&#39;objectif de ce TP est de s&#39;exercer à mettre oeuvre des patrons de conception via la création d&#39;une petite bibliothèque de manipulation des géométries OGC :</p>
+<p><img src="schema/geometries-light.png" alt="Géométrie OGC"></p>
+<p><strong>ATTENTION</strong> : Dans la vraie vie, vous utiliserez plutôt des bibliothèques du type <a href="https://locationtech.github.io/jts/javadoc/index.html" target="_blank">JTS</a></p>
+<h2 id="0-1-code-coordinate-code-2d-"><a href="#0-1-code-coordinate-code-2d-" class="anchor"></a>0.1 - <code>Coordinate</code> (2D)</h2><blockquote>
+<p>Objectif : Préparation du TP, principe de base, encapsulation</p>
+</blockquote>
+<p>Création d&#39;une classe Coordinate permettant de représenter une position en 2D à l&#39;aide d&#39;un couple x,y.</p>
+<p><img src="schema/mcd-01.png" alt="Schéma UML"></p>
+<p>Remarques :</p>
+<ul>
+<li>On initialisera dans un premier temps les coordonnées à <code>(0.0, 0.0)</code> dans le constructeur par défaut</li>
+<li>On soulignera le caractère immuable de cette classe (une fois construite, une coordonnées ne peut être modifiée)</li>
+</ul>
+<h2 id="0-2-code-geometry-code-code-point-code-et-code-linestring-code-"><a href="#0-2-code-geometry-code-code-point-code-et-code-linestring-code-" class="anchor"></a>0.2 - <code>Geometry</code>, <code>Point</code> et <code>LineString</code></h2><blockquote>
+<p>Objectif : Préparation du TP, utilisation d&#39;interface, encapsulation</p>
+</blockquote>
+<p>Implémenter les trois classes suivantes illustrées sur le schémas ci-après :</p>
+<p><img src="schema/mcd-02.png" alt="Schéma UML"></p>
+<h2 id="0-3-ajout-de-code-geometry-isempty-code-"><a href="#0-3-ajout-de-code-geometry-isempty-code-" class="anchor"></a>0.3 - Ajout de <code>geometry.isEmpty()</code></h2><blockquote>
+<p>Objectif : Bonne pratique <em>NonNullObject</em></p>
+</blockquote>
+<p>Dans la question précédente, nous remarquons que nous avons des choix à faire dans les constructeurs par défaut de <code>Point</code> et <code>LineString</code>.</p>
+<p>Afin d&#39;éviter d&#39;avoir à tester des <code>coordinate</code> ou <code>points</code> null, nous allons ajouter le concept de géométrie vide et de coordonnées vide à l&#39;aide de <code>NaN</code>.</p>
+<ul>
+<li>Modifier le comportement du constructeur par défaut de Coordinate pour initialiser <code>x</code> et <code>y</code> à <code>Double.NaN</code></li>
+<li>Ajouter une méthode <code>Coordinate.isEmpty</code> (voir <code>Double.isNaN(x)</code>)</li>
+<li>S&#39;assurer que la variable membre coordinate de Point est jamais nulle.</li>
+<li>S&#39;assurer que la variable membre coordinate de LineString est jamais nulle (liste vide).</li>
+<li>Ajouter <code>Geometry.isEmpty</code></li>
+</ul>
+<p><img src="schema/mcd-03.png" alt="Schéma UML"></p>
+<h2 id="0-4-ajout-de-code-geometry-translate-dx-dy-code-"><a href="#0-4-ajout-de-code-geometry-translate-dx-dy-code-" class="anchor"></a>0.4 - Ajout de <code>geometry.translate(dx,dy)</code></h2><blockquote>
+<p>Objectif : Exploiter une interface pour réaliser un traitement spécifique</p>
+</blockquote>
+<p>Ajouter une méthode de permettant de translater une géométrie.</p>
+<p><img src="schema/mcd-04.png" alt="Schéma UML"></p>
+<h2 id="0-5-code-geometry-clone-code-"><a href="#0-5-code-geometry-clone-code-" class="anchor"></a>0.5 - <code>Geometry.clone()</code></h2><blockquote>
+<p>Objectif : Patron de conception <em>Prototype</em></p>
+</blockquote>
+<p>En introduisant la fonction précédente, nous avons renoncer à l&#39;idée d&#39;avoir des géométries non modifiable après construction. Nous allons donc ajouter d&#39;une méthode permettant de récupérer une copie d&#39;une géométrie.</p>
+<p>Ceci permettra par exemple à un utilisateur de copier la géométrie avant de la modifier</p>
+<pre><code class="language-java">/*
+ * copie sans connaissance du type réel
+ * (sans cela, on devrait faire un traitement particulier pour Point,
+ *  LineString, etc.)
+ */
+Geometry copy = g.clone();
+copy.translate(10.0,10.0);
+//... &quot;g&quot; n&#39;est pas modifiée</code></pre>
+<p><img src="schema/mcd-05.png" alt="Schéma UML"></p>
+<h2 id="0-6-code-envelope-code-et-code-envelopebuilder-code-"><a href="#0-6-code-envelope-code-et-code-envelopebuilder-code-" class="anchor"></a>0.6 - <code>Envelope</code> et <code>EnvelopeBuilder</code></h2><blockquote>
+<p>Objectif : Patron de conception Builder</p>
+</blockquote>
+<p>Nous souhaitons calculer l&#39;emprise d&#39;une géométrie (la bbox). La logique de calcul de min/max en oeuvre étant assez complexe, nous ne souhaitons pas l&#39;implémenter dans les classes <code>Point</code> et <code>LineString</code>.</p>
+<p>Nous allons donc procéder comme suit :</p>
+<ul>
+<li>Ajouter une classe <code>Envelope</code> représentant une emprise rectangulaire de la géométrie</li>
+<li>Ajouter une classe utilitaire <code>EnvelopeBuilder</code> qui aura pour rôle de construire cette emprise</li>
+</ul>
+<p><img src="schema/mcd-06.png" alt="Schéma UML"></p>
+<p>Exemple d&#39;utilisation :</p>
+<pre><code class="language-java">EnvelopeBuilder builder = new EnvelopeBuilder();
+builder.insert(new Coordinate(0.0,1.0));
+builder.insert(new Coordinate(2.0,0.0));
+builder.insert(new Coordinate(1.0,3.0));
+Envelope result = builder.build();</code></pre>
+<h2 id="0-7-code-geometry-getenvelope-envelope-code-"><a href="#0-7-code-geometry-getenvelope-envelope-code-" class="anchor"></a>0.7 - <code>Geometry.getEnvelope() : Envelope</code></h2><blockquote>
+<p>Objectif : Facade sur EnvelopeBuilder</p>
+</blockquote>
+<p>Ajouter une méthode <code>getEnvelope</code> à la classe <code>Geometry</code>.</p>
+<p><img src="schema/mcd-07.png" alt="Schéma UML"></p>
+<h2 id="0-8-code-wktwriter-code-"><a href="#0-8-code-wktwriter-code-" class="anchor"></a>0.8 - <code>WktWriter</code></h2><blockquote>
+<p>Objectif : Mesurer l&#39;intérêt d&#39;une conception propre et de GeometryVisitor dans les questions suivantes</p>
+</blockquote>
+<p>On souhaite obtenir les géométries au <a href="https://fr.wikipedia.org/wiki/Well-known_text" target="_blank">format WKT</a> qui prendra par exemple les formes suivantes :</p>
+<pre><code>POINT EMPTY
+POINT(3.0 4.0)
+LINESTRING EMPTY
+LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0)</code></pre><p>Ajouter une classe <code>WktWriter</code> avec une méthode permettant de convertir une géométrie en WKT.</p>
+<p><img src="schema/mcd-08.png" alt="Schéma UML"></p>
+<p>Exemple d&#39;utilisation :</p>
+<pre><code class="language-java">Geometry g = new Point(new Coordinate(3.0,4.0));
+WktWriter writer = new WktWriter();
+assertEquals(&quot;POINT(3.0 4.0)&quot;, writer.write(g));</code></pre>
+<p>Remarque :</p>
+<ul>
+<li>On s&#39;interdira de modifier les classes <code>Geometry</code>, <code>Point</code> et <code>LineString</code> pour mettre en oeuvre cette fonctionnalité</li>
+<li>On s&#39;autorisera l&#39;utilisation d&#39;un fragment de code ressemblant à ceci pour traiter les différents types concrets :</li>
+</ul>
+<pre><code class="language-java">if ( geometry instanceof Point ){
+    Point point = (Point)geometry;
+    // traiter le cas Point
+}else if ( geometry instanceof LineString ){
+    LineString lineString = (LineString)geometry;
+    // traiter le cas LineString
+}else{
+    throw new RuntimeException(&quot;geometry type not supported&quot;);
+}</code></pre>
+<h2 id="0-9-code-geometryvisitor-code-"><a href="#0-9-code-geometryvisitor-code-" class="anchor"></a>0.9 - <code>GeometryVisitor</code></h2><blockquote>
+<p>Objectif : Patron de conception Visitor, prise en main</p>
+</blockquote>
+<ul>
+<li>Implémenter <code>GeometryVisitor</code> pour visiter l&#39;arborescence des géométries</li>
+<li>Implémenter un visiteur <code>LogGeometryVisitor</code> qui affiche la géométrie dans la console sous les formes suivantes :<ul>
+<li>Je suis un point avec x=2.0 et y=3.0</li>
+<li>Je suis une polyligne définie par 3 point(s)</li>
+</ul>
+</li>
+</ul>
+<p><img src="schema/mcd-09.png" alt="Schéma UML"></p>
+<p>Exemple d&#39;utilisation :</p>
+<pre><code class="language-java">LogGeometryVisitor visitor = new LogGeometryVisitor();
+Geometry geometry = new Point(new Coordinate(3.0,4.0));
+geometry.accept(visitor);</code></pre>
+<h2 id="0-10-wktvisitor"><a href="#0-10-wktvisitor" class="anchor"></a>0.10 - WktVisitor</h2><blockquote>
+<p>Objectif : Patron de conception Visitor, mise en oeuvre dans un cas concret</p>
+</blockquote>
+<p>Reprendre l&#39;implémentation de WktWriter sous la forme d&#39;un GeometryVisitor en implémentant une classe <code>WktVisitor</code>.</p>
+<p><img src="schema/mcd-10.png" alt="Schéma UML"></p>
+<p>Exemple d&#39;utilisation :</p>
+<pre><code class="language-java">WktVisitor visitor = new WktVisitor();
+Geometry geometry = new Point(new Coordinate(3.0,4.0));
+geometry.accept(visitor);
+assertEquals( &quot;POINT(3.0 4.0)&quot;, visitor.getResult() );</code></pre>
+<h2 id="0-11-geometry-astext-l-39-aide-de-abstractgeometry-et-wktvisitor"><a href="#0-11-geometry-astext-l-39-aide-de-abstractgeometry-et-wktvisitor" class="anchor"></a>0.11 - Geometry.asText à l&#39;aide de AbstractGeometry et WktVisitor</h2><blockquote>
+<p>Objectif : Patron de conception Facade, couplage interface et abstact</p>
+</blockquote>
+<ul>
+<li>Ajouter une méthode <code>Geometry.asText(): String</code> renvoyant la géométrie au format WKT</li>
+<li>Ajouter une classe astraite <code>AbstractGeometry</code> implémentant la méthode <code>asText</code></li>
+</ul>
+<p><img src="schema/mcd-11.png" alt="Schéma UML"></p>
+<h2 id="0-12-code-envelopebuilder-code-en-tant-que-code-geometryvisitor-code-"><a href="#0-12-code-envelopebuilder-code-en-tant-que-code-geometryvisitor-code-" class="anchor"></a>0.12 - <code>EnvelopeBuilder</code> en tant que <code>GeometryVisitor</code></h2><blockquote>
+<p>Objectif : Refactoring, Visitor, extraction de l&#39;implémentation d&#39;une fonctionnalité</p>
+</blockquote>
+<ul>
+<li>Transformer <code>EnvelopeBuilder</code> en <code>GeometryVisitor</code></li>
+<li>Remonter l&#39;implémentation de <code>getEnvelope</code> dans <code>AbstractGeometry</code></li>
+</ul>
+<p><img src="schema/mcd-12.png" alt="Schéma UML"></p>
+<h2 id="0-13-code-geometrywithcachedenvelope-code-"><a href="#0-13-code-geometrywithcachedenvelope-code-" class="anchor"></a>0.13 - <code>GeometryWithCachedEnvelope</code></h2><blockquote>
+<p>Objectif : Patron de conception Decorator</p>
+</blockquote>
+<ul>
+<li>Implémenter une classe <code>GeometryWithCachedEnvelope</code> qui permet de mettre en cache le calcul de l&#39;enveloppe</li>
+</ul>
+<p><img src="schema/mcd-13.png" alt="Schéma UML"></p>
+<p>Exemple d&#39;utilisation :</p>
+<pre><code class="language-java">Geometry g = new Point(new Coordinate(3.0,3.0));
+// décoration
+g = new GeometryWithCachedEnvelope(g);
+Envelope a = g.getEnvelope() ; // calcul et stockage dans cachedEnvelope
+Envelope b = g.getEnvelope() ; // renvoi de cachedEnvelope
+assertSame(a,b);</code></pre>
+<h2 id="0-14-code-geometrylistener-code-"><a href="#0-14-code-geometrylistener-code-" class="anchor"></a>0.14 - <code>GeometryListener</code></h2><blockquote>
+<p>Objectif : Patron de conception Observable</p>
+</blockquote>
+<ul>
+<li>Ajouter une interface <code>GeometryListener</code> qui permettra aux utilisateurs d&#39;être notifié en cas de modification d&#39;une géométrie</li>
+<li>Notifier une modification après appel à translate à l&#39;aide de <code>triggerChange</code></li>
+<li>Exploiter ce mécanisme pour recalculer l&#39;enveloppe en cas de modification dans <code>GeometryWithCachedEnvelope</code></li>
+</ul>
+<p><img src="schema/mcd-14.png" alt="Schéma UML"></p>
+<h2 id="0-15-geometrycollection"><a href="#0-15-geometrycollection" class="anchor"></a>0.15 - GeometryCollection</h2><blockquote>
+<p>Objectif : Patron de conception Composite, Refactoring</p>
+</blockquote>
+<p>Ajouter une classe <code>GeometryCollection</code> représentant une géométrie multiple, adapter les autres fonctionnalitées.</p>
+<p><img src="schema/mcd-15.png" alt="Schéma UML"></p>
+<p>Remarque : Pour WKT, on utilisera le format suivant :</p>
+<pre><code>GEOMETRYCOLLECTION EMPTY
+GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))</code></pre><h2 id="0-16-interface-geometrywriter-classe-wktwriter-et-geojsonwriter"><a href="#0-16-interface-geometrywriter-classe-wktwriter-et-geojsonwriter" class="anchor"></a>0.16 Interface GeometryWriter, classe WktWriter et GeoJSONWriter</h2><blockquote>
+<p>Objectif : Préparation question suivante</p>
+</blockquote>
+<ul>
+<li>Ajouter une classe <code>GeoJSONWriter</code> permettant d&#39;écrire les géométries au format GeoJSON.</li>
+<li>Unifier l&#39;écriture des géométries sous une classe <code>GeometryWriter</code> offrant les méthodes<ul>
+<li><code>getName</code> : renvoyant le nom du format</li>
+<li><code>write</code> : convertissant une géométrie au format texte</li>
+</ul>
+</li>
+</ul>
+<h2 id="0-17-geometrywriterfactory"><a href="#0-17-geometrywriterfactory" class="anchor"></a>0.17 GeometryWriterFactory</h2><blockquote>
+<p>Objectif : Fabrique basée sur des prototypes, supporté un format en paramètre</p>
+</blockquote>
+<ul>
+<li>Ajouter une classe <code>GeometryWriter</code> permettant de construire un format par son nom</li>
+</ul>
+<pre><code class="language-java">Geometry g = new Point(new Coordinate(3.0,4.0));
+GeometryWriterFactory writerFactory = new GeometryWriterFactory();
+GeometryWriter writer = writerFactory.createGeometryWriter(&quot;WKT&quot;);
+assertEqual(&quot;POINT(3.0 4.0)&quot;, writer.write(g));</code></pre>
+<h2 id="0-18-code-geometryvisitor-lt-t-gt-code-"><a href="#0-18-code-geometryvisitor-lt-t-gt-code-" class="anchor"></a>0.18 <code>GeometryVisitor&lt;T&gt;</code></h2><ul>
+<li>Transformer la classe <code>GeometryVisitor</code> en <code>GeometryVisitor&lt;T&gt;</code> pour avoir la capacité de renvoyer un résultat</li>
+<li>Ajouter <code>LengthVisitor&lt;Double&gt;</code> en guise de démonstration</li>
+</ul>
+<p>Remarque : Un visiteur qui ne renvoie pas de résultat implémentera <code>GeometryVisitor&lt;Void&gt;</code></p>
+<h2 id="aller-plus-loin-"><a href="#aller-plus-loin-" class="anchor"></a>Aller plus loin...</h2><p>Idées pour la suite :</p>
+<ul>
+<li>Implémenter une classe <code>WktReader</code></li>
+<li>Ajouter une interface <code>Renderer</code> avec deux implémentations concrète <code>JFrameRenderer</code> et <code>SVGRenderer</code></li>
+<li>Gérer un <code>center</code> et un <code>scale</code> sur <code>Renderer</code></li>
+<li>Viewer avec Renderer définissant une stratégie</li>
+</ul>
+<p>Questions pour approfondir :</p>
+<ul>
+<li>Peut-on permettre l&#39;ajout d&#39;un type de premier niveau tel <code>Circle</code> dans une bibliothèque tierce utilisant celle-ci? Qu&#39;est-ce qui est limitant?</li>
+</ul>
+
+  </article>
+
+  <script src="../assets/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="../assets/mermaid/mermaid.min.js"></script>
+  <script>mermaid.init({
+      startOnLoad: true,
+      flowchart: {
+        useMaxWidth: true
+      }
+    }, ".language-mermaid");</script>
+</body>
+
+</html>
