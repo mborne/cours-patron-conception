@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <title>design_pattern/creational/FactoryMethod.md</title>
+  <link type="text/css" rel="stylesheet" href="../../assets/css/github-markdown.css">
+  <link type="text/css" rel="stylesheet" href="../../assets/css/pilcrow.css">
+  <link type="text/css" rel="stylesheet" href="../../assets/css/hljs-github.min.css" />
+
+  <link rel="stylesheet" href="../../assets/highlight/styles/github.css">
+  <style>
+    html, body {
+      width: 90%;
+      margin: auto;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <article class="markdown-body">
+    <h1 id="factorymethod"><a href="#factorymethod" class="anchor"></a>FactoryMethod</h1><h2 id="probl-me"><a href="#probl-me" class="anchor"></a>Problème</h2><p>On dispose d&#39;une classe abstraite et on souhaite faire abstraction sur la création
+des objets concrets.</p>
+<div style="text-align: center">
+![UML Prototype](uml/UML_DP_FactoryMethod.png)
+</div>
+
+
+<h2 id="exemple"><a href="#exemple" class="anchor"></a>Exemple</h2><ul>
+<li>Connexion à une base de données</li>
+</ul>
+<pre><code>interface Connection {
+
+}</code></pre><pre><code>class PostgregsqlConnection implements Connection {
+
+}</code></pre><ul>
+<li>Fabrique abstraite pour les connexions</li>
+</ul>
+<pre><code>interface ConnectionFactory {
+    public Connection createConnection(String dbname) ;
+}</code></pre><pre><code>class PostgregsqlConnectionFactory implements ConnectionFactory {
+    public Connection createConnection(String dbname) {
+        return new PostgregsqlConnection(dbname);
+    }
+}</code></pre>
+  </article>
+
+  <script src="../../assets/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="../../assets/mermaid/mermaid.min.js"></script>
+  <script>mermaid.init({
+      startOnLoad: true,
+      flowchart: {
+        useMaxWidth: true
+      }
+    }, ".language-mermaid");</script>
+</body>
+
+</html>
