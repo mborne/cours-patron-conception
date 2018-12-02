@@ -15,7 +15,7 @@ Prenons le cas d'une application qui applique les trois étapes suivantes :
 * Passer l'image en niveau de gris
 * Stocker l'image résultante
 
-```
+```java
 class Application {
 
     public void run(File input, File output){
@@ -40,11 +40,11 @@ class Application {
 
 On expose cette classe sous forme d'un exécutable appelé ainsi :
 
-```
+```bash
 traitement-image input.png output.png
 ```
 
-```
+```java
 class ApplicationCLI {
 
     public static void main(String args[]){
@@ -59,14 +59,14 @@ class ApplicationCLI {
 
 On souhaite maintenant permettre le choix sur le traitement appliqué :
 
-```
+```bash
 traitement-image <input> <output> [method]
 method := grayScale|blur
 ```
 
 ### Première tentative sans strategy (switch)
 
-```
+```java
 class Application {
 
     public void run(File input, File output, String method){
@@ -110,7 +110,7 @@ Exploitons donc le polymorphisme!
 
 * Classe abstraite Application
 
-```
+```java
 abstract class Application {
 
     public void run(File input, File output){
@@ -133,7 +133,7 @@ abstract class Application {
 
 * Implémentation GrayScale
 
-```
+```java
 class ApplicationGrayScale extends Application {
 
     private final static String NAME = "grayScale" ;
@@ -146,7 +146,7 @@ class ApplicationGrayScale extends Application {
 
 * Implémentation Blur
 
-```
+```java
 class ApplicationBlur extends Application {
 
     private final static String NAME = "blur" ;
@@ -159,7 +159,7 @@ class ApplicationBlur extends Application {
 
 * ApplicationCLI
 
-```
+```java
 class ApplicationCLI {
 
     public static void main(String args[]){
@@ -196,7 +196,7 @@ Au lieu d'hériter, on va encapsuler un objet dont le seul rôle se limitera à 
 
 * ImageProcessorStrategy : Interface pour la stratégie de traitement
 
-```
+```java
 interface ImageProcessorStrategy {
     public void process(Image image) ;
 }
@@ -204,7 +204,7 @@ interface ImageProcessorStrategy {
 
 * Application encapsulant un traitement
 
-```
+```java
 class Application {
 
     private ImageProcessorStrategy processor ;
@@ -232,7 +232,7 @@ class Application {
 
 * Implémentation de la stratégie GrayScale
 
-```
+```java
 class ImageProcessorGrayScale implements ImageProcessorStrategy {
 
     private final static String NAME = "grayScale" ;
@@ -246,7 +246,7 @@ class ImageProcessorGrayScale implements ImageProcessorStrategy {
 
 * Implémentation Blur
 
-```
+```java
 class ImageProcessorBlur implements ImageProcessorStrategy {
 
     private final static String NAME = "blur" ;
@@ -259,7 +259,7 @@ class ImageProcessorBlur implements ImageProcessorStrategy {
 
 * [Composite](../structural/Composite.html) sur ImageProcessorStrategy
 
-```
+```java
 class ImageProcessorComposite implements ImageProcessorStrategy {
 
     private List<ImageProcessorStrategy> strategies ;
@@ -284,7 +284,7 @@ class ImageProcessorComposite implements ImageProcessorStrategy {
 
 * A l'utilisation
 
-```
+```java
 File input    = new File(args[0]);
 File output   = new File(args[1]);    
 

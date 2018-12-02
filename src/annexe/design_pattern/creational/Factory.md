@@ -30,9 +30,7 @@ En cas d'ajout d'un type d'animal, on doit modifier tous les codes créant des a
 
 ## Solution
 
-<div style="text-align: center">
 ![UML Prototype](uml/UML_DP_Fabrique.png)
-</div>
 
 Appliqué à notre exemple, une AnimalFactory devient l'entité responsable de
 la création d'un animal en fonction de son type.

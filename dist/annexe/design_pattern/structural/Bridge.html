@@ -23,10 +23,21 @@
   <article class="markdown-body">
     <h1 id="bridge"><a href="#bridge" class="anchor"></a>Bridge</h1><h2 id="probl-me"><a href="#probl-me" class="anchor"></a>Problème</h2><p>On souhaite découpler une abstraction de son implémentation afin que les deux puissent
 varier indépendemment l&#39;une de l&#39;autre.</p>
-<p>TODO affiner avec exemple concret.</p>
 <h2 id="solution"><a href="#solution" class="anchor"></a>Solution</h2><p><img src="uml/UML_Bridge.png" alt="UML Bridge"></p>
 <p>Source <a href="https://en.wikipedia.org/wiki/Bridge_pattern" target="_blank"><a href="https://en.wikipedia.org/wiki/Bridge_pattern" target="_blank">https://en.wikipedia.org/wiki/Bridge_pattern</a></a></p>
-<h2 id="exemple"><a href="#exemple" class="anchor"></a>Exemple</h2><p>TODO</p>
+<h2 id="exemple"><a href="#exemple" class="anchor"></a>Exemple</h2><ul>
+<li>On pose un interface pour les transformations de coordonnées géographique</li>
+</ul>
+<pre><code class="language-java">interface ProjectionTransform {
+    public Geometry transform(String sourceCRS, String targetCRS, Geometry g );
+}</code></pre>
+<ul>
+<li>On réalise l&#39;implémentation à l&#39;aide de geotools</li>
+</ul>
+<pre><code class="language-java">interface GeotoolProjectionTransform {
+    public Geometry transform(String sourceCRS, String targetCRS, Geometry g );
+}</code></pre>
+<p>=&gt; On limite la dépendance à geotools dès lors que l&#39;on dépend de <code>ProjectionTransform</code>.</p>
 <h2 id="mise-en-garde"><a href="#mise-en-garde" class="anchor"></a>Mise en garde</h2><p>A ne pas confondre avec &quot;Bridge&quot; et &quot;Adapter&quot;. Les objectifs ne sont
 pas les mêmes.</p>
 <h2 id="liens-utiles"><a href="#liens-utiles" class="anchor"></a>Liens utiles</h2><ul>
@@ -43,7 +54,7 @@ pas les mêmes.</p>
 <ul>
 <li><a href="https://github.com/symfony/symfony/tree/master/src/Symfony/Bridge" target="_blank">Les ponts entre Symfony2 et bibliothèques tierces</a></li>
 </ul>
-<p>Bibliothèque de gestion de log (Monolog), bibliothèque de</p>
+<p>Bibliothèques tierces <code>Monolog</code> pour la gestion des log, <code>Doctrine</code> pour la gestion des données (ORM), etc.</p>
 
   </article>
 

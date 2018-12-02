@@ -7,9 +7,7 @@ d'un ensemble d'objet.
 
 ## Solution
 
-<div style="text-align: center">
 ![UML Prototype](uml/UML_DP_FabriqueAbstraite_me.png)
-</div>
 
 ## Exemple
 

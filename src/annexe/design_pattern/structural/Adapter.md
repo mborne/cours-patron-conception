@@ -11,8 +11,7 @@ sont incompatibles. On va créer un intermédiaire.
 On dispose d'un algorithme qui effectue la concaténation de chaînes de caractères
 avec un séparateur.
 
-```
-
+```java
 class EnumerationUtils {
 
     public static String concat(Enumeration<String> items, String separator){
@@ -20,7 +19,6 @@ class EnumerationUtils {
     }
 
 }
-
 ```
 
 Pas de chance : Nous devons appliquer cet algorithme sur un Iterator<String>.
@@ -33,7 +31,7 @@ similaires :
 
 On va donc pouvoir créer un adaptateur :
 
-```
+```java
 class IteratorToEnumationAdapter implements Enumeration<String> {
 
     private Iterator<String> adaptee ;
@@ -55,8 +53,7 @@ class IteratorToEnumationAdapter implements Enumeration<String> {
 
 Puis, appeler l'algorithme comme suit :
 
-
-```
+```java
 Iterator<String> items ;
 //...
 System.out.println(EnumerationUtils.concat(

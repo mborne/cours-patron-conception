@@ -28,23 +28,23 @@ du protocole HTTP. Généralement, le fonctionnement est le suivant.
 Les controlleurs porteurs d'actions correspondant chacune à 
 une fonctionnalité/page.
 
-Un composant (Router) dirige chaque requête vers une action particulière, 
+Un composant (`Router`) dirige chaque requête vers une action particulière, 
 souvent à l'aide d'expression régulière :
 
-- "/books" : Action afficher la liste des livres (BookController.listAction)
-- "/books/{id}" : Action afficher le livre d'identifiant "id" (BookController.showBook)
+- "/books" : Action afficher la liste des livres (`BookController.listAction`)
+- "/books/{id}" : Action afficher le livre d'identifiant "id" (`BookController.showBook`)
 
-### Action : contrôles des paramètres et récupérations des résultats
+### `Action` : contrôles des paramètres et récupérations des résultats
 
 L'action récupère et contrôle les paramètres de la requête. A l'aide
 des paramètres, elle effectue un traitement et renvoie un résultat.
 
-### Response
+### `Response`
 
 Le résultat d'une action peut être une response directement affichable. Une réponse texte, 
 une réponse XML, etc. Dans ce cas, la réponse est renvoyées directement au client.
 
-### View
+### `View`
 
 Quand la construction de la réponse demande une mise en forme, l'action définit 
 des variables utiles pour le rendu (exemple : une variable "books" 
@@ -58,7 +58,7 @@ d'une liste de livre.
 
 ### Exemple de code
 
-* BookController.php : Exemple de controller
+* `BookController.php` : Exemple de controller
 
 ```php
 class BookController extends Controller {
@@ -93,9 +93,9 @@ class BookController extends Controller {
 }
 ```
 
-* views/Books/list.html.twig : Exemple de vue
+* `views/Books/list.html.twig` : Exemple de vue
 
-```
+```twig
 <ul>
 {% for book in books %}
     <li>    
@@ -114,37 +114,27 @@ Remarque :
 * On soulignera l'utilisation d'un ORM (Doctrine) pour accéder aux données `$this->getRepository("Books")->findAll()`. Ce composant se repose sur le patron DAO qui pose entre autre la notion de Repository pour modéliser les accès aux données.
 
 
-### Exemple de framework
+### Variantes côté serveur
 
-* PHP : [Symfony2](http://symfony.com/doc/current/index.html), [CodeIgniter](https://codeigniter.com/userguide3/tutorial/index.html)
-* Java : Spring
+Il existe de nombreux frameworks implémentant des variantes de ce concept :
+
+* [Symfony (PHP)](http://symfony.com/doc/current/index.html), [CodeIgniter](https://codeigniter.com/userguide3/tutorial/index.html)
+* [Spring (JAVA)](https://spring.io/guides/gs/serving-web-content/#initial)
+* [Express (NodeJS)](http://expressjs.com/en/starter/hello-world.html)
 
 
-### Variantes côté serveur
-
-Il existe une version simplifiée du mode de fonctionnement illustré précédemment.
-
-Au lieu de créer de classes, on définit des fonctions anonymes pour traiter les 
-résultats des requêtes.
-
-Exemple de framework :
-
-* [Express en NodeJS](http://expressjs.com/en/starter/hello-world.html)
-* [Silex en PHP](http://silex.sensiolabs.org/)
-
-Dans une moindre mesure, on se rapproche de cette simplicité dans les micro-framework :
-
-* [SpringBoot en Java](http://projects.spring.io/spring-boot/#quick-start)
-
-### Variante côté navigateur
+### Variantes côté navigateur
 
 Une des tendance actuelle consiste à mettre en place des API REST renvoyant des
 données en JSON. La génération du code HTML est effectuées dans le navigateur
-en JavaScript. On trouvera des MVC côté client tel :
+en JavaScript.
 
-* [AngularJS](https://docs.angularjs.org/tutorial/step_07)
-* [Backbone.js](http://backbonejs.org/#Getting-started)
-* [Ember.js](http://emberjs.com/)
+Côté client, on retrouvera des variantes du concept avec toujours l'idée de séparer le rendu de la manipulation des données :
+
+* [Angular](https://angular.io/tutorial)
+* [Vue.js](https://vuejs.org/v2/guide/#Declarative-Rendering)
+* [React](https://reactjs.org/tutorial/tutorial.html#what-is-react)
+
 
 ### Avantages
 
@@ -154,6 +144,7 @@ correspondant aux pages)
 * Débride la croissance de l'application
 * Facilite le travail en équipe (à chacun son contrôleur)
 * Séparation des rôles : développeurs backend/frontend
+
 
 ## Et pour les applications classiques ou mobile?
 

@@ -29,7 +29,7 @@ d&#39;un traitement.</p>
 <li>Passer l&#39;image en niveau de gris</li>
 <li>Stocker l&#39;image résultante</li>
 </ul>
-<pre><code>class Application {
+<pre><code class="language-java">class Application {
 
     public void run(File input, File output){
         Image image = readImagePNG(input);
@@ -48,8 +48,10 @@ d&#39;un traitement.</p>
     protected Image writeImagePNG(File output, Image image){
         // Sauvegarde de l&#39;image PNG
     }
-}</code></pre><p>On expose cette classe sous forme d&#39;un exécutable appelé ainsi :</p>
-<pre><code>traitement-image input.png output.png</code></pre><pre><code>class ApplicationCLI {
+}</code></pre>
+<p>On expose cette classe sous forme d&#39;un exécutable appelé ainsi :</p>
+<pre><code class="language-bash">traitement-image input.png output.png</code></pre>
+<pre><code class="language-java">class ApplicationCLI {
 
     public static void main(String args[]){
         File input  = new File(args[0]);
@@ -58,9 +60,11 @@ d&#39;un traitement.</p>
         application.run(input,output);
     }
 
-}</code></pre><p>On souhaite maintenant permettre le choix sur le traitement appliqué :</p>
-<pre><code>traitement-image &lt;input&gt; &lt;output&gt; [method]
-method := grayScale|blur</code></pre><h3 id="premi-re-tentative-sans-strategy-switch-"><a href="#premi-re-tentative-sans-strategy-switch-" class="anchor"></a>Première tentative sans strategy (switch)</h3><pre><code>class Application {
+}</code></pre>
+<p>On souhaite maintenant permettre le choix sur le traitement appliqué :</p>
+<pre><code class="language-bash">traitement-image &lt;input&gt; &lt;output&gt; [method]
+method := grayScale|blur</code></pre>
+<h3 id="premi-re-tentative-sans-strategy-switch-"><a href="#premi-re-tentative-sans-strategy-switch-" class="anchor"></a>Première tentative sans strategy (switch)</h3><pre><code class="language-java">class Application {
 
     public void run(File input, File output, String method){
         Image image = readImagePNG(input);
@@ -87,7 +91,8 @@ method := grayScale|blur</code></pre><h3 id="premi-re-tentative-sans-strategy-sw
     protected Image writeImagePNG(File output, Image image){
         // Sauvegarde de l&#39;image PNG
     }
-}</code></pre><p>Problème :</p>
+}</code></pre>
+<p>Problème :</p>
 <ul>
 <li>Ajouter un algorithme implique la mise à jour de run (Violation du principe ouvert/fermé)</li>
 <li>La classe Application aura tendance à devenir un objet divin</li>
@@ -97,7 +102,7 @@ method := grayScale|blur</code></pre><h3 id="premi-re-tentative-sans-strategy-sw
 <ul>
 <li>Classe abstraite Application</li>
 </ul>
-<pre><code>abstract class Application {
+<pre><code class="language-java">abstract class Application {
 
     public void run(File input, File output){
         Image image = readImagePNG(input);
@@ -114,30 +119,33 @@ method := grayScale|blur</code></pre><h3 id="premi-re-tentative-sans-strategy-sw
     public Image writeImagePNG(File output, Image image){
         // Sauvegarde de l&#39;image PNG
     }
-}</code></pre><ul>
+}</code></pre>
+<ul>
 <li>Implémentation GrayScale</li>
 </ul>
-<pre><code>class ApplicationGrayScale extends Application {
+<pre><code class="language-java">class ApplicationGrayScale extends Application {
 
     private final static String NAME = &quot;grayScale&quot; ;
 
     public void process(Image image){
         // applique traitement grayScale...
     }
-}</code></pre><ul>
+}</code></pre>
+<ul>
 <li>Implémentation Blur</li>
 </ul>
-<pre><code>class ApplicationBlur extends Application {
+<pre><code class="language-java">class ApplicationBlur extends Application {
 
     private final static String NAME = &quot;blur&quot; ;
 
     public void process(Image image){
         // applique traitement blur...
     }
-}</code></pre><ul>
+}</code></pre>
+<ul>
 <li>ApplicationCLI</li>
 </ul>
-<pre><code>class ApplicationCLI {
+<pre><code class="language-java">class ApplicationCLI {
 
     public static void main(String args[]){
         File input    = new File(args[0]);
@@ -152,7 +160,8 @@ method := grayScale|blur</code></pre><h3 id="premi-re-tentative-sans-strategy-sw
         application.run(input,output);
     }
 
-}</code></pre><p>A première vue, on pourrait être satisfait d&#39;une telle conception. Dommage :
+}</code></pre>
+<p>A première vue, on pourrait être satisfait d&#39;une telle conception. Dommage :
 On souhaite maintenant pouvoir appliquer deux traitements successifs !</p>
 <p>Avec l&#39;héritage, on obtient soit :</p>
 <ul>
@@ -168,12 +177,13 @@ On souhaite maintenant pouvoir appliquer deux traitements successifs !</p>
 <ul>
 <li>ImageProcessorStrategy : Interface pour la stratégie de traitement</li>
 </ul>
-<pre><code>interface ImageProcessorStrategy {
+<pre><code class="language-java">interface ImageProcessorStrategy {
     public void process(Image image) ;
-}</code></pre><ul>
+}</code></pre>
+<ul>
 <li>Application encapsulant un traitement</li>
 </ul>
-<pre><code>class Application {
+<pre><code class="language-java">class Application {
 
     private ImageProcessorStrategy processor ;
 
@@ -194,10 +204,11 @@ On souhaite maintenant pouvoir appliquer deux traitements successifs !</p>
     public Image writeImagePNG(File output, Image image){
         // Sauvegarde de l&#39;image PNG
     }
-}</code></pre><ul>
+}</code></pre>
+<ul>
 <li>Implémentation de la stratégie GrayScale</li>
 </ul>
-<pre><code>class ImageProcessorGrayScale implements ImageProcessorStrategy {
+<pre><code class="language-java">class ImageProcessorGrayScale implements ImageProcessorStrategy {
 
     private final static String NAME = &quot;grayScale&quot; ;
 
@@ -205,20 +216,22 @@ On souhaite maintenant pouvoir appliquer deux traitements successifs !</p>
         // applique traitement grayScale...
     }
 
-}</code></pre><ul>
+}</code></pre>
+<ul>
 <li>Implémentation Blur</li>
 </ul>
-<pre><code>class ImageProcessorBlur implements ImageProcessorStrategy {
+<pre><code class="language-java">class ImageProcessorBlur implements ImageProcessorStrategy {
 
     private final static String NAME = &quot;blur&quot; ;
 
     public void process(Image image){
         // applique traitement blur...
     }
-}</code></pre><ul>
+}</code></pre>
+<ul>
 <li><a href="../structural/Composite.html">Composite</a> sur ImageProcessorStrategy</li>
 </ul>
-<pre><code>class ImageProcessorComposite implements ImageProcessorStrategy {
+<pre><code class="language-java">class ImageProcessorComposite implements ImageProcessorStrategy {
 
     private List&lt;ImageProcessorStrategy&gt; strategies ;
 
@@ -237,10 +250,11 @@ On souhaite maintenant pouvoir appliquer deux traitements successifs !</p>
         }
     }
 
-}</code></pre><ul>
+}</code></pre>
+<ul>
 <li>A l&#39;utilisation</li>
 </ul>
-<pre><code>File input    = new File(args[0]);
+<pre><code class="language-java">File input    = new File(args[0]);
 File output   = new File(args[1]);    
 
 // On imagera qu&#39;on peut gérer le paramètre méthode sous forme d&#39;une expression.
@@ -249,7 +263,8 @@ compositeStrategy.add(new ApplicationGrayScale());
 compositeStrategy.add(new ApplicationBlur());
 
 Application application = new Application(compositeStrategy);
-application.run(input,output);</code></pre><p>Où est le changement? On peut appliquer le même principe sur la lecture ou l&#39;écriture des fichiers!</p>
+application.run(input,output);</code></pre>
+<p>Où est le changement? On peut appliquer le même principe sur la lecture ou l&#39;écriture des fichiers!</p>
 
   </article>
 

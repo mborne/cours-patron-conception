@@ -32,7 +32,7 @@ Source : [https://fr.wikipedia.org/wiki/Monteur_%28patron_de_conception%29#Java]
 
 ### Un produit Pizza
 
-```
+```java
 /* Produit */
 class Pizza {
     private String pate = "";
@@ -54,7 +54,7 @@ class Pizza {
 
 ### Un monteur abstrait de pizza
 
-```
+```java
 /* Monteur */
 abstract class MonteurPizza {
   protected Pizza pizza;
@@ -72,7 +72,7 @@ abstract class MonteurPizza {
 
 * Monteur pizza hawaii
 
-```
+```java
 class MonteurPizzaHawaii extends MonteurPizza {
   public void monterPate()      { pizza.setPate("croisée"); }
   public void monterSauce()     { pizza.setSauce("douce"); }
@@ -82,7 +82,7 @@ class MonteurPizzaHawaii extends MonteurPizza {
 
 * Monteur pizza piquante
 
-```
+```java
 class MonteurPizzaPiquante extends MonteurPizza {
   public void monterPate()      { pizza.setPate("feuilletée"); }
   public void monterSauce()     { pizza.setSauce("piquante"); }
@@ -92,7 +92,7 @@ class MonteurPizzaPiquante extends MonteurPizza {
 
 ### Un serveur dans le rôle du Directeur
 
-```
+```java
 class Serveur {
     private MonteurPizza monteurPizza;
 
@@ -115,7 +115,7 @@ class Serveur {
 
 ### Exemple d'utilisation
 
-```
+```java
 Serveur serveur = new Serveur();
 MonteurPizza monteurPizzaHawaii  = new MonteurPizzaHawaii();
 MonteurPizza monteurPizzaPiquante = new MonteurPizzaPiquante();
@@ -139,11 +139,11 @@ En outre, la distinction n'est pas toujours faite entre "Director" et "Builder".
 
 ## Exemple en Java
 
-* StringBuilder
+* `StringBuilder`
 
 * [CalendarBuilder](https://docs.oracle.com/javase/8/docs/api/java/util/Calendar.Builder.html)
 
-```
+```java
 Calendar cal = new Calendar.Builder()
     .setCalendarType("iso8601")
     .setWeekDate(2013, 1, MONDAY)
@@ -151,9 +151,9 @@ Calendar cal = new Calendar.Builder()
 ;
 ```
 
-* ProcessBuilder
+* `ProcessBuilder`
 
-```
+```java
 // Création du builder (argument obligatoire du processus)
 ProcessBuilder pb = new ProcessBuilder("myCommand", "myArg1", "myArg2");
 

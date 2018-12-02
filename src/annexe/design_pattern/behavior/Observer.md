@@ -8,7 +8,7 @@ d'état par exemple).
 ## Solution
 
 L'observable porte des observateurs. Il envoie un signal aux observables
-en appelant une méthode "notify".
+en appelant une méthode `notify`.
 
 ![UML Observer](uml/UML_Observer.png)
 
@@ -24,8 +24,7 @@ un autre qui joue un son, etc.
 ## Variante
 
 On retrouve plusieurs variantes dans les systèmes. Il est souvent question 
-d'événements (EventListener, EventSubscriber, EventDispatcher dans Symfony2, trigger/on avec JQuery, 
-signal/slot dans C++/Qt, etc.)
+d'événements (`EventListener`, `EventSubscriber`, `EventDispatcher` dans Symfony2, `trigger/on` avec JQuery, `signal/slot` dans C++/Qt, etc.)
 
 ## Resource 
 

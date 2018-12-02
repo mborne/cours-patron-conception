@@ -5,10 +5,7 @@
 On dispose d'une classe abstraite et on souhaite faire abstraction sur la création
 des objets concrets.
 
-<div style="text-align: center">
 ![UML Prototype](uml/UML_DP_FactoryMethod.png)
-</div>
-
 
 ## Exemple
 

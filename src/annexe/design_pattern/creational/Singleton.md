@@ -7,13 +7,11 @@
 
 ## Solution
 
-<div style="text-align: center">
 ![UML Singleton](uml/UML_DP_Singleton.png)
-</div>
 
 Exemple d'implémentation
 
-```
+```java
 class Singleton {
 
     private static Singleton instance ;
@@ -34,8 +32,7 @@ class Singleton {
 
 ## Exemple dans l'API JAVA
 
-* Runtime accessible via System.getRuntime()
-
+* `Runtime` accessible via `System.getRuntime()`
 
 ## Mise en garde
 

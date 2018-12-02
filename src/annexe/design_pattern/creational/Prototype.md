@@ -13,10 +13,7 @@ Cas de figure :
 
 Toutes les classes dérivées implémentent une méthode "clone" renvoyant une copie conforme.
 
-<div style="text-align: center">
 ![UML Prototype](uml/UML_DP_Prototype.png)
-</div>
-
 
 ## Exemple dans l'API Java
 
