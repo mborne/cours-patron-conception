@@ -34,15 +34,15 @@ Implémenter les trois classes suivantes illustrées sur le schémas ci-après :
 
 > Objectif : Bonne pratique *NonNullObject*
 
-Dans la question précédente, nous remarquons que nous avons des choix à faire dans les constructeurs par défaut de ```Point``` et ```LineString```.
+Dans la question précédente, nous remarquons que nous avons des choix à faire dans les constructeurs par défaut de `Point` et `LineString`.
 
-Afin d'éviter d'avoir à tester des ```coordinate``` ou ```points``` null, nous allons ajouter le concept de géométrie vide et de coordonnées vide à l'aide de ```NaN```.
+Afin d'éviter d'avoir à tester des `coordinate` ou `points` null, nous allons ajouter le concept de géométrie vide et de coordonnées vide à l'aide de `NaN` :
 
-* Modifier le comportement du constructeur par défaut de Coordinate pour initialiser ```x``` et ```y``` à ```Double.NaN```
-* Ajouter une méthode ```Coordinate.isEmpty``` (voir ```Double.isNaN(x)```)
-* S'assurer que la variable membre coordinate de Point est jamais nulle.
-* S'assurer que la variable membre coordinate de LineString est jamais nulle (liste vide).
-* Ajouter ```Geometry.isEmpty```
+* 1) Modifier le comportement du constructeur par défaut de Coordinate pour initialiser `x` et `y` à `Double.NaN`
+* 2) Ajouter une méthode `Coordinate.isEmpty` à l'aide de `Double.isNaN(x)`
+* 3) S'assurer que la variable membre coordinate de `Point` est jamais nulle.
+* 4) S'assurer que la variable membre coordinate de `LineString` est jamais nulle (liste vide).
+* 5) Ajouter `Geometry.isEmpty`
 
 ![Schéma UML](schema/mcd-03.png)
 
@@ -60,7 +60,7 @@ Ajouter une méthode de permettant de translater une géométrie.
 
 > Objectif : Patron de conception *Prototype*
 
-En introduisant la fonction précédente, nous avons renoncer à l'idée d'avoir des géométries non modifiable après construction. Nous allons donc ajouter d'une méthode permettant de récupérer une copie d'une géométrie.
+En introduisant la fonction précédente, nous avons renoncé à l'idée d'avoir des géométries non modifiable après construction (immutable). Nous allons donc ajouter une méthode permettant de récupérer une copie d'une géométrie.
 
 Ceci permettra par exemple à un utilisateur de copier la géométrie avant de la modifier
 
@@ -87,7 +87,7 @@ Nous souhaitons calculer l'emprise d'une géométrie (la bbox). La logique de ca
 Nous allons donc procéder comme suit :
 
 * Ajouter une classe `Envelope` représentant une emprise rectangulaire de la géométrie
-* Ajouter une classe utilitaire ```EnvelopeBuilder``` qui aura pour rôle de construire cette emprise
+* Ajouter une classe utilitaire `EnvelopeBuilder` qui aura pour rôle de construire cette emprise
 
 ![Schéma UML](schema/mcd-06.png)
 
@@ -105,7 +105,7 @@ Envelope result = builder.build();
 
 > Objectif : Facade sur EnvelopeBuilder
 
-Ajouter une méthode ```getEnvelope``` à la classe ```Geometry```.
+Ajouter une méthode `getEnvelope` à la classe `Geometry`.
 
 ![Schéma UML](schema/mcd-07.png)
 
@@ -122,7 +122,7 @@ LINESTRING EMPTY
 LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0)
 ```
 
-Ajouter une classe ```WktWriter``` avec une méthode permettant de convertir une géométrie en WKT.
+Ajouter une classe `WktWriter` avec une méthode permettant de convertir une géométrie en WKT.
 
 ![Schéma UML](schema/mcd-08.png)
 
@@ -202,8 +202,8 @@ assertEquals( "POINT(3.0 4.0)", visitor.getResult() );
 
 > Objectif : Refactoring, Visitor, extraction de l'implémentation d'une fonctionnalité
 
-* Transformer ```EnvelopeBuilder``` en ```GeometryVisitor```
-* Remonter l'implémentation de ```getEnvelope``` dans ```AbstractGeometry```
+* Transformer `EnvelopeBuilder` en `GeometryVisitor`
+* Remonter l'implémentation de `getEnvelope` dans `AbstractGeometry`
 
 ![Schéma UML](schema/mcd-12.png)
 
