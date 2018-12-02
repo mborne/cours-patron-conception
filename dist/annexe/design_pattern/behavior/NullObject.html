@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <title>design_pattern/behavior/NullObject.md</title>
+  <link type="text/css" rel="stylesheet" href="../../assets/css/github-markdown.css">
+  <link type="text/css" rel="stylesheet" href="../../assets/css/pilcrow.css">
+  <link type="text/css" rel="stylesheet" href="../../assets/css/hljs-github.min.css" />
+
+  <link rel="stylesheet" href="../../assets/highlight/styles/github.css">
+  <style>
+    html, body {
+      width: 90%;
+      margin: auto;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <article class="markdown-body">
+    <h1 id="null-object"><a href="#null-object" class="anchor"></a>Null Object</h1><h2 id="probl-me-nullpointerexception"><a href="#probl-me-nullpointerexception" class="anchor"></a>Problème : NullPointerException</h2><p>Pour simplifier et sécuriser les codes, on souhaite simplifier la gestion
+des références nulles.</p>
+<h2 id="probl-me"><a href="#probl-me" class="anchor"></a>Problème</h2><p>On s&#39;appuie sur une interface pour l&#39;envoi de mail :</p>
+<pre><code>interface MailerInterface {
+
+    public void sendMail(
+        String to,
+        String title,
+        String body
+    );
+
+}</code></pre><p>On laisse le choix à l&#39;utilisateur d&#39;une classe &quot;Client&quot; d&#39;envoyer ou non un
+mail en fin de traitement à un administrateur :</p>
+<pre><code>class Client {
+
+    private MailerInterface mailer ;
+
+    public Client(){
+        this.mailer = null ;
+    }
+
+    public void setMailer(MailerInterface mailer){
+        this.mailer = mailer ;
+    }
+
+    public void doSomething(){
+        //... traitement ...
+
+        if ( null != this.mailer ){
+            this.mailer.sendMail(
+                &quot;admin@acme.org&quot;,
+                &quot;Traitement des donnnées&quot;,
+                &quot;Le traitement a été effectué.&quot;
+            );
+        }
+    }
+
+}</code></pre><p>Problème : On multiplie les contrôles <code>null != this.mailer</code></p>
+<h1 id="solution"><a href="#solution" class="anchor"></a>Solution</h1><ul>
+<li>Créer un NullMailer</li>
+</ul>
+<pre><code>class NullMailer implements MailerInterface {
+    public void sendMail(
+        String to,
+        String title,
+        String body
+    ){
+        // ne fait rien
+    }
+}</code></pre><ul>
+<li>Faire à un NullMailer plutôt que &quot;null&quot;</li>
+</ul>
+<pre><code>class Client {
+
+    private MailerInterface mailer ;
+
+    public Client(){
+        this.mailer = new NullMailer() ;
+    }
+
+    public void setMailer(MailerInterface mailer){
+        assert( this.mailer != null );
+        this.mailer = mailer ;
+    }
+
+    public void doSomething(){
+        // traitement...
+
+        // contrôle innutile
+        this.mailer.sendMail(
+            &quot;admin@acme.org&quot;,
+            &quot;Traitement des donnnées&quot;,
+            &quot;Le traitement a été effectué.&quot;
+        );
+    }
+
+}</code></pre><h2 id="remarque"><a href="#remarque" class="anchor"></a>Remarque</h2><p>Penser à composer NullObject et Singleton dans le cas où l&#39;initialisation
+de NullObject est fréquente.</p>
+<h2 id="variante"><a href="#variante" class="anchor"></a>Variante</h2><ul>
+<li><p>Une collection vide peut jouer le même rôle qu&#39;un objet null. Il est d&#39;ailleurs conseillé
+de renvoyer des listes vides plutôt que des listes nulles.</p>
+</li>
+<li><p>Une valeur par défaut est préférable à un traitement spécifique en son absence.</p>
+</li>
+</ul>
+
+  </article>
+
+  <script src="../../assets/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="../../assets/mermaid/mermaid.min.js"></script>
+  <script>mermaid.init({
+      startOnLoad: true,
+      flowchart: {
+        useMaxWidth: true
+      }
+    }, ".language-mermaid");</script>
+</body>
+
+</html>

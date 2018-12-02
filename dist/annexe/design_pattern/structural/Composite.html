@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <title>design_pattern/structural/Composite.md</title>
+  <link type="text/css" rel="stylesheet" href="../../assets/css/github-markdown.css">
+  <link type="text/css" rel="stylesheet" href="../../assets/css/pilcrow.css">
+  <link type="text/css" rel="stylesheet" href="../../assets/css/hljs-github.min.css" />
+
+  <link rel="stylesheet" href="../../assets/highlight/styles/github.css">
+  <style>
+    html, body {
+      width: 90%;
+      margin: auto;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <article class="markdown-body">
+    <h1 id="composite"><a href="#composite" class="anchor"></a>Composite</h1><h2 id="probl-me"><a href="#probl-me" class="anchor"></a>Problème</h2><p>On manipule un arbre. On souhaite appeler une opération sans faire
+la distinction entre les noeuds porteurs d&#39;enfants et les feuilles.</p>
+<h2 id="solution"><a href="#solution" class="anchor"></a>Solution</h2><p><img src="uml/UML_Composite.png" alt="UML Composite">
+Source <a href="https://en.wikipedia.org/wiki/Composite_pattern" target="_blank"><a href="https://en.wikipedia.org/wiki/Composite_pattern" target="_blank">https://en.wikipedia.org/wiki/Composite_pattern</a></a></p>
+<h2 id="exemple"><a href="#exemple" class="anchor"></a>Exemple</h2><p>Dans un éditeur vectoriel, on manipule des formes (Shape) primitives (Circle, Square, etc.) et
+des groupes de formes (CompositeShape).</p>
+<p>On souhaite unifier le rendu.</p>
+<pre><code>interface Shape {
+
+    public void render() ;
+
+}</code></pre><pre><code>class Circle implements Shape {
+    //center, radius    
+
+    public void render(){
+        System.out.println(&quot;Rendu du cercle&quot;);
+    }
+}</code></pre><pre><code>class CompositeShape implements Shape {
+
+    protected List&lt;Shape&gt; children = new ArrayList&lt;Shape&gt;();
+
+    public void add(Shape child){
+        this.children.add(child);
+    }
+
+    public void remove(Shape child){
+        this.children.remove(child);
+    }
+
+    public void render(){
+        System.out.println(&quot;Rendu du groupe de forme&quot;);
+        for ( Shape child : children ){
+            child.render();
+        }
+    }
+}</code></pre>
+  </article>
+
+  <script src="../../assets/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="../../assets/mermaid/mermaid.min.js"></script>
+  <script>mermaid.init({
+      startOnLoad: true,
+      flowchart: {
+        useMaxWidth: true
+      }
+    }, ".language-mermaid");</script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="{{asset 'style.css'}}">
+</head>
+
+<body>
+    <textarea id="source">
+    {{{markdownContent}}}
+    </textarea>
+
+    <script src="{{asset 'remarkjs/remark-latest.min.js'}}"></script>
+    <script src="{{asset 'jquery/jquery-3.3.1.min.js'}}"></script>    
+    <script>
+        var slideshow = remark.create();
+
+        /* footer */
+        $('.remark-slide-content').each(function (index, data) {
+            var footer = '<span class="footer">ENSG - Les patrons de conception, Mickaël BORNE, Décembre 2018</span>';
+            $(data).append(footer);
+        });
+    </script>
+
+</body>
+
+</html>

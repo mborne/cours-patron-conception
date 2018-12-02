@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <title>design_pattern/behavior/Iterator.md</title>
+  <link type="text/css" rel="stylesheet" href="../../assets/css/github-markdown.css">
+  <link type="text/css" rel="stylesheet" href="../../assets/css/pilcrow.css">
+  <link type="text/css" rel="stylesheet" href="../../assets/css/hljs-github.min.css" />
+
+  <link rel="stylesheet" href="../../assets/highlight/styles/github.css">
+  <style>
+    html, body {
+      width: 90%;
+      margin: auto;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <article class="markdown-body">
+    <h1 id="iterator"><a href="#iterator" class="anchor"></a>Iterator</h1><h2 id="probl-me"><a href="#probl-me" class="anchor"></a>Problème</h2><p>On veut des algorithmes capables de fonctionner sur des collections (tableaux, listes, sets, etc.)</p>
+<h2 id="solution"><a href="#solution" class="anchor"></a>Solution</h2><p>On fait abstraction sur le parcours d&#39;une collection :</p>
+<pre><code>interface Iterator {
+    public boolean hasNext() ;
+    public Object next() ;
+}</code></pre><p>En procédant ainsi, on obtient quelques avantages par rapport aux interfaces des collections :</p>
+<ul>
+<li>Moins consommateur de mémoire qu&#39;une approche où on renvoie des collections concrètes</li>
+<li>Plus simple à adapter (au sens du patron de conception adapter) qu&#39;une interface offrant plus riche du type &quot;Array&quot;, &quot;List&quot;.</li>
+</ul>
+<p>De plus, quand les itérateurs font partie intégrante des bibliothèques standards, s&#39;appuyer sur les itérateurs
+permet généralement de supporter la plupart des collections. On évite ainsi d&#39;être amené à faire des copies
+pour exploiter les algorithmes.</p>
+<h2 id="variantes"><a href="#variantes" class="anchor"></a>Variantes</h2><p>Il existe de nombreuses variantes de ce patron de conception :</p>
+<ul>
+<li><p>Iterator.reset : Permet de recommancer la lecture au début</p>
+</li>
+<li><p>ReverseIterator : Permet de représenter un itérateur effectuant un parcours en sens inverse</p>
+</li>
+<li><p>CircularIterator (CGAL) : Itérateur sans début et sans fin revenant en position initiale (parcours des sommets d&#39;un polygone)</p>
+</li>
+</ul>
+<h2 id="resources"><a href="#resources" class="anchor"></a>Resources</h2><ul>
+<li><a href="http://www.cplusplus.com/reference/iterator/" target="_blank">Itérateur de la bibliothèque standard C++ (STL)</a></li>
+</ul>
+<p>On remarquera l&#39;utilisation de l&#39;opérateur &quot;++&quot; et différente catégorie d&#39;itérateur (RandomAccess, Bidirectional, Forward, Input, Output).</p>
+<ul>
+<li><a href="http://php.net/manual/fr/spl.iterators.php" target="_blank">Itérateurs de la bibliothèque standard PHP (SPL)</a></li>
+</ul>
+
+  </article>
+
+  <script src="../../assets/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="../../assets/mermaid/mermaid.min.js"></script>
+  <script>mermaid.init({
+      startOnLoad: true,
+      flowchart: {
+        useMaxWidth: true
+      }
+    }, ".language-mermaid");</script>
+</body>
+
+</html>

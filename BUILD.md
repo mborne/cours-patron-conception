@@ -3,7 +3,7 @@
 ```
 cd cours-patron-conception
 npm install
-npm run generate
+npm run build
 ```
 
 # Déploiement en ligne

@@ -1,6 +1,6 @@
 # Les patrons de conception
 
-[ENSG](http://www.ensg.eu/) novembre 2017
+[ENSG](http://www.ensg.eu/) décembre 2018
 
 * [Version en ligne (mborne.github.io)](http://mborne.github.io/cours-patron-conception/)
 

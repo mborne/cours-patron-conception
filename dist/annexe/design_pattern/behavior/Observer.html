@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <title>design_pattern/behavior/Observer.md</title>
+  <link type="text/css" rel="stylesheet" href="../../assets/css/github-markdown.css">
+  <link type="text/css" rel="stylesheet" href="../../assets/css/pilcrow.css">
+  <link type="text/css" rel="stylesheet" href="../../assets/css/hljs-github.min.css" />
+
+  <link rel="stylesheet" href="../../assets/highlight/styles/github.css">
+  <style>
+    html, body {
+      width: 90%;
+      margin: auto;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <article class="markdown-body">
+    <h1 id="observer"><a href="#observer" class="anchor"></a>Observer</h1><h2 id="probl-me"><a href="#probl-me" class="anchor"></a>Problème</h2><p>On souhaite réagir lorsqu&#39;un objet effectue des opérations (changement 
+d&#39;état par exemple).</p>
+<h2 id="solution"><a href="#solution" class="anchor"></a>Solution</h2><p>L&#39;observable porte des observateurs. Il envoie un signal aux observables
+en appelant une méthode &quot;notify&quot;.</p>
+<p><img src="uml/UML_Observer.png" alt="UML Observer"></p>
+<p>Source <a href="https://fr.wikipedia.org/wiki/Observateur_(patron_de_conception)" target="_blank"><a href="https://fr.wikipedia.org/wiki/Observateur_(patron_de_conception)" target="_blank">https://fr.wikipedia.org/wiki/Observateur_(patron_de_conception)</a></a></p>
+<h2 id="exemple"><a href="#exemple" class="anchor"></a>Exemple</h2><p>On modélise un interrupteur (Switch) qui va signaler ses changements d&#39;état.</p>
+<p>En rendant ce switch Observable, on peut créer un observer qui allume/éteind une lampe,
+un autre qui joue un son, etc.</p>
+<h2 id="variante"><a href="#variante" class="anchor"></a>Variante</h2><p>On retrouve plusieurs variantes dans les systèmes. Il est souvent question 
+d&#39;événements (EventListener, EventSubscriber, EventDispatcher dans Symfony2, trigger/on avec JQuery, 
+signal/slot dans C++/Qt, etc.)</p>
+<h2 id="resource"><a href="#resource" class="anchor"></a>Resource</h2><ul>
+<li><p><a href="https://docs.oracle.com/javase/7/docs/api/java/util/Observer.html" target="_blank">Observer</a> 
+et <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Observable.html" target="_blank">Observable</a> dans l&#39;API Java</p>
+</li>
+<li><p><a href="http://design-patterns.fr/observateur-en-java" target="_blank">Design pattern Observateur en Java : positionnement via un GPS (design-patterns.fr)</a></p>
+</li>
+</ul>
+
+  </article>
+
+  <script src="../../assets/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="../../assets/mermaid/mermaid.min.js"></script>
+  <script>mermaid.init({
+      startOnLoad: true,
+      flowchart: {
+        useMaxWidth: true
+      }
+    }, ".language-mermaid");</script>
+</body>
+
+</html>

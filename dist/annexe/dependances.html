@@ -1,76 +1,96 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
-    <title>Outils de gestion des dépendances</title>
-    <link type="text/css" rel="stylesheet" href="assets/css/github-markdown.css">
-    <link type="text/css" rel="stylesheet" href="assets/css/pilcrow.css">
-    <link type="text/css" rel="stylesheet" href="assets/css/hljs-github.min.css"/>
-  </head>
-  <body>
-    <article class="markdown-body"><h1 id="outils-de-gestion-des-dépendances"><a class="header-link" href="#outils-de-gestion-des-dépendances"></a>Outils de gestion des dépendances</h1>
-<p>La plupart des outils comporte :</p>
-<ul class="list">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <title>dependances.md</title>
+  <link type="text/css" rel="stylesheet" href="assets/css/github-markdown.css">
+  <link type="text/css" rel="stylesheet" href="assets/css/pilcrow.css">
+  <link type="text/css" rel="stylesheet" href="assets/css/hljs-github.min.css" />
+
+  <link rel="stylesheet" href="assets/highlight/styles/github.css">
+  <style>
+    html, body {
+      width: 90%;
+      margin: auto;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <article class="markdown-body">
+    <h1 id="outils-de-gestion-des-d-pendances"><a href="#outils-de-gestion-des-d-pendances" class="anchor"></a>Outils de gestion des dépendances</h1><p>La plupart des outils comporte :</p>
+<ul>
 <li>Un descripteur de projet qui liste les dépendances</li>
 <li>Un utilitaire en ligne de commande</li>
 <li>Un dépôt central à partir duquel on télécharge les packages (tout en ayant la possibilité de monter des dépôts privés)</li>
 </ul>
 <p>L&#39;utilitaire en ligne de commande offre généralement au moins les opérations suivante :</p>
-<ul class="list">
+<ul>
 <li>init : génération d&#39;un descripteur de projet</li>
 <li>install : installer les dépendances</li>
 <li>update : mettre à jour les/des dépendances</li>
 <li>search : rechercher un package</li>
 </ul>
-<h2 id="java---maven/nexus"><a class="header-link" href="#java---maven/nexus"></a>Java - MAVEN/NEXUS</h2>
-<p>MAVEN est courament utilisé pour gérer les dépendances d&#39;un projet JAVA.</p>
-<ul class="list">
+<h2 id="java-maven-nexus"><a href="#java-maven-nexus" class="anchor"></a>Java - MAVEN/NEXUS</h2><p>MAVEN est courament utilisé pour gérer les dépendances d&#39;un projet JAVA.</p>
+<ul>
 <li>Descripteur du projet : Fichier pom.xml</li>
-<li>Dépôt central : <a href="http://mvnrepository.com/">mvnrepository</a></li>
+<li>Dépôt central : <a href="http://mvnrepository.com/" target="_blank">mvnrepository</a></li>
 <li>Dépôt privé : sonatype/Nexus</li>
-<li>Démarrage rapide : <a href="https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html">Maven in five minutes</a></li>
-<li>Voir <a href="http://maven.apache.org/plugins/maven-assembly-plugin/">maven-assembly-plugin</a> pour générer des zip/tar.gz contenant les jar, les .sh/.bat et autres ressources)</li>
+<li>Démarrage rapide : <a href="https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html" target="_blank">Maven in five minutes</a></li>
+<li>Voir <a href="http://maven.apache.org/plugins/maven-assembly-plugin/" target="_blank">maven-assembly-plugin</a> pour générer des zip/tar.gz contenant les jar, les .sh/.bat et autres ressources)</li>
 </ul>
-<h2 id="php---composer/satis"><a class="header-link" href="#php---composer/satis"></a>PHP - COMPOSER/SATIS</h2>
-<p>Composer permet :</p>
-<ul class="list">
+<h2 id="php-composer-satis"><a href="#php-composer-satis" class="anchor"></a>PHP - COMPOSER/SATIS</h2><p>Composer permet :</p>
+<ul>
 <li>La gestion efficace des dépendances d&#39;un projet</li>
 <li>La génération des autoloaders (pour éviter de faire des include/require_once partout dans le code)</li>
 <li>L&#39;exécution de script post install et post update</li>
 </ul>
 <p>Principe :</p>
-<ul class="list">
+<ul>
 <li>composer.json décrit le projet</li>
 <li>L&#39;exécutable composer lit le fichier composer.json et installe les dépendances dans vendor</li>
 <li>L&#39;utlisateur fait un seul include : vendor/autoload.php</li>
-<li>Dépôt central : <a href="https://packagist.org/">Packagist</a></li>
-<li>Dépôt privé : <a href="https://github.com/composer/satis">SATIS</a></li>
-<li>Démarrage rapide : <a href="https://getcomposer.org/doc/00-intro.md">Introduction et Basic usage (getcomposer.org)</a> puis tester <a href="http://silex.sensiolabs.org/">Silex</a></li>
+<li>Dépôt central : <a href="https://packagist.org/" target="_blank">Packagist</a></li>
+<li>Dépôt privé : <a href="https://github.com/composer/satis" target="_blank">SATIS</a></li>
+<li>Démarrage rapide : <a href="https://getcomposer.org/doc/00-intro.md" target="_blank">Introduction et Basic usage (getcomposer.org)</a> puis tester <a href="http://silex.sensiolabs.org/" target="_blank">Silex</a></li>
 </ul>
-<h2 id="nodejs---npm"><a class="header-link" href="#nodejs---npm"></a>NodeJS - NPM</h2>
-<p>Principalement utilisé pour :</p>
-<ul class="list">
+<h2 id="nodejs-npm"><a href="#nodejs-npm" class="anchor"></a>NodeJS - NPM</h2><p>Principalement utilisé pour :</p>
+<ul>
 <li>Gérer les dépendances NodeJS (express par exemple) et les dépendances du front (jquery, bootstrap, openlayers, etc.)</li>
 <li>Gérer l&#39;installation des outils côté serveur (less, grunt, etc.)</li>
 <li>Gérer l&#39;exécution de tâche (<code>npm start</code> pour démarrer un serveur)</li>
 <li>Descripteur du projet : package.json</li>
-<li>Dépôt central : <a href="https://www.npmjs.com/">npmjs.com</a></li>
-<li>Démarrage rapide : <a href="https://www.npmjs.com/package/express">Tester express</a></li>
+<li>Dépôt central : <a href="https://www.npmjs.com/" target="_blank">npmjs.com</a></li>
+<li>Démarrage rapide : <a href="https://www.npmjs.com/package/express" target="_blank">Tester express</a></li>
 </ul>
 <p>Remarque :</p>
-<ul class="list">
+<ul>
 <li>Noter la notion d&#39;installation globale (<code>npm install -g less</code>)</li>
-<li>Noter aussi l&#39;existence de <a href="http://gruntjs.com/getting-started">Grunt</a> et Gulp pour l&#39;automatiser certaines
+<li>Noter aussi l&#39;existence de <a href="http://gruntjs.com/getting-started" target="_blank">Grunt</a> et Gulp pour l&#39;automatiser certaines
 tâches (validation du code JavaScript : lint, minification de code : uglify, etc.)</li>
 </ul>
-<h2 id="cmake---c++"><a class="header-link" href="#cmake---c++"></a>CMake - C++</h2>
-<p>Utilitaire pour la compilation qui permet dans une moindre mesure de gérer les dépendances :</p>
-<ul class="list">
+<h2 id="cmake-c-"><a href="#cmake-c-" class="anchor"></a>CMake - C++</h2><p>Utilitaire pour la compilation qui permet dans une moindre mesure de gérer les dépendances :</p>
+<ul>
 <li>find_package permet de récupérer les chemins vers les bibliothèques installées sur le système.</li>
 <li>la génération de fichier de configuration permet l&#39;utilisation de find_package en l&#39;absence de finder.</li>
 </ul>
 <p>Pour installer les bibliothèques, il faut faire appel à des systèmes de packaging liés aux systèmes (nugget, apt, etc.)</p>
-    </article>
-  </body>
+
+  </article>
+
+  <script src="assets/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="assets/mermaid/mermaid.min.js"></script>
+  <script>mermaid.init({
+      startOnLoad: true,
+      flowchart: {
+        useMaxWidth: true
+      }
+    }, ".language-mermaid");</script>
+</body>
+
 </html>

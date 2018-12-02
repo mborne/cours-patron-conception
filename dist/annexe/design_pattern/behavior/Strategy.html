@@ -1,0 +1,268 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <title>design_pattern/behavior/Strategy.md</title>
+  <link type="text/css" rel="stylesheet" href="../../assets/css/github-markdown.css">
+  <link type="text/css" rel="stylesheet" href="../../assets/css/pilcrow.css">
+  <link type="text/css" rel="stylesheet" href="../../assets/css/hljs-github.min.css" />
+
+  <link rel="stylesheet" href="../../assets/highlight/styles/github.css">
+  <style>
+    html, body {
+      width: 90%;
+      margin: auto;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <article class="markdown-body">
+    <h1 id="strategy"><a href="#strategy" class="anchor"></a>Strategy</h1><h2 id="probl-me"><a href="#probl-me" class="anchor"></a>Problème</h2><p>On souhaite pouvoir faire varier dynamiquement le comportement d&#39;une partie
+d&#39;un traitement.</p>
+<h2 id="exemple"><a href="#exemple" class="anchor"></a>Exemple</h2><h3 id="cas-d-39-cole-sur-un-traitement-simple"><a href="#cas-d-39-cole-sur-un-traitement-simple" class="anchor"></a>Cas d&#39;école sur un traitement simple</h3><p>Prenons le cas d&#39;une application qui applique les trois étapes suivantes :</p>
+<ul>
+<li>Charger une image PNG</li>
+<li>Passer l&#39;image en niveau de gris</li>
+<li>Stocker l&#39;image résultante</li>
+</ul>
+<pre><code>class Application {
+
+    public void run(File input, File output){
+        Image image = readImagePNG(input);
+        grayScale(image) ;
+        writeImagePNG(image,output)
+    }
+
+    protected void grayScale(Image image){
+        // Transforme en niveau de gris
+    }
+
+    protected Image readImagePNG(File input){
+        // Chargement de l&#39;image PNG
+    }
+
+    protected Image writeImagePNG(File output, Image image){
+        // Sauvegarde de l&#39;image PNG
+    }
+}</code></pre><p>On expose cette classe sous forme d&#39;un exécutable appelé ainsi :</p>
+<pre><code>traitement-image input.png output.png</code></pre><pre><code>class ApplicationCLI {
+
+    public static void main(String args[]){
+        File input  = new File(args[0]);
+        File output = new File(args[1]);
+        Application application = new Application();
+        application.run(input,output);
+    }
+
+}</code></pre><p>On souhaite maintenant permettre le choix sur le traitement appliqué :</p>
+<pre><code>traitement-image &lt;input&gt; &lt;output&gt; [method]
+method := grayScale|blur</code></pre><h3 id="premi-re-tentative-sans-strategy-switch-"><a href="#premi-re-tentative-sans-strategy-switch-" class="anchor"></a>Première tentative sans strategy (switch)</h3><pre><code>class Application {
+
+    public void run(File input, File output, String method){
+        Image image = readImagePNG(input);
+        if ( method.equals(&quot;grayScale&quot;) ){
+            grayScale(image) ;
+        }else if ( method.equals(&quot;blur&quot;) ){
+            blur(image) ;
+        }
+        writeImagePNG(image,output);
+    }
+
+    protected void grayScale(Image image){
+        // Applique un grayScale sur l&#39;image
+    }
+
+    protected void blur(Image image){
+        // Applique un blur sur l&#39;image
+    }
+
+    protected Image readImagePNG(File input){
+        // Chargement de l&#39;image PNG
+    }
+
+    protected Image writeImagePNG(File output, Image image){
+        // Sauvegarde de l&#39;image PNG
+    }
+}</code></pre><p>Problème :</p>
+<ul>
+<li>Ajouter un algorithme implique la mise à jour de run (Violation du principe ouvert/fermé)</li>
+<li>La classe Application aura tendance à devenir un objet divin</li>
+<li>A terme, si les algorithmes ont des paramètres spécifiques, il faudra ajouter des attributs sur la classe Application</li>
+</ul>
+<h3 id="deuxi-me-tentative-sans-strategy-abstract-"><a href="#deuxi-me-tentative-sans-strategy-abstract-" class="anchor"></a>Deuxième tentative sans strategy (abstract)</h3><p>Exploitons donc le polymorphisme!</p>
+<ul>
+<li>Classe abstraite Application</li>
+</ul>
+<pre><code>abstract class Application {
+
+    public void run(File input, File output){
+        Image image = readImagePNG(input);
+        process(image);
+        writeImagePNG(image,output);
+    }
+
+    public abstract void process(Image image) ;
+
+    public Image readImagePNG(File input){
+        // Chargement de l&#39;image PNG
+    }
+
+    public Image writeImagePNG(File output, Image image){
+        // Sauvegarde de l&#39;image PNG
+    }
+}</code></pre><ul>
+<li>Implémentation GrayScale</li>
+</ul>
+<pre><code>class ApplicationGrayScale extends Application {
+
+    private final static String NAME = &quot;grayScale&quot; ;
+
+    public void process(Image image){
+        // applique traitement grayScale...
+    }
+}</code></pre><ul>
+<li>Implémentation Blur</li>
+</ul>
+<pre><code>class ApplicationBlur extends Application {
+
+    private final static String NAME = &quot;blur&quot; ;
+
+    public void process(Image image){
+        // applique traitement blur...
+    }
+}</code></pre><ul>
+<li>ApplicationCLI</li>
+</ul>
+<pre><code>class ApplicationCLI {
+
+    public static void main(String args[]){
+        File input    = new File(args[0]);
+        File output   = new File(args[1]);    
+        String method = args[2] ;
+
+        Map&lt;String, Application&gt; applications = new HashMap&lt;String, Application&gt;();
+        applications.put(ApplicationGrayScale.NAME, new ApplicationGrayScale());
+        applications.put(ApplicationBlur.NAME, new ApplicationBlur());
+
+        Application application = applications.get(method);
+        application.run(input,output);
+    }
+
+}</code></pre><p>A première vue, on pourrait être satisfait d&#39;une telle conception. Dommage :
+On souhaite maintenant pouvoir appliquer deux traitements successifs !</p>
+<p>Avec l&#39;héritage, on obtient soit :</p>
+<ul>
+<li>Une explosion combinatoire (ApplicationBlur, ApplicationGrayScale, ApplicationGrayScaleBlur, ApplicationBlurGrayScale)</li>
+<li>Des écritures/relectures de fichiers</li>
+</ul>
+<p>Qu&#39;est-ce qu&#39;on a raté : </p>
+<ul>
+<li>Le principe de responsabilité unique (Application effectue le calcul tout en orchestrant la lecture et les écritures).</li>
+<li>Privilégier la composition à l&#39;héritage s&#39;applique aussi pour l&#39;encapsulation des traitements.</li>
+</ul>
+<h3 id="solution-avec-une-strat-gie"><a href="#solution-avec-une-strat-gie" class="anchor"></a>Solution avec une stratégie</h3><p>Au lieu d&#39;hériter, on va encapsuler un objet dont le seul rôle se limitera à appliquer le traitement.</p>
+<ul>
+<li>ImageProcessorStrategy : Interface pour la stratégie de traitement</li>
+</ul>
+<pre><code>interface ImageProcessorStrategy {
+    public void process(Image image) ;
+}</code></pre><ul>
+<li>Application encapsulant un traitement</li>
+</ul>
+<pre><code>class Application {
+
+    private ImageProcessorStrategy processor ;
+
+    public Application(ImageProcessorStrategy processor){
+        this.processor = processor ;
+    }
+
+    public void run(File input, File output){
+        Image image = readImagePNG(input);
+        processor.process(image);
+        writeImagePNG(image,output);
+    }
+
+    public Image readImagePNG(File input){
+        // Chargement de l&#39;image PNG
+    }
+
+    public Image writeImagePNG(File output, Image image){
+        // Sauvegarde de l&#39;image PNG
+    }
+}</code></pre><ul>
+<li>Implémentation de la stratégie GrayScale</li>
+</ul>
+<pre><code>class ImageProcessorGrayScale implements ImageProcessorStrategy {
+
+    private final static String NAME = &quot;grayScale&quot; ;
+
+    public void process(Image image){
+        // applique traitement grayScale...
+    }
+
+}</code></pre><ul>
+<li>Implémentation Blur</li>
+</ul>
+<pre><code>class ImageProcessorBlur implements ImageProcessorStrategy {
+
+    private final static String NAME = &quot;blur&quot; ;
+
+    public void process(Image image){
+        // applique traitement blur...
+    }
+}</code></pre><ul>
+<li><a href="../structural/Composite.html">Composite</a> sur ImageProcessorStrategy</li>
+</ul>
+<pre><code>class ImageProcessorComposite implements ImageProcessorStrategy {
+
+    private List&lt;ImageProcessorStrategy&gt; strategies ;
+
+    public ImageProcessorComposite(){
+        this.strategies = new ArrayList&lt;ImageProcessorStrategy&gt;();
+    }
+
+    public void add(ImageProcessorStrategy strategy){
+        this.strategies.add(strategy) ;
+    }
+
+    public void process(Image image){
+        // applique les sous-stratégies
+        for ( ImageProcessorStrategy strategy : strategies ){
+            strategy.process(image);
+        }
+    }
+
+}</code></pre><ul>
+<li>A l&#39;utilisation</li>
+</ul>
+<pre><code>File input    = new File(args[0]);
+File output   = new File(args[1]);    
+
+// On imagera qu&#39;on peut gérer le paramètre méthode sous forme d&#39;une expression.
+ImageProcessorComposite compositeStrategy = new ImageProcessorComposite();
+compositeStrategy.add(new ApplicationGrayScale());
+compositeStrategy.add(new ApplicationBlur());
+
+Application application = new Application(compositeStrategy);
+application.run(input,output);</code></pre><p>Où est le changement? On peut appliquer le même principe sur la lecture ou l&#39;écriture des fichiers!</p>
+
+  </article>
+
+  <script src="../../assets/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="../../assets/mermaid/mermaid.min.js"></script>
+  <script>mermaid.init({
+      startOnLoad: true,
+      flowchart: {
+        useMaxWidth: true
+      }
+    }, ".language-mermaid");</script>
+</body>
+
+</html>

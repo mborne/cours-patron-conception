@@ -1,98 +1,15 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title>Les patrons de conception</title>
-		<style>
-			body {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-h1, h2, h3 {
-	font-weight: 400;
-	margin-bottom: 0;
-}
-.remark-slide-content h1 { font-size: 3em; }
-.remark-slide-content h2 { font-size: 2em; }
-.remark-slide-content h3 { font-size: 1.6em; }
-.footnote {
-	position: absolute;
-	bottom: 3em;
-}
-li p { line-height: 1.25em; }
-.red { color: #fa0000; }
-.large { font-size: 2em; }
-a, a > code {
-	color: rgb(249, 38, 114);
-	text-decoration: none;
-}
-code {
-	background: none repeat scroll 0 0 #F8F8FF;
-  border: 1px solid #DEDEDE;
-  border-radius: 3px 	;
-  padding: 0 0.2em;
-}
-.remark-code, .remark-inline-code { font-family: "Bitstream Vera Sans Mono", "Courier", monospace; }
-.remark-code-line-highlighted     { background-color: #373832; }
-.pull-left {
-	float: left;
-	width: 47%;
-}
-.pull-right {
-	float: right;
-	width: 47%;
-}
-.pull-right ~ p {
-	clear: both;
-}
-#slideshow .slide .content code {
-	font-size: 0.8em;
-}
-#slideshow .slide .content pre code {
-	font-size: 0.9em;
-	padding: 15px;
-}
-.main-title, .title {
-	background: #272822;
-	color: #777872;
-	text-shadow: 0 0 20px #333;
-}
-.title h1, .title h2, .main-title h1, .main-title h2 {
-	color: #f3f3f3;
-	line-height: 0.8em;
-}
-/* Custom */
-.remark-code {
-	display: block;
-	padding: 0.5em;
-}
 
-/* ext */
+<head>
+    <meta charset="utf-8" />
+    <title>index.md</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
 
-h1, h2, h3 {
-    color: #1C1C1C !important;
-}
-
-.remark-slide-content {
-    background-color: red !important; /* For browsers that do not support gradients */
-    background: linear-gradient(#E0ECF8, white) !important;
-}
-
-.footer {
-    bottom: 12px;
-    opacity: 0.5;
-    position: absolute;
-    left: 20%;
-}
-
-
-
-
-
-		</style>
-	</head>
-	<body>
-		<textarea id="source">
-
+<body>
+    <textarea id="source">
+    
 # Les patrons de conception
 
 <br />
@@ -210,7 +127,7 @@ Nous verrons ici comment on peut les exploiter efficacement pour faire varier le
 * Il ne suffit pas de connaître vaguement ces concepts pour bien programmer en P.O.O.
 * Les patrons de conception font appel à des utilisations avancées de ces concepts.
 
-=> [Méditons quelques exemples](annexe/base_poo.html)
+=> [Méditons quelques exemples](meditation.html)
 
 ---
 
@@ -318,7 +235,7 @@ class MaClasse {
 * On n'hérite pas d'une classe dans le but de réutiliser ses méthodes !
 * On préfère les états aux classes dérivées (rôle d'utilisateur)
 
-(Nous verrons en détail pourquoi quand nous aborderons le patron [Strategy](design_pattern/behavior/Strategy.html))
+(Nous verrons en détail pourquoi quand nous aborderons le patron [Strategy](annexe/design_pattern/behavior/Strategy.html))
 
 ---
 
@@ -487,21 +404,21 @@ Aussi, vous pourrez rechercher des solutions aux problèmes classiques que vous 
 
 # Les patrons de création
 
-* [Singleton](design_pattern/creational/Singleton.html)
-* [Prototype](design_pattern/creational/Prototype.html)
-* [Factory (Fabrique)](design_pattern/creational/Factory.html)
-* [FactoryMethod](design_pattern/creational/FactoryMethod.html)
-* [Builder (Monteur)](design_pattern/creational/Builder.html)
-* [AbstractFactory (Fabrique abstraite)](design_pattern/creational/AbstractFactory.html)
+* [Singleton](annexe/design_pattern/creational/Singleton.html)
+* [Prototype](annexe/design_pattern/creational/Prototype.html)
+* [Factory (Fabrique)](annexe/design_pattern/creational/Factory.html)
+* [FactoryMethod](annexe/design_pattern/creational/FactoryMethod.html)
+* [Builder (Monteur)](annexe/design_pattern/creational/Builder.html)
+* [AbstractFactory (Fabrique abstraite)](annexe/design_pattern/creational/AbstractFactory.html)
 
 ---
 
 # Les patrons de structure
 
-* [Facade (Façade)](design_pattern/structural/Facade.html)
-* [Decorator (Décorateur)](design_pattern/structural/Decorator.html)
-* [Composite (Objet composite)](design_pattern/structural/Composite.html)
-* [Adapter (Adaptateur)](design_pattern/structural/Adapter.html)
+* [Facade (Façade)](annexe/design_pattern/structural/Facade.html)
+* [Decorator (Décorateur)](annexe/design_pattern/structural/Decorator.html)
+* [Composite (Objet composite)](annexe/design_pattern/structural/Composite.html)
+* [Adapter (Adaptateur)](annexe/design_pattern/structural/Adapter.html)
 * Bridge (Pont)
 * Proxy
 * Flyweigth (Poids-mouche)
@@ -510,19 +427,19 @@ Aussi, vous pourrez rechercher des solutions aux problèmes classiques que vous 
 
 # Les patrons de comportement
 
-* [Iterator (Itérateur)](design_pattern/behavior/Iterator.html)
-* [Strategy (Stratégie)](design_pattern/behavior/Strategy.html)
-* [Visitor (Visiteur)](design_pattern/behavior/Visitor.html)
+* [Iterator (Itérateur)](annexe/design_pattern/behavior/Iterator.html)
+* [Strategy (Stratégie)](annexe/design_pattern/behavior/Strategy.html)
+* [Visitor (Visiteur)](annexe/design_pattern/behavior/Visitor.html)
 * Chain of responsability (Chaîne de responsabilité)
 * Command (Commande)
 * Interpreter (Interpréteur)
 * Mediator (Médiateur)
 * Memento (Mémento)
-* [Observer (Observateur)](design_pattern/behavior/Observer.html)
+* [Observer (Observateur)](annexe/design_pattern/behavior/Observer.html)
 * State (État)
 * Template Method (Patron de méthode)
 
-* [Null Object (objet null)](design_pattern/behavior/NullObject.html)
+* [Null Object (objet null)](annexe/design_pattern/behavior/NullObject.html)
 
 ---
 
@@ -534,8 +451,8 @@ Aussi, vous pourrez rechercher des solutions aux problèmes classiques que vous 
 
 * Architecture en couche
 * Architecture micro-service
-* [MapReduce](design_pattern/architectural/MapReduce.html)
-* [Model-View-Controller (MVC)](design_pattern/architectural/MVC.html)
+* [MapReduce](annexe/design_pattern/architectural/MapReduce.html)
+* [Model-View-Controller (MVC)](annexe/design_pattern/architectural/MVC.html)
 * [Inversion de contrôle (IoC)](https://github.com/mborne/spring-ioc-principe)
 * Event-Driven architecture/Message Oriented Middleware (MOM)
 
@@ -627,18 +544,20 @@ Catalogue des principaux anti-pattern.
 
 Explication de l'intérêt des patterns du GoF et implémentation en Java.
 
-		</textarea>
-        
-		<script src="js/remark-latest.min.js"></script>
-        <script src="js/jquery-2.2.0.min.js"></script>
-		<script>
-			var slideshow = remark.create();
-		</script>
-		<script>/* footer */
-$('.remark-slide-content').each(function(index,data){
-    var footer = '<span class="footer">ENSG - Les patrons de conception, Mickaël BORNE, Novembre 2017</span>' ;
-    $(data).append(footer) ;
-});
-</script>
-	</body>
+    </textarea>
+
+    <script src="assets/remarkjs/remark-latest.min.js"></script>
+    <script src="assets/jquery/jquery-3.3.1.min.js"></script>    
+    <script>
+        var slideshow = remark.create();
+
+        /* footer */
+        $('.remark-slide-content').each(function (index, data) {
+            var footer = '<span class="footer">ENSG - Les patrons de conception, Mickaël BORNE, Novembre 2017</span>';
+            $(data).append(footer);
+        });
+    </script>
+
+</body>
+
 </html>

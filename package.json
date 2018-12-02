@@ -4,26 +4,23 @@
   "description": "ENSG - cours patron conception",
   "main": "index.js",
   "scripts": {
-    "clean": "rm -rf dist",
-    "build-index": "node_modules/markdown-to-slides/index.js src/index.md --style layout/slides/style.css --script layout/slides/script.js --template layout/slides/template.html -o dist/index.html",
-    "build-refactoring": "node_modules/markdown-to-slides/index.js src/refactoring.md --style layout/slides/style.css --script layout/slides/script.js --template layout/slides/template.html -o dist/refactoring.html",
-    "build-design-pattern": "node_modules/markdown-styles/bin/generate-md --input ./src/design_pattern --output ./dist/design_pattern",
-    "build-annexe": "node_modules/markdown-styles/bin/generate-md --input ./src/annexe --output ./dist/annexe",
-    "build": "npm run clean && npm run build-design-pattern && npm run build-refactoring && npm run build-index && npm run build-annexe && cp -r lib/* dist/."
+    "build": "node_modules/gulp/bin/gulp.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mborne/cours-patron-conception.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/mborne/cours-patron-conception/issues"
   },
   "homepage": "https://github.com/mborne/cours-patron-conception#readme",
-  "dependencies": {
-    "markdown-styles": "^3.1.10",
-    "markdown-to-slides": "^1.0.5"
-  },
-  "private": true
+  "dependencies": {},
+  "private": true,
+  "devDependencies": {
+    "@mborne/markdown-to-html": "git+https://github.com/mborne/markdown-to-html.git#v0.1.0",
+    "gulp": "^3.9.1",
+    "shelljs": "^0.8.3"
+  }
 }

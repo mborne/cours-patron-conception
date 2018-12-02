@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <title>design_pattern/structural/Decorator.md</title>
+  <link type="text/css" rel="stylesheet" href="../../assets/css/github-markdown.css">
+  <link type="text/css" rel="stylesheet" href="../../assets/css/pilcrow.css">
+  <link type="text/css" rel="stylesheet" href="../../assets/css/hljs-github.min.css" />
+
+  <link rel="stylesheet" href="../../assets/highlight/styles/github.css">
+  <style>
+    html, body {
+      width: 90%;
+      margin: auto;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <article class="markdown-body">
+    <h1 id="decorator"><a href="#decorator" class="anchor"></a>Decorator</h1><h2 id="probl-me"><a href="#probl-me" class="anchor"></a>Problème</h2><p>On souhaite pouvoir ajouter dynamiquement de nouvelles responsabilités à une classe existante.</p>
+<h2 id="solution"><a href="#solution" class="anchor"></a>Solution</h2><p>On hérite de la classe existante et on compose.</p>
+<h2 id="exemple"><a href="#exemple" class="anchor"></a>Exemple</h2><p>On représente des personnages dans un jeu. Ces personnages ont un poids
+qui est utilisé par le moteur physique.</p>
+<ul>
+<li>Une interface Personnage</li>
+</ul>
+<pre><code>interface Personnage {
+    public double getWeight() ;
+}</code></pre><ul>
+<li>Une classe concrète Humain</li>
+</ul>
+<pre><code>class Humain implements Personnage {
+    public double getWeight(){
+        return 80.0 ;
+    }
+}
+</code></pre><pre><code>class PersonnageAvecHache implements Personnage {
+
+    private Personnage original ;
+
+    public PersonnageAvecHache(Personnage original){
+        this.original = original ;
+    }
+
+    public double getWeight(){
+        return original.getWeight() + 15.0 ;
+    }
+}</code></pre><pre><code>class PersonnageAvecChapeau implements Personnage {
+
+    private Personnage original ;
+
+    public PersonnageAvecChapeau(Personnage original){
+        this.original = original ;
+    }
+
+    public double getWeight(){
+        return original.getWeight() + 2.0 ;
+    }
+}</code></pre><p>A l&#39;usage :</p>
+<pre><code>Personnage personnage = new Humain();
+personnage = new PersonnageAvecHache(personnage);
+personnage = new PersonnageAvecChapeau(personnage);
+System.out.println(personnage.getWeight()); // 80 + 15 + 2</code></pre><h2 id="autres-exemples-en-java"><a href="#autres-exemples-en-java" class="anchor"></a>Autres exemples en Java</h2><ul>
+<li><a href="https://docs.oracle.com/javase/7/docs/api/java/io/BufferedReader.html" target="_blank">BufferedReader/Reader</a></li>
+<li><a href="https://docs.oracle.com/javase/7/docs/api/java/io/LineNumberReader.html" target="_blank">LineNumberReader/BufferedReader</a></li>
+</ul>
+<h2 id="liens-utiles"><a href="#liens-utiles" class="anchor"></a>Liens utiles</h2><p><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/D%C3%A9corateur#Java" target="_blank">Exemple avec des composants d&#39;IHM</a></p>
+
+  </article>
+
+  <script src="../../assets/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="../../assets/mermaid/mermaid.min.js"></script>
+  <script>mermaid.init({
+      startOnLoad: true,
+      flowchart: {
+        useMaxWidth: true
+      }
+    }, ".language-mermaid");</script>
+</body>
+
+</html>

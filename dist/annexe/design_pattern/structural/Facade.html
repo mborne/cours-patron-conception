@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <title>design_pattern/structural/Facade.md</title>
+  <link type="text/css" rel="stylesheet" href="../../assets/css/github-markdown.css">
+  <link type="text/css" rel="stylesheet" href="../../assets/css/pilcrow.css">
+  <link type="text/css" rel="stylesheet" href="../../assets/css/hljs-github.min.css" />
+
+  <link rel="stylesheet" href="../../assets/highlight/styles/github.css">
+  <style>
+    html, body {
+      width: 90%;
+      margin: auto;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <article class="markdown-body">
+    <h1 id="facade"><a href="#facade" class="anchor"></a>Facade</h1><h2 id="probl-me"><a href="#probl-me" class="anchor"></a>Problème</h2><p>On dispose d&#39;un système complexe faisant intervenir de nombreuses classes
+en relation les unes avec les autres.</p>
+<p>On souhaite fournir une abstraction pour les cas d&#39;usage simple.</p>
+<h2 id="exemple"><a href="#exemple" class="anchor"></a>Exemple</h2><p>On fournit une classe qui construit dynamiquement une triangulation
+à partir d&#39;un semi de points :</p>
+<pre><code>interface TriangulationBuilder {
+
+    public Vertex addVertex( Coordinate coordinate ) ;
+
+    public Triangulation getTriangulation() ;
+
+}</code></pre><p>On identifie qu&#39;à l&#39;usage, de nombreux clients vont se contenter de trianguler
+des &quot;tableaux&quot; de points. On met en place une simplification :</p>
+<pre><code>class TriangulationFacade {
+
+    public static Triangulation tesselate(Coordinate[] coordinates){
+        TriangulationBuilder builder = new TriangulationBuilder();
+        for ( int i = 0; i &lt; coordinates.length; i++ ){
+            builder.addVertex(coordinates[0]);
+        }
+        return builder.getTriangulation();
+    }
+
+}</code></pre>
+  </article>
+
+  <script src="../../assets/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="../../assets/mermaid/mermaid.min.js"></script>
+  <script>mermaid.init({
+      startOnLoad: true,
+      flowchart: {
+        useMaxWidth: true
+      }
+    }, ".language-mermaid");</script>
+</body>
+
+</html>
