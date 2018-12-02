@@ -29,15 +29,15 @@ Il faut avoir en tête la seule constante du développement : Le changement !
 
 ## Quels sont les critères qualités d'un programme?
 
-On vise (et on priorise !) plusieurs critères :
+On vise (et on priorise) plusieurs critères :
 
-* Fiabilité
-* Maintenabilité
-* Performance
-* Evolutivité
-* Réutilisabilité
-* Portabilité
-* Testabilité
+* **Fiabilité**       : Pouvoir faire tourner le programme sans risque de plantage                        
+* **Maintenabilité**  : Pouvoir corriger un bug, mettre à jour les dépendances, etc.                      
+* **Performance**     : Temps d'exécution, consommation de RAM, espace disque, etc.                       
+* **Evolutivité**     : Pouvoir ajouter facilement des fonctionnalités sans peur de tout faire planter    
+* **Réutilisabilité** : Pouvoir réutiliser un code dans un autre contexte                                
+* **Portabilité**     : Pouvoir porter facilement un programme développé pour une cible vers une autre  
+* **Testabilité**     : Pouvoir automiser facilement les tests unitaires et fonctionnels sur un programme
 * ...
 
 
@@ -45,9 +45,7 @@ On vise (et on priorise !) plusieurs critères :
 
 ## Les patrons de conception dans tout ça?
 
-C'est ce que nous allons voir!
-
-Nous allons balayer un ensemble de prérequis pour bien les comprendre :
+Pour bien en comprendre l'intérêt, nous allons d'abord balayer un ensemble de prérequis  :
 
 * Rappel sur les bases de la P.O.O.
 * Rappel sur les principes de conception
@@ -186,7 +184,7 @@ servira un jour.
 Cas d'école : J'identifie le besoin d'écrire mes logs dans la console
 ou dans un fichier...
 
-```
+```java
 class MaClasse {
 
     public void faireUnTruc(){
@@ -203,7 +201,7 @@ class MaClasse {
 
 ... je fais abstraction sur l'écriture des logs
 
-```
+```java
 class MaClasse {
 
     private Logger logger ;
@@ -380,7 +378,7 @@ de communications entre objets au sein d'une application.
 
 En pratique, vous retrouverez plus facilement vos petits en Java et dans les frameworks orientés objet :
 
-* Connaissance du vocabulaire commun (```*Builder, *Factory, *::getInstance, addChild, etc.```).
+* Connaissance du vocabulaire commun (`*Builder`, `*Factory`, `*::getInstance`, `addChild`, etc.).
 * Compréhension des architectures par identification des patterns.
 
 Aussi, vous pourrez rechercher des solutions aux problèmes classiques que vous rencontrez :
