@@ -43,13 +43,13 @@
 <p>Objectif : Bonne pratique <em>NonNullObject</em></p>
 </blockquote>
 <p>Dans la question précédente, nous remarquons que nous avons des choix à faire dans les constructeurs par défaut de <code>Point</code> et <code>LineString</code>.</p>
-<p>Afin d&#39;éviter d&#39;avoir à tester des <code>coordinate</code> ou <code>points</code> null, nous allons ajouter le concept de géométrie vide et de coordonnées vide à l&#39;aide de <code>NaN</code>.</p>
+<p>Afin d&#39;éviter d&#39;avoir à tester des <code>coordinate</code> ou <code>points</code> null, nous allons ajouter le concept de géométrie vide et de coordonnées vide à l&#39;aide de <code>NaN</code> :</p>
 <ul>
-<li>Modifier le comportement du constructeur par défaut de Coordinate pour initialiser <code>x</code> et <code>y</code> à <code>Double.NaN</code></li>
-<li>Ajouter une méthode <code>Coordinate.isEmpty</code> (voir <code>Double.isNaN(x)</code>)</li>
-<li>S&#39;assurer que la variable membre coordinate de Point est jamais nulle.</li>
-<li>S&#39;assurer que la variable membre coordinate de LineString est jamais nulle (liste vide).</li>
-<li>Ajouter <code>Geometry.isEmpty</code></li>
+<li>1) Modifier le comportement du constructeur par défaut de Coordinate pour initialiser <code>x</code> et <code>y</code> à <code>Double.NaN</code></li>
+<li>2) Ajouter une méthode <code>Coordinate.isEmpty</code> à l&#39;aide de <code>Double.isNaN(x)</code></li>
+<li>3) S&#39;assurer que la variable membre coordinate de <code>Point</code> est jamais nulle.</li>
+<li>4) S&#39;assurer que la variable membre coordinate de <code>LineString</code> est jamais nulle (liste vide).</li>
+<li>5) Ajouter <code>Geometry.isEmpty</code></li>
 </ul>
 <p><img src="schema/mcd-03.png" alt="Schéma UML"></p>
 <h2 id="0-4-ajout-de-code-geometry-translate-dx-dy-code-"><a href="#0-4-ajout-de-code-geometry-translate-dx-dy-code-" class="anchor"></a>0.4 - Ajout de <code>geometry.translate(dx,dy)</code></h2><blockquote>
@@ -60,7 +60,7 @@
 <h2 id="0-5-code-geometry-clone-code-"><a href="#0-5-code-geometry-clone-code-" class="anchor"></a>0.5 - <code>Geometry.clone()</code></h2><blockquote>
 <p>Objectif : Patron de conception <em>Prototype</em></p>
 </blockquote>
-<p>En introduisant la fonction précédente, nous avons renoncer à l&#39;idée d&#39;avoir des géométries non modifiable après construction. Nous allons donc ajouter d&#39;une méthode permettant de récupérer une copie d&#39;une géométrie.</p>
+<p>En introduisant la fonction précédente, nous avons renoncé à l&#39;idée d&#39;avoir des géométries non modifiable après construction (immutable). Nous allons donc ajouter une méthode permettant de récupérer une copie d&#39;une géométrie.</p>
 <p>Ceci permettra par exemple à un utilisateur de copier la géométrie avant de la modifier</p>
 <pre><code class="language-java">/*
  * copie sans connaissance du type réel
