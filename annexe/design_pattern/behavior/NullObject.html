@@ -21,10 +21,9 @@
 
 <body>
   <article class="markdown-body">
-    <h1 id="null-object"><a href="#null-object" class="anchor"></a>Null Object</h1><h2 id="probl-me-nullpointerexception"><a href="#probl-me-nullpointerexception" class="anchor"></a>Problème : NullPointerException</h2><p>Pour simplifier et sécuriser les codes, on souhaite simplifier la gestion
-des références nulles.</p>
-<h2 id="probl-me"><a href="#probl-me" class="anchor"></a>Problème</h2><p>On s&#39;appuie sur une interface pour l&#39;envoi de mail :</p>
-<pre><code>interface MailerInterface {
+    <h1 id="null-object"><a href="#null-object" class="anchor"></a>Null Object</h1><h2 id="probl-me"><a href="#probl-me" class="anchor"></a>Problème</h2><p>On souhaite simplifier la gestion des références nulles et ainsi éviter le risque de <code>NullPointerException</code>.</p>
+<h2 id="cas-d-39-cole"><a href="#cas-d-39-cole" class="anchor"></a>Cas d&#39;école</h2><p>On s&#39;appuie sur une interface <code>MailerInterface</code> pour l&#39;envoi de mail :</p>
+<pre><code class="language-java">interface MailerInterface {
 
     public void sendMail(
         String to,
@@ -32,9 +31,9 @@ des références nulles.</p>
         String body
     );
 
-}</code></pre><p>On laisse le choix à l&#39;utilisateur d&#39;une classe &quot;Client&quot; d&#39;envoyer ou non un
-mail en fin de traitement à un administrateur :</p>
-<pre><code>class Client {
+}</code></pre>
+<p>Dans une classe <code>Client</code>, on décide d&#39;envoyer ou non un mail en fin de traitement à un administrateur :</p>
+<pre><code class="language-java">class Client {
 
     private MailerInterface mailer ;
 
@@ -58,11 +57,12 @@ mail en fin de traitement à un administrateur :</p>
         }
     }
 
-}</code></pre><p>Problème : On multiplie les contrôles <code>null != this.mailer</code></p>
+}</code></pre>
+<p>Problème : On multiplie les contrôles <code>null != this.mailer</code></p>
 <h1 id="solution"><a href="#solution" class="anchor"></a>Solution</h1><ul>
-<li>Créer un NullMailer</li>
+<li>Créer un <code>NullMailer</code></li>
 </ul>
-<pre><code>class NullMailer implements MailerInterface {
+<pre><code class="language-java">class NullMailer implements MailerInterface {
     public void sendMail(
         String to,
         String title,
@@ -70,10 +70,11 @@ mail en fin de traitement à un administrateur :</p>
     ){
         // ne fait rien
     }
-}</code></pre><ul>
-<li>Faire à un NullMailer plutôt que &quot;null&quot;</li>
+}</code></pre>
+<ul>
+<li>Initialiser <code>mailer</code> avec un <code>NullMailer</code> plutôt que <code>null</code></li>
 </ul>
-<pre><code>class Client {
+<pre><code class="language-java">class Client {
 
     private MailerInterface mailer ;
 
@@ -89,7 +90,7 @@ mail en fin de traitement à un administrateur :</p>
     public void doSomething(){
         // traitement...
 
-        // contrôle innutile
+        // Le contrôle sur this.mailer != null devient innutile
         this.mailer.sendMail(
             &quot;admin@acme.org&quot;,
             &quot;Traitement des donnnées&quot;,
@@ -97,13 +98,12 @@ mail en fin de traitement à un administrateur :</p>
         );
     }
 
-}</code></pre><h2 id="remarque"><a href="#remarque" class="anchor"></a>Remarque</h2><p>Penser à composer NullObject et Singleton dans le cas où l&#39;initialisation
-de NullObject est fréquente.</p>
-<h2 id="variante"><a href="#variante" class="anchor"></a>Variante</h2><ul>
+}</code></pre>
+<h2 id="remarques"><a href="#remarques" class="anchor"></a>Remarques</h2><ul>
 <li><p>Une collection vide peut jouer le même rôle qu&#39;un objet null. Il est d&#39;ailleurs conseillé
 de renvoyer des listes vides plutôt que des listes nulles.</p>
 </li>
-<li><p>Une valeur par défaut est préférable à un traitement spécifique en son absence.</p>
+<li><p>Penser à composer NullObject et Singleton dans le cas où l&#39;initialisation de NullObject est fréquente.</p>
 </li>
 </ul>
 

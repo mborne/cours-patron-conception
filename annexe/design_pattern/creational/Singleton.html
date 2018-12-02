@@ -25,12 +25,9 @@
 <li>La classe ne doit être instanciée qu&#39;une seule fois</li>
 <li>L&#39;instance doit être accessible statiquement</li>
 </ul>
-<h2 id="solution"><a href="#solution" class="anchor"></a>Solution</h2><div style="text-align: center">
-![UML Singleton](uml/UML_DP_Singleton.png)
-</div>
-
+<h2 id="solution"><a href="#solution" class="anchor"></a>Solution</h2><p><img src="uml/UML_DP_Singleton.png" alt="UML Singleton"></p>
 <p>Exemple d&#39;implémentation</p>
-<pre><code>class Singleton {
+<pre><code class="language-java">class Singleton {
 
     private static Singleton instance ;
 
@@ -45,8 +42,9 @@
         return instance ;
     }
 
-}</code></pre><h2 id="exemple-dans-l-39-api-java"><a href="#exemple-dans-l-39-api-java" class="anchor"></a>Exemple dans l&#39;API JAVA</h2><ul>
-<li>Runtime accessible via System.getRuntime()</li>
+}</code></pre>
+<h2 id="exemple-dans-l-39-api-java"><a href="#exemple-dans-l-39-api-java" class="anchor"></a>Exemple dans l&#39;API JAVA</h2><ul>
+<li><code>Runtime</code> accessible via <code>System.getRuntime()</code></li>
 </ul>
 <h2 id="mise-en-garde"><a href="#mise-en-garde" class="anchor"></a>Mise en garde</h2><ul>
 <li>Il y a plusieurs variantes d&#39;implémentation</li>

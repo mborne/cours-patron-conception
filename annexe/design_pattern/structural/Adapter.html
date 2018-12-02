@@ -26,15 +26,14 @@ On fait face à deux interfaces qui ont des fonctionnalités équivalentes mais 
 sont incompatibles. On va créer un intermédiaire.</p>
 <h2 id="exemple"><a href="#exemple" class="anchor"></a>Exemple</h2><p>On dispose d&#39;un algorithme qui effectue la concaténation de chaînes de caractères
 avec un séparateur.</p>
-<pre><code>
-class EnumerationUtils {
+<pre><code class="language-java">class EnumerationUtils {
 
     public static String concat(Enumeration&lt;String&gt; items, String separator){
         //...
     }
 
-}
-</code></pre><p>Pas de chance : Nous devons appliquer cet algorithme sur un Iterator<String>.</p>
+}</code></pre>
+<p>Pas de chance : Nous devons appliquer cet algorithme sur un Iterator<String>.</p>
 <p>On remarque que niveau fonctionnement, les deux interfaces Iterator et Enumeration sont sensiblement
 similaires :</p>
 <ul>
@@ -42,7 +41,7 @@ similaires :</p>
 <li><a href="https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html" target="_blank">Iterator</a></li>
 </ul>
 <p>On va donc pouvoir créer un adaptateur :</p>
-<pre><code>class IteratorToEnumationAdapter implements Enumeration&lt;String&gt; {
+<pre><code class="language-java">class IteratorToEnumationAdapter implements Enumeration&lt;String&gt; {
 
     private Iterator&lt;String&gt; adaptee ;
 
@@ -58,12 +57,14 @@ similaires :</p>
         return adaptee.next() ;
     }
 
-}</code></pre><p>Puis, appeler l&#39;algorithme comme suit :</p>
-<pre><code>Iterator&lt;String&gt; items ;
+}</code></pre>
+<p>Puis, appeler l&#39;algorithme comme suit :</p>
+<pre><code class="language-java">Iterator&lt;String&gt; items ;
 //...
 System.out.println(EnumerationUtils.concat(
     new IteratorToEnumationAdapter(items)
-));</code></pre><h2 id="remarque"><a href="#remarque" class="anchor"></a>Remarque</h2><p>Le livre &quot;tête la première dans les designs patterns&quot; traite le cas inverse
+));</code></pre>
+<h2 id="remarque"><a href="#remarque" class="anchor"></a>Remarque</h2><p>Le livre &quot;tête la première dans les designs patterns&quot; traite le cas inverse
 et l&#39;adaptation partielle (absence de la fonction &quot;remove&quot; sur les Enumeration)</p>
 
   </article>

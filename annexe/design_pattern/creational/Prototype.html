@@ -28,11 +28,7 @@
 <li>On ne souhaite pas modifier l&#39;objet, mais renvoyer une instance modifiée</li>
 </ul>
 <h2 id="solution"><a href="#solution" class="anchor"></a>Solution</h2><p>Toutes les classes dérivées implémentent une méthode &quot;clone&quot; renvoyant une copie conforme.</p>
-<div style="text-align: center">
-![UML Prototype](uml/UML_DP_Prototype.png)
-</div>
-
-
+<p><img src="uml/UML_DP_Prototype.png" alt="UML Prototype"></p>
 <h2 id="exemple-dans-l-39-api-java"><a href="#exemple-dans-l-39-api-java" class="anchor"></a>Exemple dans l&#39;API Java</h2><p>Les exemples sont légion, l&#39;API dispose d&#39;une interface Cloneable.</p>
 <h2 id="mise-en-garde"><a href="#mise-en-garde" class="anchor"></a>Mise en garde</h2><p>Il convient d&#39;être attentif aux copies des variables membres, en particulier pour les objets qui peuvent être modifiés après la construction (notion d&#39;<a href="http://docs.oracle.com/javase/tutorial/essential/concurrency/immutable.html" target="_blank">Immutable Objects</a>).</p>
 <p>A titre d&#39;exemple, sans précaution particulière, deux copies pourront pointer sur le même tableau.</p>
