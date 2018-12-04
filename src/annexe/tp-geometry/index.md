@@ -10,6 +10,24 @@ L'objectif de ce TP est de s'exercer à mettre oeuvre des patrons de conception 
 
 **ATTENTION** : Dans la vraie vie, vous utiliserez plutôt des bibliothèques du type [JTS](https://locationtech.github.io/jts/javadoc/index.html)
 
+## Démarrage
+
+* Cloner le projet https://github.com/mborne/tp-pattern-geometry
+
+```bash
+mkdir ~/workspace_pattern
+cd ~/workspace_pattern
+git clone https://github.com/mborne/tp-pattern-geometry.git
+cd tp-pattern-geometry
+# vérifier que vous êtes bien sur la branche "initial"
+git branch
+```
+
+* Importer le projet maven dans eclipse
+
+(Au cas où, voir [Configuration eclipse/maven avec un proxy](https://github.com/mborne/maven-eclipse#configuration-eclipsemaven-avec-un-proxy))
+
+
 ## 0.1 - Coordinate (2D)
 
 > Objectif : Préparation du TP, principe de base, encapsulation
@@ -31,6 +49,7 @@ Remarques :
 Implémenter les trois classes suivantes illustrées sur le schémas ci-après :
 
 ![Schéma UML](schema/mcd-02.png)
+
 
 ## 0.3 - Geometry.isEmpty()
 

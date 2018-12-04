@@ -23,6 +23,7 @@
   <article class="markdown-body">
     <h1 id="tp-mise-en-oeuvre-des-patterns-sur-des-geometry"><a href="#tp-mise-en-oeuvre-des-patterns-sur-des-geometry" class="anchor"></a>TP - Mise en oeuvre des patterns sur des Geometry</h1><ul>
 <li><a href="#introduction">Introduction</a></li>
+<li><a href="#d-marrage">Démarrage</a></li>
 <li><a href="#0-1-coordinate-2d-">0.1 - Coordinate (2D)</a></li>
 <li><a href="#0-2-geometry-point-et-linestring">0.2 - Geometry, Point et LineString</a></li>
 <li><a href="#0-3-geometry-isempty-">0.3 - Geometry.isEmpty()</a></li>
@@ -46,6 +47,19 @@
 <h2 id="introduction"><a href="#introduction" class="anchor"></a>Introduction</h2><p>L&#39;objectif de ce TP est de s&#39;exercer à mettre oeuvre des patrons de conception via la création d&#39;une petite bibliothèque de manipulation des géométries OGC :</p>
 <p><img src="schema/geometries-light.png" alt="Géométrie OGC"></p>
 <p><strong>ATTENTION</strong> : Dans la vraie vie, vous utiliserez plutôt des bibliothèques du type <a href="https://locationtech.github.io/jts/javadoc/index.html" target="_blank">JTS</a></p>
+<h2 id="d-marrage"><a href="#d-marrage" class="anchor"></a>Démarrage</h2><ul>
+<li>Cloner le projet <a href="https://github.com/mborne/tp-pattern-geometry" target="_blank">https://github.com/mborne/tp-pattern-geometry</a></li>
+</ul>
+<pre><code class="language-bash">mkdir ~/workspace_pattern
+cd ~/workspace_pattern
+git clone https://github.com/mborne/tp-pattern-geometry.git
+cd tp-pattern-geometry
+# vérifier que vous êtes bien sur la branche &quot;initial&quot;
+git branch</code></pre>
+<ul>
+<li>Importer le projet maven dans eclipse</li>
+</ul>
+<p>(Au cas où, voir <a href="https://github.com/mborne/maven-eclipse#configuration-eclipsemaven-avec-un-proxy" target="_blank">Configuration eclipse/maven avec un proxy</a>)</p>
 <h2 id="0-1-coordinate-2d-"><a href="#0-1-coordinate-2d-" class="anchor"></a>0.1 - Coordinate (2D)</h2><blockquote>
 <p>Objectif : Préparation du TP, principe de base, encapsulation</p>
 </blockquote>
