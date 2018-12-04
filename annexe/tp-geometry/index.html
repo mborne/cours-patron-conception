@@ -21,10 +21,32 @@
 
 <body>
   <article class="markdown-body">
-    <h1 id="tp-mise-en-oeuvre-des-patterns-sur-des-geometry"><a href="#tp-mise-en-oeuvre-des-patterns-sur-des-geometry" class="anchor"></a>TP - Mise en oeuvre des patterns sur des Geometry</h1><h2 id="introduction"><a href="#introduction" class="anchor"></a>Introduction</h2><p>L&#39;objectif de ce TP est de s&#39;exercer à mettre oeuvre des patrons de conception via la création d&#39;une petite bibliothèque de manipulation des géométries OGC :</p>
+    <h1 id="tp-mise-en-oeuvre-des-patterns-sur-des-geometry"><a href="#tp-mise-en-oeuvre-des-patterns-sur-des-geometry" class="anchor"></a>TP - Mise en oeuvre des patterns sur des Geometry</h1><ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#0-1-coordinate-2d-">0.1 - Coordinate (2D)</a></li>
+<li><a href="#0-2-geometry-point-et-linestring">0.2 - Geometry, Point et LineString</a></li>
+<li><a href="#0-3-geometry-isempty-">0.3 - Geometry.isEmpty()</a></li>
+<li><a href="#0-4-geometry-translate-dx-dy-">0.4 - Geometry.translate(dx,dy)</a></li>
+<li><a href="#0-5-geometry-clone-">0.5 - Geometry.clone()</a></li>
+<li><a href="#0-6-envelope-et-envelopebuilder">0.6 - Envelope et EnvelopeBuilder</a></li>
+<li><a href="#0-7-geometry-getenvelope-envelope">0.7 - Geometry.getEnvelope() : Envelope</a></li>
+<li><a href="#0-8-wktwriter">0.8 - WktWriter</a></li>
+<li><a href="#0-9-geometryvisitor">0.9 - GeometryVisitor</a></li>
+<li><a href="#0-10-wktvisitor">0.10 - WktVisitor</a></li>
+<li><a href="#0-11-geometry-astext-">0.11 - Geometry.asText()</a></li>
+<li><a href="#0-12-envelopebuilder-en-tant-que-geometryvisitor">0.12 - EnvelopeBuilder en tant que GeometryVisitor</a></li>
+<li><a href="#0-13-geometrywithcachedenvelope">0.13 - GeometryWithCachedEnvelope</a></li>
+<li><a href="#0-14-geometrylistener">0.14 - GeometryListener</a></li>
+<li><a href="#0-15-geometrycollection">0.15 - GeometryCollection</a></li>
+<li><a href="#0-16-interface-geometrywriter-classe-wktwriter-et-geojsonwriter">0.16 - Interface GeometryWriter, classe WktWriter et GeoJSONWriter</a></li>
+<li><a href="#0-17-geometrywriterfactory">0.17 - GeometryWriterFactory</a></li>
+<li><a href="#0-18-geometryvisitor-renvoyant-un-r-sultat">0.18 - GeometryVisitor renvoyant un résultat</a></li>
+<li><a href="#aller-plus-loin-">Aller plus loin...</a></li>
+</ul>
+<h2 id="introduction"><a href="#introduction" class="anchor"></a>Introduction</h2><p>L&#39;objectif de ce TP est de s&#39;exercer à mettre oeuvre des patrons de conception via la création d&#39;une petite bibliothèque de manipulation des géométries OGC :</p>
 <p><img src="schema/geometries-light.png" alt="Géométrie OGC"></p>
 <p><strong>ATTENTION</strong> : Dans la vraie vie, vous utiliserez plutôt des bibliothèques du type <a href="https://locationtech.github.io/jts/javadoc/index.html" target="_blank">JTS</a></p>
-<h2 id="0-1-code-coordinate-code-2d-"><a href="#0-1-code-coordinate-code-2d-" class="anchor"></a>0.1 - <code>Coordinate</code> (2D)</h2><blockquote>
+<h2 id="0-1-coordinate-2d-"><a href="#0-1-coordinate-2d-" class="anchor"></a>0.1 - Coordinate (2D)</h2><blockquote>
 <p>Objectif : Préparation du TP, principe de base, encapsulation</p>
 </blockquote>
 <p>Création d&#39;une classe Coordinate permettant de représenter une position en 2D à l&#39;aide d&#39;un couple x,y.</p>
@@ -34,12 +56,12 @@
 <li>On initialisera dans un premier temps les coordonnées à <code>(0.0, 0.0)</code> dans le constructeur par défaut</li>
 <li>On soulignera le caractère immuable de cette classe (une fois construite, une coordonnées ne peut être modifiée)</li>
 </ul>
-<h2 id="0-2-code-geometry-code-code-point-code-et-code-linestring-code-"><a href="#0-2-code-geometry-code-code-point-code-et-code-linestring-code-" class="anchor"></a>0.2 - <code>Geometry</code>, <code>Point</code> et <code>LineString</code></h2><blockquote>
+<h2 id="0-2-geometry-point-et-linestring"><a href="#0-2-geometry-point-et-linestring" class="anchor"></a>0.2 - Geometry, Point et LineString</h2><blockquote>
 <p>Objectif : Préparation du TP, utilisation d&#39;interface, encapsulation</p>
 </blockquote>
 <p>Implémenter les trois classes suivantes illustrées sur le schémas ci-après :</p>
 <p><img src="schema/mcd-02.png" alt="Schéma UML"></p>
-<h2 id="0-3-ajout-de-code-geometry-isempty-code-"><a href="#0-3-ajout-de-code-geometry-isempty-code-" class="anchor"></a>0.3 - Ajout de <code>geometry.isEmpty()</code></h2><blockquote>
+<h2 id="0-3-geometry-isempty-"><a href="#0-3-geometry-isempty-" class="anchor"></a>0.3 - Geometry.isEmpty()</h2><blockquote>
 <p>Objectif : Bonne pratique <em>NonNullObject</em></p>
 </blockquote>
 <p>Dans la question précédente, nous remarquons que nous avons des choix à faire dans les constructeurs par défaut de <code>Point</code> et <code>LineString</code>.</p>
@@ -52,12 +74,12 @@
 <li>5) Ajouter <code>Geometry.isEmpty</code></li>
 </ul>
 <p><img src="schema/mcd-03.png" alt="Schéma UML"></p>
-<h2 id="0-4-ajout-de-code-geometry-translate-dx-dy-code-"><a href="#0-4-ajout-de-code-geometry-translate-dx-dy-code-" class="anchor"></a>0.4 - Ajout de <code>geometry.translate(dx,dy)</code></h2><blockquote>
+<h2 id="0-4-geometry-translate-dx-dy-"><a href="#0-4-geometry-translate-dx-dy-" class="anchor"></a>0.4 - Geometry.translate(dx,dy)</h2><blockquote>
 <p>Objectif : Exploiter une interface pour réaliser un traitement spécifique</p>
 </blockquote>
 <p>Ajouter une méthode de permettant de translater une géométrie.</p>
 <p><img src="schema/mcd-04.png" alt="Schéma UML"></p>
-<h2 id="0-5-code-geometry-clone-code-"><a href="#0-5-code-geometry-clone-code-" class="anchor"></a>0.5 - <code>Geometry.clone()</code></h2><blockquote>
+<h2 id="0-5-geometry-clone-"><a href="#0-5-geometry-clone-" class="anchor"></a>0.5 - Geometry.clone()</h2><blockquote>
 <p>Objectif : Patron de conception <em>Prototype</em></p>
 </blockquote>
 <p>En introduisant la fonction précédente, nous avons renoncé à l&#39;idée d&#39;avoir des géométries non modifiable après construction (immutable). Nous allons donc ajouter une méthode permettant de récupérer une copie d&#39;une géométrie.</p>
@@ -71,7 +93,7 @@ Geometry copy = g.clone();
 copy.translate(10.0,10.0);
 //... &quot;g&quot; n&#39;est pas modifiée</code></pre>
 <p><img src="schema/mcd-05.png" alt="Schéma UML"></p>
-<h2 id="0-6-code-envelope-code-et-code-envelopebuilder-code-"><a href="#0-6-code-envelope-code-et-code-envelopebuilder-code-" class="anchor"></a>0.6 - <code>Envelope</code> et <code>EnvelopeBuilder</code></h2><blockquote>
+<h2 id="0-6-envelope-et-envelopebuilder"><a href="#0-6-envelope-et-envelopebuilder" class="anchor"></a>0.6 - Envelope et EnvelopeBuilder</h2><blockquote>
 <p>Objectif : Patron de conception Builder</p>
 </blockquote>
 <p>Nous souhaitons calculer l&#39;emprise d&#39;une géométrie (la bbox). La logique de calcul de min/max en oeuvre étant assez complexe, nous ne souhaitons pas l&#39;implémenter dans les classes <code>Point</code> et <code>LineString</code>.</p>
@@ -87,12 +109,12 @@ builder.insert(new Coordinate(0.0,1.0));
 builder.insert(new Coordinate(2.0,0.0));
 builder.insert(new Coordinate(1.0,3.0));
 Envelope result = builder.build();</code></pre>
-<h2 id="0-7-code-geometry-getenvelope-envelope-code-"><a href="#0-7-code-geometry-getenvelope-envelope-code-" class="anchor"></a>0.7 - <code>Geometry.getEnvelope() : Envelope</code></h2><blockquote>
+<h2 id="0-7-geometry-getenvelope-envelope"><a href="#0-7-geometry-getenvelope-envelope" class="anchor"></a>0.7 - Geometry.getEnvelope() : Envelope</h2><blockquote>
 <p>Objectif : Facade sur EnvelopeBuilder</p>
 </blockquote>
 <p>Ajouter une méthode <code>getEnvelope</code> à la classe <code>Geometry</code>.</p>
 <p><img src="schema/mcd-07.png" alt="Schéma UML"></p>
-<h2 id="0-8-code-wktwriter-code-"><a href="#0-8-code-wktwriter-code-" class="anchor"></a>0.8 - <code>WktWriter</code></h2><blockquote>
+<h2 id="0-8-wktwriter"><a href="#0-8-wktwriter" class="anchor"></a>0.8 - WktWriter</h2><blockquote>
 <p>Objectif : Mesurer l&#39;intérêt d&#39;une conception propre et de GeometryVisitor dans les questions suivantes</p>
 </blockquote>
 <p>On souhaite obtenir les géométries au <a href="https://fr.wikipedia.org/wiki/Well-known_text" target="_blank">format WKT</a> qui prendra par exemple les formes suivantes :</p>
@@ -119,7 +141,7 @@ assertEquals(&quot;POINT(3.0 4.0)&quot;, writer.write(g));</code></pre>
 }else{
     throw new RuntimeException(&quot;geometry type not supported&quot;);
 }</code></pre>
-<h2 id="0-9-code-geometryvisitor-code-"><a href="#0-9-code-geometryvisitor-code-" class="anchor"></a>0.9 - <code>GeometryVisitor</code></h2><blockquote>
+<h2 id="0-9-geometryvisitor"><a href="#0-9-geometryvisitor" class="anchor"></a>0.9 - GeometryVisitor</h2><blockquote>
 <p>Objectif : Patron de conception Visitor, prise en main</p>
 </blockquote>
 <ul>
@@ -145,15 +167,16 @@ geometry.accept(visitor);</code></pre>
 Geometry geometry = new Point(new Coordinate(3.0,4.0));
 geometry.accept(visitor);
 assertEquals( &quot;POINT(3.0 4.0)&quot;, visitor.getResult() );</code></pre>
-<h2 id="0-11-geometry-astext-l-39-aide-de-abstractgeometry-et-wktvisitor"><a href="#0-11-geometry-astext-l-39-aide-de-abstractgeometry-et-wktvisitor" class="anchor"></a>0.11 - Geometry.asText à l&#39;aide de AbstractGeometry et WktVisitor</h2><blockquote>
+<h2 id="0-11-geometry-astext-"><a href="#0-11-geometry-astext-" class="anchor"></a>0.11 - Geometry.asText()</h2><blockquote>
 <p>Objectif : Patron de conception Facade, couplage interface et abstact</p>
 </blockquote>
+<p>A l&#39;aide de <code>AbstractGeometry</code> et <code>WktVisitor</code> :</p>
 <ul>
 <li>Ajouter une méthode <code>Geometry.asText(): String</code> renvoyant la géométrie au format WKT</li>
 <li>Ajouter une classe astraite <code>AbstractGeometry</code> implémentant la méthode <code>asText</code></li>
 </ul>
 <p><img src="schema/mcd-11.png" alt="Schéma UML"></p>
-<h2 id="0-12-code-envelopebuilder-code-en-tant-que-code-geometryvisitor-code-"><a href="#0-12-code-envelopebuilder-code-en-tant-que-code-geometryvisitor-code-" class="anchor"></a>0.12 - <code>EnvelopeBuilder</code> en tant que <code>GeometryVisitor</code></h2><blockquote>
+<h2 id="0-12-envelopebuilder-en-tant-que-geometryvisitor"><a href="#0-12-envelopebuilder-en-tant-que-geometryvisitor" class="anchor"></a>0.12 - EnvelopeBuilder en tant que GeometryVisitor</h2><blockquote>
 <p>Objectif : Refactoring, Visitor, extraction de l&#39;implémentation d&#39;une fonctionnalité</p>
 </blockquote>
 <ul>
@@ -161,7 +184,7 @@ assertEquals( &quot;POINT(3.0 4.0)&quot;, visitor.getResult() );</code></pre>
 <li>Remonter l&#39;implémentation de <code>getEnvelope</code> dans <code>AbstractGeometry</code></li>
 </ul>
 <p><img src="schema/mcd-12.png" alt="Schéma UML"></p>
-<h2 id="0-13-code-geometrywithcachedenvelope-code-"><a href="#0-13-code-geometrywithcachedenvelope-code-" class="anchor"></a>0.13 - <code>GeometryWithCachedEnvelope</code></h2><blockquote>
+<h2 id="0-13-geometrywithcachedenvelope"><a href="#0-13-geometrywithcachedenvelope" class="anchor"></a>0.13 - GeometryWithCachedEnvelope</h2><blockquote>
 <p>Objectif : Patron de conception Decorator</p>
 </blockquote>
 <ul>
@@ -175,7 +198,7 @@ g = new GeometryWithCachedEnvelope(g);
 Envelope a = g.getEnvelope() ; // calcul et stockage dans cachedEnvelope
 Envelope b = g.getEnvelope() ; // renvoi de cachedEnvelope
 assertSame(a,b);</code></pre>
-<h2 id="0-14-code-geometrylistener-code-"><a href="#0-14-code-geometrylistener-code-" class="anchor"></a>0.14 - <code>GeometryListener</code></h2><blockquote>
+<h2 id="0-14-geometrylistener"><a href="#0-14-geometrylistener" class="anchor"></a>0.14 - GeometryListener</h2><blockquote>
 <p>Objectif : Patron de conception Observable</p>
 </blockquote>
 <ul>
@@ -191,7 +214,7 @@ assertSame(a,b);</code></pre>
 <p><img src="schema/mcd-15.png" alt="Schéma UML"></p>
 <p>Remarque : Pour WKT, on utilisera le format suivant :</p>
 <pre><code>GEOMETRYCOLLECTION EMPTY
-GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))</code></pre><h2 id="0-16-interface-geometrywriter-classe-wktwriter-et-geojsonwriter"><a href="#0-16-interface-geometrywriter-classe-wktwriter-et-geojsonwriter" class="anchor"></a>0.16 Interface GeometryWriter, classe WktWriter et GeoJSONWriter</h2><blockquote>
+GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))</code></pre><h2 id="0-16-interface-geometrywriter-classe-wktwriter-et-geojsonwriter"><a href="#0-16-interface-geometrywriter-classe-wktwriter-et-geojsonwriter" class="anchor"></a>0.16 - Interface GeometryWriter, classe WktWriter et GeoJSONWriter</h2><blockquote>
 <p>Objectif : Préparation question suivante</p>
 </blockquote>
 <ul>
@@ -202,7 +225,7 @@ GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))</code></p
 </ul>
 </li>
 </ul>
-<h2 id="0-17-geometrywriterfactory"><a href="#0-17-geometrywriterfactory" class="anchor"></a>0.17 GeometryWriterFactory</h2><blockquote>
+<h2 id="0-17-geometrywriterfactory"><a href="#0-17-geometrywriterfactory" class="anchor"></a>0.17 - GeometryWriterFactory</h2><blockquote>
 <p>Objectif : Fabrique basée sur des prototypes, supporté un format en paramètre</p>
 </blockquote>
 <ul>
@@ -212,17 +235,25 @@ GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))</code></p
 GeometryWriterFactory writerFactory = new GeometryWriterFactory();
 GeometryWriter writer = writerFactory.createGeometryWriter(&quot;WKT&quot;);
 assertEqual(&quot;POINT(3.0 4.0)&quot;, writer.write(g));</code></pre>
-<h2 id="0-18-code-geometryvisitor-lt-t-gt-code-"><a href="#0-18-code-geometryvisitor-lt-t-gt-code-" class="anchor"></a>0.18 <code>GeometryVisitor&lt;T&gt;</code></h2><ul>
+<h2 id="0-18-geometryvisitor-renvoyant-un-r-sultat"><a href="#0-18-geometryvisitor-renvoyant-un-r-sultat" class="anchor"></a>0.18 - GeometryVisitor renvoyant un résultat</h2><ul>
 <li>Transformer la classe <code>GeometryVisitor</code> en <code>GeometryVisitor&lt;T&gt;</code> pour avoir la capacité de renvoyer un résultat</li>
 <li>Ajouter <code>LengthVisitor&lt;Double&gt;</code> en guise de démonstration</li>
 </ul>
 <p>Remarque : Un visiteur qui ne renvoie pas de résultat implémentera <code>GeometryVisitor&lt;Void&gt;</code></p>
 <h2 id="aller-plus-loin-"><a href="#aller-plus-loin-" class="anchor"></a>Aller plus loin...</h2><p>Idées pour la suite :</p>
 <ul>
-<li>Implémenter une classe <code>WktReader</code></li>
-<li>Ajouter une interface <code>Renderer</code> avec deux implémentations concrète <code>JFrameRenderer</code> et <code>SVGRenderer</code></li>
-<li>Gérer un <code>center</code> et un <code>scale</code> sur <code>Renderer</code></li>
-<li>Viewer avec Renderer définissant une stratégie</li>
+<li><p>Implémenter une classe <code>GeoJSONReader</code></p>
+</li>
+<li><p>Implémenter une classe <code>WktReader</code></p>
+</li>
+<li><p>Poser une interface <code>GeometryReader</code> au dessus de <code>GeoJSONReader</code> et <code>WktReader</code></p>
+</li>
+<li><p>Ajouter une interface <code>Renderer</code> avec deux implémentations concrète <code>JFrameRenderer</code> et <code>SVGRenderer</code></p>
+</li>
+<li><p>Gérer un <code>center</code> et un <code>scale</code> sur <code>Renderer</code></p>
+</li>
+<li><p>Viewer avec Renderer définissant une stratégie</p>
+</li>
 </ul>
 <p>Questions pour approfondir :</p>
 <ul>
