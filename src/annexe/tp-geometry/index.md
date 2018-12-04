@@ -1,5 +1,7 @@
 # TP - Mise en oeuvre des patterns sur des Geometry
 
+[[toc]]
+
 ## Introduction
 
 L'objectif de ce TP est de s'exercer à mettre oeuvre des patrons de conception via la création d'une petite bibliothèque de manipulation des géométries OGC :
@@ -8,7 +10,7 @@ L'objectif de ce TP est de s'exercer à mettre oeuvre des patrons de conception 
 
 **ATTENTION** : Dans la vraie vie, vous utiliserez plutôt des bibliothèques du type [JTS](https://locationtech.github.io/jts/javadoc/index.html)
 
-## 0.1 - `Coordinate` (2D)
+## 0.1 - Coordinate (2D)
 
 > Objectif : Préparation du TP, principe de base, encapsulation
 
@@ -22,7 +24,7 @@ Remarques :
 * On soulignera le caractère immuable de cette classe (une fois construite, une coordonnées ne peut être modifiée)
 
 
-## 0.2 - `Geometry`, `Point` et `LineString`
+## 0.2 - Geometry, Point et LineString
 
 > Objectif : Préparation du TP, utilisation d'interface, encapsulation
 
@@ -30,7 +32,7 @@ Implémenter les trois classes suivantes illustrées sur le schémas ci-après :
 
 ![Schéma UML](schema/mcd-02.png)
 
-## 0.3 - Ajout de `geometry.isEmpty()`
+## 0.3 - Geometry.isEmpty()
 
 > Objectif : Bonne pratique *NonNullObject*
 
@@ -47,7 +49,7 @@ Afin d'éviter d'avoir à tester des `coordinate` ou `points` null, nous allons 
 ![Schéma UML](schema/mcd-03.png)
 
 
-## 0.4 - Ajout de `geometry.translate(dx,dy)`
+## 0.4 - Geometry.translate(dx,dy)
 
 > Objectif : Exploiter une interface pour réaliser un traitement spécifique
 
@@ -56,7 +58,7 @@ Ajouter une méthode de permettant de translater une géométrie.
 ![Schéma UML](schema/mcd-04.png)
 
 
-## 0.5 - `Geometry.clone()`
+## 0.5 - Geometry.clone()
 
 > Objectif : Patron de conception *Prototype*
 
@@ -78,7 +80,7 @@ copy.translate(10.0,10.0);
 ![Schéma UML](schema/mcd-05.png)
 
 
-## 0.6 - `Envelope` et `EnvelopeBuilder`
+## 0.6 - Envelope et EnvelopeBuilder
 
 > Objectif : Patron de conception Builder
 
@@ -101,7 +103,7 @@ builder.insert(new Coordinate(1.0,3.0));
 Envelope result = builder.build();
 ```
 
-## 0.7 - `Geometry.getEnvelope() : Envelope`
+## 0.7 - Geometry.getEnvelope() : Envelope
 
 > Objectif : Facade sur EnvelopeBuilder
 
@@ -109,7 +111,7 @@ Ajouter une méthode `getEnvelope` à la classe `Geometry`.
 
 ![Schéma UML](schema/mcd-07.png)
 
-## 0.8 - `WktWriter`
+## 0.8 - WktWriter
 
 > Objectif : Mesurer l'intérêt d'une conception propre et de GeometryVisitor dans les questions suivantes
 
@@ -151,7 +153,7 @@ if ( geometry instanceof Point ){
 }
 ```
 
-## 0.9 - `GeometryVisitor`
+## 0.9 - GeometryVisitor
 
 > Objectif : Patron de conception Visitor, prise en main
 
@@ -189,16 +191,19 @@ geometry.accept(visitor);
 assertEquals( "POINT(3.0 4.0)", visitor.getResult() );
 ```
 
-## 0.11 - Geometry.asText à l'aide de AbstractGeometry et WktVisitor
+## 0.11 - Geometry.asText()
 
 > Objectif : Patron de conception Facade, couplage interface et abstact
+
+A l'aide de `AbstractGeometry` et `WktVisitor` :
 
 * Ajouter une méthode `Geometry.asText(): String` renvoyant la géométrie au format WKT
 * Ajouter une classe astraite `AbstractGeometry` implémentant la méthode `asText`
 
 ![Schéma UML](schema/mcd-11.png)
 
-## 0.12 - `EnvelopeBuilder` en tant que `GeometryVisitor`
+
+## 0.12 - EnvelopeBuilder en tant que GeometryVisitor
 
 > Objectif : Refactoring, Visitor, extraction de l'implémentation d'une fonctionnalité
 
@@ -208,7 +213,7 @@ assertEquals( "POINT(3.0 4.0)", visitor.getResult() );
 ![Schéma UML](schema/mcd-12.png)
 
 
-## 0.13 - `GeometryWithCachedEnvelope`
+## 0.13 - GeometryWithCachedEnvelope
 
 > Objectif : Patron de conception Decorator
 
@@ -228,7 +233,7 @@ Envelope b = g.getEnvelope() ; // renvoi de cachedEnvelope
 assertSame(a,b);
 ```
 
-## 0.14 - `GeometryListener`
+## 0.14 - GeometryListener
 
 > Objectif : Patron de conception Observable
 
@@ -254,7 +259,7 @@ GEOMETRYCOLLECTION EMPTY
 GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))
 ```
 
-## 0.16 Interface GeometryWriter, classe WktWriter et GeoJSONWriter
+## 0.16 - Interface GeometryWriter, classe WktWriter et GeoJSONWriter
 
 > Objectif : Préparation question suivante
 
@@ -263,7 +268,7 @@ GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))
   * `getName` : renvoyant le nom du format
   * `write` : convertissant une géométrie au format texte
 
-## 0.17 GeometryWriterFactory
+## 0.17 - GeometryWriterFactory
 
 > Objectif : Fabrique basée sur des prototypes, supporté un format en paramètre
 
@@ -276,7 +281,7 @@ GeometryWriter writer = writerFactory.createGeometryWriter("WKT");
 assertEqual("POINT(3.0 4.0)", writer.write(g));
 ```
 
-## 0.18 `GeometryVisitor<T>`
+## 0.18 - GeometryVisitor renvoyant un résultat
 
 * Transformer la classe `GeometryVisitor` en `GeometryVisitor<T>` pour avoir la capacité de renvoyer un résultat
 * Ajouter `LengthVisitor<Double>` en guise de démonstration
@@ -287,7 +292,10 @@ Remarque : Un visiteur qui ne renvoie pas de résultat implémentera `GeometryVi
 
 Idées pour la suite :
 
+* Implémenter une classe `GeoJSONReader`
 * Implémenter une classe `WktReader`
+* Poser une interface `GeometryReader` au dessus de `GeoJSONReader` et `WktReader`
+
 * Ajouter une interface `Renderer` avec deux implémentations concrète `JFrameRenderer` et `SVGRenderer`
 * Gérer un `center` et un `scale` sur `Renderer`
 * Viewer avec Renderer définissant une stratégie
