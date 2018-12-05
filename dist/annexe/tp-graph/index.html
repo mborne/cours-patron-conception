@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <title>tp-graph/index.md</title>
+  <link type="text/css" rel="stylesheet" href="../assets/css/github-markdown.css">
+  <link type="text/css" rel="stylesheet" href="../assets/css/pilcrow.css">
+  <link type="text/css" rel="stylesheet" href="../assets/css/hljs-github.min.css" />
+
+  <link rel="stylesheet" href="../assets/highlight/styles/github.css">
+  <style>
+    html, body {
+      width: 90%;
+      margin: auto;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <article class="markdown-body">
+    <h1 id="tp-refactoring-graph"><a href="#tp-refactoring-graph" class="anchor"></a>tp-refactoring-graph</h1><h2 id="introduction"><a href="#introduction" class="anchor"></a>Introduction</h2><p>Dans ce TP, nous allons réfactorer une application qui charge un graphe à partir d&#39;un fichier XML et calcul le plus court chemin entre deux sommets.</p>
+<p>Les objectifs sont les suivants :</p>
+<ul>
+<li>Rendre le code plus robuste</li>
+<li>Optimiser le calcul de plus court chemin</li>
+<li>Rendre le calcul de plus court chemin plus générique</li>
+<li>Améliorer les entrées/sorties du programme</li>
+</ul>
+<p>Pour celà, nous allons faire une revue de code et procéder par étape.</p>
+<h2 id="d-marrage"><a href="#d-marrage" class="anchor"></a>Démarrage</h2><ul>
+<li>Cloner le projet <a href="https://github.com/mborne/tp-refactoring-graph" target="_blank">https://github.com/mborne/tp-refactoring-graph</a></li>
+</ul>
+<pre><code class="language-bash">mkdir ~/workspace_pattern
+cd ~/workspace_pattern
+git clone https://github.com/mborne/tp-refactoring-graph
+cd tp-refactoring-graph
+# vérifier que vous êtes bien sur la branche &quot;initial&quot;
+git branch</code></pre>
+<h2 id="0-1-blinder-les-constructions-manipulation-et-chargement-de-graphe"><a href="#0-1-blinder-les-constructions-manipulation-et-chargement-de-graphe" class="anchor"></a>0.1 - Blinder les constructions, manipulation et chargement de graphe</h2><blockquote>
+<p>Problème : Il y a trop de fonctionnalités exposées pour que l&#39;on puisse refactorer facilement l&#39;algorithme de plus chemin.</p>
+</blockquote>
+<ul>
+<li>Mettre en place une fabrique pour créer les sommets : <code>graph.createVertex(coordinate,id)</code></li>
+<li>Mettre en place une fabrique pour créer les arcs : <code>graph.createEdge(source,target,id)</code></li>
+<li>Supprimer les setters</li>
+</ul>
+<p><img src="uml/graph-0.1.png" alt="Modèle 0.1"></p>
+<h2 id="0-2-optimiser-le-calcul-du-plus-court-chemin-indexation-des-arcs-entrants-et-sortants-"><a href="#0-2-optimiser-le-calcul-du-plus-court-chemin-indexation-des-arcs-entrants-et-sortants-" class="anchor"></a>0.2 - Optimiser le calcul du plus court chemin (indexation des arcs entrants et sortants)</h2><blockquote>
+<p>Problème : Chaque fois que l&#39;on recherche les arcs sortants d&#39;un sommet, on parcourt l&#39;ensemble du tableau des arcs. Il convient d&#39;indexer au niveau des sommets les arcs entrant et sortants.</p>
+</blockquote>
+<ul>
+<li>Ajouter des propriétés <code>inEdges</code> et <code>outEdges</code> sur les sommets</li>
+<li>S&#39;assurer que <code>inEdges</code> et <code>outEdges</code> est automatiquement renseignés lorsque l&#39;on créé des arcs.</li>
+</ul>
+<p><img src="uml/graph-0.2.png" alt="Modèle 0.2"></p>
+<h2 id="0-3-permettre-le-calcul-en-parall-le-de-plusieurs-plus-court-chemin-sur-un-m-me-graphe-en-m-moire"><a href="#0-3-permettre-le-calcul-en-parall-le-de-plusieurs-plus-court-chemin-sur-un-m-me-graphe-en-m-moire" class="anchor"></a>0.3 - Permettre le calcul en parallèle de plusieurs plus court chemin sur un même graphe en mémoire</h2><blockquote>
+<p>Problème : Les sommets étant porteurs des informations spécifiques à l&#39;algorithme de calcul de plus court chemin (<code>reached</code>, <code>visited</code>, etc.), il est impossible de lancer deux calculs de plus chemin en parallèle sur le même graphe.</p>
+</blockquote>
+<ul>
+<li>Report des informations de Vertex spécifiques au calcul de plus court chemin dans une classe <code>PathVertex</code></li>
+<li>Ajout d&#39;une propriété <code>List&lt;PathVertex&gt; reachedVertices</code> dans <code>DijkstraPathFinder</code>.</li>
+</ul>
+<h2 id="0-4-permettre-aussi-le-calcul-d-39-un-arbre-de-plus-court-chemin-donc-d-39-isochrones-"><a href="#0-4-permettre-aussi-le-calcul-d-39-un-arbre-de-plus-court-chemin-donc-d-39-isochrones-" class="anchor"></a>0.4 - Permettre aussi le calcul d&#39;un arbre de plus court chemin (donc d&#39;isochrones)</h2><blockquote>
+<p>Problème : Nous voulons aussi pouvoir calculer des isochrones. Il est donc intéressant de pouvoir calculer un arbre du plus court chemin. L&#39;algorithme est guère différent du calcul de plus court chemin de disktra : Il suffit de s&#39;arrêter non pas lorsque l&#39;on a atteint un sommet de destination, mais lorsque l&#39;on n&#39;a plus aucun sommet à visiter.</p>
+</blockquote>
+<ul>
+<li>Ajouter le concept de <code>PathTree</code> porteur d&#39;une liste de <code>PathVertex</code></li>
+<li>Coder une classe <code>PathTreeBuilder</code> qui construit l&#39;arbre du plus court chemin <code>buildTree(origin: Vertex)</code></li>
+<li>Réutiliser cette classe dans <code>DijkstraPathFinder</code></li>
+</ul>
+<h2 id="0-5-strat-gie-d-39-arr-t-du-calcul-de-l-39-arbre-du-plus-court-chemin"><a href="#0-5-strat-gie-d-39-arr-t-du-calcul-de-l-39-arbre-du-plus-court-chemin" class="anchor"></a>0.5 - Stratégie d&#39;arrêt du calcul de l&#39;arbre du plus court chemin</h2><blockquote>
+<p>Problème : Il faut pouvoir s&#39;arrêter de calculer l&#39;arbre soit quand on atteint un sommet particulier, soit quand on a atteint une distance limite.</p>
+</blockquote>
+<ul>
+<li>Proposer une méthode basée sur une stratégie pour arrêter le calcul de l&#39;arbre</li>
+<li>Implémenter une stratégie pour arrêter le calcul dans le contexte <code>DijkstraPathFinder</code></li>
+<li>Implémenter une stratégie pour limiter le calcul à une distance maximale pour le calcul d&#39;isochrone</li>
+</ul>
+<h2 id="0-6-permettre-le-choix-entre-dijkstra-et-a-star"><a href="#0-6-permettre-le-choix-entre-dijkstra-et-a-star" class="anchor"></a>0.6 - Permettre le choix entre Dijkstra et A-star</h2><blockquote>
+<p>Problème : On souhaite pouvoir </p>
+</blockquote>
+<ul>
+<li>Mettre en place une stratégie <code>NextVertexFinder</code> dans <code>PathTreeBuilder</code> avec deux implémentations<ul>
+<li><code>DijkstraNextVertexFinder</code></li>
+<li><code>AStarNextVertexFinder</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="id-es-pour-la-suite"><a href="#id-es-pour-la-suite" class="anchor"></a>Idées pour la suite</h2><ul>
+<li><p>Ecrire ̀<code>Graph</code> dans différents formats pour être en mesure de le visualiser avec des outils standards (DOT/GraphVIZ, GeoJSON, ...)</p>
+</li>
+<li><p>Ecrire <code>PathTree</code> dans sous forme d&#39;une <code>MultiLineStringM</code> WKT où le M est le coût depuis l&#39;origine du parcours.</p>
+</li>
+<li><p>Ajouter une géométriede type LineString sur les Edge et se baser dessus pour le calcul du coût</p>
+</li>
+<li><p>Permettre l&#39;utilisation soit d&#39;un fichier .xml, soit d&#39;un dossier contenant deux fichiers CSV (vertex.csv et edge.csv)</p>
+</li>
+</ul>
+<blockquote>
+<p>Guide : interface GraphReader, class XmlReader et class CsvReader; class GraphReaderFactory</p>
+</blockquote>
+<ul>
+<li>Permettre les graphes stockés en base de données</li>
+</ul>
+<blockquote>
+<p>Guide : Graph, DefaultGraph, DatabaseGraph</p>
+</blockquote>
+
+  </article>
+
+  <script src="../assets/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="../assets/mermaid/mermaid.min.js"></script>
+  <script>mermaid.init({
+      startOnLoad: true,
+      flowchart: {
+        useMaxWidth: true
+      }
+    }, ".language-mermaid");</script>
+</body>
+
+</html>
