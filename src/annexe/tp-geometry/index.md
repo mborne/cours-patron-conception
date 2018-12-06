@@ -283,9 +283,10 @@ GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))
 > Objectif : Préparation question suivante
 
 * Ajouter une classe `GeoJSONWriter` permettant d'écrire les géométries au format GeoJSON.
-* Unifier l'écriture des géométries sous une classe `GeometryWriter` offrant les méthodes
-  * `getName` : renvoyant le nom du format
+* Unifier l'écriture des géométries via une interface `GeometryWriter` implémentée `WktWriter` et `GeoJSONWriter` par offrant les méthodes
+  * `getName` : renvoyant le nom du format ("WKT" ou "GeoJSON")
   * `write` : convertissant une géométrie au format texte
+
 
 ## 0.17 - GeometryWriterFactory
 
@@ -302,10 +303,27 @@ assertEqual("POINT(3.0 4.0)", writer.write(g));
 
 ## 0.18 - GeometryVisitor renvoyant un résultat
 
-* Transformer la classe `GeometryVisitor` en `GeometryVisitor<T>` pour avoir la capacité de renvoyer un résultat
-* Ajouter `LengthVisitor<Double>` en guise de démonstration
+* Transformer la classe `GeometryVisitor` en `GeometryVisitor<T>` pour avoir la capacité de renvoyer des résultats avec des types variables
+* Ajouter `LengthVisitor<Double>` renvoyant la longueur de la géométrie en guise de démonstration (0.0 pour un point)
+
+```java
+LengthVisitor<Double> visitor = new LengthVisitor<Double>();
+Double result = geometry.accept(visitor);
+```
 
 Remarque : Un visiteur qui ne renvoie pas de résultat implémentera `GeometryVisitor<Void>`
+
+
+## 0.19 - Extraction de asText()
+
+Sortir `Geometry.asText() : String` sous forme d'une méthode statique `WKT.asText(Geometry g) : String`
+
+## 0.20 - MathTransform pour des transformation plus générique
+
+On va faire en sorte de sortir `translate(dx,dy)` de la classe `Geometry` tout en permettant des transformations plus riches.
+
+![Schéma UML 20](schema/mcd-20.png)
+
 
 ## Aller plus loin...
 
