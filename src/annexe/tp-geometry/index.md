@@ -324,6 +324,14 @@ On va faire en sorte de sortir `translate(dx,dy)` de la classe `Geometry` tout e
 
 ![Schéma UML 20](schema/mcd-20.png)
 
+Remarque : On renverra des copies des géométries dans `GeometryTransform` (appeler `notifyChange` sera innutile)
+
+## 0.21 - Finaliser une version potable
+
+* Remarquer que la suppression de translate sur `Geometry` permet de les rendre immuable
+* Supprimer par conséquent les mécanismes d'événement sur les géométries (c'est généralement une mauvaise idée sur des classes bas niveau)
+* Organiser les classes en package `model`, `io`, `transform`, `helper`, etc.
+* Améliorer la couverture des tests
 
 ## Aller plus loin...
 
