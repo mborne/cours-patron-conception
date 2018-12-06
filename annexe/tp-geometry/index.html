@@ -42,6 +42,8 @@
 <li><a href="#0-16-interface-geometrywriter-classe-wktwriter-et-geojsonwriter">0.16 - Interface GeometryWriter, classe WktWriter et GeoJSONWriter</a></li>
 <li><a href="#0-17-geometrywriterfactory">0.17 - GeometryWriterFactory</a></li>
 <li><a href="#0-18-geometryvisitor-renvoyant-un-r-sultat">0.18 - GeometryVisitor renvoyant un résultat</a></li>
+<li><a href="#0-19-extraction-de-astext-">0.19 - Extraction de asText()</a></li>
+<li><a href="#0-20-mathtransform-pour-des-transformation-plus-g-n-rique">0.20 - MathTransform pour des transformation plus générique</a></li>
 <li><a href="#aller-plus-loin-">Aller plus loin...</a></li>
 </ul>
 <h2 id="introduction"><a href="#introduction" class="anchor"></a>Introduction</h2><p>L&#39;objectif de ce TP est de s&#39;exercer à mettre oeuvre des patrons de conception via la création d&#39;une petite bibliothèque de manipulation des géométries OGC :</p>
@@ -233,8 +235,8 @@ GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))</code></p
 </blockquote>
 <ul>
 <li>Ajouter une classe <code>GeoJSONWriter</code> permettant d&#39;écrire les géométries au format GeoJSON.</li>
-<li>Unifier l&#39;écriture des géométries sous une classe <code>GeometryWriter</code> offrant les méthodes<ul>
-<li><code>getName</code> : renvoyant le nom du format</li>
+<li>Unifier l&#39;écriture des géométries via une interface <code>GeometryWriter</code> implémentée <code>WktWriter</code> et <code>GeoJSONWriter</code> par offrant les méthodes<ul>
+<li><code>getName</code> : renvoyant le nom du format (&quot;WKT&quot; ou &quot;GeoJSON&quot;)</li>
 <li><code>write</code> : convertissant une géométrie au format texte</li>
 </ul>
 </li>
@@ -250,10 +252,15 @@ GeometryWriterFactory writerFactory = new GeometryWriterFactory();
 GeometryWriter writer = writerFactory.createGeometryWriter(&quot;WKT&quot;);
 assertEqual(&quot;POINT(3.0 4.0)&quot;, writer.write(g));</code></pre>
 <h2 id="0-18-geometryvisitor-renvoyant-un-r-sultat"><a href="#0-18-geometryvisitor-renvoyant-un-r-sultat" class="anchor"></a>0.18 - GeometryVisitor renvoyant un résultat</h2><ul>
-<li>Transformer la classe <code>GeometryVisitor</code> en <code>GeometryVisitor&lt;T&gt;</code> pour avoir la capacité de renvoyer un résultat</li>
-<li>Ajouter <code>LengthVisitor&lt;Double&gt;</code> en guise de démonstration</li>
+<li>Transformer la classe <code>GeometryVisitor</code> en <code>GeometryVisitor&lt;T&gt;</code> pour avoir la capacité de renvoyer des résultats avec des types variables</li>
+<li>Ajouter <code>LengthVisitor&lt;Double&gt;</code> renvoyant la longueur de la géométrie en guise de démonstration (0.0 pour un point)</li>
 </ul>
+<pre><code class="language-java">LengthVisitor&lt;Double&gt; visitor = new LengthVisitor&lt;Double&gt;();
+Double result = geometry.accept(visitor);</code></pre>
 <p>Remarque : Un visiteur qui ne renvoie pas de résultat implémentera <code>GeometryVisitor&lt;Void&gt;</code></p>
+<h2 id="0-19-extraction-de-astext-"><a href="#0-19-extraction-de-astext-" class="anchor"></a>0.19 - Extraction de asText()</h2><p>Sortir <code>Geometry.asText() : String</code> sous forme d&#39;une méthode statique <code>WKT.asText(Geometry g) : String</code></p>
+<h2 id="0-20-mathtransform-pour-des-transformation-plus-g-n-rique"><a href="#0-20-mathtransform-pour-des-transformation-plus-g-n-rique" class="anchor"></a>0.20 - MathTransform pour des transformation plus générique</h2><p>On va faire en sorte de sortir <code>translate(dx,dy)</code> de la classe <code>Geometry</code> tout en permettant des transformations plus riches.</p>
+<p><img src="schema/mcd-20.png" alt="Schéma UML 20"></p>
 <h2 id="aller-plus-loin-"><a href="#aller-plus-loin-" class="anchor"></a>Aller plus loin...</h2><p>Idées pour la suite :</p>
 <ul>
 <li><p>Implémenter une classe <code>GeoJSONReader</code></p>
