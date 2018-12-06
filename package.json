@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/mborne/cours-patron-conception.git"
   },
-  "author": "",
+  "author": "Mickaël Borne <mborne@users.noreply.github.com>",
   "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/mborne/cours-patron-conception/issues"

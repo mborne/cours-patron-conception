@@ -1,4 +1,4 @@
-# tp-refactoring-graph
+# TP - Refactoring de traitement de graphe
 
 ## Introduction
 
@@ -14,7 +14,6 @@ Les objectifs sont les suivants :
 Pour celà, nous allons faire une revue de code et procéder par étape.
 
 ## Démarrage
-
 
 * Cloner le projet https://github.com/mborne/tp-refactoring-graph
 
