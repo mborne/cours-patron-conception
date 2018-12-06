@@ -83,11 +83,13 @@ git branch
 
 ## Idées pour la suite
 
-* Ecrire ̀`Graph` dans différents formats pour être en mesure de le visualiser avec des outils standards (DOT/GraphVIZ, GeoJSON, ...)
+* Ajouter une géométrie de type `LineString` sur les `Edge` et se baser dessus pour le calcul du coût
 
 * Ecrire `PathTree` dans sous forme d'une `MultiLineStringM` WKT où le M est le coût depuis l'origine du parcours.
 
-* Ajouter une géométriede type LineString sur les Edge et se baser dessus pour le calcul du coût
+* A construire des isochrone à base d'enveloppe convexe à partir de la `MultiLineStringM`
+
+* Ecrire ̀`Graph` dans différents formats pour être en mesure de le visualiser avec des outils standards (DOT/GraphVIZ, GeoJSON, ...)
 
 * Permettre l'utilisation soit d'un fichier .xml, soit d'un dossier contenant deux fichiers CSV (vertex.csv et edge.csv)
 
