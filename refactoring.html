@@ -19,7 +19,7 @@ complète d'applications ou de systèmes.
 
 ---
 
-# Plan
+## Plan
 
 * Principe
 * Notion de changement cassant
@@ -32,10 +32,11 @@ complète d'applications ou de systèmes.
 * Importance des tests
 * Techniques de refactoring
 * Quand refactorer?
+* Quels outils?
 
 ---
 
-# Principe
+## Principe
 
 Améliorer la conception d'un code existant pour :
 
@@ -44,7 +45,7 @@ Améliorer la conception d'un code existant pour :
 
 ---
 
-# Notion de changement cassant
+## Notion de changement cassant
 
 Un changement cassant est une modification du code qui implique une mise à jour
 du code client.
@@ -56,7 +57,7 @@ dans la mesure du possible.
 
 ---
 
-# Notion changements de comportement
+## Notion changements de comportement
 
 On s'interdira tout changement de comportement en l'absence d'un changement
 cassant.
@@ -68,7 +69,7 @@ valeurs par défaut.
 
 ---
 
-# Numérotation des versions
+## Numérotation des versions
 
 Il est important de :
 
@@ -85,7 +86,7 @@ Les clients peuvent ainsi maîtriser les montées en version tout en récupéran
 
 ---
 
-# Accompagnement du changement
+## Accompagnement du changement
 
 * Les fichiers CHANGELOG décrivent les changements et adaptation à réaliser.
 * Les fonctionnalitées qui vont être supprimées peuvent être marquées comme dépréciées dans des versions intermédiaires.
@@ -94,7 +95,7 @@ Les clients peuvent ainsi maîtriser les montées en version tout en récupéran
 
 ---
 
-# Gestion de l'historique
+## Gestion de l'historique
 
 La gestion des versions est intimement liée à la gestion de l'historique.
 
@@ -109,7 +110,7 @@ Voir :
 
 ---
 
-# Code public et privé (notion d'API)
+## Code public et privé (notion d'API)
 
 Au sein d'une même bibliothèque, on trouvera parfois la notion de code privé et de code public (Impl, namespace detail, package internal, etc.)
 
@@ -117,7 +118,7 @@ Il faut éviter de dépendre d'un tel code dans une bibliothèque tierces. On pe
 
 ---
 
-# Importance des tests
+## Importance des tests
 
 Les tests unitaires et fonctionnels vont permettre de se protéger contre les
 régressions.
@@ -126,7 +127,7 @@ Quand on refactor du code, le comportement des clients de ce code ne doit pas ch
 
 ---
 
-# Techniques de refactoring
+## Techniques de refactoring
 
 Outre l'introduction de pattern, il existe une multitude de modification classique qui tendent à améliorer la qualité d'un code :
 
@@ -143,7 +144,7 @@ Ce catalogue permet une meilleure organisation des connaissances.
 
 ---
 
-# Quand réfactorer?
+## Quand réfactorer?
 
 Un code est rarement totalement satisfaisant, mais le luxe de pouvoir réfactorer 
 un code sans but est rarement offert aux développeurs. 
@@ -156,6 +157,18 @@ Généralement, on réfactorera un code à l'occasion d'actions concrètes :
 * Optimisation
 * Portage de l'application (android, win->linux, etc.)
 * ...
+
+---
+
+## Quels outils?
+
+Plusieurs familles d'outils peuvent aider à maintenir ou améliorer la qualité d'un code :
+
+* Les outils d'analyse statiques de code (voir SonarQube par exemple)
+* Les outils générant des rapports de couverture par les tests
+* Les outils d'intégration continue (travis, jenkins, etc.)
+* Les outils de mesure de performance
+
 
     </textarea>
 
