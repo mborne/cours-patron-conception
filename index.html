@@ -42,12 +42,12 @@ Il faut avoir en tête la seule constante du développement : Le changement !
 
 On vise (et on priorise) plusieurs critères :
 
-* **Fiabilité**       : Pouvoir faire tourner le programme sans risque de plantage                        
-* **Maintenabilité**  : Pouvoir corriger un bug, mettre à jour les dépendances, etc.                      
-* **Performance**     : Temps d'exécution, consommation de RAM, espace disque, etc.                       
-* **Evolutivité**     : Pouvoir ajouter facilement des fonctionnalités sans peur de tout faire planter    
-* **Réutilisabilité** : Pouvoir réutiliser un code dans un autre contexte                                
-* **Portabilité**     : Pouvoir porter facilement un programme développé pour une cible vers une autre  
+* **Fiabilité**       : Pouvoir faire tourner le programme sans risque de plantage
+* **Maintenabilité**  : Pouvoir corriger un bug, mettre à jour les dépendances, etc.
+* **Performance**     : Temps d'exécution, consommation de RAM, espace disque, etc.
+* **Evolutivité**     : Pouvoir ajouter facilement des fonctionnalités sans peur de tout faire planter
+* **Réutilisabilité** : Pouvoir réutiliser un code dans un autre contexte
+* **Portabilité**     : Pouvoir porter facilement un programme développé pour une cible vers une autre
 * **Testabilité**     : Pouvoir automiser facilement les tests unitaires et fonctionnels sur un programme
 * ...
 
@@ -502,6 +502,7 @@ Stockage des sessions, des caches, etc.
 
 * [TP - Mise en oeuvre des patterns sur des Geometry](annexe/tp-geometry/index.html)
 * [Les grands principes du refactoring de code](refactoring.html)
+* [TP - Réfactoring sur des traitements de graphe](annexe/tp-graph/index.html)
 * [Outils pour la gestion des dépendances (Java, PHP, NodeJS, JavaScript, C++)](annexe/dependances.html)
 
 ---
@@ -545,13 +546,13 @@ Explication de l'intérêt des patterns du GoF et implémentation en Java.
     </textarea>
 
     <script src="assets/remarkjs/remark-latest.min.js"></script>
-    <script src="assets/jquery/jquery-3.3.1.min.js"></script>    
+    <script src="assets/jquery/jquery-3.3.1.min.js"></script>
     <script>
         var slideshow = remark.create();
 
         /* footer */
         $('.remark-slide-content').each(function (index, data) {
-            var footer = '<span class="footer">ENSG - Les patrons de conception, Mickaël BORNE, Décembre 2018</span>';
+            var footer = '<span class="footer">ENSG - Les patrons de conception, Mickaël BORNE, Janvier 2020</span>';
             $(data).append(footer);
         });
     </script>

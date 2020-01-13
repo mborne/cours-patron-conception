@@ -27,20 +27,24 @@ des objets concrets.</p>
 <h2 id="exemple"><a href="#exemple" class="anchor"></a>Exemple</h2><ul>
 <li>Connexion à une base de données</li>
 </ul>
-<pre><code>interface Connection {
+<pre><code class="language-java">interface Connection {
 
-}</code></pre><pre><code>class PostgregsqlConnection implements Connection {
+}</code></pre>
+<pre><code class="language-java">class PostgregsqlConnection implements Connection {
 
-}</code></pre><ul>
+}</code></pre>
+<ul>
 <li>Fabrique abstraite pour les connexions</li>
 </ul>
-<pre><code>interface ConnectionFactory {
+<pre><code class="language-java">interface ConnectionFactory {
     public Connection createConnection(String dbname) ;
-}</code></pre><pre><code>class PostgregsqlConnectionFactory implements ConnectionFactory {
+}</code></pre>
+<pre><code class="language-java">class PostgregsqlConnectionFactory implements ConnectionFactory {
     public Connection createConnection(String dbname) {
         return new PostgregsqlConnection(dbname);
     }
 }</code></pre>
+
   </article>
 
   <script src="../../assets/highlight/highlight.pack.js"></script>
