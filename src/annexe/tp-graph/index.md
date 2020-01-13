@@ -2,7 +2,12 @@
 
 ## Introduction
 
-Dans ce TP, nous allons réfactorer une application qui charge un graphe et calcule le plus court chemin entre deux sommets.
+Dans ce TP où l'idée est de se mettre en situation où l'on récupère un prototype à industrialiser, nous allons réfactorer une application qui charge un graphe et calcule le plus court chemin entre deux sommets.
+
+L'application se présente sous deux forme :
+
+* Un utilitaire en ligne de commande
+* Une API basée sur [spring boot](https://spring.io/guides/gs/spring-boot/)
 
 Les objectifs sont les suivants :
 
@@ -28,7 +33,7 @@ git branch
 
 ## Prise de connaissance du code
 
-Vous êtes inviter à prendre connaissance des classes :
+Vous êtes invité à prendre connaissance des classes :
 
 | Classe                                             | Description                                           |
 | -------------------------------------------------- | ----------------------------------------------------- |
@@ -47,9 +52,8 @@ Vous êtes inviter à prendre connaissance des classes :
 Vous pouvez :
 
 * Exécuter les tests
-* Exécuter le calcul d'itinéraire en ligne de commande
-
-![Configuration CLI dans eclipse](img/eclipse-findpath.png)
+* Exécuter le calcul d'itinéraire en ligne de commande (voir [img/eclipse-findpath.png](img/eclipse-findpath.png) pour configuration)
+* Tester l'API de calcul d'itinéraire (voir [img/eclipse-application.png](img/eclipse-application.png) pour configuration)
 
 
 ## 0.1 - Blindage de la construction des arcs

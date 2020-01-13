@@ -491,6 +491,7 @@ Stockage des sessions, des caches, etc.
 
 * [TP - Mise en oeuvre des patterns sur des Geometry](annexe/tp-geometry/index.html)
 * [Les grands principes du refactoring de code](refactoring.html)
+* [TP - Réfactoring sur des traitements de graphe](annexe/tp-graph/index.html)
 * [Outils pour la gestion des dépendances (Java, PHP, NodeJS, JavaScript, C++)](annexe/dependances.html)
 
 ---

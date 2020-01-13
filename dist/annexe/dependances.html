@@ -23,8 +23,8 @@
   <article class="markdown-body">
     <h1 id="outils-de-gestion-des-d-pendances"><a href="#outils-de-gestion-des-d-pendances" class="anchor"></a>Outils de gestion des dépendances</h1><p>La plupart des outils comporte :</p>
 <ul>
-<li>Un descripteur de projet qui liste les dépendances</li>
-<li>Un utilitaire en ligne de commande</li>
+<li>Un descripteur de projet qui liste les dépendances et leurs versions</li>
+<li>Un utilitaire en ligne de commande pour télécharger les dépendances et construire le projet</li>
 <li>Un dépôt central à partir duquel on télécharge les packages (tout en ayant la possibilité de monter des dépôts privés)</li>
 </ul>
 <p>L&#39;utilitaire en ligne de commande offre généralement au moins les opérations suivante :</p>
@@ -42,6 +42,20 @@
 <li>Démarrage rapide : <a href="https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html" target="_blank">Maven in five minutes</a></li>
 <li>Voir <a href="http://maven.apache.org/plugins/maven-assembly-plugin/" target="_blank">maven-assembly-plugin</a> pour générer des zip/tar.gz contenant les jar, les .sh/.bat et autres ressources)</li>
 </ul>
+<h2 id="nodejs-npm"><a href="#nodejs-npm" class="anchor"></a>NodeJS - NPM</h2><p>Principalement utilisé pour :</p>
+<ul>
+<li>Gérer les dépendances NodeJS (express par exemple) et les dépendances du front (jquery, bootstrap, openlayers, etc.)</li>
+<li>Gérer l&#39;installation des outils côté serveur (webpack, gulp, etc.)</li>
+<li>Gérer l&#39;exécution de tâche (<code>npm start</code> pour démarrer un serveur)</li>
+<li>Descripteur du projet : package.json</li>
+<li>Dépôt central : <a href="https://www.npmjs.com/" target="_blank">npmjs.com</a></li>
+<li>Démarrage rapide : <a href="https://www.npmjs.com/package/express" target="_blank">Testez express</a>!</li>
+</ul>
+<p>Remarque :</p>
+<ul>
+<li>Noter la notion d&#39;installation globale (<code>npm install -g less</code>)</li>
+<li>Noter l&#39;évolution rapide des modes au niveau des outils de construction <a href="http://gruntjs.com/getting-started" target="_blank">Grunt</a>, Gulp, webpack, ParcelJS, etc.</li>
+</ul>
 <h2 id="php-composer-satis"><a href="#php-composer-satis" class="anchor"></a>PHP - COMPOSER/SATIS</h2><p>Composer permet :</p>
 <ul>
 <li>La gestion efficace des dépendances d&#39;un projet</li>
@@ -57,27 +71,17 @@
 <li>Dépôt privé : <a href="https://github.com/composer/satis" target="_blank">SATIS</a></li>
 <li>Démarrage rapide : <a href="https://getcomposer.org/doc/00-intro.md" target="_blank">Introduction et Basic usage (getcomposer.org)</a> puis tester <a href="http://silex.sensiolabs.org/" target="_blank">Silex</a></li>
 </ul>
-<h2 id="nodejs-npm"><a href="#nodejs-npm" class="anchor"></a>NodeJS - NPM</h2><p>Principalement utilisé pour :</p>
-<ul>
-<li>Gérer les dépendances NodeJS (express par exemple) et les dépendances du front (jquery, bootstrap, openlayers, etc.)</li>
-<li>Gérer l&#39;installation des outils côté serveur (less, grunt, etc.)</li>
-<li>Gérer l&#39;exécution de tâche (<code>npm start</code> pour démarrer un serveur)</li>
-<li>Descripteur du projet : package.json</li>
-<li>Dépôt central : <a href="https://www.npmjs.com/" target="_blank">npmjs.com</a></li>
-<li>Démarrage rapide : <a href="https://www.npmjs.com/package/express" target="_blank">Tester express</a></li>
-</ul>
-<p>Remarque :</p>
-<ul>
-<li>Noter la notion d&#39;installation globale (<code>npm install -g less</code>)</li>
-<li>Noter aussi l&#39;existence de <a href="http://gruntjs.com/getting-started" target="_blank">Grunt</a> et Gulp pour l&#39;automatiser certaines
-tâches (validation du code JavaScript : lint, minification de code : uglify, etc.)</li>
-</ul>
 <h2 id="cmake-c-"><a href="#cmake-c-" class="anchor"></a>CMake - C++</h2><p>Utilitaire pour la compilation qui permet dans une moindre mesure de gérer les dépendances :</p>
 <ul>
-<li>find_package permet de récupérer les chemins vers les bibliothèques installées sur le système.</li>
-<li>la génération de fichier de configuration permet l&#39;utilisation de find_package en l&#39;absence de finder.</li>
+<li><code>find_package</code> permet de récupérer les chemins vers les bibliothèques installées sur le système.</li>
+<li>la génération de fichier de configuration permet l&#39;utilisation de <code>find_package</code> en l&#39;absence de finder.</li>
 </ul>
-<p>Pour installer les bibliothèques, il faut faire appel à des systèmes de packaging liés aux systèmes (nugget, apt, etc.)</p>
+<p>Par contre, pour installer les bibliothèques tierces, il faut :</p>
+<ul>
+<li>Faire appel à des systèmes de packaging liés aux systèmes (nugget, apt, yum, etc.)</li>
+<li>S&#39;appuyer sur git submodule</li>
+<li>...</li>
+</ul>
 
   </article>
 

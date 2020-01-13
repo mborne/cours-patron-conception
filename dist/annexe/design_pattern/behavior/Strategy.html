@@ -149,7 +149,7 @@ method := grayScale|blur</code></pre>
 
     public static void main(String args[]){
         File input    = new File(args[0]);
-        File output   = new File(args[1]);    
+        File output   = new File(args[1]);
         String method = args[2] ;
 
         Map&lt;String, Application&gt; applications = new HashMap&lt;String, Application&gt;();
@@ -168,7 +168,7 @@ On souhaite maintenant pouvoir appliquer deux traitements successifs !</p>
 <li>Une explosion combinatoire (ApplicationBlur, ApplicationGrayScale, ApplicationGrayScaleBlur, ApplicationBlurGrayScale)</li>
 <li>Des écritures/relectures de fichiers</li>
 </ul>
-<p>Qu&#39;est-ce qu&#39;on a raté : </p>
+<p>Qu&#39;est-ce qu&#39;on a raté :</p>
 <ul>
 <li>Le principe de responsabilité unique (Application effectue le calcul tout en orchestrant la lecture et les écritures).</li>
 <li>Privilégier la composition à l&#39;héritage s&#39;applique aussi pour l&#39;encapsulation des traitements.</li>
@@ -255,7 +255,7 @@ On souhaite maintenant pouvoir appliquer deux traitements successifs !</p>
 <li>A l&#39;utilisation</li>
 </ul>
 <pre><code class="language-java">File input    = new File(args[0]);
-File output   = new File(args[1]);    
+File output   = new File(args[1]);
 
 // On imagera qu&#39;on peut gérer le paramètre méthode sous forme d&#39;une expression.
 ImageProcessorComposite compositeStrategy = new ImageProcessorComposite();

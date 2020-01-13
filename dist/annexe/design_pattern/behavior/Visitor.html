@@ -30,7 +30,7 @@ type de la hiérarchie :</p>
 
     public void visit( LineString lineString ) ;
 
-    /* les cas non prévu dans l&#39;interface du visitor */
+    /* optionel : Pour les cas non prévu dans l&#39;interface du visitor */
     public void visit( Geometry other );
 
 }</code></pre>
@@ -69,7 +69,7 @@ les mécanismes de résolution des liens dans le cadre du polymorphisme paramét
 étendre l&#39;interface du visitor original.</p>
 <p>Par conséquent, les visiteurs existants seront généralement incapables de gérer 
 le type ajouté.</p>
-<p>Exemple : </p>
+<p>Exemple :</p>
 <p>La bibliothèque géométrique utilise un <code>GeometryRendererVisitor</code>. Un
 client implémente l&#39;interface <code>Geometry</code> pour ajoute le concept de courbe 
 de bézier. <code>GeometryRendererVisitor</code> ne saura pas effectuer le rendu.</p>
@@ -78,7 +78,7 @@ matière de polymorphisme paramétrique.</p>
 <h2 id="variante"><a href="#variante" class="anchor"></a>Variante</h2><ul>
 <li><p>Traverse visitor : En plus de parcourir la hiérarchie, on parcourt les enfants</p>
 </li>
-<li><p>Double dispatching : </p>
+<li><p>Double dispatching :</p>
 </li>
 </ul>
 <pre><code class="language-java">Visitor.visit(Visitable a, Visitable b);</code></pre>
