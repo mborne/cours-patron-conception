@@ -1,4 +1,4 @@
-# Prototype 
+# Prototype
 
 ## Problème
 

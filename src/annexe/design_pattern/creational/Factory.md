@@ -13,7 +13,7 @@ On dispose par exemple de la hiérarchie suivante :
 
 Supposons que l'on charge un fichier contenant des animaux et que l'on fasse appel à "new" en fonction du type de l'animal, on aura le morceau de code suivant :
 
-```
+```java
 Animal animal = null ;
 if ( typeAnimal.equals("chat") ){
     animal = new Chat() ;
@@ -36,7 +36,7 @@ Appliqué à notre exemple, une AnimalFactory devient l'entité responsable de
 la création d'un animal en fonction de son type.
 
 
-```
+```java
 class AnimalFactory {
     public Animal createAnimal(String typeAnimal) throws AnimalTypeNotFound {
         if ( typeAnimal.equals("chat") ){
@@ -52,7 +52,7 @@ class AnimalFactory {
 
 Les autres codes sont insensibles à l'ajout d'un nouveau type.
 
-```
+```java
 Animal animal = animalFactory.createAnimal(typeAnimal) ;
 animal.setNom(nomAnimal);
 ```
@@ -63,16 +63,16 @@ On trouvera de nombreuses variantes du concept de fabrique :
 
 * La fabrique statique
 
-```
+```java
 Animal.createByType("chien")
 ```
 
 * Les fabriques basées sur des prototypes (composition de pattern)
 
-```
+```java
 class AnimalFactory throws AnimalTypeNotFound {
     private Map<String, Animal> prototypes = new HashMap<>();
-    
+
     public Animal createAnimal(String typeAnimal){
         Animal prototype = prototypes.get(typeName);
         if ( prototype == null ){
@@ -99,7 +99,7 @@ Création de géométrie de différents types (Point, LineString, Polygon, etc.)
 
 C'est une variante sous forme d'une fabrique statique
 
-```
+```java
 Connection connection = DriverManager.getConnection("jdbc:postgresql:mabase")
 ```
 

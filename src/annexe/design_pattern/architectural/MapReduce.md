@@ -1,11 +1,11 @@
-# MapReduce
+# MapReduce
 
 ## Problème
 
 Le patron d'architecture donne un cadre pour la conception d'algorithme
 capable de traiter des volumes de données importants par distribution des traitements.
 
-## Principe 
+## Principe
 
 L'algorithme procède par décomposition des données en lot (map) puis par fusion
 des résultats (reduce).
@@ -20,10 +20,11 @@ Les bases de données distribuées appliquent ce principe pour traiter les requ�
 
 ## Exemples
 
-* [Comptage de mot en MapReduce avec Hadoop (wiki.apache.org)](https://wiki.apache.org/hadoop/WordCount)
+* [dzone.com - Word Count Program With MapReduce and Java](https://dzone.com/articles/word-count-hello-word-program-in-mapreduce)
 
-* [MapReduce by examples (slideshare.net)](http://fr.slideshare.net/andreaiacono/mapreduce-34478449) : 
-Exemple de comptage, somme, moyenne, K-Means en MapReduce
+* [www.guru99.com - Hadoop & Mapreduce Examples: Create your First Program](https://www.guru99.com/create-your-first-hadoop-program.html) : Exemple complet utilisation hadoop et map reduce
+
+
 
 
 

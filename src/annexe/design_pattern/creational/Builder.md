@@ -141,7 +141,7 @@ En outre, la distinction n'est pas toujours faite entre "Director" et "Builder".
 
 * `StringBuilder`
 
-* [CalendarBuilder](https://docs.oracle.com/javase/8/docs/api/java/util/Calendar.Builder.html)
+* [CalendarBuilder](https://docs.oracle.com/javase/8/docs/api/java/util/Calendar.Builder.html)
 
 ```java
 Calendar cal = new Calendar.Builder()

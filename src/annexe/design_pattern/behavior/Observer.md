@@ -1,9 +1,8 @@
 # Observer
 
-## Problème
+## Problème
 
-On souhaite réagir lorsqu'un objet effectue des opérations (changement 
-d'état par exemple).
+On souhaite réagir lorsqu'un objet effectue des opérations (changement d'état par exemple).
 
 ## Solution
 
@@ -23,13 +22,11 @@ un autre qui joue un son, etc.
 
 ## Variante
 
-On retrouve plusieurs variantes dans les systèmes. Il est souvent question 
-d'événements (`EventListener`, `EventSubscriber`, `EventDispatcher` dans Symfony2, `trigger/on` avec JQuery, `signal/slot` dans C++/Qt, etc.)
+On retrouve plusieurs variantes dans les systèmes. Il est souvent question d'événements (`EventListener`, `EventSubscriber`, `EventDispatcher` dans Symfony2, `trigger/on` avec JQuery, `signal/slot` dans C++/Qt, etc.)
 
-## Resource 
+## Resource
 
-* [Observer](https://docs.oracle.com/javase/7/docs/api/java/util/Observer.html) 
-et [Observable](https://docs.oracle.com/javase/7/docs/api/java/util/Observable.html) dans l'API Java
+* [Observer](https://docs.oracle.com/javase/7/docs/api/java/util/Observer.html) et [Observable](https://docs.oracle.com/javase/7/docs/api/java/util/Observable.html) dans l'API Java
 
 * [Design pattern Observateur en Java : positionnement via un GPS (design-patterns.fr)](http://design-patterns.fr/observateur-en-java)
 

@@ -1,10 +1,8 @@
 # Refactoring de code
 
-Nous allons rapidement balayer quelques points théoriques essentiels 
-avant de retourner à la pratique.
+Nous allons rapidement balayer quelques points théoriques essentiels avant de retourner à la pratique.
 
-Remarque : Nous traiterons principalement le refactoring "local" de code, pas la refonte 
-complète d'applications ou de systèmes.
+Bien que certains concepts soient les mêmes, nous traiterons principalement le refactoring "local" de code, pas la refonte complète d'applications ou de systèmes.
 
 ---
 
@@ -41,8 +39,7 @@ du code client.
 
 Exemple : Modification d'un prototype de fonction
 
-On portera une attention aux changements cassants que l'on évitera 
-dans la mesure du possible.
+On portera une attention aux changements cassants que l'on évitera dans la mesure du possible.
 
 ---
 
@@ -65,11 +62,11 @@ Il est important de :
 * Tagger/Releaser des versions stables des codes
 * D'adopter une convension de nommage pour les versions
 
-La convension généralement utilisée est ```<major>.<minor>.<patch>``` (exemple : 1.2.5) où :
+La convension généralement utilisée est `<major>.<minor>.<patch>` (exemple : "1.2.5") où :
 
-* L'incrémentation de ```<major>``` traduit une version majeure porteuse de changement cassant
-* ```<minor>``` traduit des ajouts de fonctionnalités sans changement cassant
-* ```<patch>``` traduit une correction de bug sans ajout de fonctionnalité
+* L'incrémentation de `<major>` traduit une version majeure porteuse de changement cassant
+* `<minor>` traduit des ajouts de fonctionnalités sans changement cassant
+* `<patch>` traduit une correction de bug sans ajout de fonctionnalité
 
 Les clients peuvent ainsi maîtriser les montées en version tout en récupérant automatiquement les correctifs.
 
@@ -80,7 +77,7 @@ Les clients peuvent ainsi maîtriser les montées en version tout en récupéran
 * Les fichiers CHANGELOG décrivent les changements et adaptation à réaliser.
 * Les fonctionnalitées qui vont être supprimées peuvent être marquées comme dépréciées dans des versions intermédiaires.
 * Des versions dédiées aux migrations peuvent être mise en oeuvre
-    * Ex : Symfony 2.8 apporte les nouveautés de la version 3.0 en marquant comme dépréciées les fonctionnalités supprimées dans la version 3.0
+    * Ex : Version 2.8 apportant les nouveautés de la version 3.0 en marquant comme dépréciées les fonctionnalités supprimées dans la version 3.0 (vu framework PHP Symfony)
 
 ---
 
@@ -101,7 +98,7 @@ Voir :
 
 ## Code public et privé (notion d'API)
 
-Au sein d'une même bibliothèque, on trouvera parfois la notion de code privé et de code public (Impl, namespace detail, package internal, etc.)
+Au sein d'une même bibliothèque, on trouvera parfois la notion de code privé et de code public (`Impl`, namespace `detail`, package `internal`, etc.)
 
 Il faut éviter de dépendre d'un tel code dans une bibliothèque tierces. On peut s'y autoriser des changements cassants non documenté.
 
@@ -124,6 +121,7 @@ Outre l'introduction de pattern, il existe une multitude de modification classiq
 * Extraction de méthode
 * Extraction d'une interface
 * Introduction d'un patron de conception
+* ...
 
 A l'instar des patrons de conception, ces techniques peuvent être cataloguées :
 
@@ -135,13 +133,12 @@ Ce catalogue permet une meilleure organisation des connaissances.
 
 ## Quand réfactorer?
 
-Un code est rarement totalement satisfaisant, mais le luxe de pouvoir réfactorer 
-un code sans but est rarement offert aux développeurs. 
+Un code est rarement totalement satisfaisant, mais le luxe de pouvoir réfactorer un code sans but est rarement offert aux développeurs.
 
 Généralement, on réfactorera un code à l'occasion d'actions concrètes :
 
 * Industrialisation de prototype (travaux de recherche par ex.)
-* Ajout de fonctionnalités
+* Ajout de fonctionnalités à l'occasion d'une nouvelle version
 * Correction de bug
 * Optimisation
 * Portage de l'application (android, win->linux, etc.)
@@ -156,5 +153,5 @@ Plusieurs familles d'outils peuvent aider à maintenir ou améliorer la qualité
 * Les outils d'analyse statiques de code (voir SonarQube par exemple)
 * Les outils générant des rapports de couverture par les tests
 * Les outils d'intégration continue (travis, jenkins, etc.)
-* Les outils de mesure de performance
+* Les outils de mesure de performance (par ex VisualVM en java)
 

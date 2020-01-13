@@ -31,12 +31,12 @@ Il faut avoir en tête la seule constante du développement : Le changement !
 
 On vise (et on priorise) plusieurs critères :
 
-* **Fiabilité**       : Pouvoir faire tourner le programme sans risque de plantage                        
-* **Maintenabilité**  : Pouvoir corriger un bug, mettre à jour les dépendances, etc.                      
-* **Performance**     : Temps d'exécution, consommation de RAM, espace disque, etc.                       
-* **Evolutivité**     : Pouvoir ajouter facilement des fonctionnalités sans peur de tout faire planter    
-* **Réutilisabilité** : Pouvoir réutiliser un code dans un autre contexte                                
-* **Portabilité**     : Pouvoir porter facilement un programme développé pour une cible vers une autre  
+* **Fiabilité**       : Pouvoir faire tourner le programme sans risque de plantage
+* **Maintenabilité**  : Pouvoir corriger un bug, mettre à jour les dépendances, etc.
+* **Performance**     : Temps d'exécution, consommation de RAM, espace disque, etc.
+* **Evolutivité**     : Pouvoir ajouter facilement des fonctionnalités sans peur de tout faire planter
+* **Réutilisabilité** : Pouvoir réutiliser un code dans un autre contexte
+* **Portabilité**     : Pouvoir porter facilement un programme développé pour une cible vers une autre
 * **Testabilité**     : Pouvoir automiser facilement les tests unitaires et fonctionnels sur un programme
 * ...
 
@@ -491,6 +491,7 @@ Stockage des sessions, des caches, etc.
 
 * [TP - Mise en oeuvre des patterns sur des Geometry](annexe/tp-geometry/index.html)
 * [Les grands principes du refactoring de code](refactoring.html)
+* [TP - Réfactoring sur des traitements de graphe](annexe/tp-graph/index.html)
 * [Outils pour la gestion des dépendances (Java, PHP, NodeJS, JavaScript, C++)](annexe/dependances.html)
 
 ---

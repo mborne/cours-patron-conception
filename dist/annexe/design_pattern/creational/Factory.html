@@ -29,7 +29,7 @@
 <li>Chien hérite de Animal</li>
 </ul>
 <p>Supposons que l&#39;on charge un fichier contenant des animaux et que l&#39;on fasse appel à &quot;new&quot; en fonction du type de l&#39;animal, on aura le morceau de code suivant :</p>
-<pre><code>Animal animal = null ;
+<pre><code class="language-java">Animal animal = null ;
 if ( typeAnimal.equals(&quot;chat&quot;) ){
     animal = new Chat() ;
 }else if (typeAnimal.equals(&quot;chien&quot;)){
@@ -37,11 +37,12 @@ if ( typeAnimal.equals(&quot;chat&quot;) ){
 }else{
     throw new AnimalTypeNotFound(typeAnimal);
 }
-animal.setNom(nomAnimal);</code></pre><p>En cas d&#39;ajout d&#39;un type d&#39;animal, on doit modifier tous les codes créant des animaux.</p>
+animal.setNom(nomAnimal);</code></pre>
+<p>En cas d&#39;ajout d&#39;un type d&#39;animal, on doit modifier tous les codes créant des animaux.</p>
 <h2 id="solution"><a href="#solution" class="anchor"></a>Solution</h2><p><img src="uml/UML_DP_Fabrique.png" alt="UML Prototype"></p>
 <p>Appliqué à notre exemple, une AnimalFactory devient l&#39;entité responsable de
 la création d&#39;un animal en fonction de son type.</p>
-<pre><code>class AnimalFactory {
+<pre><code class="language-java">class AnimalFactory {
     public Animal createAnimal(String typeAnimal) throws AnimalTypeNotFound {
         if ( typeAnimal.equals(&quot;chat&quot;) ){
             return new Chat() ;
@@ -51,16 +52,19 @@ la création d&#39;un animal en fonction de son type.</p>
             throw new AnimalTypeNotFound(typeAnimal);
         }
     }
-}</code></pre><p>Les autres codes sont insensibles à l&#39;ajout d&#39;un nouveau type.</p>
-<pre><code>Animal animal = animalFactory.createAnimal(typeAnimal) ;
-animal.setNom(nomAnimal);</code></pre><h2 id="variantes"><a href="#variantes" class="anchor"></a>Variantes</h2><p>On trouvera de nombreuses variantes du concept de fabrique :</p>
+}</code></pre>
+<p>Les autres codes sont insensibles à l&#39;ajout d&#39;un nouveau type.</p>
+<pre><code class="language-java">Animal animal = animalFactory.createAnimal(typeAnimal) ;
+animal.setNom(nomAnimal);</code></pre>
+<h2 id="variantes"><a href="#variantes" class="anchor"></a>Variantes</h2><p>On trouvera de nombreuses variantes du concept de fabrique :</p>
 <ul>
 <li>La fabrique statique</li>
 </ul>
-<pre><code>Animal.createByType(&quot;chien&quot;)</code></pre><ul>
+<pre><code class="language-java">Animal.createByType(&quot;chien&quot;)</code></pre>
+<ul>
 <li>Les fabriques basées sur des prototypes (composition de pattern)</li>
 </ul>
-<pre><code>class AnimalFactory throws AnimalTypeNotFound {
+<pre><code class="language-java">class AnimalFactory throws AnimalTypeNotFound {
     private Map&lt;String, Animal&gt; prototypes = new HashMap&lt;&gt;();
 
     public Animal createAnimal(String typeAnimal){
@@ -70,7 +74,8 @@ animal.setNom(nomAnimal);</code></pre><h2 id="variantes"><a href="#variantes" cl
         }
         return prototype.clone();
     }
-}</code></pre><ul>
+}</code></pre>
+<ul>
 <li>Les fabriques utilitaires qui ne créent pas des instances de types différents, mais avec des états initiaux différents</li>
 </ul>
 <h2 id="exemple-en-java"><a href="#exemple-en-java" class="anchor"></a>Exemple en Java</h2><p>Les fabriques sont nombreuses dans l&#39;API java et dans les bibliothèques.</p>
@@ -82,7 +87,8 @@ animal.setNom(nomAnimal);</code></pre><h2 id="variantes"><a href="#variantes" cl
 <li><a href="https://docs.oracle.com/javase/7/docs/api/java/sql/DriverManager.html" target="_blank">java.sql.DriverManager</a></li>
 </ul>
 <p>C&#39;est une variante sous forme d&#39;une fabrique statique</p>
-<pre><code>Connection connection = DriverManager.getConnection(&quot;jdbc:postgresql:mabase&quot;)</code></pre><h2 id="lien-s-utile-s-"><a href="#lien-s-utile-s-" class="anchor"></a>Lien(s) utile(s)</h2><p><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique" target="_blank">https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique</a></p>
+<pre><code class="language-java">Connection connection = DriverManager.getConnection(&quot;jdbc:postgresql:mabase&quot;)</code></pre>
+<h2 id="lien-s-utile-s-"><a href="#lien-s-utile-s-" class="anchor"></a>Lien(s) utile(s)</h2><p><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique" target="_blank">https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique</a></p>
 
   </article>
 
