@@ -37,7 +37,7 @@ function centroid( Coordinate[] coordinate ){
 
 Avant :
 
-```c++
+```cxx
 Coordinate c ;
 c.x = 3.0;
 c.y = 3.0;
@@ -99,14 +99,14 @@ class User {
 
 ## Intérêt de l'encapsulation (3/3)
 
-Attention toutefois : 
+Attention toutefois :
 
 * Il ne suffit pas de mettre des accesseurs pour résoudre tous les problèmes!
 * Certains accesseurs exposent trop d'information sur la structure interne (des collections par exemple)
 
 ---
 
-## Intérêt du polymorphisme (1/2)
+## Intérêt du polymorphisme (1/2)
 
 Quel est l'intérêt de l'approche suivante par rapport à un `switch` pour effectuer le rendu de composant graphique?
 
@@ -126,7 +126,7 @@ class Widget {
 
 ---
 
-## Intérêt du polymorphisme (2/2)
+## Intérêt du polymorphisme (2/2)
 
 * ̀`Button` : Un type de `Widget` particulier
 
@@ -148,7 +148,7 @@ class Button extends Widget {
 
 ---
 
-## Intérêt de abstract (1/3)
+## Intérêt de abstract (1/3)
 
 `abstract` sera souvent utile pour éviter des redondances dans l'implémentation des classes réelles. Par exemple :
 
@@ -175,7 +175,7 @@ class AbstractLogger {
 
 ---
 
-## Intérêt de abstract (2/3)
+## Intérêt de abstract (2/3)
 
 Implémentation concrète pour l'écriture dans la console :
 
@@ -191,7 +191,7 @@ class ConsoleLogger {
 
 ---
 
-## Intérêt de abstract (3/3)
+## Intérêt de abstract (3/3)
 
 Implémentation concrète pour l'écriture dans une base de données :
 

@@ -13,10 +13,10 @@ type de la hiérarchie :
 interface GeometryVisitor {
 
     public void visit( Point point ) ;
-    
+
     public void visit( LineString lineString ) ;
 
-    /* les cas non prévu dans l'interface du visitor */
+    /* optionel : Pour les cas non prévu dans l'interface du visitor */
     public void visit( Geometry other );
 
 }
@@ -46,15 +46,15 @@ perdre l'intérêt du polymorphisme :
 
 ```java
 class GeometryRenderer implements GeometryVisitor {
-    
+
     public void visit( Point point ){
         System.out.println("Render Point");
     }
-    
+
     public void visit( LineString lineString ) {
         System.out.println("Render LineString");
     }
-    
+
     public void visit( Geometry other ) {
         System.out.println("Can't render!");
     }
@@ -79,7 +79,7 @@ Quand la hiérarchie est étendue par un tiers, ce tiers ne pourra pas facilemen
 Par conséquent, les visiteurs existants seront généralement incapables de gérer 
 le type ajouté.
 
-Exemple : 
+Exemple :
 
 La bibliothèque géométrique utilise un `GeometryRendererVisitor`. Un
 client implémente l'interface `Geometry` pour ajoute le concept de courbe 
@@ -94,7 +94,7 @@ matière de polymorphisme paramétrique.
 
 * Traverse visitor : En plus de parcourir la hiérarchie, on parcourt les enfants
 
-* Double dispatching : 
+* Double dispatching :
 
 ```java
 Visitor.visit(Visitable a, Visitable b);

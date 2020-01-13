@@ -31,12 +31,12 @@ Il faut avoir en tête la seule constante du développement : Le changement !
 
 On vise (et on priorise) plusieurs critères :
 
-* **Fiabilité**       : Pouvoir faire tourner le programme sans risque de plantage                        
-* **Maintenabilité**  : Pouvoir corriger un bug, mettre à jour les dépendances, etc.                      
-* **Performance**     : Temps d'exécution, consommation de RAM, espace disque, etc.                       
-* **Evolutivité**     : Pouvoir ajouter facilement des fonctionnalités sans peur de tout faire planter    
-* **Réutilisabilité** : Pouvoir réutiliser un code dans un autre contexte                                
-* **Portabilité**     : Pouvoir porter facilement un programme développé pour une cible vers une autre  
+* **Fiabilité**       : Pouvoir faire tourner le programme sans risque de plantage
+* **Maintenabilité**  : Pouvoir corriger un bug, mettre à jour les dépendances, etc.
+* **Performance**     : Temps d'exécution, consommation de RAM, espace disque, etc.
+* **Evolutivité**     : Pouvoir ajouter facilement des fonctionnalités sans peur de tout faire planter
+* **Réutilisabilité** : Pouvoir réutiliser un code dans un autre contexte
+* **Portabilité**     : Pouvoir porter facilement un programme développé pour une cible vers une autre
 * **Testabilité**     : Pouvoir automiser facilement les tests unitaires et fonctionnels sur un programme
 * ...
 

@@ -164,7 +164,7 @@ class ApplicationCLI {
 
     public static void main(String args[]){
         File input    = new File(args[0]);
-        File output   = new File(args[1]);    
+        File output   = new File(args[1]);
         String method = args[2] ;
 
         Map<String, Application> applications = new HashMap<String, Application>();
@@ -185,7 +185,8 @@ Avec l'héritage, on obtient soit :
 * Une explosion combinatoire (ApplicationBlur, ApplicationGrayScale, ApplicationGrayScaleBlur, ApplicationBlurGrayScale)
 * Des écritures/relectures de fichiers
 
-Qu'est-ce qu'on a raté : 
+Qu'est-ce qu'on a raté :
+
 * Le principe de responsabilité unique (Application effectue le calcul tout en orchestrant la lecture et les écritures).
 * Privilégier la composition à l'héritage s'applique aussi pour l'encapsulation des traitements.
 
@@ -286,7 +287,7 @@ class ImageProcessorComposite implements ImageProcessorStrategy {
 
 ```java
 File input    = new File(args[0]);
-File output   = new File(args[1]);    
+File output   = new File(args[1]);
 
 // On imagera qu'on peut gérer le paramètre méthode sous forme d'une expression.
 ImageProcessorComposite compositeStrategy = new ImageProcessorComposite();

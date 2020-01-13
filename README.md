@@ -1,10 +1,10 @@
 # Les patrons de conception
 
-[ENSG](http://www.ensg.eu/) décembre 2018
+[ENSG](http://www.ensg.eu/) janvier 2020
 
 ## Resource en ligne
 
-Les éléments de ce cours sont présentés à 
+Les éléments de ce cours sont disponibles aux URL suivantes :
 
 * [Cours sur les patrons de conception](http://mborne.github.io/cours-patron-conception/)
 * [TP - Mise en oeuvre des patterns sur des Geometry](http://mborne.github.io/cours-patron-conception/annexe/tp-geometry/index.html)
