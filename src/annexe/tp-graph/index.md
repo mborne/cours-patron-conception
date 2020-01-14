@@ -68,7 +68,9 @@ On procède comme suit :
 
 ## 0.2 - Ajout de fabriques pour les sommets et les arcs
 
-En ajoutant un constructeur `Edge(source: Vertex, target: Vertex)`, on remarque que l'on a simplifié la création des arcs et des sommets. Toutefois, les opérations de création demeurent complexes et il reste la possibilité d'oublier d'ajouter les éléments aux listes de `vertices` et `edges`.
+En ajoutant un constructeur `Edge(source: Vertex, target: Vertex)`, on remarque que l'on a simplifié la création des arcs et des sommets.
+
+Toutefois, les opérations de création demeurent complexes et il reste la possibilité d'oublier d'ajouter les éléments aux listes de `vertices` et `edges` du graphe.
 
 On va donc procéder comme suit :
 

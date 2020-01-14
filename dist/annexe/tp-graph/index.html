@@ -109,7 +109,8 @@ git branch</code></pre>
 <li>Ajout d&#39;un constructeur <code>Edge(source: Vertex, target: Vertex)</code></li>
 <li>Suppression du constructeur par défaut sur <code>Edge</code></li>
 </ul>
-<h2 id="0-2-ajout-de-fabriques-pour-les-sommets-et-les-arcs"><a href="#0-2-ajout-de-fabriques-pour-les-sommets-et-les-arcs" class="anchor"></a>0.2 - Ajout de fabriques pour les sommets et les arcs</h2><p>En ajoutant un constructeur <code>Edge(source: Vertex, target: Vertex)</code>, on remarque que l&#39;on a simplifié la création des arcs et des sommets. Toutefois, les opérations de création demeurent complexes et il reste la possibilité d&#39;oublier d&#39;ajouter les éléments aux listes de <code>vertices</code> et <code>edges</code>.</p>
+<h2 id="0-2-ajout-de-fabriques-pour-les-sommets-et-les-arcs"><a href="#0-2-ajout-de-fabriques-pour-les-sommets-et-les-arcs" class="anchor"></a>0.2 - Ajout de fabriques pour les sommets et les arcs</h2><p>En ajoutant un constructeur <code>Edge(source: Vertex, target: Vertex)</code>, on remarque que l&#39;on a simplifié la création des arcs et des sommets.</p>
+<p>Toutefois, les opérations de création demeurent complexes et il reste la possibilité d&#39;oublier d&#39;ajouter les éléments aux listes de <code>vertices</code> et <code>edges</code> du graphe.</p>
 <p>On va donc procéder comme suit :</p>
 <ul>
 <li>Ajout d&#39;une fabrique <code>createVertex(coordinate,id): Vertex</code> dans <code>Graph</code></li>

@@ -252,15 +252,23 @@ Envelope b = g.getEnvelope() ; // renvoi de cachedEnvelope
 assertSame(a,b);
 ```
 
+Remarque : on traitera l'invalidation du cache en cas de modification de la géométrie originale à la prochaine question.
+
 ## 0.14 - GeometryListener
 
 > Objectif : Patron de conception Observable
 
+Pour être en mesure d'invalider l'enveloppe précalculée en cas de modification d'une géométrie, nous allons mettre en place un mécanisme d'événement :
+
+
 * Ajouter une interface `GeometryListener` qui permettra aux utilisateurs d'être notifié en cas de modification d'une géométrie
-* Notifier une modification après appel à translate à l'aide de `triggerChange`
-* Exploiter ce mécanisme pour recalculer l'enveloppe en cas de modification dans `GeometryWithCachedEnvelope`
+* Notifier une modification aux `listeners` dans `translate(dx,dy)` à l'aide de `triggerChange`
+* Exploiter ce mécanisme pour recalculer l'enveloppe en cas de modification dans `GeometryWithCachedEnvelope` qui s'ajoutera comme un `listener`
 
 ![Schéma UML](schema/mcd-14.png)
+
+
+Remarque : `translate` étant la seule fonction capable de modifier une géométrie, il serait actuellement possible de se contenter d'invalider l'enveloppe en surchargeant `translate` dans `GeometryWithCachedEnvelope` pour nettoyer au passage le cache. Rien ne garanti toutefois que `translate` reste la seule fonction à même de modifier une géométrie et que toutes ces fonctions restent déclarées au niveau `Geometry`.
 
 
 ## 0.15 - GeometryCollection
