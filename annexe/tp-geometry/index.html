@@ -215,15 +215,18 @@ g = new GeometryWithCachedEnvelope(g);
 Envelope a = g.getEnvelope() ; // calcul et stockage dans cachedEnvelope
 Envelope b = g.getEnvelope() ; // renvoi de cachedEnvelope
 assertSame(a,b);</code></pre>
+<p>Remarque : on traitera l&#39;invalidation du cache en cas de modification de la géométrie originale à la prochaine question.</p>
 <h2 id="0-14-geometrylistener"><a href="#0-14-geometrylistener" class="anchor"></a>0.14 - GeometryListener</h2><blockquote>
 <p>Objectif : Patron de conception Observable</p>
 </blockquote>
+<p>Pour être en mesure d&#39;invalider l&#39;enveloppe précalculée en cas de modification d&#39;une géométrie, nous allons mettre en place un mécanisme d&#39;événement :</p>
 <ul>
 <li>Ajouter une interface <code>GeometryListener</code> qui permettra aux utilisateurs d&#39;être notifié en cas de modification d&#39;une géométrie</li>
-<li>Notifier une modification après appel à translate à l&#39;aide de <code>triggerChange</code></li>
-<li>Exploiter ce mécanisme pour recalculer l&#39;enveloppe en cas de modification dans <code>GeometryWithCachedEnvelope</code></li>
+<li>Notifier une modification aux <code>listeners</code> dans <code>translate(dx,dy)</code> à l&#39;aide de <code>triggerChange</code></li>
+<li>Exploiter ce mécanisme pour recalculer l&#39;enveloppe en cas de modification dans <code>GeometryWithCachedEnvelope</code> qui s&#39;ajoutera comme un <code>listener</code></li>
 </ul>
 <p><img src="schema/mcd-14.png" alt="Schéma UML"></p>
+<p>Remarque : <code>translate</code> étant la seule fonction capable de modifier une géométrie, il serait actuellement possible de se contenter d&#39;invalider l&#39;enveloppe en surchargeant <code>translate</code> dans <code>GeometryWithCachedEnvelope</code> pour nettoyer au passage le cache. Rien ne garanti toutefois que <code>translate</code> reste la seule fonction à même de modifier une géométrie et que toutes ces fonctions restent déclarées au niveau <code>Geometry</code>.</p>
 <h2 id="0-15-geometrycollection"><a href="#0-15-geometrycollection" class="anchor"></a>0.15 - GeometryCollection</h2><blockquote>
 <p>Objectif : Patron de conception Composite, Refactoring</p>
 </blockquote>
