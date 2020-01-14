@@ -350,6 +350,11 @@ Remarque : On renverra des copies des géométries dans `GeometryTransform` (app
 
 Idées pour la suite :
 
+* Supporter les géométries 3D avec 
+  * `coordinate.z = Double.NaN` pour les 2D
+  * `coordinate.is3D()` et `geometry.is3D()`
+  * Des écritures GeoJSON et WKT adaptée
+
 * Implémenter une classe `GeoJSONReader`
 * Implémenter une classe `WktReader`
 * Poser une interface `GeometryReader` au dessus de `GeoJSONReader` et `WktReader`
