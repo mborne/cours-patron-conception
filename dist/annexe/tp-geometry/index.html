@@ -249,7 +249,7 @@ GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))</code></p
 <p>Objectif : Fabrique basée sur des prototypes pour permettre le choix d&#39;un format de sortie pour les géométries (utilisateur sélectionnant &quot;WKT&quot; ou &quot;GeoJSON&quot;)</p>
 </blockquote>
 <ul>
-<li>Ajouter une classe <code>GeometryWriter</code> permettant de construire un format par son nom</li>
+<li>Ajouter une classe <code>GeometryWriterFactory</code> permettant de construire un format par son nom</li>
 </ul>
 <pre><code class="language-java">Geometry g = new Point(new Coordinate(3.0,4.0));
 GeometryWriterFactory writerFactory = new GeometryWriterFactory();

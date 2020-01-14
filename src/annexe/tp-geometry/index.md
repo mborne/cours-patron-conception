@@ -300,7 +300,7 @@ GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))
 
 > Objectif : Fabrique basée sur des prototypes pour permettre le choix d'un format de sortie pour les géométries (utilisateur sélectionnant "WKT" ou "GeoJSON")
 
-* Ajouter une classe `GeometryWriter` permettant de construire un format par son nom
+* Ajouter une classe `GeometryWriterFactory` permettant de construire un format par son nom
 
 ```java
 Geometry g = new Point(new Coordinate(3.0,4.0));
