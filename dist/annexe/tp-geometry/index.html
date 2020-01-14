@@ -235,7 +235,7 @@ assertSame(a,b);</code></pre>
 <p>Remarque : Pour WKT, on utilisera le format suivant :</p>
 <pre><code>GEOMETRYCOLLECTION EMPTY
 GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))</code></pre><h2 id="0-16-interface-geometrywriter-classe-wktwriter-et-geojsonwriter"><a href="#0-16-interface-geometrywriter-classe-wktwriter-et-geojsonwriter" class="anchor"></a>0.16 - Interface GeometryWriter, classe WktWriter et GeoJSONWriter</h2><blockquote>
-<p>Objectif : Préparation question suivante</p>
+<p>Objectif : Uniformation des conversions de géométrie en chaîne de caractère pour préparer la question suivante</p>
 </blockquote>
 <ul>
 <li>Ajouter une classe <code>GeoJSONWriter</code> permettant d&#39;écrire les géométries au format GeoJSON.</li>
@@ -246,23 +246,30 @@ GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))</code></p
 </li>
 </ul>
 <h2 id="0-17-geometrywriterfactory"><a href="#0-17-geometrywriterfactory" class="anchor"></a>0.17 - GeometryWriterFactory</h2><blockquote>
-<p>Objectif : Fabrique basée sur des prototypes, supporté un format en paramètre</p>
+<p>Objectif : Fabrique basée sur des prototypes pour permettre le choix d&#39;un format de sortie pour les géométries (utilisateur sélectionnant &quot;WKT&quot; ou &quot;GeoJSON&quot;)</p>
 </blockquote>
 <ul>
 <li>Ajouter une classe <code>GeometryWriter</code> permettant de construire un format par son nom</li>
 </ul>
 <pre><code class="language-java">Geometry g = new Point(new Coordinate(3.0,4.0));
 GeometryWriterFactory writerFactory = new GeometryWriterFactory();
-GeometryWriter writer = writerFactory.createGeometryWriter(&quot;WKT&quot;);
+// normalement défini dans une configuration ou sélectionné par un utilisateur
+String formatName = &quot;WKT&quot;;
+GeometryWriter writer = writerFactory.createGeometryWriter(formatName);
 assertEqual(&quot;POINT(3.0 4.0)&quot;, writer.write(g));</code></pre>
-<h2 id="0-18-geometryvisitor-renvoyant-un-r-sultat"><a href="#0-18-geometryvisitor-renvoyant-un-r-sultat" class="anchor"></a>0.18 - GeometryVisitor renvoyant un résultat</h2><ul>
+<h2 id="0-18-geometryvisitor-renvoyant-un-r-sultat"><a href="#0-18-geometryvisitor-renvoyant-un-r-sultat" class="anchor"></a>0.18 - GeometryVisitor renvoyant un résultat</h2><blockquote>
+<p>Objectif : Avoir des visiteurs capables de renvoyer un résultat pour éviter de devoir stocker des résultats intermédiaire en s&#39;appuyant sur les classes génériques</p>
+</blockquote>
+<ul>
 <li>Transformer la classe <code>GeometryVisitor</code> en <code>GeometryVisitor&lt;T&gt;</code> pour avoir la capacité de renvoyer des résultats avec des types variables</li>
 <li>Ajouter <code>LengthVisitor&lt;Double&gt;</code> renvoyant la longueur de la géométrie en guise de démonstration (0.0 pour un point)</li>
 </ul>
 <pre><code class="language-java">LengthVisitor&lt;Double&gt; visitor = new LengthVisitor&lt;Double&gt;();
 Double result = geometry.accept(visitor);</code></pre>
 <p>Remarque : Un visiteur qui ne renvoie pas de résultat implémentera <code>GeometryVisitor&lt;Void&gt;</code></p>
-<h2 id="0-19-extraction-de-astext-"><a href="#0-19-extraction-de-astext-" class="anchor"></a>0.19 - Extraction de asText()</h2><p>Sortir <code>Geometry.asText() : String</code> sous forme d&#39;une méthode statique <code>WKT.asText(Geometry g) : String</code></p>
+<h2 id="0-19-extraction-de-astext-"><a href="#0-19-extraction-de-astext-" class="anchor"></a>0.19 - Extraction de asText()</h2><ul>
+<li>Sortir <code>Geometry.asText() : String</code> sous forme d&#39;une méthode statique <code>WKT.asText(Geometry g) : String</code></li>
+</ul>
 <h2 id="0-20-mathtransform-pour-des-transformation-plus-g-n-rique"><a href="#0-20-mathtransform-pour-des-transformation-plus-g-n-rique" class="anchor"></a>0.20 - MathTransform pour des transformation plus générique</h2><p>On va faire en sorte de sortir <code>translate(dx,dy)</code> de la classe <code>Geometry</code> tout en permettant des transformations plus riches.</p>
 <p><img src="schema/mcd-20.png" alt="Schéma UML 20"></p>
 <p>Remarque : On renverra des copies des géométries dans <code>GeometryTransform</code> (appeler <code>notifyChange</code> sera innutile)</p>

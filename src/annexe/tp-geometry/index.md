@@ -288,7 +288,7 @@ GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))
 
 ## 0.16 - Interface GeometryWriter, classe WktWriter et GeoJSONWriter
 
-> Objectif : Préparation question suivante
+> Objectif : Uniformation des conversions de géométrie en chaîne de caractère pour préparer la question suivante
 
 * Ajouter une classe `GeoJSONWriter` permettant d'écrire les géométries au format GeoJSON.
 * Unifier l'écriture des géométries via une interface `GeometryWriter` implémentée `WktWriter` et `GeoJSONWriter` par offrant les méthodes
@@ -298,18 +298,23 @@ GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))
 
 ## 0.17 - GeometryWriterFactory
 
-> Objectif : Fabrique basée sur des prototypes, supporté un format en paramètre
+> Objectif : Fabrique basée sur des prototypes pour permettre le choix d'un format de sortie pour les géométries (utilisateur sélectionnant "WKT" ou "GeoJSON")
 
 * Ajouter une classe `GeometryWriter` permettant de construire un format par son nom
 
 ```java
 Geometry g = new Point(new Coordinate(3.0,4.0));
 GeometryWriterFactory writerFactory = new GeometryWriterFactory();
-GeometryWriter writer = writerFactory.createGeometryWriter("WKT");
+// normalement défini dans une configuration ou sélectionné par un utilisateur
+String formatName = "WKT";
+GeometryWriter writer = writerFactory.createGeometryWriter(formatName);
 assertEqual("POINT(3.0 4.0)", writer.write(g));
 ```
 
+
 ## 0.18 - GeometryVisitor renvoyant un résultat
+
+> Objectif : Avoir des visiteurs capables de renvoyer un résultat pour éviter de devoir stocker des résultats intermédiaire en s'appuyant sur les classes génériques
 
 * Transformer la classe `GeometryVisitor` en `GeometryVisitor<T>` pour avoir la capacité de renvoyer des résultats avec des types variables
 * Ajouter `LengthVisitor<Double>` renvoyant la longueur de la géométrie en guise de démonstration (0.0 pour un point)
@@ -324,7 +329,7 @@ Remarque : Un visiteur qui ne renvoie pas de résultat implémentera `GeometryVi
 
 ## 0.19 - Extraction de asText()
 
-Sortir `Geometry.asText() : String` sous forme d'une méthode statique `WKT.asText(Geometry g) : String`
+* Sortir `Geometry.asText() : String` sous forme d'une méthode statique `WKT.asText(Geometry g) : String`
 
 ## 0.20 - MathTransform pour des transformation plus générique
 
