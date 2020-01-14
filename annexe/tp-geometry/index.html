@@ -281,6 +281,13 @@ Double result = geometry.accept(visitor);</code></pre>
 </ul>
 <h2 id="aller-plus-loin-"><a href="#aller-plus-loin-" class="anchor"></a>Aller plus loin...</h2><p>Idées pour la suite :</p>
 <ul>
+<li><p>Supporter les géométries 3D avec </p>
+<ul>
+<li><code>coordinate.z = Double.NaN</code> pour les 2D</li>
+<li><code>coordinate.is3D()</code> et <code>geometry.is3D()</code></li>
+<li>Des écritures GeoJSON et WKT adaptée</li>
+</ul>
+</li>
 <li><p>Implémenter une classe <code>GeoJSONReader</code></p>
 </li>
 <li><p>Implémenter une classe <code>WktReader</code></p>
