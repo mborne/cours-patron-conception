@@ -184,7 +184,15 @@ Edge ab  = graph.createEdge(a,b,&quot;ab&quot;);</code></pre>
 <ul>
 <li>Exposition des seuls identifiants de <code>source</code> et <code>target</code> au niveau des <code>Edge</code></li>
 <li>Ajout d&#39;une méthode <code>getGeometry(): LineString</code> sur <code>Edge</code> renvoyant une LineString</li>
-<li>Ajout d&#39;une dépendance maven pour le rendu des géométries JTS (<code>jackson-datatype-jts</code>)</li>
+<li>Ajout d&#39;une dépendance maven pour le rendu des géométries JTS :</li>
+</ul>
+<pre><code class="language-xml">        &lt;!-- JTS et GeoJSON --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.bedatadriven&lt;/groupId&gt;
+            &lt;artifactId&gt;jackson-datatype-jts&lt;/artifactId&gt;
+            &lt;version&gt;2.2&lt;/version&gt;
+        &lt;/dependency&gt;</code></pre>
+<ul>
 <li>Ajout d&#39;une annotation <code>@JsonSerialize(using = GeometrySerializer.class)</code> sur <code>getGeometry</code> pour utiliser <code>jackson-datatype-jts</code></li>
 </ul>
 <p>Remarque : Il faudrait un <code>@JsonDeserialize(contentUsing = GeometryDeserializer.class)</code> pour la conversion JSON en géométrie.</p>

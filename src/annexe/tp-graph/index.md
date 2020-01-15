@@ -168,7 +168,17 @@ On procède comme suit :
 
 * Exposition des seuls identifiants de `source` et `target` au niveau des `Edge`
 * Ajout d'une méthode `getGeometry(): LineString` sur `Edge` renvoyant une LineString
-* Ajout d'une dépendance maven pour le rendu des géométries JTS (`jackson-datatype-jts`)
+* Ajout d'une dépendance maven pour le rendu des géométries JTS :
+
+```xml
+		<!-- JTS et GeoJSON -->
+		<dependency>
+			<groupId>com.bedatadriven</groupId>
+			<artifactId>jackson-datatype-jts</artifactId>
+			<version>2.2</version>
+		</dependency>
+```
+
 * Ajout d'une annotation `@JsonSerialize(using = GeometrySerializer.class)` sur `getGeometry` pour utiliser `jackson-datatype-jts`
 
 Remarque : Il faudrait un `@JsonDeserialize(contentUsing = GeometryDeserializer.class)` pour la conversion JSON en géométrie.
