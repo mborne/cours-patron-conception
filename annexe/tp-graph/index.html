@@ -182,7 +182,23 @@ Edge ab  = graph.createEdge(a,b,&quot;ab&quot;);</code></pre>
 ]</code></pre>
 <p>On procède comme suit :</p>
 <ul>
-<li>Exposition des seuls identifiants de <code>source</code> et <code>target</code> au niveau des <code>Edge</code></li>
+<li>Exposition des seuls identifiants de <code>source</code> et <code>target</code> au niveau des <code>Edge</code> :</li>
+</ul>
+<pre><code class="language-java">class Edge {
+
+    @JsonIdentityInfo(
+        generator=ObjectIdGenerators.PropertyGenerator.class, 
+        property=&quot;id&quot;
+    )
+    @JsonIdentityReference(alwaysAsId=true)
+    public Vertex getSource() {
+        return source;
+    }
+
+    //...
+
+}</code></pre>
+<ul>
 <li>Ajout d&#39;une méthode <code>getGeometry(): LineString</code> sur <code>Edge</code> renvoyant une LineString</li>
 <li>Ajout d&#39;une dépendance maven pour le rendu des géométries JTS :</li>
 </ul>
