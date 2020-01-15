@@ -166,7 +166,25 @@ On améliore le résultat de l'API sous la forme suivante :
 
 On procède comme suit :
 
-* Exposition des seuls identifiants de `source` et `target` au niveau des `Edge`
+* Exposition des seuls identifiants de `source` et `target` au niveau des `Edge` :
+
+```java
+class Edge {
+
+	@JsonIdentityInfo(
+		generator=ObjectIdGenerators.PropertyGenerator.class, 
+		property="id"
+	)
+	@JsonIdentityReference(alwaysAsId=true)
+	public Vertex getSource() {
+		return source;
+	}
+
+	//...
+
+}
+```
+
 * Ajout d'une méthode `getGeometry(): LineString` sur `Edge` renvoyant une LineString
 * Ajout d'une dépendance maven pour le rendu des géométries JTS :
 
