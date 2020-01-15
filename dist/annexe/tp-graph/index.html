@@ -273,6 +273,7 @@ Edge ab  = graph.createEdge(a,b,&quot;ab&quot;);</code></pre>
 <li>Modification de <code>findNextVertex(pathTree)</code> en <code>findNextVertex(pathTree,destination)</code> au niveau de l&#39;interface <code>NextVertexFinder</code></li>
 <li>Ajout de <code>AStarNextVertexFinder</code> implémentant <code>NextVertexFinder</code></li>
 </ul>
+<p>Remarque : Dans le cas de A-star, <code>findNextVertex(pathTree,destination)</code> renverra le sommet atteint minimisant &quot;distance parcourue depuis l&#39;origine + distance à vol d&#39;oiseau pour atteindre la destination&quot;</p>
 <h2 id="0-14-choix-de-la-strat-gie-de-calcul-dans-l-39-api"><a href="#0-14-choix-de-la-strat-gie-de-calcul-dans-l-39-api" class="anchor"></a>0.14 - Choix de la stratégie de calcul dans l&#39;API</h2><p>On procède comme suit pour permettre le choix d&#39;une stratégie de calcul dans l&#39;API :</p>
 <ul>
 <li>Création d&#39;une fabrique <code>NextVertexFinderFactory.createNextVertexFinder(method: String)</code></li>

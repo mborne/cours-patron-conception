@@ -289,6 +289,7 @@ On ajoute l'implémentation de A-star comme suit :
 * Modification de `findNextVertex(pathTree)` en `findNextVertex(pathTree,destination)` au niveau de l'interface `NextVertexFinder`
 * Ajout de `AStarNextVertexFinder` implémentant `NextVertexFinder`
 
+Remarque : Dans le cas de A-star, `findNextVertex(pathTree,destination)` renverra le sommet atteint minimisant "distance parcourue depuis l'origine + distance à vol d'oiseau pour atteindre la destination"
 
 ## 0.14 - Choix de la stratégie de calcul dans l'API
 
