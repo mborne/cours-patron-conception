@@ -214,10 +214,10 @@ Edge ab  = graph.createEdge(a,b,&quot;ab&quot;);</code></pre>
 <p>Remarque : Il faudrait un <code>@JsonDeserialize(contentUsing = GeometryDeserializer.class)</code> pour la conversion JSON en géométrie.</p>
 <h2 id="0-6-g-om-trie-r-elle-des-tron-ons"><a href="#0-6-g-om-trie-r-elle-des-tron-ons" class="anchor"></a>0.6 - Géométrie réelle des tronçons</h2><p>Dans <code>ShpGraphReader</code>, on oublie la géométrie en entrée. On procède comme suit pour avoir une géométrie optionnelle sur les <code>Edge</code> :</p>
 <ul>
-<li>Ajout d&#39;un attribut <code>geometry: Geometry</code> sur <code>Edge</code></li>
+<li>Ajout d&#39;un attribut <code>geometry: LineString</code> sur <code>Edge</code></li>
 <li>Calcul de la géométrie des <code>Edge</code> dans le constructeur en fonction de <code>source</code> et <code>target</code></li>
 <li>Mise à jour de la méthode de calcul de coût pour renvoyer la longueur de la géométrie</li>
-<li>Ajout d&#39;une méthode <code>setGeometry</code> sur <code>Edge</code> permettant de modifier cette géométrie</li>
+<li>Ajout d&#39;une méthode <code>setGeometry(geometry: LineString)</code> sur <code>Edge</code> permettant de modifier cette géométrie</li>
 <li>Mise à jour de <code>ShpGraphReader</code> pour définir la géométrie de <code>Edge</code></li>
 </ul>
 <h2 id="0-7-cr-ation-d-39-un-mod-le-d-di-aux-noeuds-de-l-39-arbre-du-plus-court-chemin"><a href="#0-7-cr-ation-d-39-un-mod-le-d-di-aux-noeuds-de-l-39-arbre-du-plus-court-chemin" class="anchor"></a>0.7 - Création d&#39;un modèle dédié aux noeuds de l&#39;arbre du plus court chemin</h2><p>On constate que <code>Vertex</code> est porteur de propriétés qui ne correspondent pas à un réseau routier mais à l&#39;algorithme de calcul du plus chemin : <code>cost</code>, <code>reachingEdge</code> et <code>visited</code>.</p>

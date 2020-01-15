@@ -206,10 +206,10 @@ Remarque : Il faudrait un `@JsonDeserialize(contentUsing = GeometryDeserializer.
 
 Dans `ShpGraphReader`, on oublie la géométrie en entrée. On procède comme suit pour avoir une géométrie optionnelle sur les `Edge` :
 
-* Ajout d'un attribut `geometry: Geometry` sur `Edge`
+* Ajout d'un attribut `geometry: LineString` sur `Edge`
 * Calcul de la géométrie des `Edge` dans le constructeur en fonction de `source` et `target`
 * Mise à jour de la méthode de calcul de coût pour renvoyer la longueur de la géométrie
-* Ajout d'une méthode `setGeometry` sur `Edge` permettant de modifier cette géométrie
+* Ajout d'une méthode `setGeometry(geometry: LineString)` sur `Edge` permettant de modifier cette géométrie
 * Mise à jour de `ShpGraphReader` pour définir la géométrie de `Edge`
 
 
