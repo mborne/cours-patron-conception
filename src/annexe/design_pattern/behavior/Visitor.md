@@ -16,9 +16,6 @@ interface GeometryVisitor {
 
     public void visit( LineString lineString ) ;
 
-    /* optionel : Pour les cas non prévu dans l'interface du visitor */
-    public void visit( Geometry other );
-
 }
 ```
 
@@ -35,7 +32,7 @@ On implémente cette méthode sur les classes dérivées :
 
 ```java
 class Point implements Geometry {
-    public void accept(ShapeVisitor visitor){
+    public void accept(GeometryVisitor visitor){
         visitor.visit(this);
     }
 }
@@ -53,10 +50,6 @@ class GeometryRenderer implements GeometryVisitor {
 
     public void visit( LineString lineString ) {
         System.out.println("Render LineString");
-    }
-
-    public void visit( Geometry other ) {
-        System.out.println("Can't render!");
     }
 
 }
@@ -82,7 +75,7 @@ le type ajouté.
 Exemple :
 
 La bibliothèque géométrique utilise un `GeometryRendererVisitor`. Un
-client implémente l'interface `Geometry` pour ajoute le concept de courbe 
+client implémente l'interface `Geometry` pour ajoute le concept de courbe
 de bézier. `GeometryRendererVisitor` ne saura pas effectuer le rendu.
 
 ### Capacité des langages
@@ -97,7 +90,7 @@ matière de polymorphisme paramétrique.
 * Double dispatching :
 
 ```java
-Visitor.visit(Visitable a, Visitable b);
+visitor.visit(Visitable a, Visitable b);
 ```
 
 Cas d'usage : Calcul de distance, d'intersection, d'union, etc. entre deux géométries.

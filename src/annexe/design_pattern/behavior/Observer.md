@@ -26,7 +26,7 @@ On retrouve plusieurs variantes dans les systèmes. Il est souvent question d'é
 
 ## Resource
 
-* [Observer](https://docs.oracle.com/javase/7/docs/api/java/util/Observer.html) et [Observable](https://docs.oracle.com/javase/7/docs/api/java/util/Observable.html) dans l'API Java
+* [Observer](https://docs.oracle.com/javase/8/docs/api/java/util/Observer.html) et [Observable](https://docs.oracle.com/javase/8/docs/api/java/util/Observable.html) dans l'API Java
 
 * [Design pattern Observateur en Java : positionnement via un GPS (design-patterns.fr)](http://design-patterns.fr/observateur-en-java)
 

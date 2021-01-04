@@ -10,7 +10,7 @@ L'objectif de ce TP est de s'exercer à mettre oeuvre des patrons de conception 
 
 **ATTENTION** : Dans la vraie vie, vous utiliserez plutôt des bibliothèques du type [JTS](https://locationtech.github.io/jts/javadoc/index.html)
 
-## Démarrage
+## Démarrage
 
 * Cloner le projet https://github.com/mborne/tp-pattern-geometry
 
@@ -19,7 +19,7 @@ mkdir ~/workspace_pattern
 cd ~/workspace_pattern
 git clone https://github.com/mborne/tp-pattern-geometry.git
 cd tp-pattern-geometry
-# vérifier que vous êtes bien sur la branche "initial"
+# vérifier que vous êtes bien sur la branche "initial"
 git branch
 ```
 
@@ -61,8 +61,8 @@ Afin d'éviter d'avoir à tester des `coordinate` ou `points` null, nous allons 
 
 * 1) Modifier le comportement du constructeur par défaut de Coordinate pour initialiser `x` et `y` à `Double.NaN`
 * 2) Ajouter une méthode `Coordinate.isEmpty` à l'aide de `Double.isNaN(x)`
-* 3) S'assurer que la variable membre coordinate de `Point` est jamais nulle.
-* 4) S'assurer que la variable membre coordinate de `LineString` est jamais nulle (liste vide).
+* 3) S'assurer que la variable membre `coordinate` de `Point` est jamais nulle.
+* 4) S'assurer que la variable membre `points` de `LineString` est jamais nulle (on préfère une liste vide à une valeur nulle).
 * 5) Ajouter `Geometry.isEmpty`
 
 ![Schéma UML](schema/mcd-03.png)

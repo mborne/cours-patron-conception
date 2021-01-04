@@ -1,6 +1,6 @@
 # Adapter
 
-## Problème
+## Problème
 
 L'idée est la même que pour les adaptateurs dans la vie courante :
 On fait face à deux interfaces qui ont des fonctionnalités équivalentes mais qui
