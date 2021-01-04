@@ -447,7 +447,7 @@ Et bien d'autres en fonction des domaines (réseau, cloud computing, etc.)
 
 ---
 
-## Les stacks applicatives
+## Les stacks applicatives
 
 Dans la mesure où les composants remplacent les bibliothèques, les stacks 
 applicatives traduisent des patrons de conception architecturaux.

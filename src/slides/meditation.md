@@ -226,7 +226,7 @@ interface LocationProvider {
 }
 ```
 
-Les classes ont une grande liberté sur la méthode d'implémentation des contrats définit à travers les interfaces.
+Les classes ont une grande liberté sur la méthode d'implémentation des contrats définis à travers les interfaces.
 
 ---
 
