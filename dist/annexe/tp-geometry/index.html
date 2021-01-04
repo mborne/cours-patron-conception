@@ -86,8 +86,8 @@ git branch</code></pre>
 <ul>
 <li>1) Modifier le comportement du constructeur par défaut de Coordinate pour initialiser <code>x</code> et <code>y</code> à <code>Double.NaN</code></li>
 <li>2) Ajouter une méthode <code>Coordinate.isEmpty</code> à l&#39;aide de <code>Double.isNaN(x)</code></li>
-<li>3) S&#39;assurer que la variable membre coordinate de <code>Point</code> est jamais nulle.</li>
-<li>4) S&#39;assurer que la variable membre coordinate de <code>LineString</code> est jamais nulle (liste vide).</li>
+<li>3) S&#39;assurer que la variable membre <code>coordinate</code> de <code>Point</code> est jamais nulle.</li>
+<li>4) S&#39;assurer que la variable membre <code>points</code> de <code>LineString</code> est jamais nulle (on préfère une liste vide à une valeur nulle).</li>
 <li>5) Ajouter <code>Geometry.isEmpty</code></li>
 </ul>
 <p><img src="schema/mcd-03.png" alt="Schéma UML"></p>

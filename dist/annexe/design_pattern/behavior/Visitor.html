@@ -30,9 +30,6 @@ type de la hiérarchie :</p>
 
     public void visit( LineString lineString ) ;
 
-    /* optionel : Pour les cas non prévu dans l&#39;interface du visitor */
-    public void visit( Geometry other );
-
 }</code></pre>
 <p>Dans la hiérarchie, on ajoute une méthode <code>accept(visitor)</code> qui va appeler
 <code>visit</code> sur le visitor dans les classes dérivées.</p>
@@ -41,7 +38,7 @@ type de la hiérarchie :</p>
 }</code></pre>
 <p>On implémente cette méthode sur les classes dérivées :</p>
 <pre><code class="language-java">class Point implements Geometry {
-    public void accept(ShapeVisitor visitor){
+    public void accept(GeometryVisitor visitor){
         visitor.visit(this);
     }
 }</code></pre>
@@ -57,10 +54,6 @@ perdre l&#39;intérêt du polymorphisme :</p>
         System.out.println(&quot;Render LineString&quot;);
     }
 
-    public void visit( Geometry other ) {
-        System.out.println(&quot;Can&#39;t render!&quot;);
-    }
-
 }</code></pre>
 <h2 id="comment-a-marche-"><a href="#comment-a-marche-" class="anchor"></a>Comment ça marche?</h2><p>La méthode <code>accept</code> convertit un polymorphisme par héritage en polymorphisme
 paramétrique. Pour bien comprendre ce mécanisme, il faut bien comprendre
@@ -71,7 +64,7 @@ les mécanismes de résolution des liens dans le cadre du polymorphisme paramét
 le type ajouté.</p>
 <p>Exemple :</p>
 <p>La bibliothèque géométrique utilise un <code>GeometryRendererVisitor</code>. Un
-client implémente l&#39;interface <code>Geometry</code> pour ajoute le concept de courbe 
+client implémente l&#39;interface <code>Geometry</code> pour ajoute le concept de courbe
 de bézier. <code>GeometryRendererVisitor</code> ne saura pas effectuer le rendu.</p>
 <h3 id="capacit-des-langages"><a href="#capacit-des-langages" class="anchor"></a>Capacité des langages</h3><p>On doit s&#39;adapter en fonction des capacités des différents langages en
 matière de polymorphisme paramétrique.</p>
@@ -81,7 +74,7 @@ matière de polymorphisme paramétrique.</p>
 <li><p>Double dispatching :</p>
 </li>
 </ul>
-<pre><code class="language-java">Visitor.visit(Visitable a, Visitable b);</code></pre>
+<pre><code class="language-java">visitor.visit(Visitable a, Visitable b);</code></pre>
 <p>Cas d&#39;usage : Calcul de distance, d&#39;intersection, d&#39;union, etc. entre deux géométries.</p>
 
   </article>
