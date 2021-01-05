@@ -248,6 +248,7 @@ A l'aide de `AbstractGeometry` et `WktVisitor` :
 
 ![Schéma UML](schema/mcd-11.png)
 
+Remarque : Il faudra redéclarer la méthode `clone()` au niveau de `AbstractGeometry`.
 
 ## 0.12 - EnvelopeBuilder en tant que GeometryVisitor
 

@@ -210,6 +210,7 @@ assertEquals( &quot;POINT(3.0 4.0)&quot;, visitor.getResult() );</code></pre>
 <li>Ajouter une classe astraite <code>AbstractGeometry</code> implémentant la méthode <code>asText</code></li>
 </ul>
 <p><img src="schema/mcd-11.png" alt="Schéma UML"></p>
+<p>Remarque : Il faudra redéclarer la méthode <code>clone()</code> au niveau de <code>AbstractGeometry</code>.</p>
 <h2 id="0-12-envelopebuilder-en-tant-que-geometryvisitor"><a href="#0-12-envelopebuilder-en-tant-que-geometryvisitor" class="anchor"></a>0.12 - EnvelopeBuilder en tant que GeometryVisitor</h2><blockquote>
 <p>Objectif : Refactoring, Visitor, extraction de l&#39;implémentation d&#39;une fonctionnalité</p>
 </blockquote>
