@@ -191,7 +191,7 @@ if ( geometry instanceof Point ){
 
 > Objectif : Patron de conception Visitor, prise en main
 
-* Implémenter `GeometryVisitor` pour visiter l'arborescence des géométries
+* Ajouter l'interface `GeometryVisitor` pour visiter l'arborescence des géométries
 * Implémenter un visiteur `LogGeometryVisitor` qui affiche la géométrie dans la console sous les formes suivantes :
     * Je suis un point avec x=2.0 et y=3.0
     * Je suis une polyligne définie par 3 point(s)
@@ -208,7 +208,7 @@ Geometry geometry = new Point(new Coordinate(3.0,4.0));
 geometry.accept(visitor);
 ```
 
-Pour tester LogGeometryVisitor, noter que `System.out` est de type `PrintStream` et qu'il est possible d'écrire dans une chaîne de caractère plutôt que dans la console en procédant comme suit :
+Remarque : Pour tester LogGeometryVisitor, noter que `System.out` est de type `PrintStream` et qu'il est possible d'écrire dans une chaîne de caractère plutôt que dans la console en procédant comme suit :
 
 ```java
 ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -236,6 +236,8 @@ Geometry geometry = new Point(new Coordinate(3.0,4.0));
 geometry.accept(visitor);
 assertEquals( "POINT(3.0 4.0)", visitor.getResult() );
 ```
+
+Remarque : Au niveau de `visit`, on écrira dans la variable membre `buffer` à l'aide de `append` de `StringBuilder`. Au niveau de `getResult()`, on récupérera la chaîne du `buffer` à l'aide de `toString` de `StringBuilder`.
 
 ## 0.11 - Geometry.asText()
 
