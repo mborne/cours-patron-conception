@@ -369,31 +369,24 @@ On va faire en sorte de sortir `translate(dx,dy)` de la classe `Geometry` tout e
 
 Remarque : On renverra des copies des géométries dans `GeometryTransform` (appeler `notifyChange` sera innutile)
 
-## 0.21 - Finaliser une version potable
-
-* Remarquer que la suppression de translate sur `Geometry` permet de les rendre immuable
-* Supprimer par conséquent les mécanismes d'événement sur les géométries (c'est généralement une mauvaise idée sur des classes bas niveau)
-* Organiser les classes en package `model`, `io`, `transform`, `helper`, etc.
-* Améliorer la couverture des tests
-
 ## Aller plus loin...
 
-Idées pour la suite :
+Pour ceux qui souhaiterait approfondir :
 
-* Supporter les géométries 3D avec 
+* Remarquer qu'il est difficile de s'y retrouver dans les différentes classes. Organiser par conséquent les classes en package `model`, `io`, `transform`, `helper`, etc.
+
+* Améliorer la couverture des tests
+
+* Remarquer que la suppression de translate sur `Geometry` et le renvoi systématique de copie au niveau des transformations permet de rendre immuable les `Geometry`. Dès lors, on pourrait supprimer les mécanismes de gestion d'événement (généralement, ce n'est pas une bonne idée d'y recourir sur des classes bas niveau).
+
+* Se demander quel serait l'impact de l'ajout d'un type de premier niveau tel `Circle` dans une bibliothèque tierce utilisant celle-ci? Qu'est-ce qui est limitant?
+
+* Supporter les géométries 3D avec
   * `coordinate.z = Double.NaN` pour les 2D
   * `coordinate.is3D()` et `geometry.is3D()`
   * Des écritures GeoJSON et WKT adaptée
 
-* Implémenter une classe `GeoJSONReader`
-* Implémenter une classe `WktReader`
-* Poser une interface `GeometryReader` au dessus de `GeoJSONReader` et `WktReader`
+* Supporter la lecture de géométrie en faisant un bridge sur la bibliothèque JTS
 
-* Ajouter une interface `Renderer` avec deux implémentations concrète `JFrameRenderer` et `SVGRenderer`
-* Gérer un `center` et un `scale` sur `Renderer`
-* Viewer avec Renderer définissant une stratégie
-
-Questions pour approfondir :
-
-* Peut-on permettre l'ajout d'un type de premier niveau tel `Circle` dans une bibliothèque tierce utilisant celle-ci? Qu'est-ce qui est limitant?
+* ...
 

@@ -44,7 +44,6 @@
 <li><a href="#0-18-geometryvisitor-renvoyant-un-r-sultat">0.18 - GeometryVisitor renvoyant un résultat</a></li>
 <li><a href="#0-19-extraction-de-astext-">0.19 - Extraction de asText()</a></li>
 <li><a href="#0-20-mathtransform-pour-des-transformation-plus-g-n-rique">0.20 - MathTransform pour des transformation plus générique</a></li>
-<li><a href="#0-21-finaliser-une-version-potable">0.21 - Finaliser une version potable</a></li>
 <li><a href="#aller-plus-loin-">Aller plus loin...</a></li>
 </ul>
 <h2 id="introduction"><a href="#introduction" class="anchor"></a>Introduction</h2><p>L&#39;objectif de ce TP est de s&#39;exercer à mettre oeuvre des patrons de conception via la création d&#39;une petite bibliothèque de manipulation des géométries OGC :</p>
@@ -292,37 +291,27 @@ Double result = geometry.accept(visitor);</code></pre>
 <h2 id="0-20-mathtransform-pour-des-transformation-plus-g-n-rique"><a href="#0-20-mathtransform-pour-des-transformation-plus-g-n-rique" class="anchor"></a>0.20 - MathTransform pour des transformation plus générique</h2><p>On va faire en sorte de sortir <code>translate(dx,dy)</code> de la classe <code>Geometry</code> tout en permettant des transformations plus riches.</p>
 <p><img src="schema/mcd-20.png" alt="Schéma UML 20"></p>
 <p>Remarque : On renverra des copies des géométries dans <code>GeometryTransform</code> (appeler <code>notifyChange</code> sera innutile)</p>
-<h2 id="0-21-finaliser-une-version-potable"><a href="#0-21-finaliser-une-version-potable" class="anchor"></a>0.21 - Finaliser une version potable</h2><ul>
-<li>Remarquer que la suppression de translate sur <code>Geometry</code> permet de les rendre immuable</li>
-<li>Supprimer par conséquent les mécanismes d&#39;événement sur les géométries (c&#39;est généralement une mauvaise idée sur des classes bas niveau)</li>
-<li>Organiser les classes en package <code>model</code>, <code>io</code>, <code>transform</code>, <code>helper</code>, etc.</li>
-<li>Améliorer la couverture des tests</li>
-</ul>
-<h2 id="aller-plus-loin-"><a href="#aller-plus-loin-" class="anchor"></a>Aller plus loin...</h2><p>Idées pour la suite :</p>
+<h2 id="aller-plus-loin-"><a href="#aller-plus-loin-" class="anchor"></a>Aller plus loin...</h2><p>Pour ceux qui souhaiterait approfondir :</p>
 <ul>
-<li><p>Supporter les géométries 3D avec </p>
+<li><p>Remarquer qu&#39;il est difficile de s&#39;y retrouver dans les différentes classes. Organiser par conséquent les classes en package <code>model</code>, <code>io</code>, <code>transform</code>, <code>helper</code>, etc.</p>
+</li>
+<li><p>Améliorer la couverture des tests</p>
+</li>
+<li><p>Remarquer que la suppression de translate sur <code>Geometry</code> et le renvoi systématique de copie au niveau des transformations permet de rendre immuable les <code>Geometry</code>. Dès lors, on pourrait supprimer les mécanismes de gestion d&#39;événement (généralement, ce n&#39;est pas une bonne idée d&#39;y recourir sur des classes bas niveau).</p>
+</li>
+<li><p>Se demander quel serait l&#39;impact de l&#39;ajout d&#39;un type de premier niveau tel <code>Circle</code> dans une bibliothèque tierce utilisant celle-ci? Qu&#39;est-ce qui est limitant?</p>
+</li>
+<li><p>Supporter les géométries 3D avec</p>
 <ul>
 <li><code>coordinate.z = Double.NaN</code> pour les 2D</li>
 <li><code>coordinate.is3D()</code> et <code>geometry.is3D()</code></li>
 <li>Des écritures GeoJSON et WKT adaptée</li>
 </ul>
 </li>
-<li><p>Implémenter une classe <code>GeoJSONReader</code></p>
+<li><p>Supporter la lecture de géométrie en faisant un bridge sur la bibliothèque JTS</p>
 </li>
-<li><p>Implémenter une classe <code>WktReader</code></p>
+<li><p>...</p>
 </li>
-<li><p>Poser une interface <code>GeometryReader</code> au dessus de <code>GeoJSONReader</code> et <code>WktReader</code></p>
-</li>
-<li><p>Ajouter une interface <code>Renderer</code> avec deux implémentations concrète <code>JFrameRenderer</code> et <code>SVGRenderer</code></p>
-</li>
-<li><p>Gérer un <code>center</code> et un <code>scale</code> sur <code>Renderer</code></p>
-</li>
-<li><p>Viewer avec Renderer définissant une stratégie</p>
-</li>
-</ul>
-<p>Questions pour approfondir :</p>
-<ul>
-<li>Peut-on permettre l&#39;ajout d&#39;un type de premier niveau tel <code>Circle</code> dans une bibliothèque tierce utilisant celle-ci? Qu&#39;est-ce qui est limitant?</li>
 </ul>
 
   </article>
