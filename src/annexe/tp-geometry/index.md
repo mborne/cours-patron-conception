@@ -122,6 +122,21 @@ builder.insert(new Coordinate(1.0,3.0));
 Envelope result = builder.build();
 ```
 
+Remarque : Vous avez la liberté d'ajouter des variables membres privées dans `EnvelopeBuilder` pour le calcul. En cas de difficulté pour faire des calculs de min/max optimaux, vous pouvez par exemple vous appuyer sur deux variables privées `xVals: List<Double>` et `yVals: List<Double>` pour exploiter les fonctionnalités standards java :
+
+```java
+List<Double> xVals = new ArrayList<Double>();
+xVals.add(1.0);
+xVals.add(-1.0);
+xVals.add(3.0);
+double xmin = Collections.min(xVals);
+double xmax = Collections.max(xVals);
+Assert.assertEquals(-1.0,xmin,EPSILON);
+Assert.assertEquals(3.0,xmax,EPSILON);
+```
+
+Cette approche ne sera pas "optimale", mais elle peut être un premier jet permettant la mise en oeuvre des tests avant optimisation.
+
 ## 0.7 - Geometry.getEnvelope() : Envelope
 
 > Objectif : Facade sur EnvelopeBuilder
