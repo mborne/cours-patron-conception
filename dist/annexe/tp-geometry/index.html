@@ -174,6 +174,13 @@ assertEquals(&quot;POINT(3.0 4.0)&quot;, writer.write(g));</code></pre>
 <pre><code class="language-java">LogGeometryVisitor visitor = new LogGeometryVisitor();
 Geometry geometry = new Point(new Coordinate(3.0,4.0));
 geometry.accept(visitor);</code></pre>
+<p>Pour tester LogGeometryVisitor, noter que <code>System.out</code> est de type <code>PrintStream</code> et qu&#39;il est possible d&#39;écrire dans une chaîne de caractère plutôt que dans la console en procédant comme suit :</p>
+<pre><code class="language-java">ByteArrayOutputStream os = new ByteArrayOutputStream();
+PrintStream out = new PrintStream(os);
+LogGeometryVisitor visitor = new LogGeometryVisitor(out);
+geometry.accept(visitor);
+// result contiendra ce qui est écrit dans la console
+String result = os.toString(&quot;UTF8&quot;);</code></pre>
 <h2 id="0-10-wktvisitor"><a href="#0-10-wktvisitor" class="anchor"></a>0.10 - WktVisitor</h2><blockquote>
 <p>Objectif : Patron de conception Visitor, mise en oeuvre dans un cas concret</p>
 </blockquote>

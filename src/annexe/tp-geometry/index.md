@@ -193,6 +193,18 @@ Geometry geometry = new Point(new Coordinate(3.0,4.0));
 geometry.accept(visitor);
 ```
 
+Pour tester LogGeometryVisitor, noter que `System.out` est de type `PrintStream` et qu'il est possible d'écrire dans une chaîne de caractère plutôt que dans la console en procédant comme suit :
+
+```java
+ByteArrayOutputStream os = new ByteArrayOutputStream();
+PrintStream out = new PrintStream(os);
+LogGeometryVisitor visitor = new LogGeometryVisitor(out);
+geometry.accept(visitor);
+// result contiendra ce qui est écrit dans la console
+String result = os.toString("UTF8");
+```
+
+
 ## 0.10 - WktVisitor
 
 > Objectif : Patron de conception Visitor, mise en oeuvre dans un cas concret
