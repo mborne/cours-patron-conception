@@ -172,7 +172,7 @@ assertEquals(&quot;POINT(3.0 4.0)&quot;, writer.write(g));</code></pre>
 <p>Objectif : Patron de conception Visitor, prise en main</p>
 </blockquote>
 <ul>
-<li>Implémenter <code>GeometryVisitor</code> pour visiter l&#39;arborescence des géométries</li>
+<li>Ajouter l&#39;interface <code>GeometryVisitor</code> pour visiter l&#39;arborescence des géométries</li>
 <li>Implémenter un visiteur <code>LogGeometryVisitor</code> qui affiche la géométrie dans la console sous les formes suivantes :<ul>
 <li>Je suis un point avec x=2.0 et y=3.0</li>
 <li>Je suis une polyligne définie par 3 point(s)</li>
@@ -184,7 +184,7 @@ assertEquals(&quot;POINT(3.0 4.0)&quot;, writer.write(g));</code></pre>
 <pre><code class="language-java">LogGeometryVisitor visitor = new LogGeometryVisitor();
 Geometry geometry = new Point(new Coordinate(3.0,4.0));
 geometry.accept(visitor);</code></pre>
-<p>Pour tester LogGeometryVisitor, noter que <code>System.out</code> est de type <code>PrintStream</code> et qu&#39;il est possible d&#39;écrire dans une chaîne de caractère plutôt que dans la console en procédant comme suit :</p>
+<p>Remarque : Pour tester LogGeometryVisitor, noter que <code>System.out</code> est de type <code>PrintStream</code> et qu&#39;il est possible d&#39;écrire dans une chaîne de caractère plutôt que dans la console en procédant comme suit :</p>
 <pre><code class="language-java">ByteArrayOutputStream os = new ByteArrayOutputStream();
 PrintStream out = new PrintStream(os);
 LogGeometryVisitor visitor = new LogGeometryVisitor(out);
@@ -201,6 +201,7 @@ String result = os.toString(&quot;UTF8&quot;);</code></pre>
 Geometry geometry = new Point(new Coordinate(3.0,4.0));
 geometry.accept(visitor);
 assertEquals( &quot;POINT(3.0 4.0)&quot;, visitor.getResult() );</code></pre>
+<p>Remarque : Au niveau de <code>visit</code>, on écrira dans la variable membre <code>buffer</code> à l&#39;aide de <code>append</code> de <code>StringBuilder</code>. Au niveau de <code>getResult()</code>, on récupérera la chaîne du <code>buffer</code> à l&#39;aide de <code>toString</code> de <code>StringBuilder</code>.</p>
 <h2 id="0-11-geometry-astext-"><a href="#0-11-geometry-astext-" class="anchor"></a>0.11 - Geometry.asText()</h2><blockquote>
 <p>Objectif : Patron de conception Facade, couplage interface et abstact</p>
 </blockquote>
