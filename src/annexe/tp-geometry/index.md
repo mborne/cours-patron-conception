@@ -371,22 +371,24 @@ Remarque : On renverra des copies des géométries dans `GeometryTransform` (app
 
 ## Aller plus loin...
 
-Pour ceux qui souhaiterait approfondir :
+Pour ceux qui souhaiteraient approfondir :
 
-* Remarquer qu'il est difficile de s'y retrouver dans les différentes classes. Organiser par conséquent les classes en package `model`, `io`, `transform`, `helper`, etc.
+* Remarquer qu'il est difficile de s'y retrouver dans les différentes classes. Organiser par conséquent les classes en package `io`, `transform`, `helper`, etc.
 
-* Améliorer la couverture des tests
+* Contrôler et améliorer la couverture des tests
 
-* Remarquer que la suppression de translate sur `Geometry` et le renvoi systématique de copie au niveau des transformations permet de rendre immuable les `Geometry`. Dès lors, on pourrait supprimer les mécanismes de gestion d'événement (généralement, ce n'est pas une bonne idée d'y recourir sur des classes bas niveau).
+* Remarquer que la suppression de translate sur `Geometry` et le renvoi systématique de copies au niveau des transformations permet de rendre immuable les `Geometry`. Dès lors, on pourrait supprimer les mécanismes de gestion d'événement (généralement, ce n'est pas une bonne idée d'y recourir sur des classes bas niveau).
 
 * Se demander quel serait l'impact de l'ajout d'un type de premier niveau tel `Circle` dans une bibliothèque tierce utilisant celle-ci? Qu'est-ce qui est limitant?
 
 * Supporter les géométries 3D avec
   * `coordinate.z = Double.NaN` pour les 2D
   * `coordinate.is3D()` et `geometry.is3D()`
-  * Des écritures GeoJSON et WKT adaptée
+  * Adapter les écritures WKT
+  * Adapter les transformations
+  * ...
 
-* Supporter la lecture de géométrie en faisant un bridge sur la bibliothèque JTS
+* Supporter la lecture de géométrie WKT en faisant un bridge sur la bibliothèque JTS
 
 * ...
 

@@ -291,13 +291,13 @@ Double result = geometry.accept(visitor);</code></pre>
 <h2 id="0-20-mathtransform-pour-des-transformation-plus-g-n-rique"><a href="#0-20-mathtransform-pour-des-transformation-plus-g-n-rique" class="anchor"></a>0.20 - MathTransform pour des transformation plus générique</h2><p>On va faire en sorte de sortir <code>translate(dx,dy)</code> de la classe <code>Geometry</code> tout en permettant des transformations plus riches.</p>
 <p><img src="schema/mcd-20.png" alt="Schéma UML 20"></p>
 <p>Remarque : On renverra des copies des géométries dans <code>GeometryTransform</code> (appeler <code>notifyChange</code> sera innutile)</p>
-<h2 id="aller-plus-loin-"><a href="#aller-plus-loin-" class="anchor"></a>Aller plus loin...</h2><p>Pour ceux qui souhaiterait approfondir :</p>
+<h2 id="aller-plus-loin-"><a href="#aller-plus-loin-" class="anchor"></a>Aller plus loin...</h2><p>Pour ceux qui souhaiteraient approfondir :</p>
 <ul>
-<li><p>Remarquer qu&#39;il est difficile de s&#39;y retrouver dans les différentes classes. Organiser par conséquent les classes en package <code>model</code>, <code>io</code>, <code>transform</code>, <code>helper</code>, etc.</p>
+<li><p>Remarquer qu&#39;il est difficile de s&#39;y retrouver dans les différentes classes. Organiser par conséquent les classes en package <code>io</code>, <code>transform</code>, <code>helper</code>, etc.</p>
 </li>
-<li><p>Améliorer la couverture des tests</p>
+<li><p>Contrôler et améliorer la couverture des tests</p>
 </li>
-<li><p>Remarquer que la suppression de translate sur <code>Geometry</code> et le renvoi systématique de copie au niveau des transformations permet de rendre immuable les <code>Geometry</code>. Dès lors, on pourrait supprimer les mécanismes de gestion d&#39;événement (généralement, ce n&#39;est pas une bonne idée d&#39;y recourir sur des classes bas niveau).</p>
+<li><p>Remarquer que la suppression de translate sur <code>Geometry</code> et le renvoi systématique de copies au niveau des transformations permet de rendre immuable les <code>Geometry</code>. Dès lors, on pourrait supprimer les mécanismes de gestion d&#39;événement (généralement, ce n&#39;est pas une bonne idée d&#39;y recourir sur des classes bas niveau).</p>
 </li>
 <li><p>Se demander quel serait l&#39;impact de l&#39;ajout d&#39;un type de premier niveau tel <code>Circle</code> dans une bibliothèque tierce utilisant celle-ci? Qu&#39;est-ce qui est limitant?</p>
 </li>
@@ -305,10 +305,12 @@ Double result = geometry.accept(visitor);</code></pre>
 <ul>
 <li><code>coordinate.z = Double.NaN</code> pour les 2D</li>
 <li><code>coordinate.is3D()</code> et <code>geometry.is3D()</code></li>
-<li>Des écritures GeoJSON et WKT adaptée</li>
+<li>Adapter les écritures WKT</li>
+<li>Adapter les transformations</li>
+<li>...</li>
 </ul>
 </li>
-<li><p>Supporter la lecture de géométrie en faisant un bridge sur la bibliothèque JTS</p>
+<li><p>Supporter la lecture de géométrie WKT en faisant un bridge sur la bibliothèque JTS</p>
 </li>
 <li><p>...</p>
 </li>
