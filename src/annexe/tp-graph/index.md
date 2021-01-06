@@ -185,7 +185,6 @@ class Edge {
 }
 ```
 
-* Ajout d'une méthode `getGeometry(): LineString` sur `Edge` renvoyant une LineString
 * Ajout d'une dépendance maven pour le rendu des géométries JTS :
 
 ```xml
@@ -197,21 +196,37 @@ class Edge {
 		</dependency>
 ```
 
-* Ajout d'une annotation `@JsonSerialize(using = GeometrySerializer.class)` sur `getGeometry` pour utiliser `jackson-datatype-jts`
 
-Remarque : Il faudrait un `@JsonDeserialize(contentUsing = GeometryDeserializer.class)` pour la conversion JSON en géométrie.
+* Ajouter une méthode `getGeometry(): LineString` sur `Edge` renvoyant une géométrie calculée à la volée comme suit :
+
+```java
+	@JsonSerialize(using = GeometrySerializer.class)
+	public LineString getGeometry() {
+		GeometryFactory gf = new GeometryFactory();
+		return (LineString)gf.createLineString(new Coordinate[] {
+			getSource().getCoordinate(),
+			getTarget().getCoordinate()
+		});
+	}
+```
+
+Remarque :
+
+* L' annotation `@JsonSerialize(using = GeometrySerializer.class)` permet d'utiliser `jackson-datatype-jts` pour faire le rendu de la géométrie en GeoJSON.
+* L'opération conversion JSON en géométrie serait possible à l'aide de `@JsonDeserialize(contentUsing = GeometryDeserializer.class)`.
 
 
 ## 0.6 - Géométrie réelle des tronçons
 
-Dans `ShpGraphReader`, on oublie la géométrie en entrée. On procède comme suit pour avoir une géométrie optionnelle sur les `Edge` :
+Dans la question, on a préparé le terrain en calculant une géométrie à la volée à l'aide de la position des `Vertex`. Toutefois, on remarque dans `ShpGraphReader` que l'on dispose d'une géométrie plus précise pour les tronçons.
+
+On va donc procèder comme suit pour avoir une géométrie optionnelle sur les `Edge` :
 
 * Ajout d'un attribut `geometry: LineString` sur `Edge`
-* Calcul de la géométrie des `Edge` dans le constructeur en fonction de `source` et `target`
+* Calcul de la géométrie des `Edge` dans le constructeur en fonction de `source` et `target` (principalement pour le cas de la lecture du XML)
 * Mise à jour de la méthode de calcul de coût pour renvoyer la longueur de la géométrie
 * Ajout d'une méthode `setGeometry(geometry: LineString)` sur `Edge` permettant de modifier cette géométrie
 * Mise à jour de `ShpGraphReader` pour définir la géométrie de `Edge`
-
 
 
 ## 0.7 - Création d'un modèle dédié aux noeuds de l'arbre du plus court chemin
