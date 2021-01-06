@@ -251,7 +251,7 @@ On encapsule `nodes: Map<Vertex, PathNode>` de `DijkstraPathFinder` sous forme d
 
 * Création de la classe `PathTree`
 * Migration des éléments correspondant de `DisjktraPathFinder` vers `PathTree`
-	* `buildGraph(origin)` devient `PathTree(graph: Graph, origin: Vertex)`
+	* `initGraph(origin)` devient `PathTree(graph: Graph, origin: Vertex)`
 	* `buildPath(vertex)` devient `pathTree.getPath(destination)`
 	* `getNode(vertex)` devient `pathTree.getNode(vertex)`
 
