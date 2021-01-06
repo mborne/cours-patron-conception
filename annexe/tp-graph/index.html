@@ -199,7 +199,6 @@ Edge ab  = graph.createEdge(a,b,&quot;ab&quot;);</code></pre>
 
 }</code></pre>
 <ul>
-<li>Ajout d&#39;une méthode <code>getGeometry(): LineString</code> sur <code>Edge</code> renvoyant une LineString</li>
 <li>Ajout d&#39;une dépendance maven pour le rendu des géométries JTS :</li>
 </ul>
 <pre><code class="language-xml">        &lt;!-- JTS et GeoJSON --&gt;
@@ -209,13 +208,26 @@ Edge ab  = graph.createEdge(a,b,&quot;ab&quot;);</code></pre>
             &lt;version&gt;2.2&lt;/version&gt;
         &lt;/dependency&gt;</code></pre>
 <ul>
-<li>Ajout d&#39;une annotation <code>@JsonSerialize(using = GeometrySerializer.class)</code> sur <code>getGeometry</code> pour utiliser <code>jackson-datatype-jts</code></li>
+<li>Ajouter une méthode <code>getGeometry(): LineString</code> sur <code>Edge</code> renvoyant une géométrie calculée à la volée comme suit :</li>
 </ul>
-<p>Remarque : Il faudrait un <code>@JsonDeserialize(contentUsing = GeometryDeserializer.class)</code> pour la conversion JSON en géométrie.</p>
-<h2 id="0-6-g-om-trie-r-elle-des-tron-ons"><a href="#0-6-g-om-trie-r-elle-des-tron-ons" class="anchor"></a>0.6 - Géométrie réelle des tronçons</h2><p>Dans <code>ShpGraphReader</code>, on oublie la géométrie en entrée. On procède comme suit pour avoir une géométrie optionnelle sur les <code>Edge</code> :</p>
+<pre><code class="language-java">    @JsonSerialize(using = GeometrySerializer.class)
+    public LineString getGeometry() {
+        GeometryFactory gf = new GeometryFactory();
+        return (LineString)gf.createLineString(new Coordinate[] {
+            getSource().getCoordinate(),
+            getTarget().getCoordinate()
+        });
+    }</code></pre>
+<p>Remarque :</p>
+<ul>
+<li>L&#39; annotation <code>@JsonSerialize(using = GeometrySerializer.class)</code> permet d&#39;utiliser <code>jackson-datatype-jts</code> pour faire le rendu de la géométrie en GeoJSON.</li>
+<li>L&#39;opération conversion JSON en géométrie serait possible à l&#39;aide de <code>@JsonDeserialize(contentUsing = GeometryDeserializer.class)</code>.</li>
+</ul>
+<h2 id="0-6-g-om-trie-r-elle-des-tron-ons"><a href="#0-6-g-om-trie-r-elle-des-tron-ons" class="anchor"></a>0.6 - Géométrie réelle des tronçons</h2><p>Dans la question, on a préparé le terrain en calculant une géométrie à la volée à l&#39;aide de la position des <code>Vertex</code>. Toutefois, on remarque dans <code>ShpGraphReader</code> que l&#39;on dispose d&#39;une géométrie plus précise pour les tronçons.</p>
+<p>On va donc procèder comme suit pour avoir une géométrie optionnelle sur les <code>Edge</code> :</p>
 <ul>
 <li>Ajout d&#39;un attribut <code>geometry: LineString</code> sur <code>Edge</code></li>
-<li>Calcul de la géométrie des <code>Edge</code> dans le constructeur en fonction de <code>source</code> et <code>target</code></li>
+<li>Calcul de la géométrie des <code>Edge</code> dans le constructeur en fonction de <code>source</code> et <code>target</code> (principalement pour le cas de la lecture du XML)</li>
 <li>Mise à jour de la méthode de calcul de coût pour renvoyer la longueur de la géométrie</li>
 <li>Ajout d&#39;une méthode <code>setGeometry(geometry: LineString)</code> sur <code>Edge</code> permettant de modifier cette géométrie</li>
 <li>Mise à jour de <code>ShpGraphReader</code> pour définir la géométrie de <code>Edge</code></li>
