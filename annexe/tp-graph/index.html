@@ -247,7 +247,7 @@ Edge ab  = graph.createEdge(a,b,&quot;ab&quot;);</code></pre>
 <ul>
 <li>Création de la classe <code>PathTree</code></li>
 <li>Migration des éléments correspondant de <code>DisjktraPathFinder</code> vers <code>PathTree</code><ul>
-<li><code>buildGraph(origin)</code> devient <code>PathTree(graph: Graph, origin: Vertex)</code></li>
+<li><code>initGraph(origin)</code> devient <code>PathTree(graph: Graph, origin: Vertex)</code></li>
 <li><code>buildPath(vertex)</code> devient <code>pathTree.getPath(destination)</code></li>
 <li><code>getNode(vertex)</code> devient <code>pathTree.getNode(vertex)</code></li>
 </ul>
