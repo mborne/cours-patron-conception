@@ -20,40 +20,22 @@ Pour celà, nous allons faire une revue de code et procéder par étape.
 
 ## Démarrage
 
-* Cloner le projet https://github.com/mborne/tp-refactoring-graph
+* Forker le projet https://github.com/mborne/tp-refactoring-graph
+* Cloner le fork
+* Lire le fichier [README](https://github.com/mborne/tp-refactoring-graph#tp-refactoring-graph) pour :
+  * Découvrir l'organisation du code
+  * Construire le projet et exécuter les tests
+  * Démarrer et tester l'API
 
-```bash
-mkdir ~/workspace_pattern
-cd ~/workspace_pattern
-git clone https://github.com/mborne/tp-refactoring-graph
-cd tp-refactoring-graph
-# vérifier que vous êtes bien sur la branche "original"
-git branch
-```
+## Mise en garde
 
-## Prise de connaissance du code
+Vous devrez impérativement livrer un code fonctionnel sur la branche par défaut de votre fork.
 
-Vous êtes invité à prendre connaissance des classes :
+Pour ce faire, il vous est vivement conseillé de :
 
-| Classe                                             | Description                                           |
-| -------------------------------------------------- | ----------------------------------------------------- |
-| org/acme/graph/model/Graph.java                    | Modélisation d'un graphe                              |
-| org/acme/graph/model/Vertex.java                   | Modélisation des sommets                              |
-| org/acme/graph/model/Edge.java                     | Modélisation des arcs                                 |
-| org/acme/graph/routing/DijkstraPathFinder.java     | Algorithme de calcul du plus court chemin             |
-| org/acme/graph/cli/FindPath.java                   | Plus court chemin en ligne de commande (main)         |
-| org/acme/graph/io/GraphReader.java                 | Interface de chargement d'un graphe                   |
-| org/acme/graph/io/ShpGraphReader.java              | Chargement d'un graphe au format SHP                  |
-| org/acme/graph/io/XmlGraphReader.java              | Chargement d'un graphe au format XML                  |
-| org/acme/graph/controllers/FindPathController.java | spring - API de calcul du plus court chemin           |
-| org/acme/graph/Application.java                    | spring - main de l'application spring (lancement API) |
-| org/acme/graph/config/GraphConfig.java             | spring - configuration du chargement du graphe        |
-
-Vous pouvez :
-
-* Exécuter les tests
-* Exécuter le calcul d'itinéraire en ligne de commande (voir [img/eclipse-findpath.png](img/eclipse-findpath.png) pour configuration)
-* Tester l'API de calcul d'itinéraire (voir [img/eclipse-application.png](img/eclipse-application.png) pour configuration)
+* Travailler sur une autre branche (ex : `develop`), en particulier si vous voulez pousser des travaux en cours.
+* Lancer à chaque étape la construction et les tests automatiques (`mvn clean package`).
+* Compléter ces tests automatique avec un test manuel sur l'API.
 
 
 ## 0.1 - Blindage de la construction des arcs
@@ -64,7 +46,6 @@ On procède comme suit :
 
 * Ajout d'un constructeur `Edge(source: Vertex, target: Vertex)`
 * Suppression du constructeur par défaut sur `Edge`
-
 
 ## 0.2 - Ajout de fabriques pour les sommets et les arcs
 
@@ -131,10 +112,9 @@ On remarque deux problèmes avec le résultat de `findPath(Vertex origin, Vertex
 
 On améliore ce point en procédant comme suit :
 
-* Ajout d'un modèle `Path` encapsulant une liste de `Edge`
+* Ajout d'un modèle `Path` encapsulant une liste de `Edge` nommée `edges`
 * Renvoi d'un `Path` dans `findPath` de `DijkstraPathFinder`
 * Mise à jour des codes pour le changement de comportement `null` vers vide en cas de chemin non trouvé
-
 
 ## 0.5 - Amélioration du rendu des chemins dans l'API
 
@@ -172,7 +152,7 @@ On procède comme suit :
 class Edge {
 
 	@JsonIdentityInfo(
-		generator=ObjectIdGenerators.PropertyGenerator.class, 
+		generator=ObjectIdGenerators.PropertyGenerator.class,
 		property="id"
 	)
 	@JsonIdentityReference(alwaysAsId=true)
