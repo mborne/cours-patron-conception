@@ -126,9 +126,7 @@ On remarque que le cas où le sommet de départ ou d'arrivé est mieux géré gr
 Nous procédons de même en renvoyant une `NotFoundException` avec le modèle de message suivant dans `findPath(Vertex origin, Vertex destination)` de `DijkstraPathFinder` : `"Path not found from '%s' to '%s'"`.
 
 
-**TODO : RESTE A REVOIR LES QUESTIONS CI-APRES**
-
-## 0.x - Amélioration du rendu des chemins
+## 0.6 - Amélioration du rendu des chemins
 
 Nous remarquons que la mise en forme des chemins est un peu pauvre au niveau de l'API. Nous souhaitons produire un résultat sous forme d'un objet JSON avec deux propriétés :
 
@@ -141,9 +139,9 @@ Pour ce faire, nous procédons ainsi :
 * Ajout d'une méthode `getLength()` à `Path` renvoyant la somme des longueurs des `edges`.
 * Renvoi d'un `Path` dans `findPath` de `DijkstraPathFinder`
 
-## 0.x - Création d'un modèle dédié aux noeuds de l'arbre du plus court chemin
+## 0.7 - Création d'un modèle dédié aux noeuds de l'arbre du plus court chemin
 
-On constate que `Vertex` est porteur de propriétés qui ne correspondent pas à un réseau routier mais à l'algorithme de calcul du plus chemin : `cost`, `reachingEdge` et `visited`.
+On constate que `Vertex` est porteur de propriétés qui ne correspondent pas à la modélisation d'un réseau routier mais à l'algorithme de calcul du plus chemin : `cost`, `reachingEdge` et `visited`.
 
 Ceci a un lourd impact sur l'application : **Il est en l'état impossible de lancer en parallèle deux calculs de plus court chemin** car il y a aura des conflits en édition sur les propriétés des `Vertex`.
 
@@ -157,7 +155,7 @@ Nous procédons dans un premier temps comme suit pour refondre `DijkstraPathFind
 * Mise à jour du reste du code de la classe `DijkstraPathFinder` à l'aide de `getNode`
 
 
-## 0.x - Création d'un modèle dédié à l'arbre du plus court chemin
+## 0.8 - Création d'un modèle dédié à l'arbre du plus court chemin
 
 On encapsule `nodes: Map<Vertex, PathNode>` de `DijkstraPathFinder` sous forme d'un arbre de plus court chemin nommé `PathTree` :
 
@@ -168,10 +166,12 @@ On encapsule `nodes: Map<Vertex, PathNode>` de `DijkstraPathFinder` sous forme d
 	* `getNode(vertex)` devient `pathTree.getNode(vertex)`
 
 
+**TODO : RESTE A REVOIR LES QUESTIONS CI-APRES**
+
 
 ## 0.x - Stockage des seuls sommets atteints dans PathTree
 
-On remarque qu'il est innutile de stocker des `PathNode` pour tous les sommets du graphe, qu'il suffit d'initialiser la liste des `nodes` avec l'origine des chemins et de créer les `PathNode` quand on atteint de nouveaux sommets.
+On remarque qu'il est inutile de stocker des `PathNode` pour tous les sommets du graphe, qu'il suffit d'initialiser la liste des `nodes` avec l'origine des chemins et de créer les `PathNode` quand on atteint de nouveaux sommets.
 
 A l'exception du test pour savoir si on a atteint la destination dans `DijkstraPathFinder`, les appels à `getNode` correspondent à des sommets atteints.
 
