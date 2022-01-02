@@ -162,14 +162,11 @@ On encapsule `nodes: Map<Vertex, PathNode>` de `DijkstraPathFinder` sous forme d
 * Création de la classe `PathTree`
 * Migration des éléments correspondant de `DisjktraPathFinder` vers `PathTree`
 	* `initGraph(origin)` devient `PathTree(graph: Graph, origin: Vertex)`
-	* `buildPath(vertex)` devient `pathTree.getPath(destination)`
-	* `getNode(vertex)` devient `pathTree.getNode(vertex)`
+	* `buildPath(vertex)` devient `pathTree.getPath(destination: Vertex)`
+	* `getNode(vertex)` devient `pathTree.getNode(vertex: Vertex)`
 
 
-**TODO : RESTE A REVOIR LES QUESTIONS CI-APRES**
-
-
-## 0.x - Stockage des seuls sommets atteints dans PathTree
+## 0.9 - Stockage des seuls sommets atteints dans PathTree
 
 On remarque qu'il est inutile de stocker des `PathNode` pour tous les sommets du graphe, qu'il suffit d'initialiser la liste des `nodes` avec l'origine des chemins et de créer les `PathNode` quand on atteint de nouveaux sommets.
 
@@ -177,65 +174,27 @@ A l'exception du test pour savoir si on a atteint la destination dans `DijkstraP
 
 On procède donc comme suit :
 
-* Ajout d'une méthode `pathTree.isReached(destination)` pour clarifier `pathTree.getNode(destination).getReachingEdge() != null`
-* Blindage de `pathTree.buildPath(destination)` dans le cas où le sommet n'est pas atteint
+* Ajout d'une méthode `pathTree.isReached(destination: Vertex): boolean` pour clarifier `pathTree.getNode(destination).getReachingEdge() != null`
+* Blindage de `pathTree.getPath(destination)` dans le cas où le sommet n'est pas atteint
 * Ajout d'une méthode `getOrCreateNode(vertex)` dans `PathTree` et utilisation de cette méthode dans `DijkstraPathFinder`
 * Reprise du constructeur `PathTree(graph, origin)` en `PathTree(origin)`
 * Ajout de `pathTree.getReachedVertices(): Collection<Vertex>`
 * Parcourt des seuls sommets atteints dans `findNextVertex`
-* Suppression de l'attribut `graph` désormais non utilisé dans `DijkstraPathFinder`
 
 
-## 0.x - Préparation de la mise en oeuvre de variantes de l'algorithme
+## 0.10 - Optimisation du chargement du graphe
 
-Afin de préparer la mise en oeuvre de variante de l'algorithme, on s'efforce de bien identifier les différentes étapes de la construction de l'arbre. Aussi, on veille à séparer la construction de l'arbre de production du résultat en procédant comme suit dans `DijkstraPathFinder` :
+En chargeant [ROUTE500 complet](https://files.opendatarchives.fr/professionnels.ign.fr/route500/), on observe un temps de chargement excessivement long. A l'aide de VisualVM, on se rend compte que le programme passe le plus clair de son temps dans `GraphReader.getOrCreateVertex` faisant appel à `Graph.findVertex(coordinate: Coordinate)` :
 
-* Extraction d'une méthode `buildTree(destination)` dans `findPath`
-
-
-## 0.x - Extraction d'une classe PathTreeBuilder de DijkstraPathFinder
-
-* Création d'une classe `PathTreeBuilder` avec un constructeur `PathTreeBuilder(origin: Vertex)`
-* Migration de `buildTree`, `visit` et `findNextVertex` de `DijkstraPathFinder` vers `PathTreeBuilder`
-* Utilisation de `PathTreeBuilder` dans `DijkstraPathFinder`
-
-
-## 0.x - Préparation de la mise en place d'une stratégie de calcul du plus court chemin
-
-Afin de pouvoir faire varier par la suite la méthode `findNextVertex` entre Dijkstra et A-star, on extrait une stratégie comme suit :
-
-* Création d'une interface `NextVertexFinder` avec une méthode `findNextVertex(pathTree: PathTree): Vertex`
-* Implémentation de `DijkstraNextVertexFinder`
-* Le constructeur `PathTreeBuilder(pathTree)` devient `PathTreeBuilder(nextVertexFinder, pathTree)`
-
-
-## 0.x - Implémentation de A-star
-
-On ajoute l'implémentation de A-star comme suit :
-
-* Modification de `findNextVertex(pathTree)` en `findNextVertex(pathTree,destination)` au niveau de l'interface `NextVertexFinder`
-* Ajout de `AStarNextVertexFinder` implémentant `NextVertexFinder`
-
-Remarque : Dans le cas de A-star, `findNextVertex(pathTree,destination)` renverra le sommet atteint minimisant "distance parcourue depuis l'origine + distance à vol d'oiseau pour atteindre la destination"
-
-## 0.x - Choix de la stratégie de calcul dans l'API
-
-On procède comme suit pour permettre le choix d'une stratégie de calcul dans l'API :
-
-* Création d'une fabrique `NextVertexFinderFactory.createNextVertexFinder(method: String)`
-* Renommage de `DijkstraPathFinder` en `PathFinder`
-* Ajout du paramètre `method: String` à `findPath` de `PathFinder`
-* Ajout d'un paramètre `method` à `findPath` dans `FindPathController`
-
-## 0.x - Optimisation du chargement du graphe
-
-En chargeant [ROUTE500 complet](https://files.opendatarchives.fr/professionnels.ign.fr/route500/), on observe un temps de chargement excessivement long. A l'aide de VisualVM, on se rend compte que le programme passe le plus clair de son temps dans `GraphReader.getOrCreateVertex` faisant appel à `Graph.findVertex(coordinate: Coordinate)`.
+![VisualVM - chargement du graphe](img/visualvm-load-graph.png)
 
 En inspectant `Graph.findVertex(coordinate: Coordinate)`, on note un parcours complet des sommets à la recherche d'une égalité stricte de coordonnée. Cette approche est loin d'être optimale, nous pouvons optimiser en utilisant une `Map<Coordinate, Vertex>`.
 
-## 0.x - Optimisation du temps de calcul
+## 0.11 - Optimisation du temps de calcul
 
-En lançant des calculs de plus court chemin sur le graphe ROUTE500 complet, on remarque un temps de calcul trop important. A l'aide de VisualVM, on se rend compte que le programme passe le plus clair de son temps dans `findNextVertex`.
+En lançant des calculs de plus court chemin sur le graphe ROUTE500 complet, on remarque un temps de calcul trop important. A l'aide de VisualVM, on se rend compte que le programme passe le plus clair de son temps dans `findNextVertex` :
+
+![VisualVM - find path](img/visualvm-visualvm-find-path.png.png)
 
 En regardant de plus près, on remarque que l'on parcours l'ensemble des sommets atteints pour filtrer ensuite les sommets déjà visités.
 
@@ -253,8 +212,51 @@ On procède donc comme suit pour indexer les sommets non visité :
 
 * Ajout de `notVisited: Set<Vertex>` sur `PathTree`
 * Gestion de `notVisited` dans `getOrCreateNode` de `PathTree`
-* Ajout de `getNotVisited(): Collection<Vertex>` sur `PathTree`
+* Ajout de `getNotVisitedVertices(): Collection<Vertex>` sur `PathTree`
 * Ajout de `markVisited(vertex)` sur `PathTree`
 * Suppression de `visited` sur `PathNode`
-* Mise à jour des codes pour utiliser `markVisited(vertex)` et `getNotVisited()`
+* Mise à jour des codes pour utiliser `markVisited(vertex)` et `getNotVisitedVertices()`
 
+
+<!-- TODO : RESTE A REVOIR LES QUESTIONS CI-APRES -->
+
+## 0.12 - Préparation de la mise en oeuvre de variantes de l'algorithme
+
+Afin de préparer la mise en oeuvre de variante de l'algorithme, on s'efforce de bien identifier les différentes étapes de la construction de l'arbre. Aussi, on veille à séparer la construction de l'arbre de production du résultat en procédant comme suit dans `DijkstraPathFinder` :
+
+* Extraction d'une méthode `buildTree(destination)` dans `findPath`
+
+
+## 0.13 - Extraction d'une classe PathTreeBuilder de DijkstraPathFinder
+
+* Création d'une classe `PathTreeBuilder` avec un constructeur `PathTreeBuilder(origin: Vertex)`
+* Migration de `buildTree`, `visit` et `findNextVertex` de `DijkstraPathFinder` vers `PathTreeBuilder`
+* Utilisation de `PathTreeBuilder` dans `DijkstraPathFinder`
+
+
+## 0.14 - Préparation de la mise en place d'une stratégie de calcul du plus court chemin
+
+Afin de pouvoir faire varier par la suite la méthode `findNextVertex` entre Dijkstra et A-star, on extrait une stratégie comme suit :
+
+* Création d'une interface `NextVertexFinder` avec une méthode `findNextVertex(pathTree: PathTree): Vertex`
+* Implémentation de `DijkstraNextVertexFinder`
+* Le constructeur `PathTreeBuilder(pathTree)` devient `PathTreeBuilder(nextVertexFinder, pathTree)`
+
+
+## 0.15 - Implémentation de A-star
+
+On ajoute l'implémentation de A-star comme suit :
+
+* Modification de `findNextVertex(pathTree)` en `findNextVertex(pathTree,destination)` au niveau de l'interface `NextVertexFinder`
+* Ajout de `AStarNextVertexFinder` implémentant `NextVertexFinder`
+
+Remarque : Dans le cas de A-star, `findNextVertex(pathTree,destination)` renverra le sommet atteint minimisant "distance parcourue depuis l'origine + distance à vol d'oiseau pour atteindre la destination"
+
+## 0.16 - Choix de la stratégie de calcul dans l'API
+
+On procède comme suit pour permettre le choix d'une stratégie de calcul dans l'API :
+
+* Création d'une fabrique `NextVertexFinderFactory.createNextVertexFinder(method: String)`
+* Renommage de `DijkstraPathFinder` en `PathFinder`
+* Ajout du paramètre `method: String` à `findPath` de `PathFinder`
+* Ajout d'un paramètre `method` à `findPath` dans `FindPathController`
