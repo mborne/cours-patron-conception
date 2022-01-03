@@ -5,16 +5,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
   <title>design_pattern/structural/Decorator.md</title>
-  <link type="text/css" rel="stylesheet" href="../../assets/css/github-markdown.css">
-  <link type="text/css" rel="stylesheet" href="../../assets/css/pilcrow.css">
-  <link type="text/css" rel="stylesheet" href="../../assets/css/hljs-github.min.css" />
 
-  <link rel="stylesheet" href="../../assets/highlight/styles/github.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css">
   <style>
     html, body {
-      width: 90%;
+      width: 95%;
       margin: auto;
-      padding: 0;
+      padding-bottom: 50px;
     }
   </style>
 </head>
@@ -30,7 +28,9 @@ qui est utilisé par le moteur physique.</p>
 </ul>
 <pre><code>interface Personnage {
     public double getWeight() ;
-}</code></pre><ul>
+}
+</code></pre>
+<ul>
 <li>Une classe concrète Humain</li>
 </ul>
 <pre><code>class Humain implements Personnage {
@@ -38,7 +38,8 @@ qui est utilisé par le moteur physique.</p>
         return 80.0 ;
     }
 }
-</code></pre><pre><code>class PersonnageAvecHache implements Personnage {
+</code></pre>
+<pre><code>class PersonnageAvecHache implements Personnage {
 
     private Personnage original ;
 
@@ -49,7 +50,9 @@ qui est utilisé par le moteur physique.</p>
     public double getWeight(){
         return original.getWeight() + 15.0 ;
     }
-}</code></pre><pre><code>class PersonnageAvecChapeau implements Personnage {
+}
+</code></pre>
+<pre><code>class PersonnageAvecChapeau implements Personnage {
 
     private Personnage original ;
 
@@ -60,11 +63,15 @@ qui est utilisé par le moteur physique.</p>
     public double getWeight(){
         return original.getWeight() + 2.0 ;
     }
-}</code></pre><p>A l&#39;usage :</p>
+}
+</code></pre>
+<p>A l&#39;usage :</p>
 <pre><code>Personnage personnage = new Humain();
 personnage = new PersonnageAvecHache(personnage);
 personnage = new PersonnageAvecChapeau(personnage);
-System.out.println(personnage.getWeight()); // 80 + 15 + 2</code></pre><h2 id="autres-exemples-en-java"><a href="#autres-exemples-en-java" class="anchor"></a>Autres exemples en Java</h2><ul>
+System.out.println(personnage.getWeight()); // 80 + 15 + 2
+</code></pre>
+<h2 id="autres-exemples-en-java"><a href="#autres-exemples-en-java" class="anchor"></a>Autres exemples en Java</h2><ul>
 <li><a href="https://docs.oracle.com/javase/7/docs/api/java/io/BufferedReader.html" target="_blank">BufferedReader/Reader</a></li>
 <li><a href="https://docs.oracle.com/javase/7/docs/api/java/io/LineNumberReader.html" target="_blank">LineNumberReader/BufferedReader</a></li>
 </ul>
@@ -72,16 +79,9 @@ System.out.println(personnage.getWeight()); // 80 + 15 + 2</code></pre><h2 id="a
 
   </article>
 
-  <script src="../../assets/highlight/highlight.pack.js"></script>
+  <!-- hightlight.pack.js -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
-
-  <script src="../../assets/mermaid/mermaid.min.js"></script>
-  <script>mermaid.init({
-      startOnLoad: true,
-      flowchart: {
-        useMaxWidth: true
-      }
-    }, ".language-mermaid");</script>
 </body>
 
 </html>

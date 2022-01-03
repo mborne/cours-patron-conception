@@ -5,16 +5,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
   <title>design_pattern/creational/Builder.md</title>
-  <link type="text/css" rel="stylesheet" href="../../assets/css/github-markdown.css">
-  <link type="text/css" rel="stylesheet" href="../../assets/css/pilcrow.css">
-  <link type="text/css" rel="stylesheet" href="../../assets/css/hljs-github.min.css" />
 
-  <link rel="stylesheet" href="../../assets/highlight/styles/github.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css">
   <style>
     html, body {
-      width: 90%;
+      width: 95%;
       margin: auto;
-      padding: 0;
+      padding-bottom: 50px;
     }
   </style>
 </head>
@@ -31,7 +29,7 @@ la complexité est liée à la complexité des objets et relations entre ces obj
 </ul>
 <h2 id="solution"><a href="#solution" class="anchor"></a>Solution</h2><ul>
 <li>On met en place un nombre minimum de constructeurs</li>
-<li>On délégue la complexité de création des instances à des objets dédiés : Director et Builder</li>
+<li>On délègue la complexité de création des instances à des objets dédiés : Director et Builder</li>
 </ul>
 <p><img src="uml/UML_DP_Builder.png" alt="UML Builder"></p>
 <p>Source <a href="https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Builder" target="_blank">https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Builder</a></p>
@@ -52,7 +50,8 @@ class Pizza {
     public void setGarniture(String garniture) {
         this.garniture = garniture;
     }
-}</code></pre>
+}
+</code></pre>
 <h3 id="un-monteur-abstrait-de-pizza"><a href="#un-monteur-abstrait-de-pizza" class="anchor"></a>Un monteur abstrait de pizza</h3><pre><code class="language-java">/* Monteur */
 abstract class MonteurPizza {
   protected Pizza pizza;
@@ -63,7 +62,8 @@ abstract class MonteurPizza {
   public abstract void monterPate();
   public abstract void monterSauce();
   public abstract void monterGarniture();
-}</code></pre>
+}
+</code></pre>
 <h3 id="des-monteurs-concrets"><a href="#des-monteurs-concrets" class="anchor"></a>Des monteurs concrets</h3><ul>
 <li>Monteur pizza hawaii</li>
 </ul>
@@ -71,7 +71,8 @@ abstract class MonteurPizza {
   public void monterPate()      { pizza.setPate(&quot;croisée&quot;); }
   public void monterSauce()     { pizza.setSauce(&quot;douce&quot;); }
   public void monterGarniture() { pizza.setGarniture(&quot;jambon+ananas&quot;); }
-}</code></pre>
+}
+</code></pre>
 <ul>
 <li>Monteur pizza piquante</li>
 </ul>
@@ -79,7 +80,8 @@ abstract class MonteurPizza {
   public void monterPate()      { pizza.setPate(&quot;feuilletée&quot;); }
   public void monterSauce()     { pizza.setSauce(&quot;piquante&quot;); }
   public void monterGarniture() { pizza.setGarniture(&quot;pepperoni+salami&quot;); }
-}</code></pre>
+}
+</code></pre>
 <h3 id="un-serveur-dans-le-r-le-du-directeur"><a href="#un-serveur-dans-le-r-le-du-directeur" class="anchor"></a>Un serveur dans le rôle du Directeur</h3><pre><code class="language-java">class Serveur {
     private MonteurPizza monteurPizza;
 
@@ -97,7 +99,8 @@ abstract class MonteurPizza {
         monteurPizza.monterSauce();
         monteurPizza.monterGarniture();
     }
-}</code></pre>
+}
+</code></pre>
 <h3 id="exemple-d-39-utilisation"><a href="#exemple-d-39-utilisation" class="anchor"></a>Exemple d&#39;utilisation</h3><pre><code class="language-java">Serveur serveur = new Serveur();
 MonteurPizza monteurPizzaHawaii  = new MonteurPizzaHawaii();
 MonteurPizza monteurPizzaPiquante = new MonteurPizzaPiquante();
@@ -105,7 +108,8 @@ MonteurPizza monteurPizzaPiquante = new MonteurPizzaPiquante();
 serveur.setMonteurPizza(monteurPizzaHawaii);
 serveur.construirePizza();
 
-Pizza pizza = serveur.getPizza();</code></pre>
+Pizza pizza = serveur.getPizza();
+</code></pre>
 <h2 id="variantes"><a href="#variantes" class="anchor"></a>Variantes</h2><p>La terminologie builder est généralisée à toute création par partie d&#39;objet via la séquence suivante :</p>
 <ul>
 <li>Récupération d&#39;un builder</li>
@@ -114,7 +118,7 @@ Pizza pizza = serveur.getPizza();</code></pre>
 </ul>
 <p>En outre, la distinction n&#39;est pas toujours faite entre &quot;Director&quot; et &quot;Builder&quot;.</p>
 <h2 id="exemple-en-java"><a href="#exemple-en-java" class="anchor"></a>Exemple en Java</h2><ul>
-<li><p><code>StringBuilder</code></p>
+<li><p><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/StringBuilder.html" target="_blank">StringBuilder</a></p>
 </li>
 <li><p><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Calendar.Builder.html" target="_blank">CalendarBuilder</a></p>
 </li>
@@ -123,7 +127,8 @@ Pizza pizza = serveur.getPizza();</code></pre>
     .setCalendarType(&quot;iso8601&quot;)
     .setWeekDate(2013, 1, MONDAY)
     .build()
-;</code></pre>
+;
+</code></pre>
 <ul>
 <li><code>ProcessBuilder</code></li>
 </ul>
@@ -138,11 +143,12 @@ env.put(&quot;VAR2&quot;, env.get(&quot;VAR1&quot;) + &quot;suffix&quot;);
 pb.directory(new File(&quot;myDir&quot;));
 
 // Récupération du processus
-Process p = pb.start();</code></pre>
+Process p = pb.start();
+</code></pre>
 <h2 id="liens-utiles"><a href="#liens-utiles" class="anchor"></a>Liens utiles</h2><ul>
 <li><p><a href="https://kodelog.wordpress.com/tag/telescopic-constructor-pattern/" target="_blank">Discussion sur l&#39;intérêt des beans couplés au design pattern Builder</a></p>
 </li>
-<li><p><a href="http://symfony.com/doc/current/book/forms.html#building-the-form" target="_blank">Exemple d&#39;utilisation dans la création de formulaire dans Symfony2 (PHP)</a></p>
+<li><p><a href="http://symfony.com/doc/current/book/forms.html#building-the-form" target="_blank">Exemple d&#39;utilisation dans la création de formulaire dans Symfony (PHP)</a></p>
 </li>
 <li><p><a href="http://doctrine-orm.readthedocs.org/projects/doctrine-orm/en/latest/reference/query-builder.html#high-level-api-methods" target="_blank">Exemple d&#39;utilisation dans la création de requête SQL (PHP)</a></p>
 </li>
@@ -150,16 +156,9 @@ Process p = pb.start();</code></pre>
 
   </article>
 
-  <script src="../../assets/highlight/highlight.pack.js"></script>
+  <!-- hightlight.pack.js -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
-
-  <script src="../../assets/mermaid/mermaid.min.js"></script>
-  <script>mermaid.init({
-      startOnLoad: true,
-      flowchart: {
-        useMaxWidth: true
-      }
-    }, ".language-mermaid");</script>
 </body>
 
 </html>
