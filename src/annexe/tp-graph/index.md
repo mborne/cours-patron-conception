@@ -194,7 +194,7 @@ En inspectant `Graph.findVertex(coordinate: Coordinate)`, on note un parcours co
 
 En lançant des calculs de plus court chemin sur le graphe ROUTE500 complet, on remarque un temps de calcul trop important. A l'aide de VisualVM, on se rend compte que le programme passe le plus clair de son temps dans `findNextVertex` :
 
-![VisualVM - find path](img/visualvm-visualvm-find-path.png.png)
+![VisualVM - find path](img/visualvm-find-path.png)
 
 En regardant de plus près, on remarque que l'on parcours l'ensemble des sommets atteints pour filtrer ensuite les sommets déjà visités.
 
