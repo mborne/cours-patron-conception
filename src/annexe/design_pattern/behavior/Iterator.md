@@ -2,7 +2,7 @@
 
 ## Problème
 
-On veut des algorithmes capables de fonctionner sur des collections (tableaux, listes, sets, etc.)
+On veut des algorithmes capables de fonctionner sur tous les types de collections (tableaux, listes, sets, etc.)
 
 ## Solution
 
@@ -27,7 +27,7 @@ De plus, quand les itérateurs font partie intégrante des bibliothèques standa
 
 Il existe de nombreuses variantes de ce patron de conception :
 
-* `Iterator.reset` : Permet de recommancer la lecture au début
+* `Iterator.reset` : Permet de recommencer la lecture au début
 
 * `ReverseIterator` : Permet de représenter un itérateur effectuant un parcours en sens inverse
 

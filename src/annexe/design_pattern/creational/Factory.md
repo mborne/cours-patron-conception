@@ -91,11 +91,11 @@ class AnimalFactory throws AnimalTypeNotFound {
 
 Les fabriques sont nombreuses dans l'API java et dans les bibliothèques.
 
-* [com.vividsolutions.jts.geom.GeometryFactory](http://www.vividsolutions.com/jts/javadoc/com/vividsolutions/jts/geom/GeometryFactory.html)
+* [GeometryFactory de JTS](https://locationtech.github.io/jts/javadoc/org/locationtech/jts/geom/GeometryFactory.html)
 
 Création de géométrie de différents types (Point, LineString, Polygon, etc.)
 
-* [java.sql.DriverManager](https://docs.oracle.com/javase/7/docs/api/java/sql/DriverManager.html)
+* [java.sql.DriverManager](https://docs.oracle.com/javase/8/docs/api/java/sql/DriverManager.html)
 
 C'est une variante sous forme d'une fabrique statique
 

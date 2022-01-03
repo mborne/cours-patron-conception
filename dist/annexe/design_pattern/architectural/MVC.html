@@ -5,16 +5,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
   <title>design_pattern/architectural/MVC.md</title>
-  <link type="text/css" rel="stylesheet" href="../../assets/css/github-markdown.css">
-  <link type="text/css" rel="stylesheet" href="../../assets/css/pilcrow.css">
-  <link type="text/css" rel="stylesheet" href="../../assets/css/hljs-github.min.css" />
 
-  <link rel="stylesheet" href="../../assets/highlight/styles/github.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css">
   <style>
     html, body {
-      width: 90%;
+      width: 95%;
       margin: auto;
-      padding: 0;
+      padding-bottom: 50px;
     }
   </style>
 </head>
@@ -57,7 +55,7 @@ d&#39;une liste de livre.</p>
 <li><code>BookController.php</code> : Exemple de controller</li>
 </ul>
 <pre><code class="language-php">class BookController extends Controller {
-
+    
     /*
      * @Route(&quot;/books&quot;,name=&quot;book_index&quot;)
      */
@@ -70,7 +68,7 @@ d&#39;une liste de livre.</p>
             ]
         );
     }
-
+    
     /*
      * @Route(&quot;/books/{id}&quot;,name=&quot;book_view&quot;)
      */
@@ -84,8 +82,9 @@ d&#39;une liste de livre.</p>
             ]
         );
     }
-
-}</code></pre>
+    
+}
+</code></pre>
 <ul>
 <li><code>views/Books/list.html.twig</code> : Exemple de vue</li>
 </ul>
@@ -97,7 +96,8 @@ d&#39;une liste de livre.</p>
         &lt;/a&gt;
     &lt;/li&gt;
 {% endfor %}
-&lt;/ul&gt;</code></pre>
+&lt;/ul&gt;
+</code></pre>
 <p>Remarque :</p>
 <ul>
 <li>On soulignera l&#39;utilisation du mécanisme de routage pour générer des URL</li>
@@ -147,16 +147,9 @@ générer le code de l&#39;interface (ajout des boutons, des menus, etc.)</p>
 
   </article>
 
-  <script src="../../assets/highlight/highlight.pack.js"></script>
+  <!-- hightlight.pack.js -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
-
-  <script src="../../assets/mermaid/mermaid.min.js"></script>
-  <script>mermaid.init({
-      startOnLoad: true,
-      flowchart: {
-        useMaxWidth: true
-      }
-    }, ".language-mermaid");</script>
 </body>
 
 </html>

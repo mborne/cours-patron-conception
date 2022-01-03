@@ -41,15 +41,9 @@ pas les mêmes.
 
 * [Description détaillées sur sourcemaking.com](https://sourcemaking.com/design_patterns/bridge)
 
-* [Exemple de l'envoie de message de types différents](https://springframework.guru/gang-of-four-design-patterns/bridge-pattern/)
-
-Remarque : Utilise aussi l'injection de dépendance via spring.
+* [Exemple de l'envoie de message de types différents](https://springframework.guru/gang-of-four-design-patterns/bridge-pattern/) qui utilise aussi l'injection de dépendance via spring.
 
 * [Exemple d'API de dessin](http://www.tutorialspoint.com/design_pattern/bridge_pattern.htm)
 
-Attention : En pratique, on aurait tendance à faire en sorte que les shape ignore le concept de dessin.
-
-* [Les ponts entre Symfony2 et bibliothèques tierces](https://github.com/symfony/symfony/tree/master/src/Symfony/Bridge)
-
-Bibliothèques tierces `Monolog` pour la gestion des log, `Doctrine` pour la gestion des données (ORM), etc.
+* [Les ponts entre Symfony et bibliothèques tierces](https://github.com/symfony/symfony/tree/master/src/Symfony/Bridge) (`Monolog` pour la gestion des log, `Doctrine` pour la gestion des données (ORM), etc.)
 
