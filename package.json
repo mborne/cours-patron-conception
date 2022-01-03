@@ -4,7 +4,7 @@
   "description": "ENSG - cours patron conception",
   "main": "index.js",
   "scripts": {
-    "build": "node_modules/gulp/bin/gulp.js",
+    "build": "node build.js",
     "publish": "git subtree push --prefix dist origin gh-pages"
   },
   "repository": {
@@ -20,8 +20,7 @@
   "dependencies": {},
   "private": true,
   "devDependencies": {
-    "@mborne/markdown-to-html": "git+https://github.com/mborne/markdown-to-html.git#v0.1.0",
-    "gulp": "^3.9.1",
-    "shelljs": "^0.8.3"
+    "@mborne/markdown-to-html": "git+https://github.com/mborne/markdown-to-html.git#v0.6.0",
+    "shelljs": "^0.8.4"
   }
 }

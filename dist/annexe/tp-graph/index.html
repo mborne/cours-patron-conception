@@ -5,16 +5,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
   <title>tp-graph/index.md</title>
-  <link type="text/css" rel="stylesheet" href="../assets/css/github-markdown.css">
-  <link type="text/css" rel="stylesheet" href="../assets/css/pilcrow.css">
-  <link type="text/css" rel="stylesheet" href="../assets/css/hljs-github.min.css" />
 
-  <link rel="stylesheet" href="../assets/highlight/styles/github.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css">
   <style>
     html, body {
-      width: 90%;
+      width: 95%;
       margin: auto;
-      padding: 0;
+      padding-bottom: 50px;
     }
   </style>
 </head>
@@ -22,11 +20,7 @@
 <body>
   <article class="markdown-body">
     <h1 id="tp-refactoring-de-traitement-de-graphe"><a href="#tp-refactoring-de-traitement-de-graphe" class="anchor"></a>TP - Refactoring de traitement de graphe</h1><h2 id="introduction"><a href="#introduction" class="anchor"></a>Introduction</h2><p>Dans ce TP où l&#39;idée est de se mettre en situation où l&#39;on récupère un prototype à industrialiser, nous allons réfactorer une application qui charge un graphe et calcule le plus court chemin entre deux sommets.</p>
-<p>L&#39;application se présente sous deux forme :</p>
-<ul>
-<li>Un utilitaire en ligne de commande</li>
-<li>Une API basée sur <a href="https://spring.io/guides/gs/spring-boot/" target="_blank">spring boot</a></li>
-</ul>
+<p>L&#39;application se présente sous la forme d&#39;une API basée sur <a href="https://spring.io/guides/gs/spring-boot/" target="_blank">spring boot</a></p>
 <p>Les objectifs sont les suivants :</p>
 <ul>
 <li>Rendre le code plus robuste</li>
@@ -34,74 +28,23 @@
 <li>Rendre le calcul de plus court chemin plus générique</li>
 <li>Améliorer les entrées/sorties du programme</li>
 </ul>
-<p>Pour celà, nous allons faire une revue de code et procéder par étape.</p>
+<p>Pour cela, nous allons faire une revue de code et procéder par étape.</p>
 <h2 id="d-marrage"><a href="#d-marrage" class="anchor"></a>Démarrage</h2><ul>
-<li>Cloner le projet <a href="https://github.com/mborne/tp-refactoring-graph" target="_blank">https://github.com/mborne/tp-refactoring-graph</a></li>
+<li>Forker le projet <a href="https://github.com/mborne/tp-refactoring-graph" target="_blank">https://github.com/mborne/tp-refactoring-graph</a></li>
+<li>Cloner le fork</li>
+<li>Lire le fichier <a href="https://github.com/mborne/tp-refactoring-graph#tp-refactoring-graph" target="_blank">README</a> pour :<ul>
+<li>Découvrir l&#39;organisation du code</li>
+<li>Construire le projet et exécuter les tests</li>
+<li>Démarrer et tester l&#39;API</li>
 </ul>
-<pre><code class="language-bash">mkdir ~/workspace_pattern
-cd ~/workspace_pattern
-git clone https://github.com/mborne/tp-refactoring-graph
-cd tp-refactoring-graph
-# vérifier que vous êtes bien sur la branche &quot;original&quot;
-git branch</code></pre>
-<h2 id="prise-de-connaissance-du-code"><a href="#prise-de-connaissance-du-code" class="anchor"></a>Prise de connaissance du code</h2><p>Vous êtes invité à prendre connaissance des classes :</p>
-<table>
-<thead>
-<tr>
-<th>Classe</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>org/acme/graph/model/Graph.java</td>
-<td>Modélisation d&#39;un graphe</td>
-</tr>
-<tr>
-<td>org/acme/graph/model/Vertex.java</td>
-<td>Modélisation des sommets</td>
-</tr>
-<tr>
-<td>org/acme/graph/model/Edge.java</td>
-<td>Modélisation des arcs</td>
-</tr>
-<tr>
-<td>org/acme/graph/routing/DijkstraPathFinder.java</td>
-<td>Algorithme de calcul du plus court chemin</td>
-</tr>
-<tr>
-<td>org/acme/graph/cli/FindPath.java</td>
-<td>Plus court chemin en ligne de commande (main)</td>
-</tr>
-<tr>
-<td>org/acme/graph/io/GraphReader.java</td>
-<td>Interface de chargement d&#39;un graphe</td>
-</tr>
-<tr>
-<td>org/acme/graph/io/ShpGraphReader.java</td>
-<td>Chargement d&#39;un graphe au format SHP</td>
-</tr>
-<tr>
-<td>org/acme/graph/io/XmlGraphReader.java</td>
-<td>Chargement d&#39;un graphe au format XML</td>
-</tr>
-<tr>
-<td>org/acme/graph/controllers/FindPathController.java</td>
-<td>spring - API de calcul du plus court chemin</td>
-</tr>
-<tr>
-<td>org/acme/graph/Application.java</td>
-<td>spring - main de l&#39;application spring (lancement API)</td>
-</tr>
-<tr>
-<td>org/acme/graph/config/GraphConfig.java</td>
-<td>spring - configuration du chargement du graphe</td>
-</tr>
-</tbody></table>
-<p>Vous pouvez :</p>
+</li>
+</ul>
+<h2 id="mise-en-garde"><a href="#mise-en-garde" class="anchor"></a>Mise en garde</h2><p>Vous devrez impérativement livrer un code fonctionnel sur la branche par défaut de votre fork.</p>
+<p>Pour ce faire, il vous est vivement conseillé de :</p>
 <ul>
-<li>Exécuter les tests</li>
-<li>Exécuter le calcul d&#39;itinéraire en ligne de commande (voir <a href="img/eclipse-findpath.png">img/eclipse-findpath.png</a> pour configuration)</li>
-<li>Tester l&#39;API de calcul d&#39;itinéraire (voir <a href="img/eclipse-application.png">img/eclipse-application.png</a> pour configuration)</li>
+<li>Travailler sur une autre branche (ex : <code>develop</code>), en particulier si vous voulez pousser des travaux en cours.</li>
+<li>Lancer à chaque étape la construction et les tests automatiques (<code>mvn clean package</code>).</li>
+<li>Compléter ces tests automatique avec un test manuel sur l&#39;API.</li>
 </ul>
 <h2 id="0-1-blindage-de-la-construction-des-arcs"><a href="#0-1-blindage-de-la-construction-des-arcs" class="anchor"></a>0.1 - Blindage de la construction des arcs</h2><p>On remarque que l&#39;on dispose d&#39;un modèle qui ne protège pas contre les erreurs la création des sommets et des arcs. Il est tout à fait possible de créer par erreur un <code>Edge</code> avec une <code>source</code> ou une <code>target</code> nulle.</p>
 <p>On procède comme suit :</p>
@@ -113,8 +56,8 @@ git branch</code></pre>
 <p>Toutefois, les opérations de création demeurent complexes et il reste la possibilité d&#39;oublier d&#39;ajouter les éléments aux listes de <code>vertices</code> et <code>edges</code> du graphe.</p>
 <p>On va donc procéder comme suit :</p>
 <ul>
-<li>Ajout d&#39;une fabrique <code>createVertex(coordinate,id): Vertex</code> dans <code>Graph</code></li>
-<li>Ajout d&#39;une fabrique <code>createEdge(source,target,id): Edge</code> dans <code>Graph</code></li>
+<li>Ajout d&#39;une fabrique <code>createVertex(coordinate: Coordinate, id: String): Vertex</code> dans <code>Graph</code></li>
+<li>Ajout d&#39;une fabrique <code>createEdge(source: Vertex, target: Vertex, id: String): Edge</code> dans <code>Graph</code></li>
 <li>Masquage des constructeur <code>Vertex()</code> et <code>Edge(source,target)</code></li>
 <li>Suppression de <code>Graph.setVertices(vertices)</code> et <code>Graph.setEdges(edges)</code></li>
 </ul>
@@ -129,111 +72,59 @@ b.setId(&quot;b&quot;);
 b.setCoordinate(new Coordinate(1.0, 0.0));
 graph.getVertices().add(b);
 
-Edge ab = new Edge(a,b);
+Edge ab = new Edge(a, b);
 ab.setId(&quot;ab&quot;);
-graph.getEdges().add(ab);</code></pre>
+graph.getEdges().add(ab);
+</code></pre>
 <p>à</p>
 <pre><code class="language-java">Vertex a = graph.createVertex(new Coordinate(0.0, 0.0),&quot;a&quot;);
 Vertex b = graph.createVertex(new Coordinate(1.0, 0.0),&quot;b&quot;);
-Edge ab  = graph.createEdge(a,b,&quot;ab&quot;);</code></pre>
-<h2 id="0-3-indexation-des-arcs-entrants-et-sortant"><a href="#0-3-indexation-des-arcs-entrants-et-sortant" class="anchor"></a>0.3 - Indexation des arcs entrants et sortant</h2><p>En lisant attentivement <code>DijsktraPathFinder</code> (ou un utilisant un outil tel VisualVM), on remarque une méthode <code>findOutEdges(vertex: Vertex)</code> appelée très fréquemment dans la méthode <code>visit(vertex: Vertex)</code>. Cette approche étant loin d&#39;être optimale, on va indexer les arcs sortants et entrants comme suit :</p>
+graph.createEdge(a,b,&quot;ab&quot;);
+</code></pre>
+<h2 id="0-3-g-om-trie-r-elle-des-tron-ons"><a href="#0-3-g-om-trie-r-elle-des-tron-ons" class="anchor"></a>0.3 - Géométrie réelle des tronçons</h2><p>On remarque au niveau de <code>getCost</code> et <code>getGeometry</code> que la géométrie des tronçons est un segment entre le sommet source et le sommet cible.</p>
+<p>On va procéder comme suit pour utiliser la géométrie des tronçons :</p>
 <ul>
-<li>Ajout des attributs <code>inEdges: List&lt;Edge&gt;</code> et <code>outEdges: List&lt;Edge&gt;</code> sur <code>Vertex</code></li>
-<li>Ajout des getters <code>getInEdges(): Collection&lt;Edge&gt;</code> et  <code>getOutEdges(): Collection&lt;Edge&gt;</code> sur <code>Vertex</code></li>
+<li>Ajout d&#39;un attribut <code>geometry: LineString</code> sur la classe <code>Edge</code> avec un setter <code>setGeometry(geometry: LineString)</code></li>
+<li>Mise à jour de <code>getGeometry()</code> pour renvoyer l&#39;attribut <code>geometry</code> s&#39;il est défini</li>
+<li>Mise à jour de <code>getCost()</code> pour renvoyer la longueur de la géométrie à l&#39;aide de <a href="https://locationtech.github.io/jts/javadoc/org/locationtech/jts/geom/LineString.html#getLength--" target="_blank">getLength</a> de JTS</li>
+<li>Mise à jour de <code>GraphReader</code> pour stocker la géométrie sur les <code>Edge</code> à l&#39;aide de <code>setGeometry</code></li>
+</ul>
+<h2 id="0-4-indexation-des-arcs-entrants-et-sortants"><a href="#0-4-indexation-des-arcs-entrants-et-sortants" class="anchor"></a>0.4 - Indexation des arcs entrants et sortants</h2><p>En lisant attentivement <code>DijsktraPathFinder</code> (ou un utilisant un outil tel VisualVM), on remarque que la méthode <code>graph.getOutEdges(vertex: Vertex)</code> est appelée très fréquemment dans la méthode <code>visit(vertex: Vertex)</code>.</p>
+<p>Cette approche étant loin d&#39;être optimale, nous allons indexer les arcs sortants et entrants comme suit :</p>
+<ul>
+<li>Suppression de <code>setSource</code> et <code>setTarget</code> dans <code>Edge</code> (1)</li>
+<li>Ajout des attributs <code>inEdges: List&lt;Edge&gt;</code> et <code>outEdges: List&lt;Edge&gt;</code> sur <code>Vertex</code> (2).</li>
+<li>Ajout des getters <code>getInEdges(): List&lt;Edge&gt;</code> et  <code>getOutEdges(): List&lt;Edge&gt;</code> sur <code>Vertex</code></li>
 <li>Remplissage automatique de <code>inEdges</code> et <code>outEdges</code> dans le constructeur <code>Edge(source,target)</code></li>
-<li>Suppression de <code>setSource</code> et <code>setTarget</code> dans <code>Edge</code> (pas besoin d&#39;une topologie éditable, innutile de gérer la complexité pour <code>inEdges</code> et <code>outEdges</code>)</li>
-<li>Suppression de <code>findOutEdges</code> dans <code>DijkstraPathFinder</code> et utilisation de <code>getOutEdges</code></li>
-<li>Exclusion de <code>inEdges</code> et <code>outEdges</code> des résultats de l&#39;API (<code>@JsonIgnore</code>)</li>
-<li>Ajout de tests</li>
+<li>Ré-écrire <code>Graph.getInEdges</code> et <code>Graph.getOutEdges</code> pour appeler <code>Vertex.getInEdges</code> et <code>Vertex.getOutEdges</code></li>
+<li>Exclure <code>inEdges</code> et <code>outEdges</code> du rendu JSON au niveau de l&#39;API à l&#39;aide de l&#39;annotation <code>@JsonIgnore</code> (3).</li>
 </ul>
-<p>Remarque : Nous n&#39;avons pas besoin pour l&#39;algorithme actuel des <code>inEdges</code> mais il semble préférable au moins dans un premier temps de conserver une symétrie dans le modèle.</p>
-<h2 id="0-4-ajout-d-39-un-mod-le-pour-les-chemins"><a href="#0-4-ajout-d-39-un-mod-le-pour-les-chemins" class="anchor"></a>0.4 - Ajout d&#39;un modèle pour les chemins</h2><p>On remarque deux problèmes avec le résultat de <code>findPath(Vertex origin, Vertex destination)</code> de <code>DijkstraPathFinder</code> :</p>
+<p>Remarques :</p>
 <ul>
-<li>Le type de retour <code>List&lt;Edge&gt;</code> est un peu pauvre pour une mise en forme dans l&#39;API</li>
-<li>La liste en question est <code>null</code> si le chemin n&#39;est pas trouvé (une liste vide serait préférable)</li>
+<li>(1) Nous n&#39;avons pas besoin d&#39;éditer les graphes après chargement, inutile de gérer la complexité pour <code>inEdges</code> et <code>outEdges</code>.</li>
+<li>(2) Nous n&#39;avons pas besoin pour l&#39;algorithme actuel des <code>inEdges</code> mais nous choisissons de conserver une symétrie dans le modèle.</li>
+<li>(3) ATTENTION : Sans cette étape, l&#39;API plantera avec une récursion infinie.</li>
 </ul>
-<p>On améliore ce point en procédant comme suit :</p>
+<h2 id="0-5-am-lioration-de-la-gestion-des-chemins-non-trouv-s"><a href="#0-5-am-lioration-de-la-gestion-des-chemins-non-trouv-s" class="anchor"></a>0.5 - Amélioration de la gestion des chemins non trouvés</h2><p>On remarque que <code>findPath(Vertex origin, Vertex destination)</code> de <code>DijkstraPathFinder</code> renvoie <code>null</code> si le chemin n&#39;est pas trouvé, ce qui induit une réponse vide au niveau de l&#39;API.</p>
+<p>On remarque que le cas où le sommet de départ ou d&#39;arrivé est mieux géré grâce :</p>
 <ul>
-<li>Ajout d&#39;un modèle <code>Path</code> encapsulant une liste de <code>Edge</code></li>
+<li>Au renvoi d&#39;une <code>NotFoundException</code> dans <code>Graph.findVertex(id: String)</code> dans le cas où le sommet n&#39;est pas trouvé par son identifiant</li>
+<li>A la personnalisation du rendu des <code>NotFoundException</code> via <code>config.CustomErrorHandler</code></li>
+</ul>
+<p>Nous procédons de même en renvoyant une <code>NotFoundException</code> avec le modèle de message suivant dans <code>findPath(Vertex origin, Vertex destination)</code> de <code>DijkstraPathFinder</code> : <code>&quot;Path not found from &#39;%s&#39; to &#39;%s&#39;&quot;</code>.</p>
+<h2 id="0-6-am-lioration-du-rendu-des-chemins"><a href="#0-6-am-lioration-du-rendu-des-chemins" class="anchor"></a>0.6 - Amélioration du rendu des chemins</h2><p>Nous remarquons que la mise en forme des chemins est un peu pauvre au niveau de l&#39;API. Nous souhaitons produire un résultat sous forme d&#39;un objet JSON avec deux propriétés :</p>
+<ul>
+<li><code>edges</code>: La liste des arcs formant le chemin</li>
+<li><code>length</code> : La somme des longueurs des <code>edges</code></li>
+</ul>
+<p>Pour ce faire, nous procédons ainsi :</p>
+<ul>
+<li>Ajout d&#39;un modèle <code>Path</code> encapsulant une liste de <code>Edge</code> nommée <code>edges</code>.</li>
+<li>Ajout d&#39;une méthode <code>getLength()</code> à <code>Path</code> renvoyant la somme des longueurs des <code>edges</code>.</li>
 <li>Renvoi d&#39;un <code>Path</code> dans <code>findPath</code> de <code>DijkstraPathFinder</code></li>
-<li>Mise à jour des codes pour le changement de comportement <code>null</code> vers vide en cas de chemin non trouvé</li>
 </ul>
-<h2 id="0-5-am-lioration-du-rendu-des-chemins-dans-l-39-api"><a href="#0-5-am-lioration-du-rendu-des-chemins-dans-l-39-api" class="anchor"></a>0.5 - Amélioration du rendu des chemins dans l&#39;API</h2><p>On améliore le résultat de l&#39;API sous la forme suivante :</p>
-<pre><code class="language-json">{
-  &quot;edges&quot; : [ {
-    &quot;id&quot; : &quot;troncon_route.7080-reverse&quot;,
-    &quot;source&quot; : &quot;1&quot;,
-    &quot;target&quot; : &quot;10948&quot;,
-    &quot;geometry&quot; : {
-      &quot;type&quot; : &quot;LineString&quot;,
-      &quot;coordinates&quot; : [ [ 656039.9000000076, 6834645.000001009 ], [ 656261.3000000076, 6835035.700001009 ] ]
-    },
-    &quot;cost&quot; : 449.0706514571575
-  }, {
-    &quot;id&quot; : &quot;troncon_route.20028-reverse&quot;,
-    &quot;source&quot; : &quot;10948&quot;,
-    &quot;target&quot; : &quot;9558&quot;,
-    &quot;geometry&quot; : {
-      &quot;type&quot; : &quot;LineString&quot;,
-      &quot;coordinates&quot; : [ [ 656261.3000000076, 6835035.700001009 ], [ 656399.2000000075, 6835455.000001008 ] ]
-    },
-    &quot;cost&quot; : 441.39426819912046
-  }
-]</code></pre>
-<p>On procède comme suit :</p>
-<ul>
-<li>Exposition des seuls identifiants de <code>source</code> et <code>target</code> au niveau des <code>Edge</code> :</li>
-</ul>
-<pre><code class="language-java">class Edge {
-
-    @JsonIdentityInfo(
-        generator=ObjectIdGenerators.PropertyGenerator.class, 
-        property=&quot;id&quot;
-    )
-    @JsonIdentityReference(alwaysAsId=true)
-    public Vertex getSource() {
-        return source;
-    }
-
-    //...
-
-}</code></pre>
-<ul>
-<li>Ajout d&#39;une dépendance maven pour le rendu des géométries JTS :</li>
-</ul>
-<pre><code class="language-xml">        &lt;!-- JTS et GeoJSON --&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;com.bedatadriven&lt;/groupId&gt;
-            &lt;artifactId&gt;jackson-datatype-jts&lt;/artifactId&gt;
-            &lt;version&gt;2.2&lt;/version&gt;
-        &lt;/dependency&gt;</code></pre>
-<ul>
-<li>Ajouter une méthode <code>getGeometry(): LineString</code> sur <code>Edge</code> renvoyant une géométrie calculée à la volée comme suit :</li>
-</ul>
-<pre><code class="language-java">    @JsonSerialize(using = GeometrySerializer.class)
-    public LineString getGeometry() {
-        GeometryFactory gf = new GeometryFactory();
-        return (LineString)gf.createLineString(new Coordinate[] {
-            getSource().getCoordinate(),
-            getTarget().getCoordinate()
-        });
-    }</code></pre>
-<p>Remarque :</p>
-<ul>
-<li>L&#39; annotation <code>@JsonSerialize(using = GeometrySerializer.class)</code> permet d&#39;utiliser <code>jackson-datatype-jts</code> pour faire le rendu de la géométrie en GeoJSON.</li>
-<li>L&#39;opération conversion JSON en géométrie serait possible à l&#39;aide de <code>@JsonDeserialize(contentUsing = GeometryDeserializer.class)</code>.</li>
-</ul>
-<h2 id="0-6-g-om-trie-r-elle-des-tron-ons"><a href="#0-6-g-om-trie-r-elle-des-tron-ons" class="anchor"></a>0.6 - Géométrie réelle des tronçons</h2><p>Dans la question, on a préparé le terrain en calculant une géométrie à la volée à l&#39;aide de la position des <code>Vertex</code>. Toutefois, on remarque dans <code>ShpGraphReader</code> que l&#39;on dispose d&#39;une géométrie plus précise pour les tronçons.</p>
-<p>On va donc procèder comme suit pour avoir une géométrie optionnelle sur les <code>Edge</code> :</p>
-<ul>
-<li>Ajout d&#39;un attribut <code>geometry: LineString</code> sur <code>Edge</code></li>
-<li>Calcul de la géométrie des <code>Edge</code> dans le constructeur en fonction de <code>source</code> et <code>target</code> (principalement pour le cas de la lecture du XML)</li>
-<li>Mise à jour de la méthode de calcul de coût pour renvoyer la longueur de la géométrie</li>
-<li>Ajout d&#39;une méthode <code>setGeometry(geometry: LineString)</code> sur <code>Edge</code> permettant de modifier cette géométrie</li>
-<li>Mise à jour de <code>ShpGraphReader</code> pour définir la géométrie de <code>Edge</code></li>
-</ul>
-<h2 id="0-7-cr-ation-d-39-un-mod-le-d-di-aux-noeuds-de-l-39-arbre-du-plus-court-chemin"><a href="#0-7-cr-ation-d-39-un-mod-le-d-di-aux-noeuds-de-l-39-arbre-du-plus-court-chemin" class="anchor"></a>0.7 - Création d&#39;un modèle dédié aux noeuds de l&#39;arbre du plus court chemin</h2><p>On constate que <code>Vertex</code> est porteur de propriétés qui ne correspondent pas à un réseau routier mais à l&#39;algorithme de calcul du plus chemin : <code>cost</code>, <code>reachingEdge</code> et <code>visited</code>.</p>
-<p>Ceci a un lourd impact sur l&#39;application : <strong>Il est en l&#39;état impossible de lancer en parallèle deux calculs de plus court chemin</strong> car il y a aura des conflits en édition du graphe.</p>
+<h2 id="0-7-cr-ation-d-39-un-mod-le-d-di-aux-noeuds-de-l-39-arbre-du-plus-court-chemin"><a href="#0-7-cr-ation-d-39-un-mod-le-d-di-aux-noeuds-de-l-39-arbre-du-plus-court-chemin" class="anchor"></a>0.7 - Création d&#39;un modèle dédié aux noeuds de l&#39;arbre du plus court chemin</h2><p>On constate que <code>Vertex</code> est porteur de propriétés qui ne correspondent pas à la modélisation d&#39;un réseau routier mais à l&#39;algorithme de calcul du plus chemin : <code>cost</code>, <code>reachingEdge</code> et <code>visited</code>.</p>
+<p>Ceci a un lourd impact sur l&#39;application : <strong>Il est en l&#39;état impossible de lancer en parallèle deux calculs de plus court chemin</strong> car il y a aura des conflits en édition sur les propriétés des <code>Vertex</code>.</p>
 <p>Nous procédons dans un premier temps comme suit pour refondre <code>DijkstraPathFinder</code> en limitant les reprises de code à effectuer :</p>
 <ul>
 <li>Création d&#39;une classe <code>PathNode</code> correspondant à un noeud de l&#39;arbre</li>
@@ -248,75 +139,27 @@ Edge ab  = graph.createEdge(a,b,&quot;ab&quot;);</code></pre>
 <li>Création de la classe <code>PathTree</code></li>
 <li>Migration des éléments correspondant de <code>DisjktraPathFinder</code> vers <code>PathTree</code><ul>
 <li><code>initGraph(origin)</code> devient <code>PathTree(graph: Graph, origin: Vertex)</code></li>
-<li><code>buildPath(vertex)</code> devient <code>pathTree.getPath(destination)</code></li>
-<li><code>getNode(vertex)</code> devient <code>pathTree.getNode(vertex)</code></li>
+<li><code>buildPath(vertex)</code> devient <code>pathTree.getPath(destination: Vertex)</code></li>
+<li><code>getNode(vertex)</code> devient <code>pathTree.getNode(vertex: Vertex)</code></li>
 </ul>
 </li>
 </ul>
-<h2 id="0-9-stockage-des-seuls-sommets-atteints-dans-pathtree"><a href="#0-9-stockage-des-seuls-sommets-atteints-dans-pathtree" class="anchor"></a>0.9 - Stockage des seuls sommets atteints dans PathTree</h2><p>On remarque qu&#39;il est innutile de stocker des <code>PathNode</code> pour tous les sommets du graphe, qu&#39;il suffit d&#39;initialiser la liste des <code>nodes</code> avec l&#39;origine des chemins et de créer les <code>PathNode</code> quand on atteint de nouveaux sommets.</p>
+<h2 id="0-9-stockage-des-seuls-sommets-atteints-dans-pathtree"><a href="#0-9-stockage-des-seuls-sommets-atteints-dans-pathtree" class="anchor"></a>0.9 - Stockage des seuls sommets atteints dans PathTree</h2><p>On remarque qu&#39;il est inutile de stocker des <code>PathNode</code> pour tous les sommets du graphe, qu&#39;il suffit d&#39;initialiser la liste des <code>nodes</code> avec l&#39;origine des chemins et de créer les <code>PathNode</code> quand on atteint de nouveaux sommets.</p>
 <p>A l&#39;exception du test pour savoir si on a atteint la destination dans <code>DijkstraPathFinder</code>, les appels à <code>getNode</code> correspondent à des sommets atteints.</p>
 <p>On procède donc comme suit :</p>
 <ul>
-<li>Ajout d&#39;une méthode <code>pathTree.isReached(destination)</code> pour clarifier <code>pathTree.getNode(destination).getReachingEdge() != null</code></li>
-<li>Blindage de <code>pathTree.buildPath(destination)</code> dans le cas où le sommet n&#39;est pas atteint</li>
+<li>Ajout d&#39;une méthode <code>pathTree.isReached(destination: Vertex): boolean</code> pour clarifier <code>pathTree.getNode(destination).getReachingEdge() != null</code></li>
+<li>Blindage de <code>pathTree.getPath(destination)</code> dans le cas où le sommet n&#39;est pas atteint</li>
 <li>Ajout d&#39;une méthode <code>getOrCreateNode(vertex)</code> dans <code>PathTree</code> et utilisation de cette méthode dans <code>DijkstraPathFinder</code></li>
 <li>Reprise du constructeur <code>PathTree(graph, origin)</code> en <code>PathTree(origin)</code></li>
 <li>Ajout de <code>pathTree.getReachedVertices(): Collection&lt;Vertex&gt;</code></li>
 <li>Parcourt des seuls sommets atteints dans <code>findNextVertex</code></li>
-<li>Suppression de l&#39;attribut <code>graph</code> désormais non utilisé dans <code>DijkstraPathFinder</code></li>
 </ul>
-<h2 id="0-10-pr-paration-de-la-mise-en-oeuvre-de-variantes-de-l-39-algorithme"><a href="#0-10-pr-paration-de-la-mise-en-oeuvre-de-variantes-de-l-39-algorithme" class="anchor"></a>0.10 - Préparation de la mise en oeuvre de variantes de l&#39;algorithme</h2><p>Afin de préparer la mise en oeuvre de variante de l&#39;algorithme, on s&#39;efforce de bien identifier les différentes étapes de la construction de l&#39;arbre. Aussi, on veille à séparer la construction de l&#39;arbre de production du résultat en procédant comme suit dans <code>DijkstraPathFinder</code> :</p>
-<ul>
-<li>Extraction d&#39;une méthode <code>buildTree(destination)</code> dans <code>findPath</code></li>
-</ul>
-<h2 id="0-11-extraction-d-39-une-classe-pathtreebuilder-de-dijkstrapathfinder"><a href="#0-11-extraction-d-39-une-classe-pathtreebuilder-de-dijkstrapathfinder" class="anchor"></a>0.11 - Extraction d&#39;une classe PathTreeBuilder de DijkstraPathFinder</h2><ul>
-<li>Création d&#39;une classe <code>PathTreeBuilder</code> avec un constructeur <code>PathTreeBuilder(origin: Vertex)</code></li>
-<li>Migration de <code>buildTree</code>, <code>visit</code> et <code>findNextVertex</code> de <code>DijkstraPathFinder</code> vers <code>PathTreeBuilder</code></li>
-<li>Utilisation de <code>PathTreeBuilder</code> dans <code>DijkstraPathFinder</code></li>
-</ul>
-<h2 id="0-12-pr-paration-de-la-mise-en-place-d-39-une-strat-gie-de-calcul-du-plus-court-chemin"><a href="#0-12-pr-paration-de-la-mise-en-place-d-39-une-strat-gie-de-calcul-du-plus-court-chemin" class="anchor"></a>0.12 - Préparation de la mise en place d&#39;une stratégie de calcul du plus court chemin</h2><p>Afin de pouvoir faire varier par la suite la méthode <code>findNextVertex</code> entre Dijkstra et A-star, on extrait une stratégie comme suit :</p>
-<ul>
-<li>Création d&#39;une interface <code>NextVertexFinder</code> avec une méthode <code>findNextVertex(pathTree: PathTree): Vertex</code></li>
-<li>Implémentation de <code>DijkstraNextVertexFinder</code></li>
-<li>Le constructeur <code>PathTreeBuilder(pathTree)</code> devient <code>PathTreeBuilder(nextVertexFinder, pathTree)</code></li>
-</ul>
-<h2 id="0-13-impl-mentation-de-a-star"><a href="#0-13-impl-mentation-de-a-star" class="anchor"></a>0.13 - Implémentation de A-star</h2><p>On ajoute l&#39;implémentation de A-star comme suit :</p>
-<ul>
-<li>Modification de <code>findNextVertex(pathTree)</code> en <code>findNextVertex(pathTree,destination)</code> au niveau de l&#39;interface <code>NextVertexFinder</code></li>
-<li>Ajout de <code>AStarNextVertexFinder</code> implémentant <code>NextVertexFinder</code></li>
-</ul>
-<p>Remarque : Dans le cas de A-star, <code>findNextVertex(pathTree,destination)</code> renverra le sommet atteint minimisant &quot;distance parcourue depuis l&#39;origine + distance à vol d&#39;oiseau pour atteindre la destination&quot;</p>
-<h2 id="0-14-choix-de-la-strat-gie-de-calcul-dans-l-39-api"><a href="#0-14-choix-de-la-strat-gie-de-calcul-dans-l-39-api" class="anchor"></a>0.14 - Choix de la stratégie de calcul dans l&#39;API</h2><p>On procède comme suit pour permettre le choix d&#39;une stratégie de calcul dans l&#39;API :</p>
-<ul>
-<li>Création d&#39;une fabrique <code>NextVertexFinderFactory.createNextVertexFinder(method: String)</code></li>
-<li>Renommage de <code>DijkstraPathFinder</code> en <code>PathFinder</code></li>
-<li>Ajout du paramètre <code>method: String</code> à <code>findPath</code> de <code>PathFinder</code></li>
-<li>Ajout d&#39;un paramètre <code>method</code> à <code>findPath</code> dans <code>FindPathController</code></li>
-</ul>
-<h2 id="0-15-optimisation-du-temps-de-chargement-du-graphe"><a href="#0-15-optimisation-du-temps-de-chargement-du-graphe" class="anchor"></a>0.15 - Optimisation du temps de chargement du graphe</h2><p>En chargeant <a href="https://files.opendatarchives.fr/professionnels.ign.fr/route500/" target="_blank">ROUTE500 complet</a>, on observe un temps de chargement excessivement long. A l&#39;aide de VisualVM, on se rend compte que le programme passe le plus clair de son temps dans <code>getOrCreateVertex</code>. On procède comme suit pour ajouter l&#39;indexe manquant :</p>
-<ul>
-<li>Création d&#39;une classe <code>GraphBuilder</code> avec un attribut <code>indexVertices: Map&lt;Coordinate, Vertex&gt;</code></li>
-<li>Ajout de <code>getOrCreateVertex(coordinate): Vertex</code> sur <code>GraphBuilder</code></li>
-<li>Suppression de <code>findVertex</code> sur ̀<code>Graph</code></li>
-<li>Utilisation de <code>GraphBuilder</code> dans <code>ShpGraphReader</code></li>
-<li>Correction au passage d&#39;utilisation de <code>geotools</code> par appel de <code>dataStore.dispose</code> :</li>
-</ul>
-<pre><code class="language-java">GraphBuilder graphBuilder = new GraphBuilder();
-FeatureIterator&lt;SimpleFeature&gt; features = null;
-try {
-    features = collection.features();
-    while (features.hasNext()) {
-        SimpleFeature feature = features.next();
-        //...
-    }
-}finally {
-    if ( features != null ){
-        features.close();
-    }
-    dataStore.dispose();
-}
-return graphBuilder.getGraph();</code></pre>
-<h2 id="0-16-optimisation-du-temps-de-calcul"><a href="#0-16-optimisation-du-temps-de-calcul" class="anchor"></a>0.16 - Optimisation du temps de calcul</h2><p>En lançant des calculs de plus court chemin sur le graphe ROUTE500 complet, on remarque un temps de calcul trop important. A l&#39;aide de VisualVM, on se rend compte que le programme passe le plus clair de son temps dans <code>findNextVertex</code>.</p>
+<h2 id="0-10-optimisation-du-chargement-du-graphe"><a href="#0-10-optimisation-du-chargement-du-graphe" class="anchor"></a>0.10 - Optimisation du chargement du graphe</h2><p>En chargeant <a href="https://files.opendatarchives.fr/professionnels.ign.fr/route500/" target="_blank">ROUTE500 complet</a>, on observe un temps de chargement excessivement long. A l&#39;aide de VisualVM, on se rend compte que le programme passe le plus clair de son temps dans <code>GraphReader.getOrCreateVertex</code> faisant appel à <code>Graph.findVertex(coordinate: Coordinate)</code> :</p>
+<p><img src="img/visualvm-load-graph.png" alt="VisualVM - chargement du graphe"></p>
+<p>En inspectant <code>Graph.findVertex(coordinate: Coordinate)</code>, on note un parcours complet des sommets à la recherche d&#39;une égalité stricte de coordonnée. Cette approche est loin d&#39;être optimale, nous pouvons optimiser en utilisant une <code>Map&lt;Coordinate, Vertex&gt;</code>.</p>
+<h2 id="0-11-optimisation-du-temps-de-calcul"><a href="#0-11-optimisation-du-temps-de-calcul" class="anchor"></a>0.11 - Optimisation du temps de calcul</h2><p>En lançant des calculs de plus court chemin sur le graphe ROUTE500 complet, on remarque un temps de calcul trop important. A l&#39;aide de VisualVM, on se rend compte que le programme passe le plus clair de son temps dans <code>findNextVertex</code> :</p>
+<p><img src="img/visualvm-visualvm-find-path.png.png" alt="VisualVM - find path"></p>
 <p>En regardant de plus près, on remarque que l&#39;on parcours l&#39;ensemble des sommets atteints pour filtrer ensuite les sommets déjà visités.</p>
 <pre><code class="language-java">for (Vertex vertex : pathTree.getReachedVertices()) {
     PathNode node = pathTree.getNode(vertex);
@@ -324,29 +167,53 @@ return graphBuilder.getGraph();</code></pre>
     if (node.isVisited()) {
         continue;
     }
-    //...</code></pre>
+    //...
+</code></pre>
 <p>On procède donc comme suit pour indexer les sommets non visité :</p>
 <ul>
 <li>Ajout de <code>notVisited: Set&lt;Vertex&gt;</code> sur <code>PathTree</code></li>
 <li>Gestion de <code>notVisited</code> dans <code>getOrCreateNode</code> de <code>PathTree</code></li>
-<li>Ajout de <code>getNotVisited(): Collection&lt;Vertex&gt;</code> sur <code>PathTree</code></li>
+<li>Ajout de <code>getNotVisitedVertices(): Collection&lt;Vertex&gt;</code> sur <code>PathTree</code></li>
 <li>Ajout de <code>markVisited(vertex)</code> sur <code>PathTree</code></li>
 <li>Suppression de <code>visited</code> sur <code>PathNode</code></li>
-<li>Mise à jour des codes pour utiliser <code>markVisited(vertex)</code> et <code>getNotVisited()</code></li>
+<li>Mise à jour des codes pour utiliser <code>markVisited(vertex)</code> et <code>getNotVisitedVertices()</code></li>
+</ul>
+<!-- TODO : RESTE A REVOIR LES QUESTIONS CI-APRES -->
+
+<h2 id="0-12-pr-paration-de-la-mise-en-oeuvre-de-variantes-de-l-39-algorithme"><a href="#0-12-pr-paration-de-la-mise-en-oeuvre-de-variantes-de-l-39-algorithme" class="anchor"></a>0.12 - Préparation de la mise en oeuvre de variantes de l&#39;algorithme</h2><p>Afin de préparer la mise en oeuvre de variante de l&#39;algorithme, on s&#39;efforce de bien identifier les différentes étapes de la construction de l&#39;arbre. Aussi, on veille à séparer la construction de l&#39;arbre de production du résultat en procédant comme suit dans <code>DijkstraPathFinder</code> :</p>
+<ul>
+<li>Extraction d&#39;une méthode <code>buildTree(destination)</code> dans <code>findPath</code></li>
+</ul>
+<h2 id="0-13-extraction-d-39-une-classe-pathtreebuilder-de-dijkstrapathfinder"><a href="#0-13-extraction-d-39-une-classe-pathtreebuilder-de-dijkstrapathfinder" class="anchor"></a>0.13 - Extraction d&#39;une classe PathTreeBuilder de DijkstraPathFinder</h2><ul>
+<li>Création d&#39;une classe <code>PathTreeBuilder</code> avec un constructeur <code>PathTreeBuilder(origin: Vertex)</code></li>
+<li>Migration de <code>buildTree</code>, <code>visit</code> et <code>findNextVertex</code> de <code>DijkstraPathFinder</code> vers <code>PathTreeBuilder</code></li>
+<li>Utilisation de <code>PathTreeBuilder</code> dans <code>DijkstraPathFinder</code></li>
+</ul>
+<h2 id="0-14-pr-paration-de-la-mise-en-place-d-39-une-strat-gie-de-calcul-du-plus-court-chemin"><a href="#0-14-pr-paration-de-la-mise-en-place-d-39-une-strat-gie-de-calcul-du-plus-court-chemin" class="anchor"></a>0.14 - Préparation de la mise en place d&#39;une stratégie de calcul du plus court chemin</h2><p>Afin de pouvoir faire varier par la suite la méthode <code>findNextVertex</code> entre Dijkstra et A-star, on extrait une stratégie comme suit :</p>
+<ul>
+<li>Création d&#39;une interface <code>NextVertexFinder</code> avec une méthode <code>findNextVertex(pathTree: PathTree): Vertex</code></li>
+<li>Implémentation de <code>DijkstraNextVertexFinder</code></li>
+<li>Le constructeur <code>PathTreeBuilder(pathTree)</code> devient <code>PathTreeBuilder(nextVertexFinder, pathTree)</code></li>
+</ul>
+<h2 id="0-15-impl-mentation-de-a-star"><a href="#0-15-impl-mentation-de-a-star" class="anchor"></a>0.15 - Implémentation de A-star</h2><p>On ajoute l&#39;implémentation de A-star comme suit :</p>
+<ul>
+<li>Modification de <code>findNextVertex(pathTree)</code> en <code>findNextVertex(pathTree,destination)</code> au niveau de l&#39;interface <code>NextVertexFinder</code></li>
+<li>Ajout de <code>AStarNextVertexFinder</code> implémentant <code>NextVertexFinder</code></li>
+</ul>
+<p>Remarque : Dans le cas de A-star, <code>findNextVertex(pathTree,destination)</code> renverra le sommet atteint minimisant &quot;distance parcourue depuis l&#39;origine + distance à vol d&#39;oiseau pour atteindre la destination&quot;</p>
+<h2 id="0-16-choix-de-la-strat-gie-de-calcul-dans-l-39-api"><a href="#0-16-choix-de-la-strat-gie-de-calcul-dans-l-39-api" class="anchor"></a>0.16 - Choix de la stratégie de calcul dans l&#39;API</h2><p>On procède comme suit pour permettre le choix d&#39;une stratégie de calcul dans l&#39;API :</p>
+<ul>
+<li>Création d&#39;une fabrique <code>NextVertexFinderFactory.createNextVertexFinder(method: String)</code></li>
+<li>Renommage de <code>DijkstraPathFinder</code> en <code>PathFinder</code></li>
+<li>Ajout du paramètre <code>method: String</code> à <code>findPath</code> de <code>PathFinder</code></li>
+<li>Ajout d&#39;un paramètre <code>method</code> à <code>findPath</code> dans <code>FindPathController</code></li>
 </ul>
 
   </article>
 
-  <script src="../assets/highlight/highlight.pack.js"></script>
+  <!-- hightlight.pack.js -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
-
-  <script src="../assets/mermaid/mermaid.min.js"></script>
-  <script>mermaid.init({
-      startOnLoad: true,
-      flowchart: {
-        useMaxWidth: true
-      }
-    }, ".language-mermaid");</script>
 </body>
 
 </html>

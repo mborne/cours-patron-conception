@@ -45,10 +45,10 @@ On vise (et on priorise) plusieurs critères :
 * **Fiabilité**       : Pouvoir faire tourner le programme sans risque de plantage
 * **Maintenabilité**  : Pouvoir corriger un bug, mettre à jour les dépendances, etc.
 * **Performance**     : Temps d'exécution, consommation de RAM, espace disque, etc.
-* **Evolutivité**     : Pouvoir ajouter facilement des fonctionnalités sans peur de tout faire planter
+* **Évolutivité**     : Pouvoir ajouter facilement des fonctionnalités sans peur de tout faire planter
 * **Réutilisabilité** : Pouvoir réutiliser un code dans un autre contexte
 * **Portabilité**     : Pouvoir porter facilement un programme développé pour une cible vers une autre
-* **Testabilité**     : Pouvoir automiser facilement les tests unitaires et fonctionnels sur un programme
+* **Testabilité**     : Pouvoir automatiser facilement les tests unitaires et fonctionnels sur un programme
 * ...
 
 
@@ -97,11 +97,11 @@ nous nous attarderons sur les bonnes pratiques en parcourant les design pattern.
 
 ## Les concepts de base (2/3)
 
-Par rapport aux aggrégats de variables (struct en C), on dispose d'outils
-permettant d'assurer la cohérence des variables formant l'aggrégat
+Par rapport aux agrégats de variables (struct en C), on dispose d'outils
+permettant d'assurer la cohérence des variables formant l'agrégat
 
 * Constructeurs : Fonction init que l'on est obligé d'appeler
-* Getter/Setter : Protection des variables de l'aggrégat
+* Getter/Setter : Protection des variables de l'agrégat
 
 ---
 
@@ -109,12 +109,11 @@ permettant d'assurer la cohérence des variables formant l'aggrégat
 
 On dispose aussi d'outils pour des modélisations complexes :
 
-* Les relations (composition, aggrégation)
-* Polymorphisme et héritage
-* Classe abstraite et interface
+* Les relations (composition, agrégation)
+* L'héritage et le polymorphisme
+* Les classes abstraites et les interfaces
 
-Généralement, ces outils sont plutôt bien maîtrisés pour modéliser
-des données (objet de domaine).
+Généralement, ces outils sont plutôt bien maîtrisés pour modéliser des données (objet de domaine).
 
 Nous verrons ici comment on peut les exploiter efficacement pour faire varier le comportement d'un programme.
 
@@ -122,8 +121,7 @@ Nous verrons ici comment on peut les exploiter efficacement pour faire varier le
 
 ## Bien comprendre l'intérêt de ces concepts!
 
-* Il ne suffit pas de connaître vaguement ces concepts pour bien programmer en P.O.O.
-* Les patrons de conception font appel à des utilisations avancées de ces concepts.
+Il ne suffit pas de connaître vaguement ces concepts pour bien programmer en P.O.O.
 
 => [Méditons quelques exemples](meditation.html)
 
@@ -239,7 +237,7 @@ class MaClasse {
 
 # Les anti-patterns
 
-Avant de mettre un nom sur des modèles de conception, on va mettre un nom sur des erreurs de conception courantes : Les anti-pattern !
+Avant de mettre un nom sur des modèles de conception, on va mettre un nom sur des erreurs de conception courantes : Les anti-patterns !
 
 ---
 
@@ -284,8 +282,8 @@ Avec un bon marteau, tous les problèmes sont des clous!
 <div class="center">
     <img src="img/golden-hammer.jpg" alt="Marteau d'or" />
     <br />
-    (En vente sur
-    <a href="http://www.engravingawardsgifts.com/sledgehammers.html">engravingawardsgifts.com</a>)
+    (Source
+    <a href="http://www.engravingawardsgifts.com/">engravingawardsgifts.com</a>)
 </div>
 
 Un outil est placé comme solution à tous les problèmes. Il peut s'agir
@@ -324,7 +322,7 @@ mais...
 
 * Il ne faut pas en conclure qu'on doit ignorer l'optimisation dans la conception!
 * Il faut rester prudent sur cette affirmation pour les bibliothèques de bas niveau!
-* Parfois, on prévilégie la performance à la portabilité.
+* Parfois, on privilégie la performance à la portabilité.
 
 Proposition de méthode :
 
@@ -350,11 +348,11 @@ Un design pattern est la description d'une solution réutilisable pour un probl�
 
 ## Famille de patrons de conception du GoF
 
-* Les patrons de création (creational patterns) qui décrivent des techniques
+* Les patrons de création (*creational patterns*) qui décrivent des techniques
 d'initialisation des objets.
-* Les patrons de structure (structural patterns) qui décrivent des organisations
+* Les patrons de structure (*structural patterns*) qui décrivent des organisations
 classiques de classes.
-* Les patrons de comportement (behavioral patterns) qui décrivent des méthodes
+* Les patrons de comportement (*behavioral patterns*) qui décrivent des méthodes
 de communications entre objets au sein d'une application.
 
 ---
@@ -460,13 +458,11 @@ Et bien d'autres en fonction des domaines (réseau, cloud computing, etc.)
 
 ## Les stacks applicatives
 
-Dans la mesure où les composants remplacent les bibliothèques, les stacks 
-applicatives traduisent des patrons de conception architecturaux.
+Dans la mesure où les composants remplacent les bibliothèques, les stacks applicatives traduisent des patrons de conception architecturaux.
 
 * RabbitMQ/ActiveMQ
 
-Utilisation de pile de message pour les traitements asynchrones, distribués, sur 
-des systèmes hétérogènes.
+Utilisation de pile de message pour les traitements asynchrones, distribués, sur des systèmes hétérogènes.
 
 * Service de stockage de fichier (Amazone S3, Ceph, etc.)
 
@@ -494,7 +490,7 @@ Stockage des sessions, des caches, etc.
 
 * Concevoir des codes en les testant unitairement (on ne peut pas tester des codes qui sont mal conçus)
 
-* Comprendre des architectures : Pourquoi stocker des sessions PHP dans memcached et des fichiers dans des serveurs tiers?
+* Comprendre des architectures
 
 ---
 
@@ -550,7 +546,7 @@ Stockage des sessions, des caches, etc.
 
         /* footer */
         $('.remark-slide-content').each(function (index, data) {
-            var footer = '<span class="footer">ENSG - Les patrons de conception, Mickaël BORNE, Janvier 2021</span>';
+            var footer = '<span class="footer">ENSG - Les patrons de conception, Mickaël BORNE, Janvier 2022</span>';
             $(data).append(footer);
         });
     </script>

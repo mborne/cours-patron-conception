@@ -5,16 +5,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
   <title>design_pattern/behavior/NullObject.md</title>
-  <link type="text/css" rel="stylesheet" href="../../assets/css/github-markdown.css">
-  <link type="text/css" rel="stylesheet" href="../../assets/css/pilcrow.css">
-  <link type="text/css" rel="stylesheet" href="../../assets/css/hljs-github.min.css" />
 
-  <link rel="stylesheet" href="../../assets/highlight/styles/github.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css">
   <style>
     html, body {
-      width: 90%;
+      width: 95%;
       margin: auto;
-      padding: 0;
+      padding-bottom: 50px;
     }
   </style>
 </head>
@@ -31,7 +29,8 @@
         String body
     );
 
-}</code></pre>
+}
+</code></pre>
 <p>Dans une classe <code>Client</code>, on décide d&#39;envoyer ou non un mail en fin de traitement à un administrateur :</p>
 <pre><code class="language-java">class Client {
 
@@ -57,7 +56,8 @@
         }
     }
 
-}</code></pre>
+}
+</code></pre>
 <p>Problème : On multiplie les contrôles <code>null != this.mailer</code></p>
 <h1 id="solution"><a href="#solution" class="anchor"></a>Solution</h1><ul>
 <li>Créer un <code>NullMailer</code></li>
@@ -70,7 +70,8 @@
     ){
         // ne fait rien
     }
-}</code></pre>
+}
+</code></pre>
 <ul>
 <li>Initialiser <code>mailer</code> avec un <code>NullMailer</code> plutôt que <code>null</code></li>
 </ul>
@@ -98,7 +99,8 @@
         );
     }
 
-}</code></pre>
+}
+</code></pre>
 <h2 id="remarques"><a href="#remarques" class="anchor"></a>Remarques</h2><ul>
 <li><p>Une collection vide peut jouer le même rôle qu&#39;un objet null. Il est d&#39;ailleurs conseillé
 de renvoyer des listes vides plutôt que des listes nulles.</p>
@@ -109,16 +111,9 @@ de renvoyer des listes vides plutôt que des listes nulles.</p>
 
   </article>
 
-  <script src="../../assets/highlight/highlight.pack.js"></script>
+  <!-- hightlight.pack.js -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
-
-  <script src="../../assets/mermaid/mermaid.min.js"></script>
-  <script>mermaid.init({
-      startOnLoad: true,
-      flowchart: {
-        useMaxWidth: true
-      }
-    }, ".language-mermaid");</script>
 </body>
 
 </html>

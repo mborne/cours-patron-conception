@@ -5,16 +5,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
   <title>tp-geometry/index.md</title>
-  <link type="text/css" rel="stylesheet" href="../assets/css/github-markdown.css">
-  <link type="text/css" rel="stylesheet" href="../assets/css/pilcrow.css">
-  <link type="text/css" rel="stylesheet" href="../assets/css/hljs-github.min.css" />
 
-  <link rel="stylesheet" href="../assets/highlight/styles/github.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css">
   <style>
     html, body {
-      width: 90%;
+      width: 95%;
       margin: auto;
-      padding: 0;
+      padding-bottom: 50px;
     }
   </style>
 </head>
@@ -57,7 +55,8 @@ cd ~/workspace_pattern
 git clone https://github.com/mborne/tp-pattern-geometry.git
 cd tp-pattern-geometry
 # vérifier que vous êtes bien sur la branche &quot;initial&quot;
-git branch</code></pre>
+git branch
+</code></pre>
 <ul>
 <li>Importer le projet maven dans eclipse</li>
 </ul>
@@ -83,11 +82,26 @@ git branch</code></pre>
 <p>Dans la question précédente, nous remarquons que nous avons des choix à faire dans les constructeurs par défaut de <code>Point</code> et <code>LineString</code>.</p>
 <p>Afin d&#39;éviter d&#39;avoir à tester des <code>coordinate</code> ou <code>points</code> null, nous allons ajouter le concept de géométrie vide et de coordonnées vide à l&#39;aide de <code>NaN</code> :</p>
 <ul>
-<li>1) Modifier le comportement du constructeur par défaut de Coordinate pour initialiser <code>x</code> et <code>y</code> à <code>Double.NaN</code></li>
-<li>2) Ajouter une méthode <code>Coordinate.isEmpty</code> à l&#39;aide de <code>Double.isNaN(x)</code></li>
-<li>3) S&#39;assurer que la variable membre <code>coordinate</code> de <code>Point</code> est jamais nulle.</li>
-<li>4) S&#39;assurer que la variable membre <code>points</code> de <code>LineString</code> est jamais nulle (on préfère une liste vide à une valeur nulle).</li>
-<li>5) Ajouter <code>Geometry.isEmpty</code></li>
+<li><ol>
+<li>Modifier le comportement du constructeur par défaut de Coordinate pour initialiser <code>x</code> et <code>y</code> à <code>Double.NaN</code></li>
+</ol>
+</li>
+<li><ol start="2">
+<li>Ajouter une méthode <code>Coordinate.isEmpty</code> à l&#39;aide de <code>Double.isNaN(x)</code></li>
+</ol>
+</li>
+<li><ol start="3">
+<li>S&#39;assurer que la variable membre <code>coordinate</code> de <code>Point</code> est jamais nulle.</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>S&#39;assurer que la variable membre <code>points</code> de <code>LineString</code> est jamais nulle (on préfère une liste vide à une valeur nulle).</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>Ajouter <code>Geometry.isEmpty</code></li>
+</ol>
+</li>
 </ul>
 <p><img src="schema/mcd-03.png" alt="Schéma UML"></p>
 <h2 id="0-4-geometry-translate-dx-dy-"><a href="#0-4-geometry-translate-dx-dy-" class="anchor"></a>0.4 - Geometry.translate(dx,dy)</h2><blockquote>
@@ -107,7 +121,8 @@ git branch</code></pre>
  */
 Geometry copy = g.clone();
 copy.translate(10.0,10.0);
-//... &quot;g&quot; n&#39;est pas modifiée</code></pre>
+//... &quot;g&quot; n&#39;est pas modifiée
+</code></pre>
 <p><img src="schema/mcd-05.png" alt="Schéma UML"></p>
 <h2 id="0-6-envelope-et-envelopebuilder"><a href="#0-6-envelope-et-envelopebuilder" class="anchor"></a>0.6 - Envelope et EnvelopeBuilder</h2><blockquote>
 <p>Objectif : Patron de conception Builder</p>
@@ -124,7 +139,8 @@ copy.translate(10.0,10.0);
 builder.insert(new Coordinate(0.0,1.0));
 builder.insert(new Coordinate(2.0,0.0));
 builder.insert(new Coordinate(1.0,3.0));
-Envelope result = builder.build();</code></pre>
+Envelope result = builder.build();
+</code></pre>
 <p>Remarque : Vous avez la liberté d&#39;ajouter des variables membres privées dans <code>EnvelopeBuilder</code> pour le calcul. En cas de difficulté pour faire des calculs de min/max optimaux, vous pouvez par exemple vous appuyer sur deux variables privées <code>xVals: List&lt;Double&gt;</code> et <code>yVals: List&lt;Double&gt;</code> pour exploiter les fonctionnalités standards java :</p>
 <pre><code class="language-java">List&lt;Double&gt; xVals = new ArrayList&lt;Double&gt;();
 xVals.add(1.0);
@@ -133,7 +149,8 @@ xVals.add(3.0);
 double xmin = Collections.min(xVals);
 double xmax = Collections.max(xVals);
 Assert.assertEquals(-1.0,xmin,EPSILON);
-Assert.assertEquals(3.0,xmax,EPSILON);</code></pre>
+Assert.assertEquals(3.0,xmax,EPSILON);
+</code></pre>
 <p>Cette approche ne sera pas &quot;optimale&quot;, mais elle peut être un premier jet permettant la mise en oeuvre des tests avant optimisation.</p>
 <h2 id="0-7-geometry-getenvelope-envelope"><a href="#0-7-geometry-getenvelope-envelope" class="anchor"></a>0.7 - Geometry.getEnvelope() : Envelope</h2><blockquote>
 <p>Objectif : Facade sur EnvelopeBuilder</p>
@@ -147,12 +164,15 @@ Assert.assertEquals(3.0,xmax,EPSILON);</code></pre>
 <pre><code>POINT EMPTY
 POINT(3.0 4.0)
 LINESTRING EMPTY
-LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0)</code></pre><p>Ajouter une classe <code>WktWriter</code> avec une méthode permettant de convertir une géométrie en WKT.</p>
+LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0)
+</code></pre>
+<p>Ajouter une classe <code>WktWriter</code> avec une méthode permettant de convertir une géométrie en WKT.</p>
 <p><img src="schema/mcd-08.png" alt="Schéma UML"></p>
 <p>Exemple d&#39;utilisation :</p>
 <pre><code class="language-java">Geometry g = new Point(new Coordinate(3.0,4.0));
 WktWriter writer = new WktWriter();
-assertEquals(&quot;POINT(3.0 4.0)&quot;, writer.write(g));</code></pre>
+assertEquals(&quot;POINT(3.0 4.0)&quot;, writer.write(g));
+</code></pre>
 <p>Remarque :</p>
 <ul>
 <li>On s&#39;interdira de modifier les classes <code>Geometry</code>, <code>Point</code> et <code>LineString</code> pour mettre en oeuvre cette fonctionnalité</li>
@@ -166,7 +186,8 @@ assertEquals(&quot;POINT(3.0 4.0)&quot;, writer.write(g));</code></pre>
     // traiter le cas LineString
 }else{
     throw new RuntimeException(&quot;geometry type not supported&quot;);
-}</code></pre>
+}
+</code></pre>
 <h2 id="0-9-geometryvisitor"><a href="#0-9-geometryvisitor" class="anchor"></a>0.9 - GeometryVisitor</h2><blockquote>
 <p>Objectif : Patron de conception Visitor, prise en main</p>
 </blockquote>
@@ -182,14 +203,16 @@ assertEquals(&quot;POINT(3.0 4.0)&quot;, writer.write(g));</code></pre>
 <p>Exemple d&#39;utilisation :</p>
 <pre><code class="language-java">LogGeometryVisitor visitor = new LogGeometryVisitor();
 Geometry geometry = new Point(new Coordinate(3.0,4.0));
-geometry.accept(visitor);</code></pre>
+geometry.accept(visitor);
+</code></pre>
 <p>Remarque : Pour tester LogGeometryVisitor, noter que <code>System.out</code> est de type <code>PrintStream</code> et qu&#39;il est possible d&#39;écrire dans une chaîne de caractère plutôt que dans la console en procédant comme suit :</p>
 <pre><code class="language-java">ByteArrayOutputStream os = new ByteArrayOutputStream();
 PrintStream out = new PrintStream(os);
 LogGeometryVisitor visitor = new LogGeometryVisitor(out);
 geometry.accept(visitor);
 // result contiendra ce qui est écrit dans la console
-String result = os.toString(&quot;UTF8&quot;);</code></pre>
+String result = os.toString(&quot;UTF8&quot;);
+</code></pre>
 <h2 id="0-10-wktvisitor"><a href="#0-10-wktvisitor" class="anchor"></a>0.10 - WktVisitor</h2><blockquote>
 <p>Objectif : Patron de conception Visitor, mise en oeuvre dans un cas concret</p>
 </blockquote>
@@ -199,7 +222,8 @@ String result = os.toString(&quot;UTF8&quot;);</code></pre>
 <pre><code class="language-java">WktVisitor visitor = new WktVisitor();
 Geometry geometry = new Point(new Coordinate(3.0,4.0));
 geometry.accept(visitor);
-assertEquals( &quot;POINT(3.0 4.0)&quot;, visitor.getResult() );</code></pre>
+assertEquals( &quot;POINT(3.0 4.0)&quot;, visitor.getResult() );
+</code></pre>
 <p>Remarque : Au niveau de <code>visit</code>, on écrira dans la variable membre <code>buffer</code> à l&#39;aide de <code>append</code> de <code>StringBuilder</code>. Au niveau de <code>getResult()</code>, on récupérera la chaîne du <code>buffer</code> à l&#39;aide de <code>toString</code> de <code>StringBuilder</code>.</p>
 <h2 id="0-11-geometry-astext-"><a href="#0-11-geometry-astext-" class="anchor"></a>0.11 - Geometry.asText()</h2><blockquote>
 <p>Objectif : Patron de conception Facade, couplage interface et abstact</p>
@@ -232,7 +256,8 @@ assertEquals( &quot;POINT(3.0 4.0)&quot;, visitor.getResult() );</code></pre>
 g = new GeometryWithCachedEnvelope(g);
 Envelope a = g.getEnvelope() ; // calcul et stockage dans cachedEnvelope
 Envelope b = g.getEnvelope() ; // renvoi de cachedEnvelope
-assertSame(a,b);</code></pre>
+assertSame(a,b);
+</code></pre>
 <p>Remarque : on traitera l&#39;invalidation du cache en cas de modification de la géométrie originale à la prochaine question.</p>
 <h2 id="0-14-geometrylistener"><a href="#0-14-geometrylistener" class="anchor"></a>0.14 - GeometryListener</h2><blockquote>
 <p>Objectif : Patron de conception Observable</p>
@@ -252,7 +277,9 @@ assertSame(a,b);</code></pre>
 <p><img src="schema/mcd-15.png" alt="Schéma UML"></p>
 <p>Remarque : Pour WKT, on utilisera le format suivant :</p>
 <pre><code>GEOMETRYCOLLECTION EMPTY
-GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))</code></pre><h2 id="0-16-interface-geometrywriter-classe-wktwriter-et-geojsonwriter"><a href="#0-16-interface-geometrywriter-classe-wktwriter-et-geojsonwriter" class="anchor"></a>0.16 - Interface GeometryWriter, classe WktWriter et GeoJSONWriter</h2><blockquote>
+GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))
+</code></pre>
+<h2 id="0-16-interface-geometrywriter-classe-wktwriter-et-geojsonwriter"><a href="#0-16-interface-geometrywriter-classe-wktwriter-et-geojsonwriter" class="anchor"></a>0.16 - Interface GeometryWriter, classe WktWriter et GeoJSONWriter</h2><blockquote>
 <p>Objectif : Uniformation des conversions de géométrie en chaîne de caractère pour préparer la question suivante</p>
 </blockquote>
 <ul>
@@ -274,7 +301,8 @@ GeometryWriterFactory writerFactory = new GeometryWriterFactory();
 // normalement défini dans une configuration ou sélectionné par un utilisateur
 String formatName = &quot;WKT&quot;;
 GeometryWriter writer = writerFactory.createGeometryWriter(formatName);
-assertEqual(&quot;POINT(3.0 4.0)&quot;, writer.write(g));</code></pre>
+assertEqual(&quot;POINT(3.0 4.0)&quot;, writer.write(g));
+</code></pre>
 <h2 id="0-18-geometryvisitor-renvoyant-un-r-sultat"><a href="#0-18-geometryvisitor-renvoyant-un-r-sultat" class="anchor"></a>0.18 - GeometryVisitor renvoyant un résultat</h2><blockquote>
 <p>Objectif : Avoir des visiteurs capables de renvoyer un résultat pour éviter de devoir stocker des résultats intermédiaire en s&#39;appuyant sur les classes génériques</p>
 </blockquote>
@@ -283,7 +311,8 @@ assertEqual(&quot;POINT(3.0 4.0)&quot;, writer.write(g));</code></pre>
 <li>Ajouter <code>LengthVisitor&lt;Double&gt;</code> renvoyant la longueur de la géométrie en guise de démonstration (0.0 pour un point)</li>
 </ul>
 <pre><code class="language-java">LengthVisitor&lt;Double&gt; visitor = new LengthVisitor&lt;Double&gt;();
-Double result = geometry.accept(visitor);</code></pre>
+Double result = geometry.accept(visitor);
+</code></pre>
 <p>Remarque : Un visiteur qui ne renvoie pas de résultat implémentera <code>GeometryVisitor&lt;Void&gt;</code></p>
 <h2 id="0-19-extraction-de-astext-"><a href="#0-19-extraction-de-astext-" class="anchor"></a>0.19 - Extraction de asText()</h2><ul>
 <li>Sortir <code>Geometry.asText() : String</code> sous forme d&#39;une méthode statique <code>WKT.asText(Geometry g) : String</code></li>
@@ -318,16 +347,9 @@ Double result = geometry.accept(visitor);</code></pre>
 
   </article>
 
-  <script src="../assets/highlight/highlight.pack.js"></script>
+  <!-- hightlight.pack.js -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
-
-  <script src="../assets/mermaid/mermaid.min.js"></script>
-  <script>mermaid.init({
-      startOnLoad: true,
-      flowchart: {
-        useMaxWidth: true
-      }
-    }, ".language-mermaid");</script>
 </body>
 
 </html>

@@ -4,10 +4,7 @@
 
 Dans ce TP où l'idée est de se mettre en situation où l'on récupère un prototype à industrialiser, nous allons réfactorer une application qui charge un graphe et calcule le plus court chemin entre deux sommets.
 
-L'application se présente sous deux forme :
-
-* Un utilitaire en ligne de commande
-* Une API basée sur [spring boot](https://spring.io/guides/gs/spring-boot/)
+L'application se présente sous la forme d'une API basée sur [spring boot](https://spring.io/guides/gs/spring-boot/)
 
 Les objectifs sont les suivants :
 
@@ -16,44 +13,26 @@ Les objectifs sont les suivants :
 * Rendre le calcul de plus court chemin plus générique
 * Améliorer les entrées/sorties du programme
 
-Pour celà, nous allons faire une revue de code et procéder par étape.
+Pour cela, nous allons faire une revue de code et procéder par étape.
 
 ## Démarrage
 
-* Cloner le projet https://github.com/mborne/tp-refactoring-graph
+* Forker le projet https://github.com/mborne/tp-refactoring-graph
+* Cloner le fork
+* Lire le fichier [README](https://github.com/mborne/tp-refactoring-graph#tp-refactoring-graph) pour :
+  * Découvrir l'organisation du code
+  * Construire le projet et exécuter les tests
+  * Démarrer et tester l'API
 
-```bash
-mkdir ~/workspace_pattern
-cd ~/workspace_pattern
-git clone https://github.com/mborne/tp-refactoring-graph
-cd tp-refactoring-graph
-# vérifier que vous êtes bien sur la branche "original"
-git branch
-```
+## Mise en garde
 
-## Prise de connaissance du code
+Vous devrez impérativement livrer un code fonctionnel sur la branche par défaut de votre fork.
 
-Vous êtes invité à prendre connaissance des classes :
+Pour ce faire, il vous est vivement conseillé de :
 
-| Classe                                             | Description                                           |
-| -------------------------------------------------- | ----------------------------------------------------- |
-| org/acme/graph/model/Graph.java                    | Modélisation d'un graphe                              |
-| org/acme/graph/model/Vertex.java                   | Modélisation des sommets                              |
-| org/acme/graph/model/Edge.java                     | Modélisation des arcs                                 |
-| org/acme/graph/routing/DijkstraPathFinder.java     | Algorithme de calcul du plus court chemin             |
-| org/acme/graph/cli/FindPath.java                   | Plus court chemin en ligne de commande (main)         |
-| org/acme/graph/io/GraphReader.java                 | Interface de chargement d'un graphe                   |
-| org/acme/graph/io/ShpGraphReader.java              | Chargement d'un graphe au format SHP                  |
-| org/acme/graph/io/XmlGraphReader.java              | Chargement d'un graphe au format XML                  |
-| org/acme/graph/controllers/FindPathController.java | spring - API de calcul du plus court chemin           |
-| org/acme/graph/Application.java                    | spring - main de l'application spring (lancement API) |
-| org/acme/graph/config/GraphConfig.java             | spring - configuration du chargement du graphe        |
-
-Vous pouvez :
-
-* Exécuter les tests
-* Exécuter le calcul d'itinéraire en ligne de commande (voir [img/eclipse-findpath.png](img/eclipse-findpath.png) pour configuration)
-* Tester l'API de calcul d'itinéraire (voir [img/eclipse-application.png](img/eclipse-application.png) pour configuration)
+* Travailler sur une autre branche (ex : `develop`), en particulier si vous voulez pousser des travaux en cours.
+* Lancer à chaque étape la construction et les tests automatiques (`mvn clean package`).
+* Compléter ces tests automatique avec un test manuel sur l'API.
 
 
 ## 0.1 - Blindage de la construction des arcs
@@ -65,7 +44,6 @@ On procède comme suit :
 * Ajout d'un constructeur `Edge(source: Vertex, target: Vertex)`
 * Suppression du constructeur par défaut sur `Edge`
 
-
 ## 0.2 - Ajout de fabriques pour les sommets et les arcs
 
 En ajoutant un constructeur `Edge(source: Vertex, target: Vertex)`, on remarque que l'on a simplifié la création des arcs et des sommets.
@@ -74,8 +52,8 @@ Toutefois, les opérations de création demeurent complexes et il reste la possi
 
 On va donc procéder comme suit :
 
-* Ajout d'une fabrique `createVertex(coordinate,id): Vertex` dans `Graph`
-* Ajout d'une fabrique `createEdge(source,target,id): Edge` dans `Graph`
+* Ajout d'une fabrique `createVertex(coordinate: Coordinate, id: String): Vertex` dans `Graph`
+* Ajout d'une fabrique `createEdge(source: Vertex, target: Vertex, id: String): Edge` dans `Graph`
 * Masquage des constructeur `Vertex()` et `Edge(source,target)`
 * Suppression de `Graph.setVertices(vertices)` et `Graph.setEdges(edges)`
 
@@ -92,148 +70,80 @@ b.setId("b");
 b.setCoordinate(new Coordinate(1.0, 0.0));
 graph.getVertices().add(b);
 
-Edge ab = new Edge(a,b);
+Edge ab = new Edge(a, b);
 ab.setId("ab");
 graph.getEdges().add(ab);
 ```
 
 à
 
-
 ```java
 Vertex a = graph.createVertex(new Coordinate(0.0, 0.0),"a");
 Vertex b = graph.createVertex(new Coordinate(1.0, 0.0),"b");
-Edge ab  = graph.createEdge(a,b,"ab");
+graph.createEdge(a,b,"ab");
 ```
 
+## 0.3 - Géométrie réelle des tronçons
 
-## 0.3 - Indexation des arcs entrants et sortant
+On remarque au niveau de `getCost` et `getGeometry` que la géométrie des tronçons est un segment entre le sommet source et le sommet cible.
 
-En lisant attentivement `DijsktraPathFinder` (ou un utilisant un outil tel VisualVM), on remarque une méthode `findOutEdges(vertex: Vertex)` appelée très fréquemment dans la méthode `visit(vertex: Vertex)`. Cette approche étant loin d'être optimale, on va indexer les arcs sortants et entrants comme suit :
+On va procéder comme suit pour utiliser la géométrie des tronçons :
 
-* Ajout des attributs `inEdges: List<Edge>` et `outEdges: List<Edge>` sur `Vertex`
-* Ajout des getters `getInEdges(): Collection<Edge>` et  `getOutEdges(): Collection<Edge>` sur `Vertex`
+* Ajout d'un attribut `geometry: LineString` sur la classe `Edge` avec un setter `setGeometry(geometry: LineString)`
+* Mise à jour de `getGeometry()` pour renvoyer l'attribut `geometry` s'il est défini
+* Mise à jour de `getCost()` pour renvoyer la longueur de la géométrie à l'aide de [getLength](https://locationtech.github.io/jts/javadoc/org/locationtech/jts/geom/LineString.html#getLength--) de JTS
+* Mise à jour de `GraphReader` pour stocker la géométrie sur les `Edge` à l'aide de `setGeometry`
+
+## 0.4 - Indexation des arcs entrants et sortants
+
+En lisant attentivement `DijsktraPathFinder` (ou un utilisant un outil tel VisualVM), on remarque que la méthode `graph.getOutEdges(vertex: Vertex)` est appelée très fréquemment dans la méthode `visit(vertex: Vertex)`.
+
+Cette approche étant loin d'être optimale, nous allons indexer les arcs sortants et entrants comme suit :
+
+* Suppression de `setSource` et `setTarget` dans `Edge` (1)
+* Ajout des attributs `inEdges: List<Edge>` et `outEdges: List<Edge>` sur `Vertex` (2).
+* Ajout des getters `getInEdges(): List<Edge>` et  `getOutEdges(): List<Edge>` sur `Vertex`
 * Remplissage automatique de `inEdges` et `outEdges` dans le constructeur `Edge(source,target)`
-* Suppression de `setSource` et `setTarget` dans `Edge` (pas besoin d'une topologie éditable, innutile de gérer la complexité pour `inEdges` et `outEdges`)
-* Suppression de `findOutEdges` dans `DijkstraPathFinder` et utilisation de `getOutEdges`
-* Exclusion de `inEdges` et `outEdges` des résultats de l'API (`@JsonIgnore`)
-* Ajout de tests
+* Ré-écrire `Graph.getInEdges` et `Graph.getOutEdges` pour appeler `Vertex.getInEdges` et `Vertex.getOutEdges`
+* Exclure `inEdges` et `outEdges` du rendu JSON au niveau de l'API à l'aide de l'annotation `@JsonIgnore` (3).
 
-Remarque : Nous n'avons pas besoin pour l'algorithme actuel des `inEdges` mais il semble préférable au moins dans un premier temps de conserver une symétrie dans le modèle.
+Remarques :
+
+* (1) Nous n'avons pas besoin d'éditer les graphes après chargement, inutile de gérer la complexité pour `inEdges` et `outEdges`.
+* (2) Nous n'avons pas besoin pour l'algorithme actuel des `inEdges` mais nous choisissons de conserver une symétrie dans le modèle.
+* (3) ATTENTION : Sans cette étape, l'API plantera avec une récursion infinie.
 
 
-## 0.4 - Ajout d'un modèle pour les chemins
+## 0.5 - Amélioration de la gestion des chemins non trouvés
 
-On remarque deux problèmes avec le résultat de `findPath(Vertex origin, Vertex destination)` de `DijkstraPathFinder` :
+On remarque que `findPath(Vertex origin, Vertex destination)` de `DijkstraPathFinder` renvoie `null` si le chemin n'est pas trouvé, ce qui induit une réponse vide au niveau de l'API.
 
-* Le type de retour `List<Edge>` est un peu pauvre pour une mise en forme dans l'API
-* La liste en question est `null` si le chemin n'est pas trouvé (une liste vide serait préférable)
+On remarque que le cas où le sommet de départ ou d'arrivé est mieux géré grâce :
 
-On améliore ce point en procédant comme suit :
+* Au renvoi d'une `NotFoundException` dans `Graph.findVertex(id: String)` dans le cas où le sommet n'est pas trouvé par son identifiant
+* A la personnalisation du rendu des `NotFoundException` via `config.CustomErrorHandler`
 
-* Ajout d'un modèle `Path` encapsulant une liste de `Edge`
+Nous procédons de même en renvoyant une `NotFoundException` avec le modèle de message suivant dans `findPath(Vertex origin, Vertex destination)` de `DijkstraPathFinder` : `"Path not found from '%s' to '%s'"`.
+
+
+## 0.6 - Amélioration du rendu des chemins
+
+Nous remarquons que la mise en forme des chemins est un peu pauvre au niveau de l'API. Nous souhaitons produire un résultat sous forme d'un objet JSON avec deux propriétés :
+
+* `edges`: La liste des arcs formant le chemin
+* `length` : La somme des longueurs des `edges`
+
+Pour ce faire, nous procédons ainsi :
+
+* Ajout d'un modèle `Path` encapsulant une liste de `Edge` nommée `edges`.
+* Ajout d'une méthode `getLength()` à `Path` renvoyant la somme des longueurs des `edges`.
 * Renvoi d'un `Path` dans `findPath` de `DijkstraPathFinder`
-* Mise à jour des codes pour le changement de comportement `null` vers vide en cas de chemin non trouvé
-
-
-## 0.5 - Amélioration du rendu des chemins dans l'API
-
-On améliore le résultat de l'API sous la forme suivante :
-
-```json
-{
-  "edges" : [ {
-    "id" : "troncon_route.7080-reverse",
-    "source" : "1",
-    "target" : "10948",
-    "geometry" : {
-      "type" : "LineString",
-      "coordinates" : [ [ 656039.9000000076, 6834645.000001009 ], [ 656261.3000000076, 6835035.700001009 ] ]
-    },
-    "cost" : 449.0706514571575
-  }, {
-    "id" : "troncon_route.20028-reverse",
-    "source" : "10948",
-    "target" : "9558",
-    "geometry" : {
-      "type" : "LineString",
-      "coordinates" : [ [ 656261.3000000076, 6835035.700001009 ], [ 656399.2000000075, 6835455.000001008 ] ]
-    },
-    "cost" : 441.39426819912046
-  }
-]
-```
-
-On procède comme suit :
-
-* Exposition des seuls identifiants de `source` et `target` au niveau des `Edge` :
-
-```java
-class Edge {
-
-	@JsonIdentityInfo(
-		generator=ObjectIdGenerators.PropertyGenerator.class, 
-		property="id"
-	)
-	@JsonIdentityReference(alwaysAsId=true)
-	public Vertex getSource() {
-		return source;
-	}
-
-	//...
-
-}
-```
-
-* Ajout d'une dépendance maven pour le rendu des géométries JTS :
-
-```xml
-		<!-- JTS et GeoJSON -->
-		<dependency>
-			<groupId>com.bedatadriven</groupId>
-			<artifactId>jackson-datatype-jts</artifactId>
-			<version>2.2</version>
-		</dependency>
-```
-
-
-* Ajouter une méthode `getGeometry(): LineString` sur `Edge` renvoyant une géométrie calculée à la volée comme suit :
-
-```java
-	@JsonSerialize(using = GeometrySerializer.class)
-	public LineString getGeometry() {
-		GeometryFactory gf = new GeometryFactory();
-		return (LineString)gf.createLineString(new Coordinate[] {
-			getSource().getCoordinate(),
-			getTarget().getCoordinate()
-		});
-	}
-```
-
-Remarque :
-
-* L' annotation `@JsonSerialize(using = GeometrySerializer.class)` permet d'utiliser `jackson-datatype-jts` pour faire le rendu de la géométrie en GeoJSON.
-* L'opération conversion JSON en géométrie serait possible à l'aide de `@JsonDeserialize(contentUsing = GeometryDeserializer.class)`.
-
-
-## 0.6 - Géométrie réelle des tronçons
-
-Dans la question, on a préparé le terrain en calculant une géométrie à la volée à l'aide de la position des `Vertex`. Toutefois, on remarque dans `ShpGraphReader` que l'on dispose d'une géométrie plus précise pour les tronçons.
-
-On va donc procèder comme suit pour avoir une géométrie optionnelle sur les `Edge` :
-
-* Ajout d'un attribut `geometry: LineString` sur `Edge`
-* Calcul de la géométrie des `Edge` dans le constructeur en fonction de `source` et `target` (principalement pour le cas de la lecture du XML)
-* Mise à jour de la méthode de calcul de coût pour renvoyer la longueur de la géométrie
-* Ajout d'une méthode `setGeometry(geometry: LineString)` sur `Edge` permettant de modifier cette géométrie
-* Mise à jour de `ShpGraphReader` pour définir la géométrie de `Edge`
-
 
 ## 0.7 - Création d'un modèle dédié aux noeuds de l'arbre du plus court chemin
 
-On constate que `Vertex` est porteur de propriétés qui ne correspondent pas à un réseau routier mais à l'algorithme de calcul du plus chemin : `cost`, `reachingEdge` et `visited`.
+On constate que `Vertex` est porteur de propriétés qui ne correspondent pas à la modélisation d'un réseau routier mais à l'algorithme de calcul du plus chemin : `cost`, `reachingEdge` et `visited`.
 
-Ceci a un lourd impact sur l'application : **Il est en l'état impossible de lancer en parallèle deux calculs de plus court chemin** car il y a aura des conflits en édition du graphe.
+Ceci a un lourd impact sur l'application : **Il est en l'état impossible de lancer en parallèle deux calculs de plus court chemin** car il y a aura des conflits en édition sur les propriétés des `Vertex`.
 
 Nous procédons dans un premier temps comme suit pour refondre `DijkstraPathFinder` en limitant les reprises de code à effectuer :
 
@@ -252,101 +162,39 @@ On encapsule `nodes: Map<Vertex, PathNode>` de `DijkstraPathFinder` sous forme d
 * Création de la classe `PathTree`
 * Migration des éléments correspondant de `DisjktraPathFinder` vers `PathTree`
 	* `initGraph(origin)` devient `PathTree(graph: Graph, origin: Vertex)`
-	* `buildPath(vertex)` devient `pathTree.getPath(destination)`
-	* `getNode(vertex)` devient `pathTree.getNode(vertex)`
-
+	* `buildPath(vertex)` devient `pathTree.getPath(destination: Vertex)`
+	* `getNode(vertex)` devient `pathTree.getNode(vertex: Vertex)`
 
 
 ## 0.9 - Stockage des seuls sommets atteints dans PathTree
 
-On remarque qu'il est innutile de stocker des `PathNode` pour tous les sommets du graphe, qu'il suffit d'initialiser la liste des `nodes` avec l'origine des chemins et de créer les `PathNode` quand on atteint de nouveaux sommets.
+On remarque qu'il est inutile de stocker des `PathNode` pour tous les sommets du graphe, qu'il suffit d'initialiser la liste des `nodes` avec l'origine des chemins et de créer les `PathNode` quand on atteint de nouveaux sommets.
 
 A l'exception du test pour savoir si on a atteint la destination dans `DijkstraPathFinder`, les appels à `getNode` correspondent à des sommets atteints.
 
 On procède donc comme suit :
 
-* Ajout d'une méthode `pathTree.isReached(destination)` pour clarifier `pathTree.getNode(destination).getReachingEdge() != null`
-* Blindage de `pathTree.buildPath(destination)` dans le cas où le sommet n'est pas atteint
+* Ajout d'une méthode `pathTree.isReached(destination: Vertex): boolean` pour clarifier `pathTree.getNode(destination).getReachingEdge() != null`
+* Blindage de `pathTree.getPath(destination)` dans le cas où le sommet n'est pas atteint
 * Ajout d'une méthode `getOrCreateNode(vertex)` dans `PathTree` et utilisation de cette méthode dans `DijkstraPathFinder`
 * Reprise du constructeur `PathTree(graph, origin)` en `PathTree(origin)`
 * Ajout de `pathTree.getReachedVertices(): Collection<Vertex>`
 * Parcourt des seuls sommets atteints dans `findNextVertex`
-* Suppression de l'attribut `graph` désormais non utilisé dans `DijkstraPathFinder`
 
 
-## 0.10 - Préparation de la mise en oeuvre de variantes de l'algorithme
+## 0.10 - Optimisation du chargement du graphe
 
-Afin de préparer la mise en oeuvre de variante de l'algorithme, on s'efforce de bien identifier les différentes étapes de la construction de l'arbre. Aussi, on veille à séparer la construction de l'arbre de production du résultat en procédant comme suit dans `DijkstraPathFinder` :
+En chargeant [ROUTE500 complet](https://files.opendatarchives.fr/professionnels.ign.fr/route500/), on observe un temps de chargement excessivement long. A l'aide de VisualVM, on se rend compte que le programme passe le plus clair de son temps dans `GraphReader.getOrCreateVertex` faisant appel à `Graph.findVertex(coordinate: Coordinate)` :
 
-* Extraction d'une méthode `buildTree(destination)` dans `findPath`
+![VisualVM - chargement du graphe](img/visualvm-load-graph.png)
 
+En inspectant `Graph.findVertex(coordinate: Coordinate)`, on note un parcours complet des sommets à la recherche d'une égalité stricte de coordonnée. Cette approche est loin d'être optimale, nous pouvons optimiser en utilisant une `Map<Coordinate, Vertex>`.
 
-## 0.11 - Extraction d'une classe PathTreeBuilder de DijkstraPathFinder
+## 0.11 - Optimisation du temps de calcul
 
-* Création d'une classe `PathTreeBuilder` avec un constructeur `PathTreeBuilder(origin: Vertex)`
-* Migration de `buildTree`, `visit` et `findNextVertex` de `DijkstraPathFinder` vers `PathTreeBuilder`
-* Utilisation de `PathTreeBuilder` dans `DijkstraPathFinder`
+En lançant des calculs de plus court chemin sur le graphe ROUTE500 complet, on remarque un temps de calcul trop important. A l'aide de VisualVM, on se rend compte que le programme passe le plus clair de son temps dans `findNextVertex` :
 
-
-## 0.12 - Préparation de la mise en place d'une stratégie de calcul du plus court chemin
-
-Afin de pouvoir faire varier par la suite la méthode `findNextVertex` entre Dijkstra et A-star, on extrait une stratégie comme suit :
-
-* Création d'une interface `NextVertexFinder` avec une méthode `findNextVertex(pathTree: PathTree): Vertex`
-* Implémentation de `DijkstraNextVertexFinder`
-* Le constructeur `PathTreeBuilder(pathTree)` devient `PathTreeBuilder(nextVertexFinder, pathTree)`
-
-
-## 0.13 - Implémentation de A-star
-
-On ajoute l'implémentation de A-star comme suit :
-
-* Modification de `findNextVertex(pathTree)` en `findNextVertex(pathTree,destination)` au niveau de l'interface `NextVertexFinder`
-* Ajout de `AStarNextVertexFinder` implémentant `NextVertexFinder`
-
-Remarque : Dans le cas de A-star, `findNextVertex(pathTree,destination)` renverra le sommet atteint minimisant "distance parcourue depuis l'origine + distance à vol d'oiseau pour atteindre la destination"
-
-## 0.14 - Choix de la stratégie de calcul dans l'API
-
-On procède comme suit pour permettre le choix d'une stratégie de calcul dans l'API :
-
-* Création d'une fabrique `NextVertexFinderFactory.createNextVertexFinder(method: String)`
-* Renommage de `DijkstraPathFinder` en `PathFinder`
-* Ajout du paramètre `method: String` à `findPath` de `PathFinder`
-* Ajout d'un paramètre `method` à `findPath` dans `FindPathController`
-
-## 0.15 - Optimisation du temps de chargement du graphe
-
-En chargeant [ROUTE500 complet](https://files.opendatarchives.fr/professionnels.ign.fr/route500/), on observe un temps de chargement excessivement long. A l'aide de VisualVM, on se rend compte que le programme passe le plus clair de son temps dans `getOrCreateVertex`. On procède comme suit pour ajouter l'indexe manquant :
-
-* Création d'une classe `GraphBuilder` avec un attribut `indexVertices: Map<Coordinate, Vertex>`
-* Ajout de `getOrCreateVertex(coordinate): Vertex` sur `GraphBuilder`
-* Suppression de `findVertex` sur ̀`Graph`
-* Utilisation de `GraphBuilder` dans `ShpGraphReader`
-* Correction au passage d'utilisation de `geotools` par appel de `dataStore.dispose` :
-
-```java
-GraphBuilder graphBuilder = new GraphBuilder();
-FeatureIterator<SimpleFeature> features = null;
-try {
-	features = collection.features();
-	while (features.hasNext()) {
-		SimpleFeature feature = features.next();
-		//...
-	}
-}finally {
-	if ( features != null ){
-		features.close();
-	}
-	dataStore.dispose();
-}
-return graphBuilder.getGraph();
-```
-
-
-## 0.16 - Optimisation du temps de calcul
-
-En lançant des calculs de plus court chemin sur le graphe ROUTE500 complet, on remarque un temps de calcul trop important. A l'aide de VisualVM, on se rend compte que le programme passe le plus clair de son temps dans `findNextVertex`.
+![VisualVM - find path](img/visualvm-visualvm-find-path.png.png)
 
 En regardant de plus près, on remarque que l'on parcours l'ensemble des sommets atteints pour filtrer ensuite les sommets déjà visités.
 
@@ -364,8 +212,51 @@ On procède donc comme suit pour indexer les sommets non visité :
 
 * Ajout de `notVisited: Set<Vertex>` sur `PathTree`
 * Gestion de `notVisited` dans `getOrCreateNode` de `PathTree`
-* Ajout de `getNotVisited(): Collection<Vertex>` sur `PathTree`
+* Ajout de `getNotVisitedVertices(): Collection<Vertex>` sur `PathTree`
 * Ajout de `markVisited(vertex)` sur `PathTree`
 * Suppression de `visited` sur `PathNode`
-* Mise à jour des codes pour utiliser `markVisited(vertex)` et `getNotVisited()`
+* Mise à jour des codes pour utiliser `markVisited(vertex)` et `getNotVisitedVertices()`
 
+
+<!-- TODO : RESTE A REVOIR LES QUESTIONS CI-APRES -->
+
+## 0.12 - Préparation de la mise en oeuvre de variantes de l'algorithme
+
+Afin de préparer la mise en oeuvre de variante de l'algorithme, on s'efforce de bien identifier les différentes étapes de la construction de l'arbre. Aussi, on veille à séparer la construction de l'arbre de production du résultat en procédant comme suit dans `DijkstraPathFinder` :
+
+* Extraction d'une méthode `buildTree(destination)` dans `findPath`
+
+
+## 0.13 - Extraction d'une classe PathTreeBuilder de DijkstraPathFinder
+
+* Création d'une classe `PathTreeBuilder` avec un constructeur `PathTreeBuilder(origin: Vertex)`
+* Migration de `buildTree`, `visit` et `findNextVertex` de `DijkstraPathFinder` vers `PathTreeBuilder`
+* Utilisation de `PathTreeBuilder` dans `DijkstraPathFinder`
+
+
+## 0.14 - Préparation de la mise en place d'une stratégie de calcul du plus court chemin
+
+Afin de pouvoir faire varier par la suite la méthode `findNextVertex` entre Dijkstra et A-star, on extrait une stratégie comme suit :
+
+* Création d'une interface `NextVertexFinder` avec une méthode `findNextVertex(pathTree: PathTree): Vertex`
+* Implémentation de `DijkstraNextVertexFinder`
+* Le constructeur `PathTreeBuilder(pathTree)` devient `PathTreeBuilder(nextVertexFinder, pathTree)`
+
+
+## 0.15 - Implémentation de A-star
+
+On ajoute l'implémentation de A-star comme suit :
+
+* Modification de `findNextVertex(pathTree)` en `findNextVertex(pathTree,destination)` au niveau de l'interface `NextVertexFinder`
+* Ajout de `AStarNextVertexFinder` implémentant `NextVertexFinder`
+
+Remarque : Dans le cas de A-star, `findNextVertex(pathTree,destination)` renverra le sommet atteint minimisant "distance parcourue depuis l'origine + distance à vol d'oiseau pour atteindre la destination"
+
+## 0.16 - Choix de la stratégie de calcul dans l'API
+
+On procède comme suit pour permettre le choix d'une stratégie de calcul dans l'API :
+
+* Création d'une fabrique `NextVertexFinderFactory.createNextVertexFinder(method: String)`
+* Renommage de `DijkstraPathFinder` en `PathFinder`
+* Ajout du paramètre `method: String` à `findPath` de `PathFinder`
+* Ajout d'un paramètre `method` à `findPath` dans `FindPathController`

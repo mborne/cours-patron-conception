@@ -5,16 +5,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
   <title>design_pattern/structural/Bridge.md</title>
-  <link type="text/css" rel="stylesheet" href="../../assets/css/github-markdown.css">
-  <link type="text/css" rel="stylesheet" href="../../assets/css/pilcrow.css">
-  <link type="text/css" rel="stylesheet" href="../../assets/css/hljs-github.min.css" />
 
-  <link rel="stylesheet" href="../../assets/highlight/styles/github.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css">
   <style>
     html, body {
-      width: 90%;
+      width: 95%;
       margin: auto;
-      padding: 0;
+      padding-bottom: 50px;
     }
   </style>
 </head>
@@ -30,44 +28,34 @@ varier indépendemment l&#39;une de l&#39;autre.</p>
 </ul>
 <pre><code class="language-java">interface ProjectionTransform {
     public Geometry transform(String sourceCRS, String targetCRS, Geometry g );
-}</code></pre>
+}
+</code></pre>
 <ul>
 <li>On réalise l&#39;implémentation à l&#39;aide de geotools</li>
 </ul>
 <pre><code class="language-java">interface GeotoolProjectionTransform {
     public Geometry transform(String sourceCRS, String targetCRS, Geometry g );
-}</code></pre>
+}
+</code></pre>
 <p>=&gt; On limite la dépendance à geotools dès lors que l&#39;on dépend de <code>ProjectionTransform</code>.</p>
 <h2 id="mise-en-garde"><a href="#mise-en-garde" class="anchor"></a>Mise en garde</h2><p>A ne pas confondre avec &quot;Bridge&quot; et &quot;Adapter&quot;. Les objectifs ne sont
 pas les mêmes.</p>
 <h2 id="liens-utiles"><a href="#liens-utiles" class="anchor"></a>Liens utiles</h2><ul>
 <li><p><a href="https://sourcemaking.com/design_patterns/bridge" target="_blank">Description détaillées sur sourcemaking.com</a></p>
 </li>
-<li><p><a href="https://springframework.guru/gang-of-four-design-patterns/bridge-pattern/" target="_blank">Exemple de l&#39;envoie de message de types différents</a></p>
+<li><p><a href="https://springframework.guru/gang-of-four-design-patterns/bridge-pattern/" target="_blank">Exemple de l&#39;envoie de message de types différents</a> qui utilise aussi l&#39;injection de dépendance via spring.</p>
+</li>
+<li><p><a href="http://www.tutorialspoint.com/design_pattern/bridge_pattern.htm" target="_blank">Exemple d&#39;API de dessin</a></p>
+</li>
+<li><p><a href="https://github.com/symfony/symfony/tree/master/src/Symfony/Bridge" target="_blank">Les ponts entre Symfony et bibliothèques tierces</a> (<code>Monolog</code> pour la gestion des log, <code>Doctrine</code> pour la gestion des données (ORM), etc.)</p>
 </li>
 </ul>
-<p>Remarque : Utilise aussi l&#39;injection de dépendance via spring.</p>
-<ul>
-<li><a href="http://www.tutorialspoint.com/design_pattern/bridge_pattern.htm" target="_blank">Exemple d&#39;API de dessin</a></li>
-</ul>
-<p>Attention : En pratique, on aurait tendance à faire en sorte que les shape ignore le concept de dessin.</p>
-<ul>
-<li><a href="https://github.com/symfony/symfony/tree/master/src/Symfony/Bridge" target="_blank">Les ponts entre Symfony2 et bibliothèques tierces</a></li>
-</ul>
-<p>Bibliothèques tierces <code>Monolog</code> pour la gestion des log, <code>Doctrine</code> pour la gestion des données (ORM), etc.</p>
 
   </article>
 
-  <script src="../../assets/highlight/highlight.pack.js"></script>
+  <!-- hightlight.pack.js -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
-
-  <script src="../../assets/mermaid/mermaid.min.js"></script>
-  <script>mermaid.init({
-      startOnLoad: true,
-      flowchart: {
-        useMaxWidth: true
-      }
-    }, ".language-mermaid");</script>
 </body>
 
 </html>

@@ -5,16 +5,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
   <title>design_pattern/structural/Adapter.md</title>
-  <link type="text/css" rel="stylesheet" href="../../assets/css/github-markdown.css">
-  <link type="text/css" rel="stylesheet" href="../../assets/css/pilcrow.css">
-  <link type="text/css" rel="stylesheet" href="../../assets/css/hljs-github.min.css" />
 
-  <link rel="stylesheet" href="../../assets/highlight/styles/github.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css">
   <style>
     html, body {
-      width: 90%;
+      width: 95%;
       margin: auto;
-      padding: 0;
+      padding-bottom: 50px;
     }
   </style>
 </head>
@@ -32,7 +30,8 @@ avec un séparateur.</p>
         //...
     }
 
-}</code></pre>
+}
+</code></pre>
 <p>Pas de chance : Nous devons appliquer cet algorithme sur un Iterator<String>.</p>
 <p>On remarque que niveau fonctionnement, les deux interfaces Iterator et Enumeration sont sensiblement
 similaires :</p>
@@ -57,28 +56,23 @@ similaires :</p>
         return adaptee.next() ;
     }
 
-}</code></pre>
+}
+</code></pre>
 <p>Puis, appeler l&#39;algorithme comme suit :</p>
 <pre><code class="language-java">Iterator&lt;String&gt; items ;
 //...
 System.out.println(EnumerationUtils.concat(
     new IteratorToEnumationAdapter(items)
-));</code></pre>
+));
+</code></pre>
 <h2 id="remarque"><a href="#remarque" class="anchor"></a>Remarque</h2><p>Le livre &quot;tête la première dans les designs patterns&quot; traite le cas inverse
 et l&#39;adaptation partielle (absence de la fonction &quot;remove&quot; sur les Enumeration)</p>
 
   </article>
 
-  <script src="../../assets/highlight/highlight.pack.js"></script>
+  <!-- hightlight.pack.js -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
-
-  <script src="../../assets/mermaid/mermaid.min.js"></script>
-  <script>mermaid.init({
-      startOnLoad: true,
-      flowchart: {
-        useMaxWidth: true
-      }
-    }, ".language-mermaid");</script>
 </body>
 
 </html>

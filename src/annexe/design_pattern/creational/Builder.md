@@ -16,7 +16,7 @@ En outre, ce patron de conception est utile quand :
 ## Solution
 
 * On met en place un nombre minimum de constructeurs
-* On délégue la complexité de création des instances à des objets dédiés : Director et Builder
+* On délègue la complexité de création des instances à des objets dédiés : Director et Builder
 
 
 ![UML Builder](uml/UML_DP_Builder.png)
@@ -139,7 +139,7 @@ En outre, la distinction n'est pas toujours faite entre "Director" et "Builder".
 
 ## Exemple en Java
 
-* `StringBuilder`
+* [StringBuilder](https://docs.oracle.com/javase/8/docs/api/java/lang/StringBuilder.html)
 
 * [CalendarBuilder](https://docs.oracle.com/javase/8/docs/api/java/util/Calendar.Builder.html)
 
@@ -172,6 +172,6 @@ Process p = pb.start();
 
 * [Discussion sur l'intérêt des beans couplés au design pattern Builder](https://kodelog.wordpress.com/tag/telescopic-constructor-pattern/)
 
-* [Exemple d'utilisation dans la création de formulaire dans Symfony2 (PHP)](http://symfony.com/doc/current/book/forms.html#building-the-form)
+* [Exemple d'utilisation dans la création de formulaire dans Symfony (PHP)](http://symfony.com/doc/current/book/forms.html#building-the-form)
 
 * [Exemple d'utilisation dans la création de requête SQL (PHP)](http://doctrine-orm.readthedocs.org/projects/doctrine-orm/en/latest/reference/query-builder.html#high-level-api-methods)

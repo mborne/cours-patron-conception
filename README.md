@@ -1,6 +1,6 @@
 # Les patrons de conception
 
-[ENSG](http://www.ensg.eu/) janvier 2020
+[ENSG](http://www.ensg.eu/) janvier 2022
 
 ## Resource en ligne
 

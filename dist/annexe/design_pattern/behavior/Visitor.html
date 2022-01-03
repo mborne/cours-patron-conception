@@ -5,16 +5,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
   <title>design_pattern/behavior/Visitor.md</title>
-  <link type="text/css" rel="stylesheet" href="../../assets/css/github-markdown.css">
-  <link type="text/css" rel="stylesheet" href="../../assets/css/pilcrow.css">
-  <link type="text/css" rel="stylesheet" href="../../assets/css/hljs-github.min.css" />
 
-  <link rel="stylesheet" href="../../assets/highlight/styles/github.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css">
   <style>
     html, body {
-      width: 90%;
+      width: 95%;
       margin: auto;
-      padding: 0;
+      padding-bottom: 50px;
     }
   </style>
 </head>
@@ -30,18 +28,21 @@ type de la hiérarchie :</p>
 
     public void visit( LineString lineString ) ;
 
-}</code></pre>
+}
+</code></pre>
 <p>Dans la hiérarchie, on ajoute une méthode <code>accept(visitor)</code> qui va appeler
 <code>visit</code> sur le visitor dans les classes dérivées.</p>
 <pre><code class="language-java">interface Geometry {
     public void accept(GeometryVisitor visitor);
-}</code></pre>
+}
+</code></pre>
 <p>On implémente cette méthode sur les classes dérivées :</p>
 <pre><code class="language-java">class Point implements Geometry {
     public void accept(GeometryVisitor visitor){
         visitor.visit(this);
     }
-}</code></pre>
+}
+</code></pre>
 <p>Ainsi, on peut externaliser les traitements de la hiérarchie sans
 perdre l&#39;intérêt du polymorphisme :</p>
 <pre><code class="language-java">class GeometryRenderer implements GeometryVisitor {
@@ -54,7 +55,8 @@ perdre l&#39;intérêt du polymorphisme :</p>
         System.out.println(&quot;Render LineString&quot;);
     }
 
-}</code></pre>
+}
+</code></pre>
 <h2 id="comment-a-marche-"><a href="#comment-a-marche-" class="anchor"></a>Comment ça marche?</h2><p>La méthode <code>accept</code> convertit un polymorphisme par héritage en polymorphisme
 paramétrique. Pour bien comprendre ce mécanisme, il faut bien comprendre
 les mécanismes de résolution des liens dans le cadre du polymorphisme paramétrique.</p>
@@ -74,21 +76,15 @@ matière de polymorphisme paramétrique.</p>
 <li><p>Double dispatching :</p>
 </li>
 </ul>
-<pre><code class="language-java">visitor.visit(Visitable a, Visitable b);</code></pre>
+<pre><code class="language-java">visitor.visit(Visitable a, Visitable b);
+</code></pre>
 <p>Cas d&#39;usage : Calcul de distance, d&#39;intersection, d&#39;union, etc. entre deux géométries.</p>
 
   </article>
 
-  <script src="../../assets/highlight/highlight.pack.js"></script>
+  <!-- hightlight.pack.js -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
-
-  <script src="../../assets/mermaid/mermaid.min.js"></script>
-  <script>mermaid.init({
-      startOnLoad: true,
-      flowchart: {
-        useMaxWidth: true
-      }
-    }, ".language-mermaid");</script>
 </body>
 
 </html>
