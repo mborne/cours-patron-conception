@@ -159,7 +159,7 @@ graph.createEdge(a,b,&quot;ab&quot;);
 <p><img src="img/visualvm-load-graph.png" alt="VisualVM - chargement du graphe"></p>
 <p>En inspectant <code>Graph.findVertex(coordinate: Coordinate)</code>, on note un parcours complet des sommets à la recherche d&#39;une égalité stricte de coordonnée. Cette approche est loin d&#39;être optimale, nous pouvons optimiser en utilisant une <code>Map&lt;Coordinate, Vertex&gt;</code>.</p>
 <h2 id="0-11-optimisation-du-temps-de-calcul"><a href="#0-11-optimisation-du-temps-de-calcul" class="anchor"></a>0.11 - Optimisation du temps de calcul</h2><p>En lançant des calculs de plus court chemin sur le graphe ROUTE500 complet, on remarque un temps de calcul trop important. A l&#39;aide de VisualVM, on se rend compte que le programme passe le plus clair de son temps dans <code>findNextVertex</code> :</p>
-<p><img src="img/visualvm-visualvm-find-path.png.png" alt="VisualVM - find path"></p>
+<p><img src="img/visualvm-find-path.png" alt="VisualVM - find path"></p>
 <p>En regardant de plus près, on remarque que l&#39;on parcours l&#39;ensemble des sommets atteints pour filtrer ensuite les sommets déjà visités.</p>
 <pre><code class="language-java">for (Vertex vertex : pathTree.getReachedVertices()) {
     PathNode node = pathTree.getNode(vertex);
