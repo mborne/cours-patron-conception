@@ -169,6 +169,7 @@ graph.createEdge(a,b,&quot;ab&quot;);
     }
     //...
 </code></pre>
+<p><strong>Option 1 :</strong></p>
 <p>On procède donc comme suit pour indexer les sommets non visité :</p>
 <ul>
 <li>Ajout de <code>notVisited: Set&lt;Vertex&gt;</code> sur <code>PathTree</code></li>
@@ -178,7 +179,22 @@ graph.createEdge(a,b,&quot;ab&quot;);
 <li>Suppression de <code>visited</code> sur <code>PathNode</code></li>
 <li>Mise à jour des codes pour utiliser <code>markVisited(vertex)</code> et <code>getNotVisitedVertices()</code></li>
 </ul>
-<!-- TODO : RESTE A REVOIR LES QUESTIONS CI-APRES -->
+<p><strong>Option 2 :</strong></p>
+<p>On s&#39;appuie sur la bibliothèque <a href="https://github.com/npgall/cqengine" target="_blank">cqengine</a> (1) pour obtenir une collection de <code>PathNode</code> avec plusieurs indexes au niveau du <code>PathTree</code> :</p>
+<ul>
+<li>Ajout de <code>vertex: Vertex</code> sur <code>PathNode</code></li>
+<li>Remplacement de la <code>Map&lt;Vertex,PathNode&gt;</code> par une <code>IndexedCollection&lt;PathNode&gt; nodes</code> sur <code>PathTree</code></li>
+<li>Ajout de <code>markVisited(vertex)</code> sur <code>PathTree</code> (2)</li>
+<li>Ajout de <code>setReached(vertex,reachingCost,reachingEdge)</code> sur <code>PathTree</code> (2)</li>
+<li>Ajout de <code>getNearestNonVisitedVertex(): Vertex</code> sur <code>PathTree</code></li>
+<li>Utilisation de <code>getNearestNonVisitedVertex()</code> de <code>PathTree</code> dans <code>findNextVertex()</code> de <code>DijkstraPathFinder</code></li>
+</ul>
+<p>Remarque : </p>
+<ul>
+<li>(1) Une démonstration de l&#39;utilisation de cqengine est présente dans les tests : <a href="https://github.com/mborne/tp-refactoring-graph/blob/upgrade_cqengine/src/test/java/org/acme/graph/demo/CqEngineTest.java" target="_blank">CqEngineTest</a></li>
+<li>(2) Pour que les indexes se mettent à jour lors des modifications des <code>PathNode</code>, il faut supprimer le <code>PathNode</code> de la collection, modifier le <code>PathNode</code> et le ré-ajouter à la collection.</li>
+</ul>
+<!-- TODO : RESTE A REVOIR/BLINDER LES QUESTIONS CI-APRES -->
 
 <h2 id="0-12-pr-paration-de-la-mise-en-oeuvre-de-variantes-de-l-39-algorithme"><a href="#0-12-pr-paration-de-la-mise-en-oeuvre-de-variantes-de-l-39-algorithme" class="anchor"></a>0.12 - Préparation de la mise en oeuvre de variantes de l&#39;algorithme</h2><p>Afin de préparer la mise en oeuvre de variante de l&#39;algorithme, on s&#39;efforce de bien identifier les différentes étapes de la construction de l&#39;arbre. Aussi, on veille à séparer la construction de l&#39;arbre de production du résultat en procédant comme suit dans <code>DijkstraPathFinder</code> :</p>
 <ul>

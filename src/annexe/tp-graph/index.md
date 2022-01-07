@@ -208,6 +208,8 @@ for (Vertex vertex : pathTree.getReachedVertices()) {
 	//...
 ```
 
+**Option 1 :**
+
 On procède donc comme suit pour indexer les sommets non visité :
 
 * Ajout de `notVisited: Set<Vertex>` sur `PathTree`
@@ -217,8 +219,24 @@ On procède donc comme suit pour indexer les sommets non visité :
 * Suppression de `visited` sur `PathNode`
 * Mise à jour des codes pour utiliser `markVisited(vertex)` et `getNotVisitedVertices()`
 
+**Option 2 :**
 
-<!-- TODO : RESTE A REVOIR LES QUESTIONS CI-APRES -->
+On s'appuie sur la bibliothèque [cqengine](https://github.com/npgall/cqengine) (1) pour obtenir une collection de `PathNode` avec plusieurs indexes au niveau du `PathTree` :
+
+* Ajout de `vertex: Vertex` sur `PathNode`
+* Remplacement de la `Map<Vertex,PathNode>` par une `IndexedCollection<PathNode> nodes` sur `PathTree`
+* Ajout de `markVisited(vertex)` sur `PathTree` (2)
+* Ajout de `setReached(vertex,reachingCost,reachingEdge)` sur `PathTree` (2)
+* Ajout de `getNearestNonVisitedVertex(): Vertex` sur `PathTree`
+* Utilisation de `getNearestNonVisitedVertex()` de `PathTree` dans `findNextVertex()` de `DijkstraPathFinder`
+
+Remarque : 
+
+* (1) Une démonstration de l'utilisation de cqengine est présente dans les tests : [CqEngineTest](https://github.com/mborne/tp-refactoring-graph/blob/upgrade_cqengine/src/test/java/org/acme/graph/demo/CqEngineTest.java)
+* (2) Pour que les indexes se mettent à jour lors des modifications des `PathNode`, il faut supprimer le `PathNode` de la collection, modifier le `PathNode` et le ré-ajouter à la collection.
+
+
+<!-- TODO : RESTE A REVOIR/BLINDER LES QUESTIONS CI-APRES -->
 
 ## 0.12 - Préparation de la mise en oeuvre de variantes de l'algorithme
 
