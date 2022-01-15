@@ -21,6 +21,6 @@
   "private": true,
   "devDependencies": {
     "@mborne/markdown-to-html": "git+https://github.com/mborne/markdown-to-html.git#v0.6.0",
-    "shelljs": "^0.8.4"
+    "shelljs": "^0.8.5"
   }
 }
