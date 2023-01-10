@@ -19,10 +19,10 @@
 
 <body>
   <article class="markdown-body">
-    <h1 id="adapter"><a href="#adapter" class="anchor"></a>Adapter</h1><h2 id="probl-me"><a href="#probl-me" class="anchor"></a>Problème</h2><p>L&#39;idée est la même que pour les adaptateurs dans la vie courante :
+    <h1 id="adapter">Adapter</h1><h2 id="problème">Problème</h2><p>L&#39;idée est la même que pour les adaptateurs dans la vie courante :
 On fait face à deux interfaces qui ont des fonctionnalités équivalentes mais qui
 sont incompatibles. On va créer un intermédiaire.</p>
-<h2 id="exemple"><a href="#exemple" class="anchor"></a>Exemple</h2><p>On dispose d&#39;un algorithme qui effectue la concaténation de chaînes de caractères
+<h2 id="exemple">Exemple</h2><p>On dispose d&#39;un algorithme qui effectue la concaténation de chaînes de caractères
 avec un séparateur.</p>
 <pre><code class="language-java">class EnumerationUtils {
 
@@ -65,7 +65,7 @@ System.out.println(EnumerationUtils.concat(
     new IteratorToEnumationAdapter(items)
 ));
 </code></pre>
-<h2 id="remarque"><a href="#remarque" class="anchor"></a>Remarque</h2><p>Le livre &quot;tête la première dans les designs patterns&quot; traite le cas inverse
+<h2 id="remarque">Remarque</h2><p>Le livre &quot;tête la première dans les designs patterns&quot; traite le cas inverse
 et l&#39;adaptation partielle (absence de la fonction &quot;remove&quot; sur les Enumeration)</p>
 
   </article>
