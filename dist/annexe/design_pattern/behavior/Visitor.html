@@ -19,8 +19,8 @@
 
 <body>
   <article class="markdown-body">
-    <h1 id="visitor"><a href="#visitor" class="anchor"></a>Visitor</h1><h2 id="probl-me"><a href="#probl-me" class="anchor"></a>Problème</h2><p>On dispose d&#39;une hiérarchie et on souhaite pouvoir profiter du polymorphisme en dehors de la hiérarchie.</p>
-<h2 id="solution"><a href="#solution" class="anchor"></a>Solution</h2><p>On définit un visitor porteur de méthode correspondant aux différents
+    <h1 id="visitor">Visitor</h1><h2 id="problème">Problème</h2><p>On dispose d&#39;une hiérarchie et on souhaite pouvoir profiter du polymorphisme en dehors de la hiérarchie.</p>
+<h2 id="solution">Solution</h2><p>On définit un visitor porteur de méthode correspondant aux différents
 type de la hiérarchie :</p>
 <pre><code class="language-java">interface GeometryVisitor {
 
@@ -57,10 +57,10 @@ perdre l&#39;intérêt du polymorphisme :</p>
 
 }
 </code></pre>
-<h2 id="comment-a-marche-"><a href="#comment-a-marche-" class="anchor"></a>Comment ça marche?</h2><p>La méthode <code>accept</code> convertit un polymorphisme par héritage en polymorphisme
+<h2 id="comment-ça-marche">Comment ça marche?</h2><p>La méthode <code>accept</code> convertit un polymorphisme par héritage en polymorphisme
 paramétrique. Pour bien comprendre ce mécanisme, il faut bien comprendre
 les mécanismes de résolution des liens dans le cadre du polymorphisme paramétrique.</p>
-<h2 id="mise-en-garde"><a href="#mise-en-garde" class="anchor"></a>Mise en garde</h2><h3 id="extension-des-hi-rarchies"><a href="#extension-des-hi-rarchies" class="anchor"></a>Extension des hiérarchies</h3><p>Quand la hiérarchie est étendue par un tiers, ce tiers ne pourra pas facilement
+<h2 id="mise-en-garde">Mise en garde</h2><h3 id="extension-des-hiérarchies">Extension des hiérarchies</h3><p>Quand la hiérarchie est étendue par un tiers, ce tiers ne pourra pas facilement
 étendre l&#39;interface du visitor original.</p>
 <p>Par conséquent, les visiteurs existants seront généralement incapables de gérer 
 le type ajouté.</p>
@@ -68,9 +68,9 @@ le type ajouté.</p>
 <p>La bibliothèque géométrique utilise un <code>GeometryRendererVisitor</code>. Un
 client implémente l&#39;interface <code>Geometry</code> pour ajoute le concept de courbe
 de bézier. <code>GeometryRendererVisitor</code> ne saura pas effectuer le rendu.</p>
-<h3 id="capacit-des-langages"><a href="#capacit-des-langages" class="anchor"></a>Capacité des langages</h3><p>On doit s&#39;adapter en fonction des capacités des différents langages en
+<h3 id="capacité-des-langages">Capacité des langages</h3><p>On doit s&#39;adapter en fonction des capacités des différents langages en
 matière de polymorphisme paramétrique.</p>
-<h2 id="variante"><a href="#variante" class="anchor"></a>Variante</h2><ul>
+<h2 id="variante">Variante</h2><ul>
 <li><p>Traverse visitor : En plus de parcourir la hiérarchie, on parcourt les enfants</p>
 </li>
 <li><p>Double dispatching :</p>

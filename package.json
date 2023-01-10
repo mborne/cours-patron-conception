@@ -1,6 +1,6 @@
 {
   "name": "cours-patron-conception",
-  "version": "1.0.0",
+  "version": "1.1.0-pre",
   "description": "ENSG - cours patron conception",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,7 @@
   "dependencies": {},
   "private": true,
   "devDependencies": {
-    "@mborne/markdown-to-html": "git+https://github.com/mborne/markdown-to-html.git#v0.6.0",
-    "shelljs": "^0.8.4"
+    "@mborne/markdown-to-html": "0.8.1",
+    "shelljs": "^0.8.5"
   }
 }

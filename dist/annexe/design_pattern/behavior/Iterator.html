@@ -19,8 +19,8 @@
 
 <body>
   <article class="markdown-body">
-    <h1 id="iterator"><a href="#iterator" class="anchor"></a>Iterator</h1><h2 id="probl-me"><a href="#probl-me" class="anchor"></a>Problème</h2><p>On veut des algorithmes capables de fonctionner sur tous les types de collections (tableaux, listes, sets, etc.)</p>
-<h2 id="solution"><a href="#solution" class="anchor"></a>Solution</h2><p>On fait abstraction sur le parcours d&#39;une collection :</p>
+    <h1 id="iterator">Iterator</h1><h2 id="problème">Problème</h2><p>On veut des algorithmes capables de fonctionner sur tous les types de collections (tableaux, listes, sets, etc.)</p>
+<h2 id="solution">Solution</h2><p>On fait abstraction sur le parcours d&#39;une collection :</p>
 <pre><code class="language-java">interface Iterator {
     public boolean hasNext() ;
     public Object next() ;
@@ -32,7 +32,7 @@
 <li>Plus simple à adapter (au sens du patron de conception adapter) qu&#39;une interface offrant plus riche du type &quot;Array&quot;, &quot;List&quot;.</li>
 </ul>
 <p>De plus, quand les itérateurs font partie intégrante des bibliothèques standards, s&#39;appuyer sur les itérateurs permet généralement de supporter la plupart des collections. On évite ainsi d&#39;être amené à faire des copies pour exploiter les algorithmes.</p>
-<h2 id="variantes"><a href="#variantes" class="anchor"></a>Variantes</h2><p>Il existe de nombreuses variantes de ce patron de conception :</p>
+<h2 id="variantes">Variantes</h2><p>Il existe de nombreuses variantes de ce patron de conception :</p>
 <ul>
 <li><p><code>Iterator.reset</code> : Permet de recommencer la lecture au début</p>
 </li>
@@ -41,7 +41,7 @@
 <li><p><code>CircularIterator</code> (CGAL) : Itérateur sans début et sans fin revenant en position initiale (parcours des sommets d&#39;un polygone)</p>
 </li>
 </ul>
-<h2 id="resources"><a href="#resources" class="anchor"></a>Resources</h2><ul>
+<h2 id="resources">Resources</h2><ul>
 <li><a href="http://www.cplusplus.com/reference/iterator/" target="_blank">Itérateur de la bibliothèque standard C++ (STL)</a></li>
 </ul>
 <p>On remarquera l&#39;utilisation de l&#39;opérateur &quot;++&quot; et différentes catégories d&#39;itérateurs (<code>RandomAccess</code>, <code>Bidirectional</code>, <code>Forward</code>, <code>Input</code>, <code>Output</code>).</p>

@@ -19,11 +19,11 @@
 
 <body>
   <article class="markdown-body">
-    <h1 id="bridge"><a href="#bridge" class="anchor"></a>Bridge</h1><h2 id="probl-me"><a href="#probl-me" class="anchor"></a>Problème</h2><p>On souhaite découpler une abstraction de son implémentation afin que les deux puissent
+    <h1 id="bridge">Bridge</h1><h2 id="problème">Problème</h2><p>On souhaite découpler une abstraction de son implémentation afin que les deux puissent
 varier indépendemment l&#39;une de l&#39;autre.</p>
-<h2 id="solution"><a href="#solution" class="anchor"></a>Solution</h2><p><img src="uml/UML_Bridge.png" alt="UML Bridge"></p>
+<h2 id="solution">Solution</h2><p><img src="uml/UML_Bridge.png" alt="UML Bridge"></p>
 <p>Source <a href="https://en.wikipedia.org/wiki/Bridge_pattern" target="_blank"><a href="https://en.wikipedia.org/wiki/Bridge_pattern" target="_blank">https://en.wikipedia.org/wiki/Bridge_pattern</a></a></p>
-<h2 id="exemple"><a href="#exemple" class="anchor"></a>Exemple</h2><ul>
+<h2 id="exemple">Exemple</h2><ul>
 <li>On pose un interface pour les transformations de coordonnées géographique</li>
 </ul>
 <pre><code class="language-java">interface ProjectionTransform {
@@ -38,9 +38,9 @@ varier indépendemment l&#39;une de l&#39;autre.</p>
 }
 </code></pre>
 <p>=&gt; On limite la dépendance à geotools dès lors que l&#39;on dépend de <code>ProjectionTransform</code>.</p>
-<h2 id="mise-en-garde"><a href="#mise-en-garde" class="anchor"></a>Mise en garde</h2><p>A ne pas confondre avec &quot;Bridge&quot; et &quot;Adapter&quot;. Les objectifs ne sont
+<h2 id="mise-en-garde">Mise en garde</h2><p>A ne pas confondre avec &quot;Bridge&quot; et &quot;Adapter&quot;. Les objectifs ne sont
 pas les mêmes.</p>
-<h2 id="liens-utiles"><a href="#liens-utiles" class="anchor"></a>Liens utiles</h2><ul>
+<h2 id="liens-utiles">Liens utiles</h2><ul>
 <li><p><a href="https://sourcemaking.com/design_patterns/bridge" target="_blank">Description détaillées sur sourcemaking.com</a></p>
 </li>
 <li><p><a href="https://springframework.guru/gang-of-four-design-patterns/bridge-pattern/" target="_blank">Exemple de l&#39;envoie de message de types différents</a> qui utilise aussi l&#39;injection de dépendance via spring.</p>
