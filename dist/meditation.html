@@ -29,7 +29,6 @@ function centroid( double[] tabX, double[] tabY ){
 Avec :
 
 ```
-
 struct Coordinate {
     double x ;
     double y ;
@@ -40,7 +39,10 @@ function centroid( Coordinate[] coordinate ){
 }
 ```
 
-=> Que se passe-t'il si on ajoute une dimension "z"?
+Quel est l'apport de la deuxième approche :
+
+* En matière d'abstraction?
+* Si nous ajoutons un "z"?
 
 ---
 
@@ -51,7 +53,7 @@ Avant :
 ```cxx
 Coordinate c ;
 c.x = 3.0;
-c.y = 3.0;
+c.y = 4.0;
 ```
 
 Après :
@@ -63,13 +65,13 @@ Coordinate c = new Coordinate(3.0,4.0) ;
 Quel est l'apport de la deuxième approche :
 
 * Pour éviter éviter les erreurs de codage?
-* Quand on ajoute un "z"?
+* Si nous ajoutons un "z"?
 
 ---
 
 ## Intérêt de l'encapsulation (1/3)
 
-Sur une classe comme celle-ci, on peut se demander à quoi bon mettre des attributs privés :
+Sur une classe comme celle ci-après, nous pouvons nous demander à quoi bon mettre des attributs privés :
 
 ```java
 class User {
@@ -78,17 +80,16 @@ class User {
 }
 ```
 
-Après tout, il est plus simple d'appeler partout dans le programme un `user.age` plutôt qu'un `user.getAge()`...
-
-Que se passera-t'il un an après avoir stocker ces âges dans des fichiers?
+Après tout, il est plus simple d'appeler partout dans le programme `user.age` plutôt que `user.getAge()`.
 
 ---
 
 ## Intérêt de l'encapsulation (2/3)
 
-On aura envie de **changer la conception** pour stocker plutôt des "dates de naissances" (invariant temporel).
 
-En présence de getters et setters, on peut **changer la structure interne sans casser les appels** à `user.getAge()` :
+Toutefois, un an après avoir stocké ces âges dans des fichiers ou en base de données, nous aurons envie de **changer la conception** pour stocker plutôt des "dates de naissances" (invariant temporel).
+
+En présence d'accesseurs, nous pourrons **changer la structure interne sans casser les appels** à `user.getAge()` :
 
 ```java
 class User {

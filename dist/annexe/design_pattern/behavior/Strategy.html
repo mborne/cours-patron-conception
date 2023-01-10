@@ -19,9 +19,9 @@
 
 <body>
   <article class="markdown-body">
-    <h1 id="strategy"><a href="#strategy" class="anchor"></a>Strategy</h1><h2 id="probl-me"><a href="#probl-me" class="anchor"></a>Problème</h2><p>On souhaite pouvoir faire varier dynamiquement le comportement d&#39;une partie
+    <h1 id="strategy">Strategy</h1><h2 id="problème">Problème</h2><p>On souhaite pouvoir faire varier dynamiquement le comportement d&#39;une partie
 d&#39;un traitement.</p>
-<h2 id="exemple"><a href="#exemple" class="anchor"></a>Exemple</h2><h3 id="cas-d-39-cole-sur-un-traitement-simple"><a href="#cas-d-39-cole-sur-un-traitement-simple" class="anchor"></a>Cas d&#39;école sur un traitement simple</h3><p>Prenons le cas d&#39;une application qui applique les trois étapes suivantes :</p>
+<h2 id="exemple">Exemple</h2><h3 id="cas-décole-sur-un-traitement-simple">Cas d&#39;école sur un traitement simple</h3><p>Prenons le cas d&#39;une application qui applique les trois étapes suivantes :</p>
 <ul>
 <li>Charger une image PNG</li>
 <li>Passer l&#39;image en niveau de gris</li>
@@ -66,7 +66,7 @@ d&#39;un traitement.</p>
 <pre><code class="language-bash">traitement-image &lt;input&gt; &lt;output&gt; [method]
 method := grayScale|blur
 </code></pre>
-<h3 id="premi-re-tentative-sans-strategy-switch-"><a href="#premi-re-tentative-sans-strategy-switch-" class="anchor"></a>Première tentative sans strategy (switch)</h3><pre><code class="language-java">class Application {
+<h3 id="première-tentative-sans-strategy-switch">Première tentative sans strategy (switch)</h3><pre><code class="language-java">class Application {
 
     public void run(File input, File output, String method){
         Image image = readImagePNG(input);
@@ -101,7 +101,7 @@ method := grayScale|blur
 <li>La classe Application aura tendance à devenir un objet divin</li>
 <li>A terme, si les algorithmes ont des paramètres spécifiques, il faudra ajouter des attributs sur la classe Application</li>
 </ul>
-<h3 id="deuxi-me-tentative-sans-strategy-abstract-"><a href="#deuxi-me-tentative-sans-strategy-abstract-" class="anchor"></a>Deuxième tentative sans strategy (abstract)</h3><p>Exploitons donc le polymorphisme!</p>
+<h3 id="deuxième-tentative-sans-strategy-abstract">Deuxième tentative sans strategy (abstract)</h3><p>Exploitons donc le polymorphisme!</p>
 <ul>
 <li>Classe abstraite Application</li>
 </ul>
@@ -180,7 +180,7 @@ On souhaite maintenant pouvoir appliquer deux traitements successifs !</p>
 <li>Le principe de responsabilité unique (Application effectue le calcul tout en orchestrant la lecture et les écritures).</li>
 <li>Privilégier la composition à l&#39;héritage s&#39;applique aussi pour l&#39;encapsulation des traitements.</li>
 </ul>
-<h3 id="solution-avec-une-strat-gie"><a href="#solution-avec-une-strat-gie" class="anchor"></a>Solution avec une stratégie</h3><p>Au lieu d&#39;hériter, on va encapsuler un objet dont le seul rôle se limitera à appliquer le traitement.</p>
+<h3 id="solution-avec-une-stratégie">Solution avec une stratégie</h3><p>Au lieu d&#39;hériter, on va encapsuler un objet dont le seul rôle se limitera à appliquer le traitement.</p>
 <ul>
 <li>ImageProcessorStrategy : Interface pour la stratégie de traitement</li>
 </ul>

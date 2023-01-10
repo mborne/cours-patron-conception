@@ -19,10 +19,10 @@
 Il faut avoir en tête la seule constante du développement : Le changement !
 
 * Modification des fonctionnalités et modèles
-* Changement de cible (desktop, serveur, mobile, etc.)
+* Changement de cible (desktop, serveur, cloud, mobile, etc.)
 * Augmentation des volumes de données (parallélisation, etc.)
-* Obsolescence des outils
-* Choix politique (base de données, etc.)
+* Obsolescence des outils (bibliothèques, frameworks, etc.)
+* Choix politique (base de données, opensource, etc.)
 * ...
 
 ---
@@ -75,44 +75,30 @@ nous nous attarderons sur les bonnes pratiques en parcourant les design pattern.
 
 ---
 
-## Les concepts de base (1/3)
+## Les concepts de base
 
-* Classe et objet
-* Méthode et constructeur
-* Encapsulation (getter, setter, visibilité)
-* Abstraction
-
----
-
-## Les concepts de base (2/3)
-
-Par rapport aux agrégats de variables (struct en C), on dispose d'outils
-permettant d'assurer la cohérence des variables formant l'agrégat
-
-* Constructeurs : Fonction init que l'on est obligé d'appeler
-* Getter/Setter : Protection des variables de l'agrégat
-
----
-
-## Les concepts de base (3/3)
-
-On dispose aussi d'outils pour des modélisations complexes :
-
-* Les relations (composition, agrégation)
-* L'héritage et le polymorphisme
-* Les classes abstraites et les interfaces
-
-Généralement, ces outils sont plutôt bien maîtrisés pour modéliser des données (objet de domaine).
-
-Nous verrons ici comment on peut les exploiter efficacement pour faire varier le comportement d'un programme.
+* Les **classes** avec leurs **attributs** et leurs **méthodes**
+* Les **constructeurs**
+* Les **objets**
+* La **visibilité** (public, private, protected)
+* Les accesseurs (get, set, add, remove,...)
+* Les **relations** (composition, agrégation)
+* L'**héritage** et le **polymorphisme**
+* Les méthodes et classes **abstraites**
+* Les **interfaces**
+* Les **méthodes statiques**
+* Les **attributs statiques**
 
 ---
 
 ## Bien comprendre l'intérêt de ces concepts!
 
-Il ne suffit pas de connaître vaguement ces concepts pour bien programmer en P.O.O.
+Généralement, ces concepts sont plutôt bien maîtrisés pour modéliser des données (objet de domaine).
 
-=> [Méditons quelques exemples](meditation.html)
+Pour exploiter efficacement ces concepts pour faire varier efficacement le comportement d'un programme, il faut comprendre l'intérêt de ces concepts.
+
+=> [Méditons quelques exemples](meditation.html).
+
 
 ---
 
@@ -120,8 +106,8 @@ Il ne suffit pas de connaître vaguement ces concepts pour bien programmer en P.
 
 Les langages ont leurs spécificités qui doivent être prises en compte dans la conception :
 
-* Property (getter/setter "magiques")
-* Garbage collector
+* *Property* (getter/setter "magiques")
+* *Garbage collector*
 * Programmation générique/template
 * Introspection et réflexion
 
