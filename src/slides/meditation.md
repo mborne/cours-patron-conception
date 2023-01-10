@@ -7,6 +7,8 @@ des différents concepts de la P.O.O.
 
 ## Intérêt des agrégats de variables
 
+> Pour comprendre l'intérêt des classes, il faut d'abord comprendre l'intérêt de la possibilité de définir un type utilisateur (ex : `struct` en C).
+
 Sans :
 
 ```
@@ -28,10 +30,7 @@ function centroid( Coordinate[] coordinate ){
 }
 ```
 
-Quel est l'apport de la deuxième approche :
-
-* En matière d'abstraction?
-* Si nous ajoutons un "z"?
+Quel est l'apport de la deuxième approche en matière d'**abstraction**? Si nous ajoutons un "z"?
 
 ---
 
@@ -58,7 +57,7 @@ Quel est l'apport de la deuxième approche :
 
 ---
 
-## Intérêt de l'encapsulation (1/3)
+## Intérêt de l'encapsulation (1/2)
 
 Sur une classe comme celle ci-après, nous pouvons nous demander à quoi bon mettre des attributs privés :
 
@@ -73,7 +72,7 @@ Après tout, il est plus simple d'appeler partout dans le programme `user.age` p
 
 ---
 
-## Intérêt de l'encapsulation (2/3)
+## Intérêt de l'encapsulation (2/2)
 
 
 Toutefois, un an après avoir stocké ces âges dans des fichiers ou en base de données, nous aurons envie de **changer la conception** pour stocker plutôt des "dates de naissances" (invariant temporel).
@@ -98,12 +97,10 @@ class User {
 
 ---
 
-## Intérêt de l'encapsulation (3/3)
-
-Attention toutefois :
+## Mise en garde sur encapsulation
 
 * Il ne suffit pas de mettre des accesseurs pour résoudre tous les problèmes!
-* Certains accesseurs exposent trop d'information sur la structure interne (des collections par exemple)
+* Certains accesseurs exposent trop d'information sur la structure interne.
 
 ---
 
@@ -233,20 +230,20 @@ Les classes ont une grande liberté sur la méthode d'implémentation des contra
 
 ## Mise en garde sur les interface (1/3)
 
-Il ne suffit pas de mettre en place une interface pour avoir
+Il ne suffit pas de définir une interface pour avoir
 de la souplesse sur les implémentations possibles :
 
 * L'implémentation de certains contrats est plus complexes que d'autres.
 * L'implémentation d'un contrat peut s'avérer sous-performante en fonction des
 classes concrètes (exemple : Accès par clé sur un tableau, accès ligne par ligne via SQL, etc.)
 
-=> Il faut bien réfléchir aux implications des choix effectués dans la conception de l'interface.
+=> Il faut bien **réfléchir aux implications des choix effectués dans la conception de l'interface**.
 
 ---
 
 ## Mise en garde sur les interface (2/3)
 
-Ici, on choisit d'appeler `LocationProvider` :
+Ici, nous choisissons d'appeler `LocationProvider` pour obtenir la position :
 
 ```java
 interface LocationProvider {
@@ -254,7 +251,7 @@ interface LocationProvider {
 }
 ```
 
-Là, on choisit d'être appelé par `LocationProvider` (par exemple en cas de déplacement) :
+Là, nous choisissons d'être appelé par `LocationProvider` (par exemple en cas de déplacement) :
 
 ```java
 interface LocationProvider {
@@ -266,7 +263,7 @@ interface LocationProvider {
 
 ## Mise en garde sur les interface (3/3)
 
-Ici, en renvoyant une liste, on impose quasiment le chargement en RAM :
+Ici, en renvoyant une liste, nous imposons le chargement en RAM :
 
 ```java
 interface Database {
@@ -274,7 +271,7 @@ interface Database {
 }
 ```
 
-Là, on prévoit des itérations sur des gros jeux de données :
+Là, nous prévoyons des itérations sur des jeux de données volumineux :
 
 ```java
 interface Database {
@@ -286,9 +283,9 @@ interface Database {
 
 ## Couplage interface et abstract (1/3)
 
-Il est souvent intéressant de procéder sur trois niveaux d'héritage en présence d'interface
+Il sera souvent intéressant de procéder sur trois niveaux d'héritage en présence d'interface.
 
-## Une interface
+### Une interface
 
 ```java
 interface LoggerInterface {
@@ -308,7 +305,7 @@ interface LoggerInterface {
 
 ## Couplage interface et abstract (2/3)
 
-## Une classe abstraite qui implémente les parties communes
+### Une classe abstraite qui implémente les parties communes
 
 ```java
 abstract class AbstractLogger implements LoggerInterface {
@@ -332,7 +329,7 @@ abstract class AbstractLogger implements LoggerInterface {
 
 ## Couplage interface et abstract (3/3)
 
-### Des classes héritants de la classe abstraite
+### Des classes concrètes qui héritent de la classe abstraite
 
 ```java
 class ConsoleLogger extends AbstractLogger {

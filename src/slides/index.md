@@ -16,7 +16,7 @@
 
 ## Pourquoi faire des efforts de conception?
 
-Il faut avoir en tête la seule constante du développement : Le changement !
+Il faut avoir en tête **la seule constante du développement : Le changement !**
 
 * Modification des fonctionnalités et modèles
 * Changement de cible (desktop, serveur, cloud, mobile, etc.)
@@ -29,15 +29,15 @@ Il faut avoir en tête la seule constante du développement : Le changement !
 
 ## Quels sont les critères qualités d'un programme?
 
-On vise (et on priorise) plusieurs critères :
+Nous ciblerons (et on prioriserons) généralement plusieurs critères :
 
 * **Fiabilité**       : Pouvoir faire tourner le programme sans risque de plantage
 * **Maintenabilité**  : Pouvoir corriger un bug, mettre à jour les dépendances, etc.
 * **Performance**     : Temps d'exécution, consommation de RAM, espace disque, etc.
-* **Évolutivité**     : Pouvoir ajouter facilement des fonctionnalités sans peur de tout faire planter
-* **Réutilisabilité** : Pouvoir réutiliser un code dans un autre contexte
-* **Portabilité**     : Pouvoir porter facilement un programme développé pour une cible vers une autre
-* **Testabilité**     : Pouvoir automatiser facilement les tests unitaires et fonctionnels sur un programme
+* **Évolutivité**     : Pouvoir ajouter facilement des fonctionnalités sans risque de régression.
+* **Réutilisabilité** : Pouvoir réutiliser un code dans un autre contexte.
+* **Portabilité**     : Pouvoir porter facilement un programme développé pour une cible vers une autre.
+* **Testabilité**     : Pouvoir automatiser facilement les tests unitaires et fonctionnels sur un programme.
 * ...
 
 
@@ -95,7 +95,7 @@ nous nous attarderons sur les bonnes pratiques en parcourant les design pattern.
 
 Généralement, ces concepts sont plutôt bien maîtrisés pour modéliser des données (objet de domaine).
 
-Pour exploiter efficacement ces concepts pour faire varier efficacement le comportement d'un programme, il faut comprendre l'intérêt de ces concepts.
+Il faut toutefois bien **comprendre l'intérêt de ces concepts pour les exploiter efficacement** afin de faire varier efficacement le comportement d'un programme.
 
 => [Méditons quelques exemples](meditation.html).
 
@@ -106,10 +106,16 @@ Pour exploiter efficacement ces concepts pour faire varier efficacement le compo
 
 Les langages ont leurs spécificités qui doivent être prises en compte dans la conception :
 
+* Gestion de la mémoire (*Garbage collector*, notion de propriétaire d'une variable (Rust),...)
 * *Property* (getter/setter "magiques")
-* *Garbage collector*
-* Programmation générique/template
 * Introspection et réflexion
+* Annotations
+* Cohabitation de la P.O.O. avec d'autres paradigmes :
+  * Programmation générique (`template`)
+  * Programmation fonctionnelle (`.map`, `.filter`, `.reduce`,... avec éventuellement des coroutines et le mot clé `yield`)
+* ...
+
+Nous n'entrerons pas dans ce niveau de détail en nous concentrant sur les éléments applicables avec la plupart des langages disposant du concept de classe.
 
 ---
 
@@ -123,11 +129,11 @@ de base de la P.O.O. (abstraction, encapsulation, etc.) et qu'il faut avoir en t
 
 ## SOLID (1/2)
 
-### (S)ingle Responsibility
+### (S)ingle Responsibility Principle
 
 Une classe remplit une fonction et une seule.
 
-### (O)pen Closed
+### (O)pen Closed Principle
 
 Une classe est ouverte à l’extension, mais fermée aux modifications.
 
@@ -139,13 +145,13 @@ Une classe est ouverte à l’extension, mais fermée aux modifications.
 
 Lorsqu’une classe se substitue à une autre, le programme continue de fonctionner.
 
-### (I)nterface Segregation
+### (I)nterface Segregation Principle
 
 Préférer plusieurs interfaces spécifiques pour chaque client plutôt qu'une seule interface générale.
 
-### (D)ependency Inversion
+### (D)ependency Inversion Principle
 
-Il faut dépendre des interfaces, pas des implémentations (classe concrète).
+Il faut dépendre des interfaces, pas des implémentations (classes concrètes).
 
 ---
 
@@ -154,6 +160,7 @@ Il faut dépendre des interfaces, pas des implémentations (classe concrète).
 On ne code que ce qui est utile. On n'ajoute pas des codes en se disant que ça
 servira un jour.
 
+---
 
 ## DRY : Don't Repeat Yourself
 
@@ -183,7 +190,7 @@ class MaClasse {
 
 ## Identifier et encapsuler ce qui varie (2/2)
 
-... je fais abstraction sur l'écriture des logs
+... je fais abstraction sur l'écriture des logs en posant un concept à l'aide d'une classe `Logger` dédiée à l'écriture des logs :
 
 ```java
 class MaClasse {
@@ -202,17 +209,16 @@ class MaClasse {
 
 ## Préférer la composition à l'héritage
 
-* On hérite d'une classe seulement si on peut dire "EST-UN"
-* On n'hérite pas d'une classe dans le but de réutiliser ses méthodes !
-* On préfère les états aux classes dérivées (rôle d'utilisateur)
-
-(Nous verrons en détail pourquoi quand nous aborderons le patron [Strategy](annexe/design_pattern/behavior/Strategy.html))
+* Nous hériterons d'une classe seulement si nous pouvons dire "EST-UN" (ex : "un `Chien` est un `Animal`")
+* Nous n'hériterons pas d'une classe dans le but de réutiliser ses méthodes
+* Nous préférerons les états aux classes dérivées (ex : un `type` sur la classe `Animal` si rien ne je justifie une hiérarchie de type)
+* Nous verrons en détail avec le patron [Strategy](annexe/design_pattern/behavior/Strategy.html) en quoi l'approche par composition est plus efficace pour faire varier le comportement d'un programme.
 
 ---
 
 # Les anti-patterns
 
-Avant de mettre un nom sur des modèles de conception, on va mettre un nom sur des erreurs de conception courantes : Les anti-patterns !
+Avant de mettre un nom sur des modèles de conception, nous allons **mettre un nom sur des erreurs de conception courantes : Les anti-patterns !**
 
 ---
 
@@ -243,10 +249,9 @@ L'objet divin porte un trop grand nombre de responsabilités.
 
 ## Abstraction inverse
 
-Un composant ne fournit pas les abstractions nécessaires, mais seulement les méthodes
-les plus compliquées.
+Un composant ne fournit pas les abstractions nécessaires, mais seulement les méthodes les plus compliquées.
 
-Les abstractions sont effectuées dans les clients.
+Les abstractions sont développées dans les clients.
 
 ---
 
@@ -261,14 +266,13 @@ Avec un bon marteau, tous les problèmes sont des clous!
     <a href="http://www.engravingawardsgifts.com/">engravingawardsgifts.com</a>)
 </div>
 
-Un outil est placé comme solution à tous les problèmes. Il peut s'agir
-d'une bibliothèque, d'une base de données, d'une suite de logiciel, etc.
+Un outil est placé comme solution à tous les problèmes. Il peut s'agir d'une bibliothèque, d'une base de données, d'une suite de logiciel, etc.
 
 ---
 
 ## Coulée de lave
 
-Un code non finalisé est mis en production. Il n'est plus possible de le réfactorer.
+Un code non finalisé est mis en production. Il n'est plus possible de le remanier.
 
 Ce problème peut concerner aussi bien des bibliothèques que des API.
 
@@ -284,32 +288,30 @@ Ce problème peut concerner aussi bien des bibliothèques que des API.
 
 Exemples :
 
-* Optimiser le parcours séquentiel d'un tableau au point qu'il devient impossible d'exploiter un indexe.
-* "Je n'ai pas besoin des arcs entrants pour cet algorithme, je fais un graphe dédié qui consommera moins de mémoire!" : Qu'importe si le programme réel passe son temps à faire des copies...
+* Optimiser le parcours séquentiel d'un tableau au point qu'il devient impossible d'exploiter un indexe spatial.
+* "Je n'ai pas besoin des arcs entrants pour cet algorithme, je développe une classe dédiée pour ce graphe afin de consommer moins de mémoire!". Bilan : Le programme réel passe son temps à faire des copies de graphes.
 
 ---
 
 ## Premature Optimisation (2/2)
 
-"Premature optimization is the root of all evil" (Donald Knuth)
+"Premature optimization is the root of all evil" (Donald Knuth) **mais :**
 
-mais...
-
-* Il ne faut pas en conclure qu'on doit ignorer l'optimisation dans la conception!
+* Il ne faut pas en conclure que l'optimisation doit être ignorée dans la conception!
 * Il faut rester prudent sur cette affirmation pour les bibliothèques de bas niveau!
 * Parfois, on privilégie la performance à la portabilité.
 
 Proposition de méthode :
 
-* Se concentrer sur les optimisations globales (structure efficace, indexation, gestion des caches, etc.) dans la conception.
-* Coder en mettant en place des tests et des benchs.
-* Profiler et réaliser les optimisations locales sur les fonctions souvent appelées.
+* **Se concentrer sur les optimisations globales dans la conception** (choix de structures efficaces, indexations, gestion des caches, etc.).
+* Coder en mettant en place des **tests** et des **mesures de performance** (*bench*).
+* **Profiler** et réaliser les **optimisations locales sur les fonctions souvent appelées**.
 
 ---
 
 # Les designs patterns
 
-On y est! Alors, les patrons de conception, Quésako?
+Nous y sommes! Alors, les patrons de conception, Quésako?
 
 ---
 
@@ -323,19 +325,20 @@ Un design pattern est la description d'une solution réutilisable pour un probl�
 
 ## Famille de patrons de conception du GoF
 
-* Les patrons de création (*creational patterns*) qui décrivent des techniques
-d'initialisation des objets.
-* Les patrons de structure (*structural patterns*) qui décrivent des organisations
-classiques de classes.
-* Les patrons de comportement (*behavioral patterns*) qui décrivent des méthodes
-de communications entre objets au sein d'une application.
+Le « Gang of Four » définit trois familles de patrons de conception :
+
+* Les **patrons de création** (*creational patterns*) qui décrivent des **techniques d'initialisation des objets**.
+* Les **patrons de structure** (*structural patterns*) qui décrivent des **organisations classiques de classes**.
+* Les **patrons de comportement** (*behavioral patterns*) qui décrivent des méthodes de communications entre objets au sein d'une application.
 
 ---
 
 ## Autres familles de patrons de conception
 
-* Les patrons architecturaux qui traitent des styles d'architecture de logiciel (MVC, micro-service, etc.)
-* Des familles de patrons spécifiques à des domaines d'application (cloud computing, etc.)
+Le concept sera étendu et nous trouverons en complément :
+
+* Des patrons architecturaux qui traitent des styles d'architecture de logiciel (MVC, micro-service, etc.)
+* Des familles de patrons spécifiques à des domaines d'application (cloud, big-data, etc.)
 * Des familles de patrons spécifiques à des frameworks (spring, etc.)
 
 ---
@@ -392,7 +395,7 @@ Aussi, vous pourrez rechercher des solutions aux problèmes classiques que vous 
 * [Adapter (Adaptateur)](annexe/design_pattern/structural/Adapter.html)
 * [Bridge (Pont)](annexe/design_pattern/structural/Bridge.html)
 * Proxy
-* Flyweigth (Poids-mouche)
+* Flyweight (Poids-mouche)
 
 ---
 
@@ -401,7 +404,7 @@ Aussi, vous pourrez rechercher des solutions aux problèmes classiques que vous 
 * [Iterator (Itérateur)](annexe/design_pattern/behavior/Iterator.html)
 * [Strategy (Stratégie)](annexe/design_pattern/behavior/Strategy.html)
 * [Visitor (Visiteur)](annexe/design_pattern/behavior/Visitor.html)
-* Chain of responsability (Chaîne de responsabilité)
+* Chain of responsibility (Chaîne de responsabilité)
 * Command (Commande)
 * Interpreter (Interpréteur)
 * Mediator (Médiateur)
@@ -427,7 +430,6 @@ Aussi, vous pourrez rechercher des solutions aux problèmes classiques que vous 
 * [Inversion de contrôle (IoC)](https://github.com/mborne/spring-ioc-principe)
 * Event-Driven architecture/Message Oriented Middleware (MOM)
 
-Et bien d'autres en fonction des domaines (réseau, cloud computing, etc.)
 
 ---
 
@@ -461,9 +463,9 @@ Stockage des sessions, des caches, etc.
 
 * Expérimenter!
 
-* Concevoir des codes en pensant règle de conception et patron de conception
+* Concevoir des codes en pensant aux principes de conception et patrons de conception
 
-* Concevoir des codes en les testant unitairement (on ne peut pas tester des codes qui sont mal conçus)
+* Concevoir des codes en les testant unitairement (un code mal conçu ne pouvant être testé unitairement)
 
 * Comprendre des architectures
 
@@ -488,13 +490,17 @@ Stockage des sessions, des caches, etc.
 
 * Design Patterns, Catalogue de modèles de conceptions réutilisables, Vuibert
 
-* [Microsoft Application Architecture Guide, 2nd Edition](https://www.intertech.com/Downloads/eBook/ApplicationArchitectureGuide.pdf)
+* Microsoft Application Architecture Guide, 2nd Edition
 
 > Disponible gratuitement au format PDF, ce guide initialement rédigé à l'attention des développeurs DotNet traite des problématiques générales sur l'architecture logicielle : Principes de conception, critères qualités, styles d'architecture, etc.
 
 ---
 
 # Bibliographie  (2/2)
+
+* [principles-wiki.net - Principles](http://principles-wiki.net/principles:start)
+
+> Catalogue de principes de conception.
 
 * [java-design-patterns.com - Design patterns implemented in Java](https://java-design-patterns.com/)
 
@@ -511,3 +517,8 @@ Stockage des sessions, des caches, etc.
 * [fr.wikibooks.org - WIKIBOOK, Patrons de conception/Patrons du *Gang of Four*](https://fr.wikibooks.org/wiki/Patrons_de_conception)
 
 > Présentation des principaux patrons de conception
+
+* [learn.microsoft.com - Cloud Design Patterns](https://learn.microsoft.com/en-us/azure/architecture/patterns/)
+
+> Patron de conception de plus haut niveau pour le développement de services hébergés dans le *cloud*.
+
