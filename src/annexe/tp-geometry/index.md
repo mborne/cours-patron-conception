@@ -76,6 +76,7 @@ Ajouter une méthode de permettant de translater une géométrie.
 
 ![Schéma UML](schema/mcd-04.png)
 
+Remarque : Vous serez amené à créer une nouvelle `Coordinate` pour l'implémentation dans `Point`.
 
 ## 0.5 - Geometry.clone()
 
