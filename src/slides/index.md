@@ -65,6 +65,7 @@ nous nous attarderons sur les bonnes pratiques en parcourant les design pattern.
 * Les patrons de création
 * Les patrons de structure
 * Les patrons de comportement
+* Les patrons architecturaux
 * A vous maintenant!
 * Annexe
 * Bibliographie
@@ -415,39 +416,20 @@ Aussi, vous pourrez rechercher des solutions aux problèmes classiques que vous 
 
 * [Null Object (objet null)](annexe/design_pattern/behavior/NullObject.html)
 
----
-
-# Les patrons de conception architecturaux
 
 ---
 
-## Quelques exemples de patrons de conception architecturaux
+# Les patrons architecturaux
+
+Quelques exemples :
 
 * Architecture en couche
 * Architecture micro-service
-* [MapReduce](annexe/design_pattern/architectural/MapReduce.html)
 * [Model-View-Controller (MVC)](annexe/design_pattern/architectural/MVC.html)
 * [Inversion de contrôle (IoC)](https://github.com/mborne/spring-ioc-principe)
+* [MapReduce](annexe/design_pattern/architectural/MapReduce.html)
 * Event-Driven architecture/Message Oriented Middleware (MOM)
 
-
----
-
-## Les stacks applicatives
-
-Dans la mesure où les composants remplacent les bibliothèques, les stacks applicatives traduisent des patrons de conception architecturaux.
-
-* RabbitMQ/ActiveMQ
-
-Utilisation de pile de message pour les traitements asynchrones, distribués, sur des systèmes hétérogènes.
-
-* Service de stockage de fichier (Amazone S3, Ceph, etc.)
-
-Utilisation de serveur dédiés au stockage de fichiers téléchargeables.
-
-* Stockage clé valeur (memcached, redis, etc.)
-
-Stockage des sessions, des caches, etc.
 
 ---
 
@@ -467,7 +449,7 @@ Stockage des sessions, des caches, etc.
 
 * Concevoir des codes en les testant unitairement (un code mal conçu ne pouvant être testé unitairement)
 
-* Comprendre des architectures
+* Comprendre des architectures existantes (vous constaterez que les mêmes principes s'appliquent à diverses échelles des systèmes)
 
 ---
 
@@ -498,7 +480,7 @@ Stockage des sessions, des caches, etc.
 
 # Bibliographie  (2/2)
 
-* [principles-wiki.net - Principles](http://principles-wiki.net/principles:start)
+* [principles-wiki.net - OOD Principle Language](http://principles-wiki.net/collections:ood_principle_language)
 
 > Catalogue de principes de conception.
 
@@ -506,13 +488,9 @@ Stockage des sessions, des caches, etc.
 
 > Implémentation de nombreux patrons de conception en java sur des exemples concrets et présentation des principes de conceptions (dépôt github disponible : https://github.com/iluwatar/java-design-patterns)
 
-* [sourcemaking.com - Design Patterns](https://sourcemaking.com/design_patterns)
+* [sourcemaking.com - Design Patterns](https://sourcemaking.com/design_patterns) et [AntiPatterns](https://sourcemaking.com/antipatterns)
 
-> Catalogue des principaux patrons de conception avec des exemples dans plusieurs langages.
-
-* [sourcemaking.com - AntiPatterns](https://sourcemaking.com/antipatterns)
-
-> Catalogue d'anti-patrons au niveau du développement, de l'architecture et de la gestion de projet.
+> Catalogue des principaux patrons de conception (avec des exemples dans plusieurs langages) et anti-patrons (dans plusieurs domaines : développement, architecture et gestion de projet).
 
 * [fr.wikibooks.org - WIKIBOOK, Patrons de conception/Patrons du *Gang of Four*](https://fr.wikibooks.org/wiki/Patrons_de_conception)
 

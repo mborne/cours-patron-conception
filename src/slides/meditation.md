@@ -162,7 +162,7 @@ class AbstractLogger {
     }
 
     public void error(String message){
-        log(LogLevel.WARN,message);
+        log(LogLevel.ERROR,message);
     }
 
     /* Seul comportement à implémenter sur les classes concrètes */

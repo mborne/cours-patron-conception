@@ -60,24 +60,26 @@ valeurs par défaut.
 Il est important de :
 
 * Tagger/Releaser des versions stables des codes
-* D'adopter une convension de nommage pour les versions
+* D'adopter une convention de nommage pour les versions
 
-La convension généralement utilisée est `<major>.<minor>.<patch>` (exemple : "1.2.5") où :
+La convention généralement utilisée est `<major>.<minor>.<patch>` (exemple : "1.2.5") où :
 
 * L'incrémentation de `<major>` traduit une version majeure porteuse de changement cassant
 * `<minor>` traduit des ajouts de fonctionnalités sans changement cassant
 * `<patch>` traduit une correction de bug sans ajout de fonctionnalité
 
-Les clients peuvent ainsi maîtriser les montées en version tout en récupérant automatiquement les correctifs.
+Elle est connue sous le nom de [gestion sémantique de version](https://semver.org/lang/fr/) et permet aux clients de maîtriser les montées en version tout en récupérant automatiquement les correctifs.
+
 
 ---
 
 ## Accompagnement du changement
 
-* Les fichiers CHANGELOG décrivent les changements et adaptation à réaliser.
-* Les fonctionnalitées qui vont être supprimées peuvent être marquées comme dépréciées dans des versions intermédiaires.
-* Des versions dédiées aux migrations peuvent être mise en oeuvre
-    * Ex : Version 2.8 apportant les nouveautés de la version 3.0 en marquant comme dépréciées les fonctionnalités supprimées dans la version 3.0 (vu framework PHP Symfony)
+* Les fichiers **CHANGELOG** décrivent les changements et adaptation à réaliser.
+* Les **fonctionnalités qui vont être supprimées** peuvent être **marquées comme dépréciées** dans des versions intermédiaires.
+* Des **versions dédiées aux changements majeurs** peuvent être développées
+
+> Une version 2.8 peut apporter les nouveautés de la version 3.0 et de marquer comme dépréciées les fonctionnalités qui seront supprimées dans la version 3.0 (bonne pratique respectée par le framework PHP Symfony)
 
 ---
 
@@ -85,8 +87,7 @@ Les clients peuvent ainsi maîtriser les montées en version tout en récupéran
 
 La gestion des versions est intimement liée à la gestion de l'historique.
 
-Il est fortement conseillé d'adopter un workflow clair dans la gestion
-des branches et des tags.
+Il est fortement conseillé d'adopter un workflow clair dans la gestion des branches et des tags.
 
 Voir :
 
@@ -98,24 +99,25 @@ Voir :
 
 ## Code public et privé (notion d'API)
 
-Au sein d'une même bibliothèque, on trouvera parfois la notion de code privé et de code public (`Impl`, namespace `detail`, package `internal`, etc.)
+Il est difficile d'éviter les changements cassants sur toutes les classes d'une bibliothèque.
 
-Il faut éviter de dépendre d'un tel code dans une bibliothèque tierces. On peut s'y autoriser des changements cassants non documenté.
+A ce titre, au sein d'une même bibliothèque, on trouvera parfois la notion de **code public** et de **code privé** (suffixe `Impl`, namespace `detail`, package `internal`, etc.)
+
+Il faudra éviter de dépendre du code privé d'une bibliothèque tierces pour ne pas subir des changements cassants non documentés.
 
 ---
 
 ## Importance des tests
 
-Les tests unitaires et fonctionnels vont permettre de se protéger contre les
-régressions.
+En cas de refactoring de code, le comportement des clients de ce code ne doit pas changer.
 
-Quand on refactor du code, le comportement des clients de ce code ne doit pas changer.
+Les tests unitaires et fonctionnels permettront d'éviter des régressions.
 
 ---
 
 ## Techniques de refactoring
 
-Outre l'introduction de pattern, il existe une multitude de modification classique qui tendent à améliorer la qualité d'un code :
+Outre l'introduction de patron de conception, il existe une multitude de modifications classiques qui tendent à améliorer la qualité d'un code :
 
 * Renommage de variable
 * Extraction de méthode
@@ -150,8 +152,10 @@ Généralement, on réfactorera un code à l'occasion d'actions concrètes :
 
 Plusieurs familles d'outils peuvent aider à maintenir ou améliorer la qualité d'un code :
 
-* Les outils d'analyse statiques de code (voir SonarQube par exemple)
-* Les outils générant des rapports de couverture par les tests
-* Les outils d'intégration continue (travis, jenkins, etc.)
-* Les outils de mesure de performance (par ex VisualVM en java)
+* Les outils de mise en forme automatique du code
+* Les outils d'analyse statiques de code (ex : PMD, SonarQube,...)
+* Les outils de génération de couverture par les tests (ex : jacoco)
+* Les outils d'intégration continue (ex : GitLab-CI, GitHub actions, jenkins, etc.)
+* ...
+
 

@@ -19,7 +19,7 @@
 
 <body>
   <article class="markdown-body">
-    <h1 id="tp---refactoring-de-traitement-de-graphe">TP - Refactoring de traitement de graphe</h1><h2 id="introduction">Introduction</h2><p>Dans ce TP où l&#39;idée est de se mettre en situation où l&#39;on récupère un prototype à industrialiser, nous allons réfactorer une application qui charge un graphe et calcule le plus court chemin entre deux sommets.</p>
+    <h1 id="tp---refactoring-de-traitement-de-graphe">TP - Refactoring de traitement de graphe</h1><h2 id="introduction">Introduction</h2><p>Dans ce TP où l&#39;idée est de se mettre en situation où nous devons industrialiser un prototype. Nous allons réfactorer une application qui charge un graphe et calcule le plus court chemin entre deux sommets.</p>
 <p>L&#39;application se présente sous la forme d&#39;une API basée sur <a href="https://spring.io/guides/gs/spring-boot/" target="_blank">spring boot</a></p>
 <p>Les objectifs sont les suivants :</p>
 <ul>
@@ -39,12 +39,12 @@
 </ul>
 </li>
 </ul>
-<h2 id="mise-en-garde">Mise en garde</h2><p>Vous devrez impérativement livrer un code fonctionnel sur la branche par défaut de votre fork.</p>
+<h2 id="mise-en-garde">Mise en garde</h2><p>Vous devrez impérativement <strong>livrer un code fonctionnel sur la branche par défaut de votre fork</strong>.</p>
 <p>Pour ce faire, il vous est vivement conseillé de :</p>
 <ul>
 <li>Travailler sur une autre branche (ex : <code>develop</code>), en particulier si vous voulez pousser des travaux en cours.</li>
 <li>Lancer à chaque étape la construction et les tests automatiques (<code>mvn clean package</code>).</li>
-<li>Compléter ces tests automatique avec un test manuel sur l&#39;API.</li>
+<li>Compléter ces tests automatiques avec un test manuel sur l&#39;API.</li>
 </ul>
 <h2 id="01---blindage-de-la-construction-des-arcs">0.1 - Blindage de la construction des arcs</h2><p>On remarque que l&#39;on dispose d&#39;un modèle qui ne protège pas contre les erreurs la création des sommets et des arcs. Il est tout à fait possible de créer par erreur un <code>Edge</code> avec une <code>source</code> ou une <code>target</code> nulle.</p>
 <p>On procède comme suit :</p>
@@ -58,7 +58,7 @@
 <ul>
 <li>Ajout d&#39;une fabrique <code>createVertex(coordinate: Coordinate, id: String): Vertex</code> dans <code>Graph</code></li>
 <li>Ajout d&#39;une fabrique <code>createEdge(source: Vertex, target: Vertex, id: String): Edge</code> dans <code>Graph</code></li>
-<li>Masquage des constructeur <code>Vertex()</code> et <code>Edge(source,target)</code></li>
+<li>Masquage des constructeurs <code>Vertex()</code> et <code>Edge(source,target)</code></li>
 <li>Suppression de <code>Graph.setVertices(vertices)</code> et <code>Graph.setEdges(edges)</code></li>
 </ul>
 <p>Ainsi, on passera de :</p>
@@ -81,15 +81,15 @@ graph.getEdges().add(ab);
 Vertex b = graph.createVertex(new Coordinate(1.0, 0.0),&quot;b&quot;);
 graph.createEdge(a,b,&quot;ab&quot;);
 </code></pre>
-<h2 id="03---géométrie-réelle-des-tronçons">0.3 - Géométrie réelle des tronçons</h2><p>On remarque au niveau de <code>getCost</code> et <code>getGeometry</code> que la géométrie des tronçons est un segment entre le sommet source et le sommet cible.</p>
-<p>On va procéder comme suit pour utiliser la géométrie des tronçons :</p>
+<h2 id="03---géométrie-réelle-des-tronçons">0.3 - Géométrie réelle des tronçons</h2><p>On remarque au niveau de <code>getCost</code> et <code>getGeometry</code> que la géométrie des tronçons est un segment entre le sommet source et le sommet cible. La géométrie réelle est lue dans <a href="https://github.com/mborne/tp-refactoring-graph/blob/52a0e9fca74a3a3f2a73ba67111a57c0a7da0e2c/src/main/java/org/acme/graph/io/GraphReader.java#L82" target="_blank">GraphReader</a> mais elle n&#39;est pas exploitée lors de la création du graphe.</p>
+<p>On va procéder comme suit pour ajouter la géométrie réelle des tronçons de route sur les <code>Edge</code> :</p>
 <ul>
 <li>Ajout d&#39;un attribut <code>geometry: LineString</code> sur la classe <code>Edge</code> avec un setter <code>setGeometry(geometry: LineString)</code></li>
 <li>Mise à jour de <code>getGeometry()</code> pour renvoyer l&#39;attribut <code>geometry</code> s&#39;il est défini</li>
 <li>Mise à jour de <code>getCost()</code> pour renvoyer la longueur de la géométrie à l&#39;aide de <a href="https://locationtech.github.io/jts/javadoc/org/locationtech/jts/geom/LineString.html#getLength--" target="_blank">getLength</a> de JTS</li>
 <li>Mise à jour de <code>GraphReader</code> pour stocker la géométrie sur les <code>Edge</code> à l&#39;aide de <code>setGeometry</code></li>
 </ul>
-<h2 id="04---indexation-des-arcs-entrants-et-sortants">0.4 - Indexation des arcs entrants et sortants</h2><p>En lisant attentivement <code>DijsktraPathFinder</code> (ou un utilisant un outil tel VisualVM), on remarque que la méthode <code>graph.getOutEdges(vertex: Vertex)</code> est appelée très fréquemment dans la méthode <code>visit(vertex: Vertex)</code>.</p>
+<h2 id="04---indexation-des-arcs-entrants-et-sortants">0.4 - Indexation des arcs entrants et sortants</h2><p>En lisant attentivement <code>DijsktraPathFinder</code> (ou un utilisant un outil de profilage tel VisualVM), on remarque que la méthode <code>graph.getOutEdges(vertex: Vertex)</code> est appelée très fréquemment dans la méthode <code>visit(vertex: Vertex)</code>.</p>
 <p>Cette approche étant loin d&#39;être optimale, nous allons indexer les arcs sortants et entrants comme suit :</p>
 <ul>
 <li>Suppression de <code>setSource</code> et <code>setTarget</code> dans <code>Edge</code> (1)</li>
@@ -101,11 +101,11 @@ graph.createEdge(a,b,&quot;ab&quot;);
 </ul>
 <p>Remarques :</p>
 <ul>
-<li>(1) Nous n&#39;avons pas besoin d&#39;éditer les graphes après chargement, inutile de gérer la complexité pour <code>inEdges</code> et <code>outEdges</code>.</li>
+<li>(1) Nous n&#39;avons pas besoin d&#39;éditer les graphes après chargement, il est donc inutile de conserver <code>setSource</code> et <code>setTarget</code> qui complexifieraient la gestion de <code>inEdges</code> et <code>outEdges</code>.</li>
 <li>(2) Nous n&#39;avons pas besoin pour l&#39;algorithme actuel des <code>inEdges</code> mais nous choisissons de conserver une symétrie dans le modèle.</li>
-<li>(3) ATTENTION : Sans cette étape, l&#39;API plantera avec une récursion infinie.</li>
+<li><strong>(3) ATTENTION : Sans cette étape, l&#39;API plantera avec une récursion infinie.</strong></li>
 </ul>
-<h2 id="05---amélioration-de-la-gestion-des-chemins-non-trouvés">0.5 - Amélioration de la gestion des chemins non trouvés</h2><p>On remarque que <code>findPath(Vertex origin, Vertex destination)</code> de <code>DijkstraPathFinder</code> renvoie <code>null</code> si le chemin n&#39;est pas trouvé, ce qui induit une réponse vide au niveau de l&#39;API.</p>
+<h2 id="05---amélioration-de-la-gestion-des-chemins-non-trouvés">0.5 - Amélioration de la gestion des chemins non trouvés</h2><p>On remarque que <code>findPath(Vertex origin, Vertex destination)</code> de <code>DijkstraPathFinder</code> renvoie <code>null</code> si le chemin n&#39;est pas trouvé, ce qui induit une réponse vide au niveau de l&#39;API qui ne sera pas facile à interprétée par le client.</p>
 <p>On remarque que le cas où le sommet de départ ou d&#39;arrivé est mieux géré grâce :</p>
 <ul>
 <li>Au renvoi d&#39;une <code>NotFoundException</code> dans <code>Graph.findVertex(id: String)</code> dans le cas où le sommet n&#39;est pas trouvé par son identifiant</li>
@@ -169,18 +169,7 @@ graph.createEdge(a,b,&quot;ab&quot;);
     }
     //...
 </code></pre>
-<p><strong>Option 1 :</strong></p>
-<p>On procède donc comme suit pour indexer les sommets non visité :</p>
-<ul>
-<li>Ajout de <code>notVisited: Set&lt;Vertex&gt;</code> sur <code>PathTree</code></li>
-<li>Gestion de <code>notVisited</code> dans <code>getOrCreateNode</code> de <code>PathTree</code></li>
-<li>Ajout de <code>getNotVisitedVertices(): Collection&lt;Vertex&gt;</code> sur <code>PathTree</code></li>
-<li>Ajout de <code>markVisited(vertex)</code> sur <code>PathTree</code></li>
-<li>Suppression de <code>visited</code> sur <code>PathNode</code></li>
-<li>Mise à jour des codes pour utiliser <code>markVisited(vertex)</code> et <code>getNotVisitedVertices()</code></li>
-</ul>
-<p><strong>Option 2 :</strong></p>
-<p>On s&#39;appuie sur la bibliothèque <a href="https://github.com/npgall/cqengine" target="_blank">cqengine</a> (1) pour obtenir une collection de <code>PathNode</code> avec plusieurs indexes au niveau du <code>PathTree</code> :</p>
+<p>On s&#39;appuie sur la bibliothèque <a href="https://github.com/npgall/cqengine" target="_blank">CQEngine</a> (1) pour obtenir une collection de <code>PathNode</code> avec plusieurs indexes au niveau du <code>PathTree</code> :</p>
 <ul>
 <li>Ajout de <code>vertex: Vertex</code> sur <code>PathNode</code></li>
 <li>Remplacement de la <code>Map&lt;Vertex,PathNode&gt;</code> par une <code>IndexedCollection&lt;PathNode&gt; nodes</code> sur <code>PathTree</code></li>
@@ -191,7 +180,7 @@ graph.createEdge(a,b,&quot;ab&quot;);
 </ul>
 <p>Remarque : </p>
 <ul>
-<li>(1) Une démonstration de l&#39;utilisation de cqengine est présente dans les tests : <a href="https://github.com/mborne/tp-refactoring-graph/blob/upgrade_cqengine/src/test/java/org/acme/graph/demo/CqEngineTest.java" target="_blank">CqEngineTest</a></li>
+<li>(1) Une démonstration de l&#39;utilisation de CQEngine est présente dans les tests : <a href="https://github.com/mborne/tp-refactoring-graph/blob/upgrade_cqengine/src/test/java/org/acme/graph/demo/CqEngineTest.java" target="_blank">CqEngineTest</a></li>
 <li>(2) Pour que les indexes se mettent à jour lors des modifications des <code>PathNode</code>, il faut supprimer le <code>PathNode</code> de la collection, modifier le <code>PathNode</code> et le ré-ajouter à la collection.</li>
 </ul>
 <!-- TODO : RESTE A REVOIR/BLINDER LES QUESTIONS CI-APRES -->

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Dans ce TP où l'idée est de se mettre en situation où l'on récupère un prototype à industrialiser, nous allons réfactorer une application qui charge un graphe et calcule le plus court chemin entre deux sommets.
+Dans ce TP où l'idée est de se mettre en situation où nous devons industrialiser un prototype. Nous allons réfactorer une application qui charge un graphe et calcule le plus court chemin entre deux sommets.
 
 L'application se présente sous la forme d'une API basée sur [spring boot](https://spring.io/guides/gs/spring-boot/)
 
@@ -26,13 +26,13 @@ Pour cela, nous allons faire une revue de code et procéder par étape.
 
 ## Mise en garde
 
-Vous devrez impérativement livrer un code fonctionnel sur la branche par défaut de votre fork.
+Vous devrez impérativement **livrer un code fonctionnel sur la branche par défaut de votre fork**.
 
 Pour ce faire, il vous est vivement conseillé de :
 
 * Travailler sur une autre branche (ex : `develop`), en particulier si vous voulez pousser des travaux en cours.
 * Lancer à chaque étape la construction et les tests automatiques (`mvn clean package`).
-* Compléter ces tests automatique avec un test manuel sur l'API.
+* Compléter ces tests automatiques avec un test manuel sur l'API.
 
 
 ## 0.1 - Blindage de la construction des arcs
@@ -54,7 +54,7 @@ On va donc procéder comme suit :
 
 * Ajout d'une fabrique `createVertex(coordinate: Coordinate, id: String): Vertex` dans `Graph`
 * Ajout d'une fabrique `createEdge(source: Vertex, target: Vertex, id: String): Edge` dans `Graph`
-* Masquage des constructeur `Vertex()` et `Edge(source,target)`
+* Masquage des constructeurs `Vertex()` et `Edge(source,target)`
 * Suppression de `Graph.setVertices(vertices)` et `Graph.setEdges(edges)`
 
 Ainsi, on passera de :
@@ -85,9 +85,9 @@ graph.createEdge(a,b,"ab");
 
 ## 0.3 - Géométrie réelle des tronçons
 
-On remarque au niveau de `getCost` et `getGeometry` que la géométrie des tronçons est un segment entre le sommet source et le sommet cible.
+On remarque au niveau de `getCost` et `getGeometry` que la géométrie des tronçons est un segment entre le sommet source et le sommet cible. La géométrie réelle est lue dans [GraphReader](https://github.com/mborne/tp-refactoring-graph/blob/52a0e9fca74a3a3f2a73ba67111a57c0a7da0e2c/src/main/java/org/acme/graph/io/GraphReader.java#L82) mais elle n'est pas exploitée lors de la création du graphe.
 
-On va procéder comme suit pour utiliser la géométrie des tronçons :
+On va procéder comme suit pour ajouter la géométrie réelle des tronçons de route sur les `Edge` :
 
 * Ajout d'un attribut `geometry: LineString` sur la classe `Edge` avec un setter `setGeometry(geometry: LineString)`
 * Mise à jour de `getGeometry()` pour renvoyer l'attribut `geometry` s'il est défini
@@ -96,7 +96,7 @@ On va procéder comme suit pour utiliser la géométrie des tronçons :
 
 ## 0.4 - Indexation des arcs entrants et sortants
 
-En lisant attentivement `DijsktraPathFinder` (ou un utilisant un outil tel VisualVM), on remarque que la méthode `graph.getOutEdges(vertex: Vertex)` est appelée très fréquemment dans la méthode `visit(vertex: Vertex)`.
+En lisant attentivement `DijsktraPathFinder` (ou un utilisant un outil de profilage tel VisualVM), on remarque que la méthode `graph.getOutEdges(vertex: Vertex)` est appelée très fréquemment dans la méthode `visit(vertex: Vertex)`.
 
 Cette approche étant loin d'être optimale, nous allons indexer les arcs sortants et entrants comme suit :
 
@@ -109,14 +109,14 @@ Cette approche étant loin d'être optimale, nous allons indexer les arcs sortan
 
 Remarques :
 
-* (1) Nous n'avons pas besoin d'éditer les graphes après chargement, inutile de gérer la complexité pour `inEdges` et `outEdges`.
+* (1) Nous n'avons pas besoin d'éditer les graphes après chargement, il est donc inutile de conserver `setSource` et `setTarget` qui complexifieraient la gestion de `inEdges` et `outEdges`.
 * (2) Nous n'avons pas besoin pour l'algorithme actuel des `inEdges` mais nous choisissons de conserver une symétrie dans le modèle.
-* (3) ATTENTION : Sans cette étape, l'API plantera avec une récursion infinie.
+* **(3) ATTENTION : Sans cette étape, l'API plantera avec une récursion infinie.**
 
 
 ## 0.5 - Amélioration de la gestion des chemins non trouvés
 
-On remarque que `findPath(Vertex origin, Vertex destination)` de `DijkstraPathFinder` renvoie `null` si le chemin n'est pas trouvé, ce qui induit une réponse vide au niveau de l'API.
+On remarque que `findPath(Vertex origin, Vertex destination)` de `DijkstraPathFinder` renvoie `null` si le chemin n'est pas trouvé, ce qui induit une réponse vide au niveau de l'API qui ne sera pas facile à interprétée par le client.
 
 On remarque que le cas où le sommet de départ ou d'arrivé est mieux géré grâce :
 
@@ -208,20 +208,7 @@ for (Vertex vertex : pathTree.getReachedVertices()) {
 	//...
 ```
 
-**Option 1 :**
-
-On procède donc comme suit pour indexer les sommets non visité :
-
-* Ajout de `notVisited: Set<Vertex>` sur `PathTree`
-* Gestion de `notVisited` dans `getOrCreateNode` de `PathTree`
-* Ajout de `getNotVisitedVertices(): Collection<Vertex>` sur `PathTree`
-* Ajout de `markVisited(vertex)` sur `PathTree`
-* Suppression de `visited` sur `PathNode`
-* Mise à jour des codes pour utiliser `markVisited(vertex)` et `getNotVisitedVertices()`
-
-**Option 2 :**
-
-On s'appuie sur la bibliothèque [cqengine](https://github.com/npgall/cqengine) (1) pour obtenir une collection de `PathNode` avec plusieurs indexes au niveau du `PathTree` :
+On s'appuie sur la bibliothèque [CQEngine](https://github.com/npgall/cqengine) (1) pour obtenir une collection de `PathNode` avec plusieurs indexes au niveau du `PathTree` :
 
 * Ajout de `vertex: Vertex` sur `PathNode`
 * Remplacement de la `Map<Vertex,PathNode>` par une `IndexedCollection<PathNode> nodes` sur `PathTree`
@@ -232,7 +219,7 @@ On s'appuie sur la bibliothèque [cqengine](https://github.com/npgall/cqengine) 
 
 Remarque : 
 
-* (1) Une démonstration de l'utilisation de cqengine est présente dans les tests : [CqEngineTest](https://github.com/mborne/tp-refactoring-graph/blob/upgrade_cqengine/src/test/java/org/acme/graph/demo/CqEngineTest.java)
+* (1) Une démonstration de l'utilisation de CQEngine est présente dans les tests : [CqEngineTest](https://github.com/mborne/tp-refactoring-graph/blob/upgrade_cqengine/src/test/java/org/acme/graph/demo/CqEngineTest.java)
 * (2) Pour que les indexes se mettent à jour lors des modifications des `PathNode`, il faut supprimer le `PathNode` de la collection, modifier le `PathNode` et le ré-ajouter à la collection.
 
 
