@@ -19,38 +19,29 @@
 
 <body>
   <article class="markdown-body">
-    <h1 id="mvc">MVC</h1><h2 id="problème">Problème</h2><p>En l&#39;absence de cadre, une application qui se complexifie à tendance à se transformer
-en un plat de spaghetti. </p>
-<p>On se retrouve avec des composants qui font du rendu et des calculs. Dans le cas particulier
-des applications web, on peine pour réaliser les appels entre les différentes pages, on mélange 
-le contrôle des paramètres et la génération des requêtes SQL, etc.</p>
+    <h1 id="mvc">MVC</h1><h2 id="problème">Problème</h2><p>En l&#39;absence d&#39;un cadre, une application qui se complexifie à tendance à se transformer en un plat de spaghetti. On se retrouve avec des composants qui font du rendu et des calculs.</p>
 <h2 id="principe">Principe</h2><p>Pour plus de modularité et de clarté, on effectue une séparation claire entre :</p>
 <ul>
-<li>Des vues qui gère l&#39;affichage</li>
-<li>Des modèles qui correspondent à la modélisation</li>
-<li>Des controlleurs qui gère l&#39;appel aux traitements</li>
+<li>Des <strong>vues</strong> qui gèrent l&#39;affichage</li>
+<li>Des <strong>modèles</strong> représentant les données</li>
+<li>Des <strong>contrôleurs</strong> qui gèrent l&#39;appel aux traitements</li>
 </ul>
-<h2 id="variante-de-mvc-dédié-au-web">Variante de MVC dédié au WEB</h2><p>Les applications web ont des besoins spécifiques à l&#39;utilisation 
-du protocole HTTP. Généralement, le fonctionnement est le suivant.</p>
-<h3 id="dispatching-des-requêtes-sur-des-actions">Dispatching des requêtes sur des actions</h3><p>Les controlleurs porteurs d&#39;actions correspondant chacune à 
-une fonctionnalité/page.</p>
-<p>Un composant (<code>Router</code>) dirige chaque requête vers une action particulière, 
-souvent à l&#39;aide d&#39;expression régulière :</p>
+<h2 id="variante-de-mvc-dédié-au-web">Variante de MVC dédié au WEB</h2><p>Les applications web ont des besoins spécifiques à l&#39;utilisation du protocole HTTP. Généralement, le fonctionnement est le suivant :</p>
 <ul>
-<li>&quot;/books&quot; : Action afficher la liste des livres (<code>BookController.listAction</code>)</li>
-<li>&quot;/books/{id}&quot; : Action afficher le livre d&#39;identifiant &quot;id&quot; (<code>BookController.showBook</code>)</li>
+<li>Les <strong>contrôleurs</strong> sont porteurs d&#39;<strong>actions</strong> correspondant chacune à une page/fonctionnalité</li>
+<li>Un composant (<code>Router</code>) dirige chaque requête vers une action particulière :<ul>
+<li><code>/books</code> : Action afficher la liste des livres (<code>BookController.listAction</code>)</li>
+<li><code>/books/{id}</code> : Action afficher le livre d&#39;identifiant &quot;id&quot; (<code>BookController.showBook</code>)</li>
 </ul>
-<h3 id="action--contrôles-des-paramètres-et-récupérations-des-résultats"><code>Action</code> : contrôles des paramètres et récupérations des résultats</h3><p>L&#39;action récupère et contrôle les paramètres de la requête. A l&#39;aide
-des paramètres, elle effectue un traitement et renvoie un résultat.</p>
-<h3 id="response"><code>Response</code></h3><p>Le résultat d&#39;une action peut être une response directement affichable. Une réponse texte, 
-une réponse XML, etc. Dans ce cas, la réponse est renvoyées directement au client.</p>
-<h3 id="view"><code>View</code></h3><p>Quand la construction de la réponse demande une mise en forme, l&#39;action définit 
-des variables utiles pour le rendu (exemple : une variable &quot;books&quot; 
-correspondant à la liste des livres à afficher).</p>
-<p>Ces variables sont transmise à la vue qui se charge du rendu se charge de la 
-génération du code HTML.</p>
-<p>Ci après, un code illustrant ces principes dans le cadre de la gestion
-d&#39;une liste de livre.</p>
+</li>
+<li>L&#39;<strong>action</strong> récupère et <strong>contrôle les paramètres de la requête</strong>. A l&#39;aide des paramètres, elle effectue un <strong>traitement et renvoie un résultat</strong>.</li>
+<li>Le résultat est renvoyé sous forme d&#39;une <strong>réponse</strong> au client avec plusieurs cas de figures :<ul>
+<li>Le résultat est renvoyé directement au client (réponse texte, contenu d&#39;un fichier,...)</li>
+<li>Le résultat est renvoyé au client sous une forme sérialisée (JSON, XML,...)</li>
+<li>Le résultat est mis en forme au format HTML à l&#39;aide d&#39;une <strong>vue</strong> s&#39;appuyant sur un moteur de template.</li>
+</ul>
+</li>
+</ul>
 <h3 id="exemple-de-code">Exemple de code</h3><ul>
 <li><code>BookController.php</code> : Exemple de controller</li>
 </ul>
@@ -98,50 +89,36 @@ d&#39;une liste de livre.</p>
 {% endfor %}
 &lt;/ul&gt;
 </code></pre>
-<p>Remarque :</p>
+<p>Remarques :</p>
 <ul>
 <li>On soulignera l&#39;utilisation du mécanisme de routage pour générer des URL</li>
 <li>On utilise ici un moteur de template (<a href="http://twig.sensiolabs.org/doc/tags/for.html" target="_blank">TWIG</a>). Java dispose d&#39;outils analogues (JSP)</li>
-<li>On soulignera l&#39;utilisation d&#39;un ORM (Doctrine) pour accéder aux données <code>$this-&gt;getRepository(&quot;Books&quot;)-&gt;findAll()</code>. Ce composant se repose sur le patron DAO qui pose entre autre la notion de Repository pour modéliser les accès aux données.</li>
+<li>On soulignera l&#39;utilisation d&#39;un ORM (Doctrine) pour accéder aux données <code>$this-&gt;getRepository(&quot;Books&quot;)-&gt;findAll()</code>.</li>
 </ul>
 <h3 id="variantes-côté-serveur">Variantes côté serveur</h3><p>Il existe de nombreux frameworks implémentant des variantes de ce concept :</p>
 <ul>
-<li><a href="http://symfony.com/doc/current/index.html" target="_blank">Symfony (PHP)</a>, <a href="https://codeigniter.com/userguide3/tutorial/index.html" target="_blank">CodeIgniter</a></li>
 <li><a href="https://spring.io/guides/gs/serving-web-content/#initial" target="_blank">Spring (JAVA)</a></li>
 <li><a href="http://expressjs.com/en/starter/hello-world.html" target="_blank">Express (NodeJS)</a></li>
+<li><a href="http://symfony.com/doc/current/index.html" target="_blank">Symfony (PHP)</a>, <a href="https://codeigniter.com/userguide3/tutorial/index.html" target="_blank">CodeIgniter</a></li>
 </ul>
 <h3 id="variantes-côté-navigateur">Variantes côté navigateur</h3><p>Une des tendance actuelle consiste à mettre en place des API REST renvoyant des
-données en JSON. La génération du code HTML est effectuées dans le navigateur
+données en JSON. La génération du code HTML est effectuée dans le navigateur
 en JavaScript.</p>
 <p>Côté client, on retrouvera des variantes du concept avec toujours l&#39;idée de séparer le rendu de la manipulation des données :</p>
 <ul>
+<li><a href="https://reactjs.org/tutorial/tutorial.html#what-is-react" target="_blank">React</a></li>
 <li><a href="https://angular.io/tutorial" target="_blank">Angular</a></li>
 <li><a href="https://vuejs.org/v2/guide/#Declarative-Rendering" target="_blank">Vue.js</a></li>
-<li><a href="https://reactjs.org/tutorial/tutorial.html#what-is-react" target="_blank">React</a></li>
 </ul>
-<h3 id="avantages">Avantages</h3><ul>
-<li>Plus simple à maintenir (on retrouve facilement les actions et vues
-correspondant aux pages)</li>
-<li>Plus simple à sécuriser (on vérifie plus facilement le contrôle des paramètres)</li>
+<h3 id="avantages-de-lutilisation-du-mvc">Avantages de l&#39;utilisation du MVC</h3><ul>
+<li>Plus simple à maintenir (on retrouve facilement les actions et vues correspondant aux pages)</li>
+<li>Plus simple à sécuriser (cadre pour le contrôle des paramètres)</li>
 <li>Débride la croissance de l&#39;application</li>
-<li>Facilite le travail en équipe (à chacun son contrôleur)</li>
-<li>Séparation des rôles : développeurs backend/frontend</li>
+<li>Travail en équipe facilité (travaille en parallèle sur plusieurs contrôleurs)</li>
+<li>Meilleure séparation des rôles (développeurs backend/frontend)</li>
 </ul>
-<h2 id="et-pour-les-applications-classiques-ou-mobile">Et pour les applications classiques ou mobile?</h2><p>Les frameworks dédiés à la création d&#39;application s&#39;appuient généralement
-sur ce concept pour la gestion des IHM.</p>
-<ul>
-<li>Qt (C++), utilisé par QuantumGIS</li>
-</ul>
-<p>On retrouve le concept de controller dans la gestion des événéments de l&#39;interface.
-Les composants de l&#39;interface génèrent des signaux (ex : &quot;clicked&quot; pour un bouton) qui sont connecté
-à des slots (ex : &quot;chooseFile&quot; pour l&#39;action à effectuer).</p>
-<p><a href="http://doc.qt.io/qt-5/qtwidgets-mainwindows-application-example.html" target="_blank">Exemple d&#39;application QT</a></p>
-<p>On retrouve le concept de &quot;View&quot; dans l&#39;utilisation des &quot;.ui&quot; qui servent à 
-générer le code de l&#39;interface (ajout des boutons, des menus, etc.)</p>
-<ul>
-<li>DotNet avec XAML pour les vues</li>
-</ul>
-<h2 id="resources">Resources</h2><ul>
+<h2 id="ressources">Ressources</h2><ul>
+<li><a href="https://spring.io/guides/gs/spring-boot/" target="_blank">spring.io - Building an Application with Spring Boot</a></li>
 <li><a href="http://symfony.com/doc/current/book/from_flat_php_to_symfony2.html" target="_blank">Symfony versus Flat PHP</a></li>
 </ul>
 
