@@ -141,7 +141,7 @@ Pour ce faire, nous procédons ainsi :
 
 ## 0.7 - Création d'un modèle dédié aux noeuds de l'arbre du plus court chemin
 
-On constate que `Vertex` est porteur de propriétés qui ne correspondent pas à la modélisation d'un réseau routier mais à l'algorithme de calcul du plus chemin : `cost`, `reachingEdge` et `visited`.
+On constate que `Vertex` est porteur de propriétés qui ne correspondent pas à la modélisation d'un réseau routier mais à l'algorithme de calcul du plus court chemin : `cost`, `reachingEdge` et `visited`.
 
 Ceci a un lourd impact sur l'application : **Il est en l'état impossible de lancer en parallèle deux calculs de plus court chemin** car il y a aura des conflits en édition sur les propriétés des `Vertex`.
 

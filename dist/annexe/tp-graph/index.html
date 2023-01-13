@@ -123,7 +123,7 @@ graph.createEdge(a,b,&quot;ab&quot;);
 <li>Ajout d&#39;une méthode <code>getLength()</code> à <code>Path</code> renvoyant la somme des longueurs des <code>edges</code>.</li>
 <li>Renvoi d&#39;un <code>Path</code> dans <code>findPath</code> de <code>DijkstraPathFinder</code></li>
 </ul>
-<h2 id="07---création-dun-modèle-dédié-aux-noeuds-de-larbre-du-plus-court-chemin">0.7 - Création d&#39;un modèle dédié aux noeuds de l&#39;arbre du plus court chemin</h2><p>On constate que <code>Vertex</code> est porteur de propriétés qui ne correspondent pas à la modélisation d&#39;un réseau routier mais à l&#39;algorithme de calcul du plus chemin : <code>cost</code>, <code>reachingEdge</code> et <code>visited</code>.</p>
+<h2 id="07---création-dun-modèle-dédié-aux-noeuds-de-larbre-du-plus-court-chemin">0.7 - Création d&#39;un modèle dédié aux noeuds de l&#39;arbre du plus court chemin</h2><p>On constate que <code>Vertex</code> est porteur de propriétés qui ne correspondent pas à la modélisation d&#39;un réseau routier mais à l&#39;algorithme de calcul du plus court chemin : <code>cost</code>, <code>reachingEdge</code> et <code>visited</code>.</p>
 <p>Ceci a un lourd impact sur l&#39;application : <strong>Il est en l&#39;état impossible de lancer en parallèle deux calculs de plus court chemin</strong> car il y a aura des conflits en édition sur les propriétés des <code>Vertex</code>.</p>
 <p>Nous procédons dans un premier temps comme suit pour refondre <code>DijkstraPathFinder</code> en limitant les reprises de code à effectuer :</p>
 <ul>
