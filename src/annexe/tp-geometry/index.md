@@ -39,7 +39,7 @@ Création d'une classe Coordinate permettant de représenter une position en 2D 
 Remarques :
 
 * On initialisera dans un premier temps les coordonnées à `(0.0, 0.0)` dans le constructeur par défaut
-* On soulignera le caractère immuable de cette classe (une fois construite, une coordonnées ne peut être modifiée)
+* On soulignera le caractère immuable de cette classe (**une fois construite, une coordonnée ne peut être modifiée**)
 
 
 ## 0.2 - Geometry, Point et LineString
@@ -49,6 +49,11 @@ Remarques :
 Implémenter les trois classes suivantes illustrées sur le schémas ci-après :
 
 ![Schéma UML](schema/mcd-02.png)
+
+Remarques :
+
+* Pour getType(), on renverra le nom de la classe en *CamelCase* (`"Point"` ou `"LineString"`)
+* On s'interdira de modifier ce comportement dans les questions suivantes.
 
 
 ## 0.3 - Geometry.isEmpty()
@@ -150,7 +155,7 @@ Ajouter une méthode `getEnvelope` à la classe `Geometry`.
 
 > Objectif : Mesurer l'intérêt d'une conception propre et de GeometryVisitor dans les questions suivantes
 
-On souhaite obtenir les géométries au [format WKT](https://fr.wikipedia.org/wiki/Well-known_text) qui prendra par exemple les formes suivantes :
+Ajouter une classe `WktWriter` avec une méthode permettant de convertir une géométrie au [format WKT](https://fr.wikipedia.org/wiki/Well-known_text) qui prendra par exemple les formes suivantes :
 
 ```
 POINT EMPTY
@@ -159,7 +164,6 @@ LINESTRING EMPTY
 LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0)
 ```
 
-Ajouter une classe `WktWriter` avec une méthode permettant de convertir une géométrie en WKT.
 
 ![Schéma UML](schema/mcd-08.png)
 
@@ -171,7 +175,7 @@ WktWriter writer = new WktWriter();
 assertEquals("POINT(3.0 4.0)", writer.write(g));
 ```
 
-Remarque :
+Remarques :
 
 * On s'interdira de modifier les classes `Geometry`, `Point` et `LineString` pour mettre en oeuvre cette fonctionnalité
 * On s'autorisera l'utilisation d'un fragment de code ressemblant à ceci pour traiter les différents types concrets :
@@ -192,14 +196,14 @@ if ( geometry instanceof Point ){
 
 > Objectif : Patron de conception Visitor, prise en main
 
-* Ajouter l'interface `GeometryVisitor` pour visiter l'arborescence des géométries
+* Ajouter l'interface `GeometryVisitor`
 * Implémenter un visiteur `LogGeometryVisitor` qui affiche la géométrie dans la console sous les formes suivantes :
-    * Je suis un point avec x=2.0 et y=3.0
-    * Je suis une polyligne définie par 3 point(s)
-
+    * "Je suis un point vide."
+    * "Je suis un point avec x=2.0 et y=3.0."
+    * "Je suis une polyligne vide."
+    * "Je suis une polyligne définie par 3 point(s)."
 
 ![Schéma UML](schema/mcd-09.png)
-
 
 Exemple d'utilisation :
 
@@ -209,7 +213,7 @@ Geometry geometry = new Point(new Coordinate(3.0,4.0));
 geometry.accept(visitor);
 ```
 
-Remarque : Pour tester LogGeometryVisitor, noter que `System.out` est de type `PrintStream` et qu'il est possible d'écrire dans une chaîne de caractère plutôt que dans la console en procédant comme suit :
+Pour tester les écritures dans la console de `LogGeometryVisitor`, nous remarquerons que `System.out` est de type `PrintStream` et qu'il est possible d'écrire dans une chaîne de caractère plutôt que dans la console en procédant comme suit :
 
 ```java
 ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -317,79 +321,35 @@ GEOMETRYCOLLECTION EMPTY
 GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))
 ```
 
-## 0.16 - Interface GeometryWriter, classe WktWriter et GeoJSONWriter
+## 0.16 - GeometryVisitor renvoyant un résultat
 
-> Objectif : Uniformation des conversions de géométrie en chaîne de caractère pour préparer la question suivante
+> Objectif : Exploiter les classes génériques.
 
-* Ajouter une classe `GeoJSONWriter` permettant d'écrire les géométries au format GeoJSON.
-* Unifier l'écriture des géométries via une interface `GeometryWriter` implémentée `WktWriter` et `GeoJSONWriter` par offrant les méthodes
-  * `getName` : renvoyant le nom du format ("WKT" ou "GeoJSON")
-  * `write` : convertissant une géométrie au format texte
+Pour avoir la capacité de renvoyer des résultats avec des types variables
 
-
-## 0.17 - GeometryWriterFactory
-
-> Objectif : Fabrique basée sur des prototypes pour permettre le choix d'un format de sortie pour les géométries (utilisateur sélectionnant "WKT" ou "GeoJSON")
-
-* Ajouter une classe `GeometryWriterFactory` permettant de construire un format par son nom
-
-```java
-Geometry g = new Point(new Coordinate(3.0,4.0));
-GeometryWriterFactory writerFactory = new GeometryWriterFactory();
-// normalement défini dans une configuration ou sélectionné par un utilisateur
-String formatName = "WKT";
-GeometryWriter writer = writerFactory.createGeometryWriter(formatName);
-assertEqual("POINT(3.0 4.0)", writer.write(g));
-```
-
-
-## 0.18 - GeometryVisitor renvoyant un résultat
-
-> Objectif : Avoir des visiteurs capables de renvoyer un résultat pour éviter de devoir stocker des résultats intermédiaire en s'appuyant sur les classes génériques
-
-* Transformer la classe `GeometryVisitor` en `GeometryVisitor<T>` pour avoir la capacité de renvoyer des résultats avec des types variables
-* Ajouter `LengthVisitor<Double>` renvoyant la longueur de la géométrie en guise de démonstration (0.0 pour un point)
+* Transformer la classe `GeometryVisitor` en `GeometryVisitor<T>`.
+* Adapter les visiteurs existants ne renvoyant pas de résultat en implémentant `GeometryVisitor<Void>`.
+* Ajouter une classe `LengthVisitor<Double>` renvoyant la longueur de la géométrie en guise de démonstration (0.0 pour un point)
 
 ```java
 LengthVisitor<Double> visitor = new LengthVisitor<Double>();
 Double result = geometry.accept(visitor);
 ```
 
-Remarque : Un visiteur qui ne renvoie pas de résultat implémentera `GeometryVisitor<Void>`
-
-
-## 0.19 - Extraction de asText()
-
-* Sortir `Geometry.asText() : String` sous forme d'une méthode statique `WKT.asText(Geometry g) : String`
-
-## 0.20 - MathTransform pour des transformation plus générique
-
-On va faire en sorte de sortir `translate(dx,dy)` de la classe `Geometry` tout en permettant des transformations plus riches.
-
-![Schéma UML 20](schema/mcd-20.png)
-
-Remarque : On renverra des copies des géométries dans `GeometryTransform` (appeler `notifyChange` sera innutile)
 
 ## Aller plus loin...
 
-Pour ceux qui souhaiteraient approfondir :
+Pour blinder votre TP :
 
-* Remarquer qu'il est difficile de s'y retrouver dans les différentes classes. Organiser par conséquent les classes en package `io`, `transform`, `helper`, etc.
+* Contrôler le taux de couverture par les tests (et la **pertinence des tests**).
+* Vérifiez que vous respectez DRY pour la conversion `Coordinate` en chaîne de caractères. Se demander par exemple quel serait l'impact de l'ajout d'un paramètre optionnel pour contrôler le nombre de décimales dans la production des WKT.
 
-* Contrôler et améliorer la couverture des tests
+Pour prendre du recul  :
 
-* Remarquer que la suppression de translate sur `Geometry` et le renvoi systématique de copies au niveau des transformations permet de rendre immuable les `Geometry`. Dès lors, on pourrait supprimer les mécanismes de gestion d'événement (généralement, ce n'est pas une bonne idée d'y recourir sur des classes bas niveau).
+* Remarquer qu'il est difficile de s'y retrouver dans les différentes classes et qu'il serait intéressant d'organiser les classes en package `io`, `transform`, `helper`, etc. (**ne pas traiter**) 
+* Remarquer qu'en supprimant `translate` sur `Geometry`, il serait possible de rendre immuable les `Geometry`. Se demander quels seraient les avantages et inconvénients?
+* Se demander s'il serait possible d'ajouter un type de premier niveau tel `Circle` dans une bibliothèque tierce utilisant celle-ci? Qu'est-ce qui est limitant?
 
-* Se demander quel serait l'impact de l'ajout d'un type de premier niveau tel `Circle` dans une bibliothèque tierce utilisant celle-ci? Qu'est-ce qui est limitant?
 
-* Supporter les géométries 3D avec
-  * `coordinate.z = Double.NaN` pour les 2D
-  * `coordinate.is3D()` et `geometry.is3D()`
-  * Adapter les écritures WKT
-  * Adapter les transformations
-  * ...
 
-* Supporter la lecture de géométrie WKT en faisant un bridge sur la bibliothèque JTS
-
-* ...
 
