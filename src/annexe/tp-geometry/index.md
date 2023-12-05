@@ -95,6 +95,10 @@ Afin d'éviter d'avoir à tester des `coordinate` ou `points` null, nous allons 
 
 ![Schéma UML](schema/mcd-03.png)
 
+Remarque : 
+
+* Nous tâcherons de blinder les appels `new Point(null)` et `new LineString(null)`
+* Nous ne traiterons pas le cas d'un appel `new LineString(points)` avec un point null.
 
 ## 0.4 - Geometry.translate(dx,dy)
 
