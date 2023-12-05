@@ -116,9 +116,9 @@ Remarques :
 
 ## 0.5 - Amélioration de la gestion des chemins non trouvés
 
-On remarque que `findPath(Vertex origin, Vertex destination)` de `DijkstraPathFinder` renvoie `null` si le chemin n'est pas trouvé, ce qui induit une réponse vide au niveau de l'API qui ne sera pas facile à interprétée par le client.
+Nous remarquons que `findPath(Vertex origin, Vertex destination)` de `DijkstraPathFinder` renvoie `null` si le chemin n'est pas trouvé. Ceci induit une réponse vide au niveau de l'API qui ne sera pas facile à interprétée par le client.
 
-On remarque que le cas où le sommet de départ ou d'arrivé est mieux géré grâce :
+En comparaison, le cas où le sommet de départ ou d'arrivé est mieux géré grâce :
 
 * Au renvoi d'une `NotFoundException` dans `Graph.findVertex(id: String)` dans le cas où le sommet n'est pas trouvé par son identifiant
 * A la personnalisation du rendu des `NotFoundException` via `config.CustomErrorHandler`
@@ -141,9 +141,9 @@ Pour ce faire, nous procédons ainsi :
 
 ## 0.7 - Création d'un modèle dédié aux noeuds de l'arbre du plus court chemin
 
-On constate que `Vertex` est porteur de propriétés qui ne correspondent pas à la modélisation d'un réseau routier mais à l'algorithme de calcul du plus court chemin : `cost`, `reachingEdge` et `visited`.
+Nous constatons que `Vertex` est porteur de propriétés qui ne correspondent pas à la modélisation d'un réseau routier mais à l'algorithme de calcul du plus court chemin : `cost`, `reachingEdge` et `visited`.
 
-Ceci a un lourd impact sur l'application : **Il est en l'état impossible de lancer en parallèle deux calculs de plus court chemin** car il y a aura des conflits en édition sur les propriétés des `Vertex`.
+Ceci a un lourd impact sur l'application : **Il est en l'état impossible de lancer en parallèle deux calculs de plus court chemin** car il y a aurait des conflits en édition sur les propriétés des `Vertex` pendant l'exécution de l'algorithme.
 
 Nous procédons dans un premier temps comme suit pour refondre `DijkstraPathFinder` en limitant les reprises de code à effectuer :
 
