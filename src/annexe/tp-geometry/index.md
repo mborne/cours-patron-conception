@@ -8,7 +8,12 @@ L'objectif de ce TP est de s'exercer à mettre oeuvre des patrons de conception 
 
 ![Géométrie OGC](schema/geometries-light.png)
 
-**ATTENTION** : Dans la vraie vie, vous utiliserez plutôt des bibliothèques du type [JTS](https://locationtech.github.io/jts/javadoc/index.html)
+## Mise en garde
+
+Dans la vraie vie :
+
+* Vous utiliserez plutôt des bibliothèques du type [JTS](https://locationtech.github.io/jts/javadoc/index.html).
+* Les patrons de conception ne seront pas la solution à tous les problèmes et nous n'en n'utiliserons pas autant.
 
 ## Démarrage
 
@@ -23,24 +28,44 @@ cd tp-pattern-geometry
 git branch
 ```
 
-* Importer le projet maven dans eclipse
+* Importer le projet maven dans eclipse ou votre IDE préféré
 
-(Au cas où, voir [Configuration eclipse/maven avec un proxy](https://github.com/mborne/maven-eclipse#configuration-eclipsemaven-avec-un-proxy))
+(Au besoin, voir [Configuration eclipse/maven avec un proxy](https://github.com/mborne/maven-eclipse#configuration-eclipsemaven-avec-un-proxy))
 
 
 ## 0.1 - Coordinate (2D)
 
 > Objectif : Préparation du TP, principe de base, encapsulation
 
-Création d'une classe Coordinate permettant de représenter une position en 2D à l'aide d'un couple x,y.
+Créer une classe `Coordinate` permettant de représenter une position en 2D à l'aide d'un couple x,y :
 
 ![Schéma UML](schema/mcd-01.png)
 
-Remarques :
+Nous soulignerons que :
 
-* On initialisera dans un premier temps les coordonnées à `(0.0, 0.0)` dans le constructeur par défaut
-* On soulignera le caractère immuable de cette classe (une fois construite, une coordonnées ne peut être modifiée)
+* Cette classe est immuable (**une fois construite, une coordonnée ne peut être modifiée**)
+* Le constructeur par défaut initialisera une coordonnée vide matérialisée par `x=Double.NaN` et `y=Double.NaN`
+* `isEmpty()` permettra de tester si une coordonnée est vide.
+* `toString()` renverra un tableau au format JSON (`[3.0,4.0]`, `[NaN,NaN]`)
 
+Exemple d'utilisation :
+
+```java
+public class CoordinateTest {
+
+    public static final double EPSILON = 1.0e-15;
+
+    @Test
+    public void testCoordinateXY() {
+        Coordinate c = new Coordinate(3.0, 4.0);
+        assertEquals(3.0, c.getX(), EPSILON);
+        assertEquals(4.0, c.getY(), EPSILON);
+        assertFalse(c.isEmpty());
+        assertEquals("[3.0,4.0]", c.toString());
+    }
+
+}
+```
 
 ## 0.2 - Geometry, Point et LineString
 
@@ -50,6 +75,11 @@ Implémenter les trois classes suivantes illustrées sur le schémas ci-après :
 
 ![Schéma UML](schema/mcd-02.png)
 
+Remarques :
+
+* `getType()` renverra le nom de la classe en *CamelCase* (`"Point"` ou `"LineString"`)
+* Nous nous interdirons de modifier ce comportement dans les questions suivantes (~~`"POINT"`~~, ~~`"LINESTRING"`~~).
+
 
 ## 0.3 - Geometry.isEmpty()
 
@@ -57,16 +87,18 @@ Implémenter les trois classes suivantes illustrées sur le schémas ci-après :
 
 Dans la question précédente, nous remarquons que nous avons des choix à faire dans les constructeurs par défaut de `Point` et `LineString`.
 
-Afin d'éviter d'avoir à tester des `coordinate` ou `points` null, nous allons ajouter le concept de géométrie vide et de coordonnées vide à l'aide de `NaN` :
+Afin d'éviter d'avoir à tester des `coordinate` ou `points` null, nous allons ajouter le **concept de géométrie vide** :
 
-* 1) Modifier le comportement du constructeur par défaut de Coordinate pour initialiser `x` et `y` à `Double.NaN`
-* 2) Ajouter une méthode `Coordinate.isEmpty` à l'aide de `Double.isNaN(x)`
-* 3) S'assurer que la variable membre `coordinate` de `Point` est jamais nulle.
-* 4) S'assurer que la variable membre `points` de `LineString` est jamais nulle (on préfère une liste vide à une valeur nulle).
-* 5) Ajouter `Geometry.isEmpty`
+* S'assurer que la variable membre `coordinate` de `Point` n'est jamais nulle.
+* S'assurer que la variable membre `points` de `LineString` n'est jamais nulle (une liste vide est préférable à une valeur nulle).
+* Déclarer `Geometry.isEmpty` et l'implémenter dans `Point` et `LineString`
 
 ![Schéma UML](schema/mcd-03.png)
 
+Remarque : 
+
+* Nous tâcherons de blinder les appels `new Point(null)` et `new LineString(null)`
+* Nous ne traiterons pas le cas d'un appel `new LineString(points)` avec un point null.
 
 ## 0.4 - Geometry.translate(dx,dy)
 
@@ -82,22 +114,24 @@ Remarque : Vous serez amené à créer une nouvelle `Coordinate` pour l'impléme
 
 > Objectif : Patron de conception *Prototype*
 
-En introduisant la fonction précédente, nous avons renoncé à l'idée d'avoir des géométries non modifiable après construction (immutable). Nous allons donc ajouter une méthode permettant de récupérer une copie d'une géométrie.
+En introduisant la fonction précédente, nous avons renoncé à l'idée d'avoir des géométries immuable (non modifiable après construction).
 
-Ceci permettra par exemple à un utilisateur de copier la géométrie avant de la modifier
+Nous allons donc ajouter une méthode `clone()` permettant de récupérer une copie d'une géométrie :
+
+![Schéma UML](schema/mcd-05.png)
+
+Exemple d'utilisation :
 
 ```java
-/*
- * copie sans connaissance du type réel
- * (sans cela, on devrait faire un traitement particulier pour Point,
- *  LineString, etc.)
- */
 Geometry copy = g.clone();
 copy.translate(10.0,10.0);
 //... "g" n'est pas modifiée
 ```
 
-![Schéma UML](schema/mcd-05.png)
+Remarques :
+
+* Sans `clone()`, un traitement particulier serait nécessaire pour copier un `Point`, une `LineString`, etc.
+* Nous procéderons à une **copie en profondeur** pour les seules propriétés immuables.
 
 
 ## 0.6 - Envelope et EnvelopeBuilder
@@ -123,7 +157,10 @@ builder.insert(new Coordinate(1.0,3.0));
 Envelope result = builder.build();
 ```
 
-Remarque : Vous avez la liberté d'ajouter des variables membres privées dans `EnvelopeBuilder` pour le calcul. En cas de difficulté pour faire des calculs de min/max optimaux, vous pouvez par exemple vous appuyer sur deux variables privées `xVals: List<Double>` et `yVals: List<Double>` pour exploiter les fonctionnalités standards java :
+Remarques : 
+
+* Vous avez la **liberté d'ajouter des variables membres privées** dans `EnvelopeBuilder` pour le calcul.
+* En cas de difficulté pour faire des calculs de min/max optimaux, vous pouvez par exemple vous appuyer sur deux variables privées `xVals: List<Double>` et `yVals: List<Double>` pour exploiter les fonctionnalités standards java :
 
 ```java
 List<Double> xVals = new ArrayList<Double>();
@@ -142,7 +179,10 @@ Cette approche ne sera pas "optimale", mais elle peut être un premier jet perme
 
 > Objectif : Facade sur EnvelopeBuilder
 
-Ajouter une méthode `getEnvelope` à la classe `Geometry`.
+Ajouter une méthode utilitaire sur `Geometry` pour récupérer facilement l'enveloppe comme suit :
+
+* Déclarer une méthode `getEnvelope` dans `Geometry`
+* Implémenter cette méthode dans `Point` et `LineString` à l'aide de `EnvelopeBuilder`
 
 ![Schéma UML](schema/mcd-07.png)
 
@@ -150,7 +190,7 @@ Ajouter une méthode `getEnvelope` à la classe `Geometry`.
 
 > Objectif : Mesurer l'intérêt d'une conception propre et de GeometryVisitor dans les questions suivantes
 
-On souhaite obtenir les géométries au [format WKT](https://fr.wikipedia.org/wiki/Well-known_text) qui prendra par exemple les formes suivantes :
+Ajouter une classe `WktWriter` avec une méthode permettant de convertir une géométrie au [format WKT](https://fr.wikipedia.org/wiki/Well-known_text) qui prendra par exemple les formes suivantes :
 
 ```
 POINT EMPTY
@@ -159,7 +199,6 @@ LINESTRING EMPTY
 LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0)
 ```
 
-Ajouter une classe `WktWriter` avec une méthode permettant de convertir une géométrie en WKT.
 
 ![Schéma UML](schema/mcd-08.png)
 
@@ -171,9 +210,9 @@ WktWriter writer = new WktWriter();
 assertEquals("POINT(3.0 4.0)", writer.write(g));
 ```
 
-Remarque :
+Remarques :
 
-* On s'interdira de modifier les classes `Geometry`, `Point` et `LineString` pour mettre en oeuvre cette fonctionnalité
+* On s'interdira de modifier les classes `Geometry`, `Point` et `LineString` pour mettre en oeuvre cette fonctionnalité.
 * On s'autorisera l'utilisation d'un fragment de code ressemblant à ceci pour traiter les différents types concrets :
 
 ```java
@@ -192,14 +231,14 @@ if ( geometry instanceof Point ){
 
 > Objectif : Patron de conception Visitor, prise en main
 
-* Ajouter l'interface `GeometryVisitor` pour visiter l'arborescence des géométries
+* Ajouter l'interface `GeometryVisitor`
 * Implémenter un visiteur `LogGeometryVisitor` qui affiche la géométrie dans la console sous les formes suivantes :
-    * Je suis un point avec x=2.0 et y=3.0
-    * Je suis une polyligne définie par 3 point(s)
-
+    * "Je suis un point vide."
+    * "Je suis un point avec x=2.0 et y=3.0."
+    * "Je suis une polyligne vide."
+    * "Je suis une polyligne définie par 3 point(s)."
 
 ![Schéma UML](schema/mcd-09.png)
-
 
 Exemple d'utilisation :
 
@@ -209,7 +248,7 @@ Geometry geometry = new Point(new Coordinate(3.0,4.0));
 geometry.accept(visitor);
 ```
 
-Remarque : Pour tester LogGeometryVisitor, noter que `System.out` est de type `PrintStream` et qu'il est possible d'écrire dans une chaîne de caractère plutôt que dans la console en procédant comme suit :
+Pour tester les écritures dans la console de `LogGeometryVisitor`, nous remarquerons que `System.out` est de type `PrintStream` et qu'il est possible d'écrire dans une chaîne de caractère plutôt que dans la console en procédant comme suit :
 
 ```java
 ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -242,7 +281,7 @@ Remarque : Au niveau de `visit`, on écrira dans la variable membre `buffer` à 
 
 ## 0.11 - Geometry.asText()
 
-> Objectif : Patron de conception Facade, couplage interface et abstact
+> Objectif : Patron de conception Facade, héritage à trois niveau avec interface et abstract.
 
 A l'aide de `AbstractGeometry` et `WktVisitor` :
 
@@ -255,7 +294,7 @@ Remarque : Il faudra redéclarer la méthode `clone()` au niveau de `AbstractGeo
 
 ## 0.12 - EnvelopeBuilder en tant que GeometryVisitor
 
-> Objectif : Refactoring, Visitor, extraction de l'implémentation d'une fonctionnalité
+> Objectif : Visitor, refactoring (extraction de l'implémentation d'une fonctionnalité)
 
 * Transformer `EnvelopeBuilder` en `GeometryVisitor`
 * Remonter l'implémentation de `getEnvelope` dans `AbstractGeometry`
@@ -310,86 +349,46 @@ Ajouter une classe `GeometryCollection` représentant une géométrie multiple, 
 
 ![Schéma UML](schema/mcd-15.png)
 
-Remarque : Pour WKT, on utilisera le format suivant :
+Remarque : 
+
+* Le format WKT prendra la forme suivante pour les `GeometryCollection` :
 
 ```
 GEOMETRYCOLLECTION EMPTY
 GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))
 ```
 
-## 0.16 - Interface GeometryWriter, classe WktWriter et GeoJSONWriter
+## 0.16 - GeometryVisitor renvoyant un résultat
 
-> Objectif : Uniformation des conversions de géométrie en chaîne de caractère pour préparer la question suivante
+> Objectif : Exploiter les classes génériques, visiteur renvoyant directement un résultat.
 
-* Ajouter une classe `GeoJSONWriter` permettant d'écrire les géométries au format GeoJSON.
-* Unifier l'écriture des géométries via une interface `GeometryWriter` implémentée `WktWriter` et `GeoJSONWriter` par offrant les méthodes
-  * `getName` : renvoyant le nom du format ("WKT" ou "GeoJSON")
-  * `write` : convertissant une géométrie au format texte
+Pour avoir la capacité de renvoyer des résultats avec des types variables :
 
-
-## 0.17 - GeometryWriterFactory
-
-> Objectif : Fabrique basée sur des prototypes pour permettre le choix d'un format de sortie pour les géométries (utilisateur sélectionnant "WKT" ou "GeoJSON")
-
-* Ajouter une classe `GeometryWriterFactory` permettant de construire un format par son nom
-
-```java
-Geometry g = new Point(new Coordinate(3.0,4.0));
-GeometryWriterFactory writerFactory = new GeometryWriterFactory();
-// normalement défini dans une configuration ou sélectionné par un utilisateur
-String formatName = "WKT";
-GeometryWriter writer = writerFactory.createGeometryWriter(formatName);
-assertEqual("POINT(3.0 4.0)", writer.write(g));
-```
-
-
-## 0.18 - GeometryVisitor renvoyant un résultat
-
-> Objectif : Avoir des visiteurs capables de renvoyer un résultat pour éviter de devoir stocker des résultats intermédiaire en s'appuyant sur les classes génériques
-
-* Transformer la classe `GeometryVisitor` en `GeometryVisitor<T>` pour avoir la capacité de renvoyer des résultats avec des types variables
-* Ajouter `LengthVisitor<Double>` renvoyant la longueur de la géométrie en guise de démonstration (0.0 pour un point)
+* Transformer la classe `GeometryVisitor` en `GeometryVisitor<T>`.
+* Adapter les visiteurs existants ne renvoyant pas de résultat en implémentant `GeometryVisitor<Void>`.
+* Ajouter une classe `LengthVisitor<Double>` renvoyant la longueur de la géométrie en guise de démonstration (0.0 pour un point)
 
 ```java
 LengthVisitor<Double> visitor = new LengthVisitor<Double>();
 Double result = geometry.accept(visitor);
 ```
 
-Remarque : Un visiteur qui ne renvoie pas de résultat implémentera `GeometryVisitor<Void>`
-
-
-## 0.19 - Extraction de asText()
-
-* Sortir `Geometry.asText() : String` sous forme d'une méthode statique `WKT.asText(Geometry g) : String`
-
-## 0.20 - MathTransform pour des transformation plus générique
-
-On va faire en sorte de sortir `translate(dx,dy)` de la classe `Geometry` tout en permettant des transformations plus riches.
-
-![Schéma UML 20](schema/mcd-20.png)
-
-Remarque : On renverra des copies des géométries dans `GeometryTransform` (appeler `notifyChange` sera innutile)
 
 ## Aller plus loin...
 
-Pour ceux qui souhaiteraient approfondir :
+Pour blinder votre TP :
 
-* Remarquer qu'il est difficile de s'y retrouver dans les différentes classes. Organiser par conséquent les classes en package `io`, `transform`, `helper`, etc.
+* Contrôler le **taux de couverture par les tests** et la **pertinence des tests**.
+* Vérifier que vous respectez DRY pour la conversion `Coordinate` en chaîne de caractères dans la production des WKT.
 
-* Contrôler et améliorer la couverture des tests
+> Se demander par exemple quel serait l'impact de l'ajout d'un paramètre optionnel pour contrôler le nombre de décimales (Indice : Vous avez le droit de définir une méthode privée `writeCoordinate`).
 
-* Remarquer que la suppression de translate sur `Geometry` et le renvoi systématique de copies au niveau des transformations permet de rendre immuable les `Geometry`. Dès lors, on pourrait supprimer les mécanismes de gestion d'événement (généralement, ce n'est pas une bonne idée d'y recourir sur des classes bas niveau).
+* Vérifier que vous respectez DRY pour le calcul des min/max dans `EnvelopeBuilder` et optimiser la consommation de RAM 
 
-* Se demander quel serait l'impact de l'ajout d'un type de premier niveau tel `Circle` dans une bibliothèque tierce utilisant celle-ci? Qu'est-ce qui est limitant?
+> Indice : En matérialisant le concept mathématique que vous manipulez dans une classe [Interval](https://locationtech.github.io/jts/javadoc/org/locationtech/jts/index/strtree/Interval.html), vous encapsulerez efficacement le calcul d'un `lower` et d'un `upper` avec une méthode `expandToInclude`).
 
-* Supporter les géométries 3D avec
-  * `coordinate.z = Double.NaN` pour les 2D
-  * `coordinate.is3D()` et `geometry.is3D()`
-  * Adapter les écritures WKT
-  * Adapter les transformations
-  * ...
+Pour prendre du recul  :
 
-* Supporter la lecture de géométrie WKT en faisant un bridge sur la bibliothèque JTS
-
-* ...
-
+* Remarquer qu'en supprimant `translate` sur `Geometry`, il serait possible de rendre immuable les `Geometry`. Se demander quels seraient les avantages et inconvénients? Quels seraient les patrons de conception inutiles?
+* Se demander s'il serait possible d'ajouter un type de premier niveau tel `Circle` dans une bibliothèque tierce utilisant celle-ci? Quel est le patron de conception utilisé qui serait limitant?
+* Remarquer qu'il est difficile de s'y retrouver dans les différentes classes et qu'il serait intéressant d'organiser les classes en package `io`, etc. (**ne pas traiter**) 

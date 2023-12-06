@@ -23,7 +23,7 @@ Bien que certains concepts soient les mêmes, nous traiterons principalement le 
 
 ---
 
-## Principe
+## Principe du refactoring
 
 Améliorer la conception d'un code existant pour :
 
@@ -34,30 +34,25 @@ Améliorer la conception d'un code existant pour :
 
 ## Notion de changement cassant
 
-Un changement cassant est une modification du code qui implique une mise à jour
-du code client.
+Un **changement cassant** est une modification du code qui **implique une mise à jour du code client**.
 
 Exemple : Modification d'un prototype de fonction
 
-On portera une attention aux changements cassants que l'on évitera dans la mesure du possible.
+Nous porterons une attention particulière aux changements cassants **à éviter dans la mesure du possible**.
 
 ---
 
 ## Notion changements de comportement
 
-On s'interdira tout changement de comportement en l'absence d'un changement
-cassant.
+**Nous nous interdirons tout changement de comportement en l'absence d'un changement cassant.**
 
 Le but : Forcer la prise en compte des modifications dans les codes clients.
-
-Remarque : On pourra procéder par extension du comportement en jouant sur des
-valeurs par défaut.
 
 ---
 
 ## Numérotation des versions
 
-Il est important de :
+Il sera important de :
 
 * Tagger/Releaser des versions stables des codes
 * D'adopter une convention de nommage pour les versions
@@ -68,26 +63,26 @@ La convention généralement utilisée est `<major>.<minor>.<patch>` (exemple : 
 * `<minor>` traduit des ajouts de fonctionnalités sans changement cassant
 * `<patch>` traduit une correction de bug sans ajout de fonctionnalité
 
-Elle est connue sous le nom de [gestion sémantique de version](https://semver.org/lang/fr/) et permet aux clients de maîtriser les montées en version tout en récupérant automatiquement les correctifs.
+Elle est connue sous le nom de [gestion sémantique de version](https://semver.org/lang/fr/) et permet aux clients de **maîtriser les montées en version tout en récupérant automatiquement les correctifs**.
 
 
 ---
 
 ## Accompagnement du changement
 
+Plusieurs dispositifs d'accompagnement sont envisageables et fréquents :
+
 * Les fichiers **CHANGELOG** décrivent les changements et adaptation à réaliser.
 * Les **fonctionnalités qui vont être supprimées** peuvent être **marquées comme dépréciées** dans des versions intermédiaires.
 * Des **versions dédiées aux changements majeurs** peuvent être développées
 
-> Une version 2.8 peut apporter les nouveautés de la version 3.0 et de marquer comme dépréciées les fonctionnalités qui seront supprimées dans la version 3.0 (bonne pratique respectée par le framework PHP Symfony)
+> Par exemple, une version 2.8 peut apporter les nouveautés de la version 3.0 et marquer comme dépréciées les fonctionnalités qui seront supprimées dans la version 3.0 (bonne pratique respectée par le framework PHP Symfony)
 
 ---
 
 ## Gestion de l'historique
 
-La gestion des versions est intimement liée à la gestion de l'historique.
-
-Il est fortement conseillé d'adopter un workflow clair dans la gestion des branches et des tags.
+La **gestion des versions** est intimement liée à la **gestion de l'historique**. Il est fortement conseillé d'adopter un **workflow clair dans la gestion des branches et des tags**.
 
 Voir :
 
@@ -103,7 +98,7 @@ Il est difficile d'éviter les changements cassants sur toutes les classes d'une
 
 A ce titre, au sein d'une même bibliothèque, on trouvera parfois la notion de **code public** et de **code privé** (suffixe `Impl`, namespace `detail`, package `internal`, etc.)
 
-Il faudra éviter de dépendre du code privé d'une bibliothèque tierces pour ne pas subir des changements cassants non documentés.
+Il faudra **éviter de dépendre du code privé d'une bibliothèque tierces** pour ne pas subir des changements cassants non documentés.
 
 ---
 
@@ -129,15 +124,13 @@ A l'instar des patrons de conception, ces techniques peuvent être cataloguées 
 
 [Catalogue sur refactoring.com](http://www.refactoring.com/catalog/)
 
-Ce catalogue permet une meilleure organisation des connaissances.
-
 ---
 
 ## Quand réfactorer?
 
 Un code est rarement totalement satisfaisant, mais le luxe de pouvoir réfactorer un code sans but est rarement offert aux développeurs.
 
-Généralement, on réfactorera un code à l'occasion d'actions concrètes :
+Généralement, nous profiterons d'occasions concrètes pour améliorer le code :
 
 * Industrialisation de prototype (travaux de recherche par ex.)
 * Ajout de fonctionnalités à l'occasion d'une nouvelle version
@@ -152,10 +145,10 @@ Généralement, on réfactorera un code à l'occasion d'actions concrètes :
 
 Plusieurs familles d'outils peuvent aider à maintenir ou améliorer la qualité d'un code :
 
-* Les outils de mise en forme automatique du code
-* Les outils d'analyse statiques de code (ex : PMD, SonarQube,...)
-* Les outils de génération de couverture par les tests (ex : jacoco)
-* Les outils d'intégration continue (ex : GitLab-CI, GitHub actions, jenkins, etc.)
+* Les outils de **mise en forme automatique du code**
+* Les outils d'**analyse statiques de code** (ex : PMD, SonarQube,...)
+* Les outils de **génération de couverture par les tests** (ex : jacoco)
+* Les outils d'**intégration continue** (ex : GitLab-CI, GitHub actions, jenkins, etc.)
 * ...
 
 

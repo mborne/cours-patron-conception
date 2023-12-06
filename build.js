@@ -3,19 +3,25 @@ const shell = require('shelljs');
 
 const convert = require('@mborne/markdown-to-html').convert;
 
-console.log('rm -rf dist...');
-shell.rm('-rf',path.resolve(__dirname,'dist'));
+console.log('rm -rf docs...');
+shell.rm('-rf',path.resolve(__dirname,'docs'));
 
-console.log('src/slides -> dist ...');
-convert({
-    outputDir: path.resolve(__dirname,'dist'),
-    rootDir: path.resolve(__dirname,'src/slides'),
-    layoutPath: path.resolve(__dirname,'layout/slides')
-});
+const options = {
+    language: "fr"
+}
 
-console.log('src/slides -> dist ...');
-convert({
-    outputDir: path.resolve(__dirname,'dist/annexe'),
-    rootDir: path.resolve(__dirname,'src/annexe'),
-    layoutPath: path.resolve(__dirname,'node_modules/@mborne/markdown-to-html/layout/github')
-});
+console.log('src/slides -> docs with layout/slides...');
+convert(
+    path.resolve(__dirname,'src/slides'),
+    path.resolve(__dirname,'docs'),
+    path.resolve(__dirname,'layout/slides'),
+    options
+);
+
+console.log('src/annexe -> docs/annexe with default layout...');
+convert(
+    path.resolve(__dirname,'src/annexe'),
+    path.resolve(__dirname,'docs/annexe'),
+    path.resolve(__dirname,'layout/annexe'),
+    options
+);

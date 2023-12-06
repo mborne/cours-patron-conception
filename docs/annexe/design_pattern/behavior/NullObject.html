@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Null Object</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+    integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+    integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../../assets/style.css">
+</head>
+
+<body>
+
+  <header class="container">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-print-none">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="../../index.html">
+          <img src="../../assets/img/logo-ign.png" alt="IGN" style="padding: 5px" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="../../index.html">Annexes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../../references.html">Références</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../../depots.html">Dépôts</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="container">
+
+    <div class="markdown-body">
+      <h1 id="null-object">Null Object</h1><h2 id="problème">Problème</h2><p>On souhaite simplifier la gestion des références nulles et ainsi éviter le risque de <code>NullPointerException</code>.</p>
+<h2 id="cas-décole">Cas d&#39;école</h2><p>On s&#39;appuie sur une interface <code>MailerInterface</code> pour l&#39;envoi de mail :</p>
+<pre><code class="language-java">interface MailerInterface {
+
+    public void sendMail(
+        String to,
+        String title,
+        String body
+    );
+
+}
+</code></pre>
+<p>Dans une classe <code>Client</code>, on décide d&#39;envoyer ou non un mail en fin de traitement à un administrateur :</p>
+<pre><code class="language-java">class Client {
+
+    private MailerInterface mailer ;
+
+    public Client(){
+        this.mailer = null ;
+    }
+
+    public void setMailer(MailerInterface mailer){
+        this.mailer = mailer ;
+    }
+
+    public void doSomething(){
+        //... traitement ...
+
+        if ( null != this.mailer ){
+            this.mailer.sendMail(
+                &quot;admin@acme.org&quot;,
+                &quot;Traitement des donnnées&quot;,
+                &quot;Le traitement a été effectué.&quot;
+            );
+        }
+    }
+
+}
+</code></pre>
+<p>Problème : On multiplie les contrôles <code>null != this.mailer</code></p>
+<h1 id="solution">Solution</h1><ul>
+<li>Créer un <code>NullMailer</code></li>
+</ul>
+<pre><code class="language-java">class NullMailer implements MailerInterface {
+    public void sendMail(
+        String to,
+        String title,
+        String body
+    ){
+        // ne fait rien
+    }
+}
+</code></pre>
+<ul>
+<li>Initialiser <code>mailer</code> avec un <code>NullMailer</code> plutôt que <code>null</code></li>
+</ul>
+<pre><code class="language-java">class Client {
+
+    private MailerInterface mailer ;
+
+    public Client(){
+        this.mailer = new NullMailer() ;
+    }
+
+    public void setMailer(MailerInterface mailer){
+        assert( this.mailer != null );
+        this.mailer = mailer ;
+    }
+
+    public void doSomething(){
+        // traitement...
+
+        // Le contrôle sur this.mailer != null devient innutile
+        this.mailer.sendMail(
+            &quot;admin@acme.org&quot;,
+            &quot;Traitement des donnnées&quot;,
+            &quot;Le traitement a été effectué.&quot;
+        );
+    }
+
+}
+</code></pre>
+<h2 id="remarques">Remarques</h2><ul>
+<li><p>Une collection vide peut jouer le même rôle qu&#39;un objet null. Il est d&#39;ailleurs conseillé
+de renvoyer des listes vides plutôt que des listes nulles.</p>
+</li>
+<li><p>Penser à composer NullObject et Singleton dans le cas où l&#39;initialisation de NullObject est fréquente.</p>
+</li>
+</ul>
+
+    </div>
+
+  </main>
+
+  <footer class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        ©2023 - <a href="https://github.com/mborne" target="_blank">Mickaël Borne</a> - <a href="https://mborne.github.io/cours-devops">mborne.github.io/cours-devops</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
+    integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
+    integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>hljs.highlightAll();</script> 
+
+</body>
+
+</html>

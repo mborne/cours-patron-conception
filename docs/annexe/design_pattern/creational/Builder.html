@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Builder</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+    integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+    integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../../assets/style.css">
+</head>
+
+<body>
+
+  <header class="container">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-print-none">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="../../index.html">
+          <img src="../../assets/img/logo-ign.png" alt="IGN" style="padding: 5px" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="../../index.html">Annexes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../../references.html">Références</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../../depots.html">Dépôts</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="container">
+
+    <div class="markdown-body">
+      <h1 id="builder">Builder</h1><h2 id="problème">Problème</h2><p>Les fabriques traitent principalement de l&#39;instanciation de classes en présence d&#39;une hiérarchie.</p>
+<p>Le patron de conception &quot;Builder&quot; s&#39;attaque à l&#39;instanciation de classes où
+la complexité est liée à la complexité des objets et relations entre ces objets.</p>
+<p>En outre, ce patron de conception est utile quand :</p>
+<ul>
+<li>On est tenté par la multiplication des constructeurs</li>
+<li>On doit appeler de nombreux accesseurs (set, add, etc.)</li>
+</ul>
+<h2 id="solution">Solution</h2><ul>
+<li>On met en place un nombre minimum de constructeurs</li>
+<li>On délègue la complexité de création des instances à des objets dédiés : Director et Builder</li>
+</ul>
+<p><img src="uml/UML_DP_Builder.png" alt="UML Builder"></p>
+<p>Source <a href="https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Builder" target="_blank">https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Builder</a></p>
+<h2 id="exemple">Exemple</h2><p>Source : <a href="https://fr.wikipedia.org/wiki/Monteur_%28patron_de_conception%29#Java" target="_blank">https://fr.wikipedia.org/wiki/Monteur_%28patron_de_conception%29#Java</a></p>
+<h3 id="un-produit-pizza">Un produit Pizza</h3><pre><code class="language-java">/* Produit */
+class Pizza {
+    private String pate = &quot;&quot;;
+    private String sauce = &quot;&quot;;
+    private String garniture = &quot;&quot;;
+
+    public void setPate(String pate){
+        this.pate = pate;
+    }
+
+    public void setSauce(String sauce){
+        this.sauce = sauce;
+    }
+    public void setGarniture(String garniture) {
+        this.garniture = garniture;
+    }
+}
+</code></pre>
+<h3 id="un-monteur-abstrait-de-pizza">Un monteur abstrait de pizza</h3><pre><code class="language-java">/* Monteur */
+abstract class MonteurPizza {
+  protected Pizza pizza;
+
+  public Pizza getPizza() { return pizza; }
+  public void creerNouvellePizza() { pizza = new Pizza(); }
+
+  public abstract void monterPate();
+  public abstract void monterSauce();
+  public abstract void monterGarniture();
+}
+</code></pre>
+<h3 id="des-monteurs-concrets">Des monteurs concrets</h3><ul>
+<li>Monteur pizza hawaii</li>
+</ul>
+<pre><code class="language-java">class MonteurPizzaHawaii extends MonteurPizza {
+  public void monterPate()      { pizza.setPate(&quot;croisée&quot;); }
+  public void monterSauce()     { pizza.setSauce(&quot;douce&quot;); }
+  public void monterGarniture() { pizza.setGarniture(&quot;jambon+ananas&quot;); }
+}
+</code></pre>
+<ul>
+<li>Monteur pizza piquante</li>
+</ul>
+<pre><code class="language-java">class MonteurPizzaPiquante extends MonteurPizza {
+  public void monterPate()      { pizza.setPate(&quot;feuilletée&quot;); }
+  public void monterSauce()     { pizza.setSauce(&quot;piquante&quot;); }
+  public void monterGarniture() { pizza.setGarniture(&quot;pepperoni+salami&quot;); }
+}
+</code></pre>
+<h3 id="un-serveur-dans-le-rôle-du-directeur">Un serveur dans le rôle du Directeur</h3><pre><code class="language-java">class Serveur {
+    private MonteurPizza monteurPizza;
+
+    public void setMonteurPizza(MonteurPizza mp) {
+        monteurPizza = mp;
+    }
+
+    public Pizza getPizza() {
+        return monteurPizza.getPizza();
+    }
+
+    public void construirePizza() {
+        monteurPizza.creerNouvellePizza();
+        monteurPizza.monterPate();
+        monteurPizza.monterSauce();
+        monteurPizza.monterGarniture();
+    }
+}
+</code></pre>
+<h3 id="exemple-dutilisation">Exemple d&#39;utilisation</h3><pre><code class="language-java">Serveur serveur = new Serveur();
+MonteurPizza monteurPizzaHawaii  = new MonteurPizzaHawaii();
+MonteurPizza monteurPizzaPiquante = new MonteurPizzaPiquante();
+
+serveur.setMonteurPizza(monteurPizzaHawaii);
+serveur.construirePizza();
+
+Pizza pizza = serveur.getPizza();
+</code></pre>
+<h2 id="variantes">Variantes</h2><p>La terminologie builder est généralisée à toute création par partie d&#39;objet via la séquence suivante :</p>
+<ul>
+<li>Récupération d&#39;un builder</li>
+<li>Définition de la cible par appels successifs au builder (add, set, etc...)</li>
+<li>Récupération de l&#39;instance produite (getProduct)</li>
+</ul>
+<p>En outre, la distinction n&#39;est pas toujours faite entre &quot;Director&quot; et &quot;Builder&quot;.</p>
+<h2 id="exemple-en-java">Exemple en Java</h2><ul>
+<li><p><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/StringBuilder.html" target="_blank">StringBuilder</a></p>
+</li>
+<li><p><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Calendar.Builder.html" target="_blank">CalendarBuilder</a></p>
+</li>
+</ul>
+<pre><code class="language-java">Calendar cal = new Calendar.Builder()
+    .setCalendarType(&quot;iso8601&quot;)
+    .setWeekDate(2013, 1, MONDAY)
+    .build()
+;
+</code></pre>
+<ul>
+<li><code>ProcessBuilder</code></li>
+</ul>
+<pre><code class="language-java">// Création du builder (argument obligatoire du processus)
+ProcessBuilder pb = new ProcessBuilder(&quot;myCommand&quot;, &quot;myArg1&quot;, &quot;myArg2&quot;);
+
+// Manipulation du builder (argument optionnels du processus)
+Map env = pb.environment();
+env.put(&quot;VAR1&quot;, &quot;myValue&quot;);
+env.remove(&quot;OTHERVAR&quot;);
+env.put(&quot;VAR2&quot;, env.get(&quot;VAR1&quot;) + &quot;suffix&quot;);
+pb.directory(new File(&quot;myDir&quot;));
+
+// Récupération du processus
+Process p = pb.start();
+</code></pre>
+<h2 id="liens-utiles">Liens utiles</h2><ul>
+<li><p><a href="https://kodelog.wordpress.com/tag/telescopic-constructor-pattern/" target="_blank">Discussion sur l&#39;intérêt des beans couplés au design pattern Builder</a></p>
+</li>
+<li><p><a href="http://symfony.com/doc/current/book/forms.html#building-the-form" target="_blank">Exemple d&#39;utilisation dans la création de formulaire dans Symfony (PHP)</a></p>
+</li>
+<li><p><a href="http://doctrine-orm.readthedocs.org/projects/doctrine-orm/en/latest/reference/query-builder.html#high-level-api-methods" target="_blank">Exemple d&#39;utilisation dans la création de requête SQL (PHP)</a></p>
+</li>
+</ul>
+
+    </div>
+
+  </main>
+
+  <footer class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        ©2023 - <a href="https://github.com/mborne" target="_blank">Mickaël Borne</a> - <a href="https://mborne.github.io/cours-devops">mborne.github.io/cours-devops</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
+    integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
+    integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>hljs.highlightAll();</script> 
+
+</body>
+
+</html>

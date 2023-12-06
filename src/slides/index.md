@@ -1,5 +1,5 @@
 
-# Les patrons de conception
+## Les patrons de conception
 
 <br />
 
@@ -9,27 +9,31 @@
 
 ---
 
-# Introduction
+## Introduction
 
 
 ---
 
-## Pourquoi faire des efforts de conception?
+### Pourquoi faire des efforts de conception?
 
 Il faut avoir en tête **la seule constante du développement : Le changement !**
 
+De nombreux événements conduiront à modifier le code d'une application :
+
 * Modification des fonctionnalités et modèles
 * Changement de cible (desktop, serveur, cloud, mobile, etc.)
-* Augmentation des volumes de données (parallélisation, etc.)
+* Augmentation du nombre d'utilisateurs et des volumes de données (parallélisation, etc.)
 * Obsolescence des outils (bibliothèques, frameworks, etc.)
 * Choix politique (base de données, opensource, etc.)
 * ...
 
+**Sans effort de conception, plus le temps passera, plus il sera difficile, coûteux et risqué de traiter ces changements**.
+
 ---
 
-## Quels sont les critères qualités d'un programme?
+### Quels sont les critères qualités d'un programme?
 
-Nous ciblerons (et on prioriserons) généralement plusieurs critères :
+Il conviendra de **cibler plusieurs critères qualités qui guideront la conception** :
 
 * **Fiabilité**       : Pouvoir faire tourner le programme sans risque de plantage
 * **Maintenabilité**  : Pouvoir corriger un bug, mettre à jour les dépendances, etc.
@@ -40,43 +44,45 @@ Nous ciblerons (et on prioriserons) généralement plusieurs critères :
 * **Testabilité**     : Pouvoir automatiser facilement les tests unitaires et fonctionnels sur un programme.
 * ...
 
+Nous serons souvent amené à **prioriser ces critères** (ex : privilégier les performances plutôt que la généricité)
 
 ---
 
-## Les patrons de conception dans tout ça?
+### Les patrons de conception dans tout ça?
 
-Pour bien en comprendre l'intérêt, nous allons d'abord balayer un ensemble de prérequis  :
+Pour bien l'**intérêt des patrons de conception**, nous allons d'abord balayer un ensemble de **prérequis**  :
 
-* Rappel sur les bases de la P.O.O.
-* Rappel sur les principes de conception
+* **Les concept de base de la P.O.O.**
+* **Les principes de conception**
 
-Nous verrons quelques mauvaises pratiques à travers les anti-patterns. Puis,
-nous nous attarderons sur les bonnes pratiques en parcourant les design pattern.
+Nous verrons quelques **mauvaises pratiques** à travers les **anti-patrons**. Puis,
+nous nous attarderons sur les **bonnes pratiques** avec les **patrons de conception**.
 
 ---
 
-# Plan
+## Plan
 
 * Introduction
 * Les bases de la P.O.O.
 * Les principes de conception
-* Les anti-patterns
+* Les anti-patrons
 * Les designs patterns
 * Les patrons de création
 * Les patrons de structure
 * Les patrons de comportement
-* Les patrons architecturaux
 * A vous maintenant!
+* Les patrons architecturaux
+* Le refactoring
 * Annexe
 * Bibliographie
 
 ---
 
-# Les bases de la P.O.O.
+## Les bases de la P.O.O.
 
----
+### Les concepts de base de la P.O.O.
 
-## Les concepts de base
+Les concepts suivants sont normalement connus avant de débuter ce cours :
 
 * Les **classes** avec leurs **attributs** et leurs **méthodes**
 * Les **constructeurs**
@@ -92,18 +98,27 @@ nous nous attarderons sur les bonnes pratiques en parcourant les design pattern.
 
 ---
 
-## Bien comprendre l'intérêt de ces concepts!
+## Les bases de la P.O.O.
 
-Généralement, ces concepts sont plutôt bien maîtrisés pour modéliser des données (objet de domaine).
+### Bien comprendre l'intérêt des concepts de base
 
-Il faut toutefois bien **comprendre l'intérêt de ces concepts pour les exploiter efficacement** afin de faire varier efficacement le comportement d'un programme.
+Les concepts de classe, d'attribut et l'héritage sont généralement bien maîtrisés pour modéliser des données (objet de domaine).
 
-=> [Méditons quelques exemples](meditation.html).
+Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la P.O.O.** pour :
+
+* Se protéger contre des erreurs de programmation
+* S'assurer d'être en mesure de modifier le code sans casser les appels 
+* S'assurer de pouvoir le comportement d'un programme en modélisant les traitements 
+* ...
+
+=> [Méditons quelques exemples](meditation.md).
 
 
 ---
 
-## Les concepts avancés
+## Les bases de la P.O.O.
+
+### Les concepts avancés
 
 Les langages ont leurs spécificités qui doivent être prises en compte dans la conception :
 
@@ -120,7 +135,7 @@ Nous n'entrerons pas dans ce niveau de détail en nous concentrant sur les élé
 
 ---
 
-# Les principes de conception
+## Les principes de conception
 
 Les patrons de conception que nous allons bientôt voir sont (entre autres) une
 mise en pratique de principes de conception qui s'ajoutent aux principes
@@ -128,42 +143,50 @@ de base de la P.O.O. (abstraction, encapsulation, etc.) et qu'il faut avoir en t
 
 ---
 
-## SOLID (1/2)
+## Les principes de conception
 
-### (S)ingle Responsibility Principle
+### SOLID (1/2)
+
+#### (S)ingle Responsibility Principle
 
 Une classe remplit une fonction et une seule.
 
-### (O)pen Closed Principle
+#### (O)pen Closed Principle
 
 Une classe est ouverte à l’extension, mais fermée aux modifications.
 
 ---
 
-## SOLID (2/2)
+## Les principes de conception
 
-### (L)iskov Substitution Principle
+### SOLID (2/2)
+
+#### (L)iskov Substitution Principle
 
 Lorsqu’une classe se substitue à une autre, le programme continue de fonctionner.
 
-### (I)nterface Segregation Principle
+#### (I)nterface Segregation Principle
 
 Préférer plusieurs interfaces spécifiques pour chaque client plutôt qu'une seule interface générale.
 
-### (D)ependency Inversion Principle
+#### (D)ependency Inversion Principle
 
 Il faut dépendre des interfaces, pas des implémentations (classes concrètes).
 
 ---
 
-## YAGNI : you ain't gonna need it
+## Les principes de conception
+
+### YAGNI : you ain't gonna need it
 
 On ne code que ce qui est utile. On n'ajoute pas des codes en se disant que ça
 servira un jour.
 
 ---
 
-## DRY : Don't Repeat Yourself
+## Les principes de conception
+
+### DRY : Don't Repeat Yourself
 
 Le copier/coller n'est pas une méthode acceptable de réutilisation des codes.
 
@@ -171,7 +194,9 @@ Quand on veut réutiliser un code, on le met en facteur.
 
 ---
 
-## Identifier et encapsuler ce qui varie (1/2)
+## Les principes de conception
+
+### Identifier et encapsuler ce qui varie (1/2)
 
 Cas d'école : J'identifie le besoin d'écrire mes logs dans la console
 ou dans un fichier...
@@ -189,7 +214,9 @@ class MaClasse {
 
 ---
 
-## Identifier et encapsuler ce qui varie (2/2)
+## Les principes de conception
+
+### Identifier et encapsuler ce qui varie (2/2)
 
 ... je fais abstraction sur l'écriture des logs en posant un concept à l'aide d'une classe `Logger` dédiée à l'écriture des logs :
 
@@ -208,7 +235,9 @@ class MaClasse {
 
 ---
 
-## Préférer la composition à l'héritage
+## Les principes de conception
+
+### Préférer la composition à l'héritage
 
 * Nous hériterons d'une classe seulement si nous pouvons dire "EST-UN" (ex : "un `Chien` est un `Animal`")
 * Nous n'hériterons pas d'une classe dans le but de réutiliser ses méthodes
@@ -217,38 +246,48 @@ class MaClasse {
 
 ---
 
-# Les anti-patterns
+## Les anti-patrons
 
-Avant de mettre un nom sur des modèles de conception, nous allons **mettre un nom sur des erreurs de conception courantes : Les anti-patterns !**
+Avant de mettre un nom sur des modèles de conception, nous allons **mettre un nom sur des erreurs de conception courantes : Les anti-patrons !**
 
 ---
 
-## Principe des anti-patterns
+## Les anti-patrons
+
+### Principe des anti-patrons
 
 * Nommer des erreurs de conception classiques
 * Faciliter l'identification des erreurs de conception
 
 ---
 
-## Réinventer la roue carrée
+## Les anti-patrons
+
+### Réinventer la roue carrée
 
 Ne pas s'appuyer sur une solution existante.
 
 ---
 
-## Programmation spaghetti
+## Les anti-patrons
+
+### Programmation spaghetti
 
 Le rôle des différents éléments du système n'est pas identifiable. Il est difficile de modifier une partie du code sans en altérer le fonctionnement.
 
 ---
 
-## Objet divin
+## Les anti-patrons
+
+### Objet divin
 
 L'objet divin porte un trop grand nombre de responsabilités.
 
 ---
 
-## Abstraction inverse
+## Les anti-patrons
+
+### Abstraction inverse
 
 Un composant ne fournit pas les abstractions nécessaires, mais seulement les méthodes les plus compliquées.
 
@@ -256,7 +295,9 @@ Les abstractions sont développées dans les clients.
 
 ---
 
-## Marteau doré
+## Les anti-patrons
+
+### Marteau doré
 
 Avec un bon marteau, tous les problèmes sont des clous!
 
@@ -271,7 +312,9 @@ Un outil est placé comme solution à tous les problèmes. Il peut s'agir d'une 
 
 ---
 
-## Coulée de lave
+## Les anti-patrons
+
+### Coulée de lave
 
 Un code non finalisé est mis en production. Il n'est plus possible de le remanier.
 
@@ -279,7 +322,9 @@ Ce problème peut concerner aussi bien des bibliothèques que des API.
 
 ---
 
-## Premature Optimisation (1/2)
+## Les anti-patrons
+
+### Premature Optimisation (1/2)
 
 "Premature optimization is the root of all evil" (Donald Knuth)
 
@@ -294,7 +339,9 @@ Exemples :
 
 ---
 
-## Premature Optimisation (2/2)
+## Les anti-patrons
+
+### Premature Optimisation (2/2)
 
 "Premature optimization is the root of all evil" (Donald Knuth) **mais :**
 
@@ -310,13 +357,15 @@ Proposition de méthode :
 
 ---
 
-# Les designs patterns
+## Les patrons de conception
 
 Nous y sommes! Alors, les patrons de conception, Quésako?
 
 ---
 
-## Définition
+## Les patrons de conception
+
+### Définition
 
 Le concept de patron de conception a été défini par le « Gang of Four » (Erich Gamma, Richard Helm, Ralph Johnson et John Vlissides) dans le livre "Design Patterns -- Elements of Reusable Object-Oriented Software" (1994).
 
@@ -324,7 +373,9 @@ Un design pattern est la description d'une solution réutilisable pour un probl�
 
 ---
 
-## Famille de patrons de conception du GoF
+## Les patrons de conception
+
+### Famille de patrons de conception du GoF
 
 Le « Gang of Four » définit trois familles de patrons de conception :
 
@@ -334,7 +385,9 @@ Le « Gang of Four » définit trois familles de patrons de conception :
 
 ---
 
-## Autres familles de patrons de conception
+## Les patrons de conception
+
+### Autres familles de patrons de conception
 
 Le concept sera étendu et nous trouverons en complément :
 
@@ -344,7 +397,9 @@ Le concept sera étendu et nous trouverons en complément :
 
 ---
 
-## Formalisme des design patterns
+## Les patrons de conception
+
+### Formalisme des design patterns
 
 * Un nom
 * Un problème
@@ -353,7 +408,9 @@ Le concept sera étendu et nous trouverons en complément :
 
 ---
 
-## Intérêts des design patterns (1/2)
+## Les patrons de conception
+
+### Intérêts des design patterns (1/2)
 
 * Utiliser un vocabulaire commun
 * Trouver de l'inspiration dans la recherche d'une solution
@@ -362,7 +419,9 @@ Le concept sera étendu et nous trouverons en complément :
 
 ---
 
-## Intérêts des design patterns (2/2)
+## Les patrons de conception
+
+### Intérêts des design patterns (2/2)
 
 En pratique, vous retrouverez plus facilement vos petits en Java et dans les frameworks orientés objet :
 
@@ -377,7 +436,7 @@ Aussi, vous pourrez rechercher des solutions aux problèmes classiques que vous 
 
 ---
 
-# Les patrons de création
+## Les patrons de création
 
 * [Singleton](annexe/design_pattern/creational/Singleton.html)
 * [Prototype](annexe/design_pattern/creational/Prototype.html)
@@ -388,7 +447,7 @@ Aussi, vous pourrez rechercher des solutions aux problèmes classiques que vous 
 
 ---
 
-# Les patrons de structure
+## Les patrons de structure
 
 * [Facade (Façade)](annexe/design_pattern/structural/Facade.html)
 * [Decorator (Décorateur)](annexe/design_pattern/structural/Decorator.html)
@@ -400,7 +459,7 @@ Aussi, vous pourrez rechercher des solutions aux problèmes classiques que vous 
 
 ---
 
-# Les patrons de comportement
+## Les patrons de comportement
 
 * [Iterator (Itérateur)](annexe/design_pattern/behavior/Iterator.html)
 * [Strategy (Stratégie)](annexe/design_pattern/behavior/Strategy.html)
@@ -416,12 +475,17 @@ Aussi, vous pourrez rechercher des solutions aux problèmes classiques que vous 
 
 * [Null Object (objet null)](annexe/design_pattern/behavior/NullObject.html)
 
+---
+
+## A vous maintenant!
+
+Pour bien comprendre l'intérêt des patrons de conception, nous allons traiter le [TP - Mise en oeuvre des patterns sur des Geometry](annexe/tp-geometry/index.html)
 
 ---
 
-# Les patrons architecturaux
+## Les patrons architecturaux
 
-Quelques exemples :
+Nous avons vu jusque là des patrons de conception à l'échelle de quelques classes. Nous soulignerons l'existence de **patron de conception architecturaux** agissant à l'**échelle d'une application ou d'un système** :
 
 * Architecture en couche
 * Architecture micro-service
@@ -430,73 +494,29 @@ Quelques exemples :
 * [MapReduce](annexe/design_pattern/architectural/MapReduce.html)
 * Event-Driven architecture/Message Oriented Middleware (MOM)
 
+---
+
+## Le refactoring
+
+Nous noterons que souvent, nous serons face à des applications existantes où il sera potentiellement intéressant de **se mettre en conformité avec des principes de conception** et d'**introduire des patrons de conception**.
+
+Nous verrons rapidement [les grands principes du refactoring de code](refactoring.html) avant de traiter le [TP - Réfactoring sur des traitements de graphe](annexe/tp-graph/index.html) où l'idée est de faire une mise en situation d'optimisation et d'industrialisation d'un code existant.
 
 ---
 
-# A vous maintenant!
-
----
-
-## Comment progresser?
+### Comment progresser?
 
 * Comprendre et apprendre les principaux patrons de conception
-
-* Identifier les patrons de conception dans les codes existants : Rechercher les fabriques, les monteurs, les stratégies, les décorateurs, etc.
-
-* Expérimenter!
-
-* Concevoir des codes en pensant aux principes de conception et patrons de conception
-
-* Concevoir des codes en les testant unitairement (un code mal conçu ne pouvant être testé unitairement)
-
-* Comprendre des architectures existantes (vous constaterez que les mêmes principes s'appliquent à diverses échelles des systèmes)
+* **Identifier les patrons de conception dans les codes existants** (rechercher les fabriques, les monteurs, les stratégies, les décorateurs, etc.)
+* **Expérimenter!**
+* **Concevoir** des codes en pensant aux **principes de conception** et **patrons de conception** (sans sombrer dans la paternite)
+* **Concevoir des codes en les testant unitairement** (un code mal conçu ne pouvant être testé unitairement)
+* **Comprendre des architectures existantes** (vous constaterez que les mêmes principes s'appliquent à diverses échelles des systèmes)
 
 ---
 
-# Annexe
+## Annexes
 
+* [Références - Bibliographie et ressources en ligne](annexe/references.html)
 * [TP - Mise en oeuvre des patterns sur des Geometry](annexe/tp-geometry/index.html)
-* [Les grands principes du refactoring de code](refactoring.html)
 * [TP - Réfactoring sur des traitements de graphe](annexe/tp-graph/index.html)
-* [Outils pour la gestion des dépendances (Java, PHP, NodeJS, JavaScript, C++)](annexe/dependances.html)
-
----
-
-# Bibliographie (1/2)
-
-* Design Patterns: Elements of Reusable Object-Oriented Software (Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides)
-
-* Tête la première dans les Design Patterns, O'Reilly
-
-> Présente les patrons de conception à travers des problématiques concrètes. Le style d'écriture rend la lecture plus agréable que le parcours d'un catalogue.
-
-* Design Patterns, Catalogue de modèles de conceptions réutilisables, Vuibert
-
-* Microsoft Application Architecture Guide, 2nd Edition
-
-> Disponible gratuitement au format PDF, ce guide initialement rédigé à l'attention des développeurs DotNet traite des problématiques générales sur l'architecture logicielle : Principes de conception, critères qualités, styles d'architecture, etc.
-
----
-
-# Bibliographie  (2/2)
-
-* [principles-wiki.net - OOD Principle Language](http://principles-wiki.net/collections:ood_principle_language)
-
-> Catalogue de principes de conception.
-
-* [java-design-patterns.com - Design patterns implemented in Java](https://java-design-patterns.com/)
-
-> Implémentation de nombreux patrons de conception en java sur des exemples concrets et présentation des principes de conceptions (dépôt github disponible : https://github.com/iluwatar/java-design-patterns)
-
-* [sourcemaking.com - Design Patterns](https://sourcemaking.com/design_patterns) et [AntiPatterns](https://sourcemaking.com/antipatterns)
-
-> Catalogue des principaux patrons de conception (avec des exemples dans plusieurs langages) et anti-patrons (dans plusieurs domaines : développement, architecture et gestion de projet).
-
-* [fr.wikibooks.org - WIKIBOOK, Patrons de conception/Patrons du *Gang of Four*](https://fr.wikibooks.org/wiki/Patrons_de_conception)
-
-> Présentation des principaux patrons de conception
-
-* [learn.microsoft.com - Cloud Design Patterns](https://learn.microsoft.com/en-us/azure/architecture/patterns/)
-
-> Patron de conception de plus haut niveau pour le développement de services hébergés dans le *cloud*.
-

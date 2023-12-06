@@ -3,20 +3,36 @@
 Quelques exemples de codes à méditer pour bien comprendre l'intérêt
 des différents concepts de la P.O.O.
 
+* Intérêt des classes et des attributs
+* Intérêt des constructeurs
+* Intérêt de l'encapsulation
+* Mise en garde sur encapsulation
+* Intérêt du polymorphisme
+* Intérêt de abstract
+* Intérêt des interfaces
+* Mise en garde sur les interface
+* Couplage interface et abstract
+
 ---
 
-## Intérêt des agrégats de variables
+## Intérêt des classes et des attributs (1/2)
 
-> Pour comprendre l'intérêt des classes, il faut d'abord comprendre l'intérêt de la possibilité de définir un type utilisateur (ex : `struct` en C).
+Pour comprendre l'**intérêt des classes et des attributs**, il faut d'abord comprendre l'intérêt de la possibilité de définir un type utilisateur (ex : `struct` en C).
 
+.pull-left[
 Sans :
 
 ```
-function centroid( double[] tabX, double[] tabY ){
+function centroid(
+    double[] tabX,
+    double[] tabY 
+){
     //...
 }
 ```
+]
 
+.pull-right[
 Avec :
 
 ```
@@ -25,26 +41,69 @@ struct Coordinate {
     double y ;
 }
 
-function centroid( Coordinate[] coordinate ){
+function centroid(
+    Coordinate[] coordinate
+){
     //...
 }
 ```
+]
 
-Quel est l'apport de la deuxième approche en matière d'**abstraction**? Si nous ajoutons un "z"?
+Quel est l'apport de la deuxième approche en matière d'**abstraction**, de **capacité à nommer les concepts**?
+
+---
+
+## Intérêt des classes et des attributs (1/2)
+
+Dans le cas de figure suivant où un utilitaire `to_json` produit un chaîne de caractère sous la forme `"[x,y]"` :
+
+.pull-left[
+Sans :
+
+```
+function to_json(
+    double x,
+    double y 
+): string {
+    //...
+}
+```
+]
+
+.pull-right[
+Avec :
+
+```
+struct Coordinate {
+    double x ;
+    double y ;
+}
+
+function to_json(
+    Coordinate coordinate
+): string {
+    //...
+}
+```
+]
+
+Quel est l'apport de la deuxième approche dans le cas où nous ajoutons un "z"? Combien d'appel à `to_json` faudra-t'il modifier pour traiter les cas 2D et 3D de manière transparente?
 
 ---
 
 ## Intérêt des constructeurs
 
-Avant :
+Pour comprendre l'**intérêt des constructeurs**, il faut s'intéresser à la **sécurisation de l'initialisation des objets**.
 
-```cxx
+Sans :
+
+```c
 Coordinate c ;
 c.x = 3.0;
 c.y = 4.0;
 ```
 
-Après :
+Avec :
 
 ```java
 Coordinate c = new Coordinate(3.0,4.0) ;
@@ -52,14 +111,16 @@ Coordinate c = new Coordinate(3.0,4.0) ;
 
 Quel est l'apport de la deuxième approche :
 
-* Pour éviter éviter les erreurs de codage?
+* Pour éviter les erreurs de codage?
 * Si nous ajoutons un "z"?
+
+Quelle est l'intérêt par rapport à la possibilité de définir un utilitaire pour créer une coordonnées (ex : `createCoordinate(x,y): Coordinate`)?
 
 ---
 
 ## Intérêt de l'encapsulation (1/2)
 
-Sur une classe comme celle ci-après, nous pouvons nous demander à quoi bon mettre des attributs privés :
+Sur une classe aussi simple que celle ci-après, nous pouvons nous demander à quoi bon mettre des attributs privés :
 
 ```java
 class User {
@@ -68,14 +129,13 @@ class User {
 }
 ```
 
-Après tout, il est plus simple d'appeler partout dans le programme `user.age` plutôt que `user.getAge()`.
+Après tout, il est plus simple d'appeler partout dans le programme `user.age` plutôt que `user.getAge()` non?
 
 ---
 
 ## Intérêt de l'encapsulation (2/2)
 
-
-Toutefois, un an après avoir stocké ces âges dans des fichiers ou en base de données, nous aurons envie de **changer la conception** pour stocker plutôt des "dates de naissances" (invariant temporel).
+Toutefois, si nous sommes amené à stocker ces utilisateurs dans un fichier ou dans une base de données, nous aurons envie de **changer la conception** pour stocker plutôt des "dates de naissances" (invariant temporel).
 
 En présence d'accesseurs, nous pourrons **changer la structure interne sans casser les appels** à `user.getAge()` :
 
@@ -99,8 +159,11 @@ class User {
 
 ## Mise en garde sur encapsulation
 
-* Il ne suffit pas de mettre des accesseurs pour résoudre tous les problèmes!
-* Certains accesseurs exposent trop d'information sur la structure interne.
+Les **accesseurs et mécanismes de visibilité** donneront la **capacité à modifier l'implémentation des classes**. En limitant la surface d'exposition, on limite le risque de changement cassant.
+
+Toutefois, il ne suffira pas de mettre mécaniquement des "private", "getters" et "setters" sur tous les attributs pour résoudre tous les problèmes car **certains accesseurs exposeront trop d'information sur la structure interne**.
+
+Il sera plutôt question d'**exposer uniquement ce qui doit l'être**.
 
 ---
 
@@ -116,7 +179,7 @@ class Widget {
     private Dimension dimension ;
 
     public void paint(Painter painter){
-        System.out.println("Rendu du widget");
+        System.out.println("Rendu du contour du widget");
     }
 
 }
@@ -230,14 +293,13 @@ Les classes ont une grande liberté sur la méthode d'implémentation des contra
 
 ## Mise en garde sur les interface (1/3)
 
-Il ne suffit pas de définir une interface pour avoir
-de la souplesse sur les implémentations possibles :
+Il ne suffira pas de définir aveuglément des interfaces pour avoir de la souplesse sur l'implémentation possibles :
 
-* L'implémentation de certains contrats est plus complexes que d'autres.
-* L'implémentation d'un contrat peut s'avérer sous-performante en fonction des
-classes concrètes (exemple : Accès par clé sur un tableau, accès ligne par ligne via SQL, etc.)
+* Concevoir une interface imposera de faire des choix
+* Ces choix pourront impacter les performances
+* L'implémentation de certaines interfaces sera plus complexes que d'autres
 
-=> Il faut bien **réfléchir aux implications des choix effectués dans la conception de l'interface**.
+=> Il faudra bien **réfléchir aux implications des choix effectués dans la conception de l'interface**.
 
 ---
 
@@ -283,7 +345,11 @@ interface Database {
 
 ## Couplage interface et abstract (1/3)
 
-Il sera souvent intéressant de procéder sur trois niveaux d'héritage en présence d'interface.
+Il sera assez rare de trouver une classe abstraite au sommet d'une hiérarchie. Il sera généralement plus intéressant de procéder sur trois niveaux d'héritage avec :
+
+* Une interface
+* Une classe abstraite qui implémente les parties communes
+* Des classes concrètes qui héritent de la classe abstraite
 
 ### Une interface
 
