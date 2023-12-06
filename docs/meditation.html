@@ -1,4 +1,15 @@
-# Méditation
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Méditation</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+    <textarea id="source">
+    # Méditation
 
 Quelques exemples de codes à méditer pour bien comprendre l'intérêt
 des différents concepts de la P.O.O.
@@ -412,3 +423,21 @@ class DatabaseLogger extends AbstractLogger {
     }
 }
 ```
+
+    </textarea>
+
+    <script src="assets/remarkjs/remark-latest.min.js"></script>
+    <script src="assets/jquery/jquery-3.3.1.min.js"></script>
+    <script>
+        var slideshow = remark.create();
+
+        /* footer */
+        $('.remark-slide-content').each(function (index, data) {
+            var footer = '<span class="footer">ENSG - Les patrons de conception, Mickaël BORNE, Décembre 2024</span>';
+            $(data).append(footer);
+        });
+    </script>
+
+</body>
+
+</html>

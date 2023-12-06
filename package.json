@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "node build.js",
-    "publish": "git subtree push --prefix dist origin gh-pages"
+    "start": "http-server -p 3000 docs"
   },
   "repository": {
     "type": "git",
@@ -13,14 +13,14 @@
   },
   "author": "Mickaël Borne <mborne@users.noreply.github.com>",
   "license": "UNLICENSED",
+  "private": true,
   "bugs": {
     "url": "https://github.com/mborne/cours-patron-conception/issues"
   },
-  "homepage": "https://github.com/mborne/cours-patron-conception#readme",
-  "dependencies": {},
-  "private": true,
+  "homepage": "https://mborne.github.io/cours-patron-conception/",
   "devDependencies": {
-    "@mborne/markdown-to-html": "0.8.1",
+    "@mborne/markdown-to-html": "0.10.1",
+    "http-server": "^14.1.1",
     "shelljs": "^0.8.5"
   }
 }
