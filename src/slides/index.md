@@ -9,8 +9,24 @@
 
 ---
 
-## Introduction
+## Plan
 
+* Introduction
+* Les bases de la P.O.O.
+* Les principes de conception
+* Les anti-patrons
+* Les designs patterns
+* Les patrons de création
+* Les patrons de structure
+* Les patrons de comportement
+* A vous maintenant!
+* Les patrons architecturaux
+* Le refactoring
+* Annexes et références
+
+---
+
+## Introduction
 
 ---
 
@@ -57,24 +73,6 @@ Pour bien l'**intérêt des patrons de conception**, nous allons d'abord balayer
 
 Nous verrons quelques **mauvaises pratiques** à travers les **anti-patrons**. Puis,
 nous nous attarderons sur les **bonnes pratiques** avec les **patrons de conception**.
-
----
-
-## Plan
-
-* Introduction
-* Les bases de la P.O.O.
-* Les principes de conception
-* Les anti-patrons
-* Les designs patterns
-* Les patrons de création
-* Les patrons de structure
-* Les patrons de comportement
-* A vous maintenant!
-* Les patrons architecturaux
-* Le refactoring
-* Annexe
-* Bibliographie
 
 ---
 
@@ -487,12 +485,14 @@ Pour bien comprendre l'intérêt des patrons de conception, nous allons traiter 
 
 Nous avons vu jusque là des patrons de conception à l'échelle de quelques classes. Nous soulignerons l'existence de **patron de conception architecturaux** agissant à l'**échelle d'une application ou d'un système** :
 
-* Architecture en couche
+* [Architecture en couches](annexe/design_pattern/architectural/couches.html)
 * Architecture micro-service
 * [Model-View-Controller (MVC)](annexe/design_pattern/architectural/MVC.html)
-* [Inversion de contrôle (IoC)](https://github.com/mborne/spring-ioc-principe)
+* [Inversion de contrôle (IoC)](https://github.com/mborne/spring-ioc-principe#readme)
 * [MapReduce](annexe/design_pattern/architectural/MapReduce.html)
 * Event-Driven architecture/Message Oriented Middleware (MOM)
+
+> Nous verrons dans le prochain TP que [Spring](https://spring.io/) combine l'utilisation de [Inversion de contrôle (IoC)](https://github.com/mborne/spring-ioc-principe#readme) et [Model-View-Controller (MVC)](annexe/design_pattern/architectural/MVC.html).
 
 ---
 
@@ -500,7 +500,7 @@ Nous avons vu jusque là des patrons de conception à l'échelle de quelques cla
 
 Nous noterons que souvent, nous serons face à des applications existantes où il sera potentiellement intéressant de **se mettre en conformité avec des principes de conception** et d'**introduire des patrons de conception**.
 
-Nous verrons rapidement [les grands principes du refactoring de code](refactoring.html) avant de traiter le [TP - Réfactoring sur des traitements de graphe](annexe/tp-graph/index.html) où l'idée est de faire une mise en situation d'optimisation et d'industrialisation d'un code existant.
+Nous verrons rapidement [les grands principes du refactoring de code](refactoring.md) avant de traiter le [TP - Réfactoring sur des traitements de graphe](annexe/tp-graph/index.html) où l'idée est de faire une mise en situation d'optimisation et d'industrialisation d'un code existant.
 
 ---
 
@@ -515,8 +515,6 @@ Nous verrons rapidement [les grands principes du refactoring de code](refactorin
 
 ---
 
-## Annexes
+## Annexes et références
 
-* [Références - Bibliographie et ressources en ligne](annexe/references.html)
-* [TP - Mise en oeuvre des patterns sur des Geometry](annexe/tp-geometry/index.html)
-* [TP - Réfactoring sur des traitements de graphe](annexe/tp-graph/index.html)
+Voir [annexes](annexe/).

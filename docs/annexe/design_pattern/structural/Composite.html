@@ -50,13 +50,12 @@
   <main id="main" class="container">
 
     <div class="markdown-body">
-      <h1 id="composite">Composite</h1><h2 id="problème">Problème</h2><p>On manipule un arbre. On souhaite appeler une opération sans faire
-la distinction entre les noeuds porteurs d&#39;enfants et les feuilles.</p>
+      <h1 id="composite">Composite</h1><h2 id="problème">Problème</h2><p>Nous manipulons un arbre et nous souhaitons appeler une opération sans faire la distinction entre les noeuds porteurs d&#39;enfants et les feuilles.</p>
 <h2 id="solution">Solution</h2><p><img src="uml/UML_Composite.png" alt="UML Composite">
 Source <a href="https://en.wikipedia.org/wiki/Composite_pattern" target="_blank"><a href="https://en.wikipedia.org/wiki/Composite_pattern" target="_blank">https://en.wikipedia.org/wiki/Composite_pattern</a></a></p>
-<h2 id="exemple">Exemple</h2><p>Dans un éditeur vectoriel, on manipule des formes (<code>Shape</code>) primitives (<code>Circle</code>, <code>Square</code>, etc.) et
+<h2 id="exemple">Exemple</h2><p>Dans un éditeur, nous manipulons des formes (<code>Shape</code>) primitives (<code>Circle</code>, <code>Square</code>, etc.) et
 des groupes de formes (<code>ShapeCollection</code>).</p>
-<p>On souhaite unifier le rendu.</p>
+<p>Nous pouvons unifier le rendu comme suit en nous inspirant de ce patron :</p>
 <pre><code class="language-java">interface Shape {
 
     public void render() ;
@@ -99,7 +98,7 @@ des groupes de formes (<code>ShapeCollection</code>).</p>
   <footer class="container-fluid">
     <div class="row">
       <div class="col-md-12 text-center">
-        ©2023 - <a href="https://github.com/mborne" target="_blank">Mickaël Borne</a> - <a href="https://mborne.github.io/cours-devops">mborne.github.io/cours-devops</a>
+        ©2023 - <a href="https://github.com/mborne" target="_blank">Mickaël Borne</a> - <a href="https://mborne.github.io/cours-patron-conception">mborne.github.io/cours-patron-conception</a>
       </div>
     </div>
   </footer>

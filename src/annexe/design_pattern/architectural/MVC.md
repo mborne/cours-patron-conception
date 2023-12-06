@@ -2,22 +2,21 @@
 
 ## Problème
 
-En l'absence d'un cadre, une application qui se complexifie à tendance à se transformer en un plat de spaghetti. On se retrouve avec des composants qui font du rendu et des calculs.
+En l'absence d'un cadre, une application qui se complexifie à tendance à se transformer en un plat de spaghetti avec des composants qui font du rendu et des calculs.
 
 ## Principe
 
-Pour plus de modularité et de clarté, on effectue une séparation claire entre :
+Pour plus de modularité et de clarté, il convient de poser une séparation claire entre :
 
 * Des **vues** qui gèrent l'affichage
 * Des **modèles** représentant les données
 * Des **contrôleurs** qui gèrent l'appel aux traitements
 
+## Cas des applications WEB
 
-## Variante de MVC dédié au WEB 
+Les **applications web** ont des **besoins spécifiques au traitement des requêtes HTTP**. Généralement, le fonctionnement d'un framework MVC côté serveur sera le suivant :
 
-Les applications web ont des besoins spécifiques à l'utilisation du protocole HTTP. Généralement, le fonctionnement est le suivant :
-
-* Les **contrôleurs** sont porteurs d'**actions** correspondant chacune à une page/fonctionnalité
+* Les **contrôleurs** sont porteurs d'**actions** correspondant chacune à **une route**
 * Un composant (`Router`) dirige chaque requête vers une action particulière :
     * `/books` : Action afficher la liste des livres (`BookController.listAction`)
     * `/books/{id}` : Action afficher le livre d'identifiant "id" (`BookController.showBook`)
@@ -25,94 +24,33 @@ Les applications web ont des besoins spécifiques à l'utilisation du protocole 
 * Le résultat est renvoyé sous forme d'une **réponse** au client avec plusieurs cas de figures :
     * Le résultat est renvoyé directement au client (réponse texte, contenu d'un fichier,...)
     * Le résultat est renvoyé au client sous une forme sérialisée (JSON, XML,...)
-    * Le résultat est mis en forme au format HTML à l'aide d'une **vue** s'appuyant sur un moteur de template.
+    * Le résultat est mis en forme au format HTML à l'aide d'une **vue** s'appuyant généralement sur un **moteur de template**.
 
-### Exemple de code
+## Variantes côté serveur
 
-* `BookController.php` : Exemple de controller
-
-```php
-class BookController extends Controller {
-    
-    /*
-     * @Route("/books",name="book_index")
-     */
-    public function listAction(Request $request){
-        $books = $this->getRepository("Books")->findAll();
-        return $this->render(
-            'Books:list.html.twig',
-            [
-                "books" => $books
-            ]
-        );
-    }
-    
-    /*
-     * @Route("/books/{id}",name="book_view")
-     */
-    public function viewAction(Request $request){
-        $id = $request->getParam('id') ;
-        $book = $this->getRepository("Books")->find($id);
-        return $this->render(
-            'Books:view.html.twig',
-            [
-                "book" => $book
-            ]
-        );
-    }
-    
-}
-```
-
-* `views/Books/list.html.twig` : Exemple de vue
-
-```twig
-<ul>
-{% for book in books %}
-    <li>    
-        <a href="{{ path('book_view',{id: book.id}) }}">
-            {{ book.name }}
-        </a>
-    </li>
-{% endfor %}
-</ul>
-```
-
-Remarques :
-
-* On soulignera l'utilisation du mécanisme de routage pour générer des URL
-* On utilise ici un moteur de template ([TWIG](http://twig.sensiolabs.org/doc/tags/for.html)). Java dispose d'outils analogues (JSP)
-* On soulignera l'utilisation d'un ORM (Doctrine) pour accéder aux données `$this->getRepository("Books")->findAll()`.
-
-
-### Variantes côté serveur
-
-Il existe de nombreux frameworks implémentant des variantes de ce concept :
+Il existe de nombreux frameworks implémentant des variantes de ce concept dans différents langages :
 
 * [Spring (JAVA)](https://spring.io/guides/gs/serving-web-content/#initial)
-* [Express (NodeJS)](http://expressjs.com/en/starter/hello-world.html)
-* [Symfony (PHP)](http://symfony.com/doc/current/index.html), [CodeIgniter](https://codeigniter.com/userguide3/tutorial/index.html)
+* [Express (NodeJS)](http://expressjs.com/en/starter/hello-world.html), [Fastify (NodeJS)](https://fastify.dev/),...
+* [Symfony (PHP)](http://symfony.com/doc/current/index.html), [CodeIgniter (PHP)](https://codeigniter.com/userguide3/tutorial/index.html), [Laravel (PHP)](https://laravel.com/)
 
+## Variantes côté navigateur
 
-### Variantes côté navigateur
+Une des tendance actuelle consiste à mettre en place des API REST renvoyant des données en JSON avec une génération du code HTML effectuée dans le navigateur en JavaScript.
 
-Une des tendance actuelle consiste à mettre en place des API REST renvoyant des
-données en JSON. La génération du code HTML est effectuée dans le navigateur
-en JavaScript.
-
-Côté client, on retrouvera des variantes du concept avec toujours l'idée de séparer le rendu de la manipulation des données :
+Côté client, nous retrouverons des variantes du concept de MVC où l'idée est toujours de **séparer le rendu de la manipulation des données** :
 
 * [React](https://reactjs.org/tutorial/tutorial.html#what-is-react)
+* [Vue.js](https://vuejs.org/guide/introduction.html#Declarative-Rendering)
 * [Angular](https://angular.io/tutorial)
-* [Vue.js](https://vuejs.org/v2/guide/#Declarative-Rendering)
 
 
-### Avantages de l'utilisation du MVC
+## Avantages de l'utilisation du MVC
 
-* Plus simple à maintenir (on retrouve facilement les actions et vues correspondant aux pages)
-* Plus simple à sécuriser (cadre pour le contrôle des paramètres)
-* Débride la croissance de l'application
-* Travail en équipe facilité (travaille en parallèle sur plusieurs contrôleurs)
+* Plus simple à **maintenir** (on retrouve facilement les actions et vues correspondant aux pages)
+* Plus simple à **sécuriser** (cadre pour le contrôle des paramètres, l'échappement des rendus HTML,...)
+* Capacité à enrichir l'application
+* Travail en équipe facilité (travail en parallèle sur plusieurs contrôleurs)
 * Meilleure séparation des rôles (développeurs backend/frontend)
 
 ## Ressources

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Les outils de gestion des dépendances</title>
+  <title>Architecture en couche</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
     integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
     integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="../../assets/style.css">
 </head>
 
 <body>
@@ -24,8 +24,8 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light d-print-none">
       <div class="container-fluid">
-        <a class="navbar-brand" href="index.html">
-          <img src="assets/img/logo-ign.png" alt="IGN" style="padding: 5px" />
+        <a class="navbar-brand" href="../../index.html">
+          <img src="../../assets/img/logo-ign.png" alt="IGN" style="padding: 5px" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -33,13 +33,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">Annexes</a>
+              <a class="nav-link" href="../../index.html">Annexes</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="references.html">Références</a>
+              <a class="nav-link" href="../../references.html">Références</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="depots.html">Dépôts</a>
+              <a class="nav-link" href="../../depots.html">Dépôts</a>
             </li>
           </ul>
         </div>
@@ -50,27 +50,8 @@
   <main id="main" class="container">
 
     <div class="markdown-body">
-      <h1 id="les-outils-de-gestion-des-dépendances">Les outils de gestion des dépendances</h1><p>Les outils de gestion de dépendance comportent généralement :</p>
-<ul>
-<li>Un <strong>descripteur de projet</strong> qui <strong>liste les dépendances et leurs versions</strong></li>
-<li>Un <strong>utilitaire en ligne de commande pour télécharger les dépendances</strong> et <strong>construire le projet</strong></li>
-<li>Au moins un <strong>dépôt public</strong> permettant le téléchargement des dépendances (tout en ayant la <strong>possibilité d&#39;avoir dépôts privés</strong>)</li>
-</ul>
-<p>Nous trouverons quelques exemples ci-dessous.</p>
-<h2 id="java---apache-maven">Java - Apache Maven</h2><p><a href="https://maven.apache.org/" target="_blank">Maven</a> est couramment utilisé pour gérer les dépendances d&#39;un projet JAVA.</p>
-<ul>
-<li>Descripteur du projet : <code>pom.xml</code></li>
-<li>Dépôt central : <a href="http://mvnrepository.com/" target="_blank">mvnrepository</a></li>
-<li>Démarrage rapide : <a href="https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html" target="_blank">Maven in five minutes</a></li>
-<li>Alternative : <a href="https://gradle.org/" target="_blank">Gradle</a></li>
-</ul>
-<h2 id="nodejs---npm">NodeJS - NPM</h2><p><a href="https://www.npmjs.com/" target="_blank">npm</a> est principalement utilisé pour gérer les dépendances NodeJS (express par exemple) et les dépendances du front (jquery, bootstrap, OpenLayers, etc.) :</p>
-<ul>
-<li>Descripteur du projet : <code>package.json</code></li>
-<li>Dépôt central : <a href="https://www.npmjs.com/" target="_blank">npmjs.com</a></li>
-<li>Démarrage rapide : <a href="https://www.npmjs.com/package/express" target="_blank">Testez express</a>!</li>
-<li>Alternative : <a href="https://yarnpkg.com/" target="_blank">yarn</a></li>
-</ul>
+      <h1 id="architecture-en-couche">Architecture en couche</h1><p>Nous trouverons plusieurs styles d&#39;<a href="https://fr.wikipedia.org/wiki/Architecture_en_couches" target="_blank">architecture en couche</a> avec par exemple les architectures n-tiers illustrée ci-dessous dans le cas d&#39;une application web :</p>
+<p><img src="schema/ntiers-web.png" alt="Illustration architecture n-tiers"></p>
 
     </div>
 

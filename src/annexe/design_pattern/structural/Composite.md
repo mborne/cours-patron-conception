@@ -1,9 +1,8 @@
-# Composite
+# Composite
 
-## Problème
+## Problème
 
-On manipule un arbre. On souhaite appeler une opération sans faire
-la distinction entre les noeuds porteurs d'enfants et les feuilles.
+Nous manipulons un arbre et nous souhaitons appeler une opération sans faire la distinction entre les noeuds porteurs d'enfants et les feuilles.
 
 ## Solution
 
@@ -12,10 +11,10 @@ Source [<https://en.wikipedia.org/wiki/Composite_pattern>](https://en.wikipedia.
 
 ## Exemple
 
-Dans un éditeur vectoriel, on manipule des formes (`Shape`) primitives (`Circle`, `Square`, etc.) et
+Dans un éditeur, nous manipulons des formes (`Shape`) primitives (`Circle`, `Square`, etc.) et
 des groupes de formes (`ShapeCollection`).
 
-On souhaite unifier le rendu.
+Nous pouvons unifier le rendu comme suit en nous inspirant de ce patron :
 
 ```java
 interface Shape {
@@ -57,12 +56,4 @@ class ShapeCollection implements Shape {
     }
 }
 ```
-
-
-
-
-
-
-
-
 

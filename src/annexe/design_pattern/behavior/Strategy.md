@@ -2,8 +2,7 @@
 
 ## Problème
 
-On souhaite pouvoir faire varier dynamiquement le comportement d'une partie
-d'un traitement.
+Nous souhaitons pouvoir **faire varier dynamiquement le comportement d'une partie d'un traitement**.
 
 ## Exemple
 
@@ -258,7 +257,7 @@ class ImageProcessorBlur implements ImageProcessorStrategy {
 }
 ```
 
-* [Composite](../structural/Composite.html) sur ImageProcessorStrategy
+* [Composite](../structural/Composite.md) sur ImageProcessorStrategy
 
 ```java
 class ImageProcessorComposite implements ImageProcessorStrategy {
