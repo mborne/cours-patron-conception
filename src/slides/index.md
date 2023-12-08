@@ -104,9 +104,9 @@ Les concepts suivants sont normalement connus avant de débuter ce cours :
 
 ## Les bases de la P.O.O.
 
-### Bien comprendre de ces concepts
+### Bien comprendre l'intérêt de ces concepts!
 
-Les concepts de classe, d'attribut et l'héritage sont généralement bien maîtrisés pour modéliser des données (objet de domaine).
+Les **concepts de classe, d'attribut et l'héritage sont généralement bien maîtrisés pour modéliser des données** (objet de domaine).
 
 Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la P.O.O.** pour :
 
