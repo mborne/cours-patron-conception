@@ -87,3 +87,15 @@ blockquote {
 	font-style: italic;
 	color: #373832;
 }
+
+.bad-left {
+	float: left;
+	width: 47%;
+	color: rgb(255, 77, 0);
+}
+.good-right {
+	float: right;
+	width: 47%;
+	color: green;
+}
+

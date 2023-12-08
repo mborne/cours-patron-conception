@@ -30,6 +30,8 @@
 
 ---
 
+## Introduction
+
 ### Pourquoi faire des efforts de conception?
 
 Il faut avoir en tête **la seule constante du développement : Le changement !**
@@ -47,6 +49,8 @@ De nombreux événements conduiront à modifier le code d'une application :
 
 ---
 
+## Introduction
+
 ### Quels sont les critères qualités d'un programme?
 
 Il conviendra de **cibler plusieurs critères qualités qui guideront la conception** :
@@ -63,6 +67,8 @@ Il conviendra de **cibler plusieurs critères qualités qui guideront la concept
 Nous serons souvent amené à **prioriser ces critères** (ex : privilégier les performances plutôt que la généricité)
 
 ---
+
+## Introduction
 
 ### Les patrons de conception dans tout ça?
 
@@ -106,7 +112,7 @@ Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la
 
 * Se protéger contre des erreurs de programmation
 * S'assurer d'être en mesure de modifier le code sans casser les appels 
-* S'assurer de pouvoir le comportement d'un programme en modélisant les traitements 
+* Pouvoir tester unitairement les fonctionnalités (en bouchonnant les autres à l'aide de "mock")
 * ...
 
 => [Méditons quelques exemples](meditation.md).
@@ -143,33 +149,112 @@ de base de la P.O.O. (abstraction, encapsulation, etc.) et qu'il faut avoir en t
 
 ## Les principes de conception
 
-### SOLID (1/2)
+### SOLID
 
-#### (S)ingle Responsibility Principle
+Nous allons commencer par **5 principes fondamentaux** regroupés dans l'acronyme **SOLID** :
 
-Une classe remplit une fonction et une seule.
-
-#### (O)pen Closed Principle
-
-Une classe est ouverte à l’extension, mais fermée aux modifications.
+* **S**ingle Responsibility Principle (SRP, **responsabilité unique**)
+* **O**pen Closed Principle (OCP, **ouvert/fermé**)
+* **L**iskov Substitution Principle (LSP, **substitution de Liskov**)
+* **I**nterface Segregation Principle (ISP, **ségrégation des interfaces**)
+* **D**ependency Inversion Principle (DIP, **inversion des dépendances**)
 
 ---
 
 ## Les principes de conception
 
-### SOLID (2/2)
+### (S)ingle Responsibility Principle
 
-#### (L)iskov Substitution Principle
+**Une classe remplit une fonction et une seule.**
 
-Lorsqu’une classe se substitue à une autre, le programme continue de fonctionner.
+.bad-left[
+Cette classe permet le téléchargement des communes ADMINEXPRESS et le calcul des statistiques sur les communes.
+]
 
-#### (I)nterface Segregation Principle
+.good-right[
+* Cette classe permet le calcul des statistiques sur une liste de communes
+* Cette classe se charge de lire les communes au modèle ADMINEXPRESS
+]
 
-Préférer plusieurs interfaces spécifiques pour chaque client plutôt qu'une seule interface générale.
+---
 
-#### (D)ependency Inversion Principle
+## Les principes de conception
 
-Il faut dépendre des interfaces, pas des implémentations (classes concrètes).
+### (O)pen Closed Principle
+
+**Une classe est ouverte à l’extension, mais fermée aux modifications.**
+
+.bad-left[
+Pour ajouter modifier le comportement d'une classe existante, je modifie son code.
+]
+
+.good-right[
+Pour modifier le comportement d'une classe, je peux en hériter et surcharger une ou plusieurs méthodes
+
+> Spoiler : le patron décorateur permettra une approche plus élégante.
+]
+
+---
+
+## Les principes de conception
+
+### (L)iskov Substitution Principle
+
+**Lorsqu’une classe se substitue à une autre, le programme continue de fonctionner.**
+
+.bad-left[
+Cas 1 : J'ajoute une classe à une hiérarchie, je lance une exception "cette méthode n'est pas implémentée" sur une méthode.
+
+Cas 2 : J'ajoute une classe à une hiérarchie, je provoque le lancement d'exception "cette méthode pas implémentée pour ce type" dans d'autres parties du code.
+]
+
+.good-right[
+Avant d'hériter d'une classe, je m'assure que je pourrai implémenter toutes les méthodes et que ça ne posera pas de problème dans le reste du code.
+
+> Spoiler : Le patron visiteur pourra aider à se protéger contre le deuxième cas.
+]
+
+---
+
+## Les principes de conception
+
+### (I)nterface Segregation Principle
+
+**Préférer plusieurs interfaces spécifiques plutôt qu'une seule interface générale.**
+
+.bad-left[
+Je définis une interface `Client` avec des méthodes pour faire des requêtes HTTP (`httpGet`, `httpPost`,...), télécharger des fichiers FTP (`ftpGet`), envoyer des mails (`sendMail`)...
+]
+
+.good-right[
+Je définis une interface pour chaque protocole : `HttpClient`, `FtpClient`, `Mailer`.
+]
+
+---
+
+## Les principes de conception
+
+### (D)ependency Inversion Principle
+
+**Il faut dépendre des interfaces, pas des implémentations (classes concrètes).**
+
+.bad-left[
+J'utilise des types correspondant à des classes (`ArrayList`, `HashMap`...) dans les déclarations de mes constructeurs et méthodes.
+]
+
+.good-right[
+J'utilise plutôt des types correspondant à des interfaces (`List`, `Map`...) dans les déclarations.
+]
+
+---
+
+## Les principes de conception
+
+### DRY : Don't Repeat Yourself
+
+**Le copier/coller n'est pas une méthode acceptable de réutilisation des codes.**
+
+Pour **réutiliser un code**, il faut le **mettre en facteur**.
 
 ---
 
@@ -184,11 +269,15 @@ servira un jour.
 
 ## Les principes de conception
 
-### DRY : Don't Repeat Yourself
+### Principe d'exposition minimale
 
-Le copier/coller n'est pas une méthode acceptable de réutilisation des codes.
+**Il convient d'exposer un minimum de fonctionnalité au niveau d'une classe**.
 
-Quand on veut réutiliser un code, on le met en facteur.
+En pratique :
+
+* Les **méthodes et attributs sont privés par défaut**
+* Les **accesseurs** sont définis et accessibles **uniquement si c'est nécessaire** (ex : ~~`public Logger getLogger()`~~)
+* Une **méthode spécifique est préférée à un accesseur permettant de nombreuses opérations** (ex : définir `addPoint(p)` pour permettre l'ajout d'un point à une liste VS définir `getPoints(): List<Point>` et permettre des modifications arbitraires sur la liste)
 
 ---
 
@@ -223,6 +312,10 @@ class MaClasse {
 
     private Logger logger ;
 
+    public MaClasse(Logger logger){
+      this.logger = logger;
+    }
+
     public void faireUnTruc(){
         logger.info("Je fais un truc");
     }
@@ -230,23 +323,40 @@ class MaClasse {
 }
 ```
 
+> Spoiler : Nous verrons ce cas de figure en TP où nous ferons le **lien avec la capacité à tester unitairement son code**.
 
 ---
 
 ## Les principes de conception
 
-### Préférer la composition à l'héritage
+### Préférer la composition à l'héritage (1/2)
 
-* Nous hériterons d'une classe seulement si nous pouvons dire "EST-UN" (ex : "un `Chien` est un `Animal`")
-* Nous n'hériterons pas d'une classe dans le but de réutiliser ses méthodes
-* Nous préférerons les états aux classes dérivées (ex : un `type` sur la classe `Animal` si rien ne je justifie une hiérarchie de type)
-* Nous verrons en détail avec le patron [Strategy](annexe/design_pattern/behavior/Strategy.html) en quoi l'approche par composition est plus efficace pour faire varier le comportement d'un programme.
+* Nous **<u>pourrons</u> hériter d'une classe seulement si nous pouvons dire "EST-UN"** :
+  * "un `Cercle` est une `Forme`"
+  * "~~Un `TraitementMetier` est une `BaseDeDonnees`~~" -> "Un `TraitementMetier` utilise une `BaseDeDonnees`".
+* Nous **préférerons toutefois les états aux classes dérivées** :
+  * Il sera naturel d'**hériter** d'une `Forme` pour modéliser des `Cercle` et des `Rectangle` avec des **attributs spécifiques** (`rayon` vs `largeur` et `hauteur`)
+  * Il sera préférable d'ajouter des attributs à une classe `Animal` (ex : `type`, `birthDate`,...) plutôt que définir des classes `Chat` et `Chien` dérivées.
+
+---
+
+## Les principes de conception
+
+### Préférer la composition à l'héritage (2/2)
+
+Pourquoi? Notez dans un premier temps que :
+
+* L'**héritage** est une **relation plus forte que la composition** (il est donc plus difficile de s'en libérer)
+* Si vous développez un formulaire, modifier un `type` (affectation) est plus simple que transformer un `Chien` en `Chat` (construction).
+
+> Spoiler : Nous verrons plus tard en détail avec le patron [Strategy](annexe/design_pattern/behavior/Strategy.html) en quoi l'approche par composition est préférable à la surcharge d'une seule méthode pour faire varier le comportement d'une classe.
+
 
 ---
 
 ## Les anti-patrons
 
-Avant de mettre un nom sur des modèles de conception, nous allons **mettre un nom sur des erreurs de conception courantes : Les anti-patrons !**
+Avant de mettre un nom sur des modèles de conception, nous allons maintenant **mettre un nom sur des erreurs de conception courantes : Les anti-patrons !**
 
 ---
 
@@ -263,7 +373,13 @@ Avant de mettre un nom sur des modèles de conception, nous allons **mettre un n
 
 ### Réinventer la roue carrée
 
-Ne pas s'appuyer sur une solution existante.
+**Ne pas s'appuyer sur une solution existante.**
+
+Par exemple :
+
+* Développer un système pour l'écriture des journaux applicatifs
+* Développer son propre système d'exécution de tests unitaires
+* ...
 
 ---
 
@@ -271,7 +387,11 @@ Ne pas s'appuyer sur une solution existante.
 
 ### Programmation spaghetti
 
-Le rôle des différents éléments du système n'est pas identifiable. Il est difficile de modifier une partie du code sans en altérer le fonctionnement.
+**Le rôle des différents éléments du système n'est pas identifiable et il est difficile de savoir qui appelle qui**.
+
+En conséquence, il est difficile de modifier une partie du code sans en altérer le fonctionnement.
+
+> Spoiler : Nous verrons comment les patrons architecturaux donnent des solutions à ce problème.
 
 ---
 
@@ -279,7 +399,9 @@ Le rôle des différents éléments du système n'est pas identifiable. Il est d
 
 ### Objet divin
 
-L'objet divin porte un trop grand nombre de responsabilités.
+L'objet divin porte un **trop grand nombre de responsabilités**.
+
+Il est en **violation flagrante du principe de responsabilité unique (SRP)**.
 
 ---
 
@@ -287,9 +409,11 @@ L'objet divin porte un trop grand nombre de responsabilités.
 
 ### Abstraction inverse
 
-Un composant ne fournit pas les abstractions nécessaires, mais seulement les méthodes les plus compliquées.
+Un **composant ne fournit pas les abstractions nécessaires**, mais seulement les méthodes les plus compliquées.
 
-Les abstractions sont développées dans les clients.
+**Les abstractions sont développées dans les clients**.
+
+> Spoiler : Nous verrons comment le patron façade permet d'y remédier.
 
 ---
 
@@ -297,7 +421,7 @@ Les abstractions sont développées dans les clients.
 
 ### Marteau doré
 
-Avec un bon marteau, tous les problèmes sont des clous!
+Avec un bon marteau, tous les problèmes sont des clous! **Un outil est placé comme solution à tous les problèmes.**
 
 <div class="center">
     <img src="img/golden-hammer.jpg" alt="Marteau d'or" />
@@ -306,7 +430,7 @@ Avec un bon marteau, tous les problèmes sont des clous!
     <a href="http://www.engravingawardsgifts.com/">engravingawardsgifts.com</a>)
 </div>
 
-Un outil est placé comme solution à tous les problèmes. Il peut s'agir d'une bibliothèque, d'une base de données, d'une suite de logiciel, etc.
+Il peut s'agir d'une bibliothèque, d'une base de données, d'une suite de logiciel, etc.
 
 ---
 
@@ -314,9 +438,9 @@ Un outil est placé comme solution à tous les problèmes. Il peut s'agir d'une 
 
 ### Coulée de lave
 
-Un code non finalisé est mis en production. Il n'est plus possible de le remanier.
+**Un code non finalisé est mis en production. Il n'est plus possible de le remanier.**
 
-Ce problème peut concerner aussi bien des bibliothèques que des API.
+Notez bien que ce problème pourra concerner aussi bien des bibliothèques que des API WEB et en ligne de commande (CLI).
 
 ---
 
@@ -324,7 +448,7 @@ Ce problème peut concerner aussi bien des bibliothèques que des API.
 
 ### Premature Optimisation (1/2)
 
-"Premature optimization is the root of all evil" (Donald Knuth)
+**"Premature optimization is the root of all evil" (Donald Knuth)**
 
 * Gaspillage d'énergie pour des gains médiocres (voire négatifs).
 * Complexité rendant impossible les optimisations globales.
@@ -357,7 +481,7 @@ Proposition de méthode :
 
 ## Les patrons de conception
 
-Nous y sommes! Alors, les patrons de conception, Quésako?
+Nous y venons enfin! Alors, les patrons de conception, Quésako?
 
 ---
 
@@ -365,9 +489,9 @@ Nous y sommes! Alors, les patrons de conception, Quésako?
 
 ### Définition
 
-Le concept de patron de conception a été défini par le « Gang of Four » (Erich Gamma, Richard Helm, Ralph Johnson et John Vlissides) dans le livre "Design Patterns -- Elements of Reusable Object-Oriented Software" (1994).
+Le concept de patron de conception a été défini par le **« Gang of Four » (Erich Gamma, Richard Helm, Ralph Johnson et John Vlissides)** dans le **livre "Design Patterns -- Elements of Reusable Object-Oriented Software" (1994)**.
 
-Un design pattern est la description d'une solution réutilisable pour un problème de conception.
+Un **patron de conception** est la **description d'une solution réutilisable pour un problème de conception**.
 
 ---
 
@@ -387,17 +511,17 @@ Le « Gang of Four » définit trois familles de patrons de conception :
 
 ### Autres familles de patrons de conception
 
-Le concept sera étendu et nous trouverons en complément :
+Ce concept sera étendu et nous trouverons en complément :
 
-* Des patrons architecturaux qui traitent des styles d'architecture de logiciel (MVC, micro-service, etc.)
-* Des familles de patrons spécifiques à des domaines d'application (cloud, big-data, etc.)
-* Des familles de patrons spécifiques à des frameworks (spring, etc.)
+* Des **patrons architecturaux** qui traitent des styles d'architecture de logiciel (MVC, micro-service, etc.)
+* Des familles de **patrons spécifiques à des domaines d'application** (cloud, big-data, etc.)
+* Des familles de **patrons spécifiques à des frameworks** (spring, etc.)
 
 ---
 
 ## Les patrons de conception
 
-### Formalisme des design patterns
+### Formalisme des patrons de conception
 
 * Un nom
 * Un problème
@@ -408,7 +532,7 @@ Le concept sera étendu et nous trouverons en complément :
 
 ## Les patrons de conception
 
-### Intérêts des design patterns (1/2)
+### Intérêts des patrons de conception (1/2)
 
 * Utiliser un vocabulaire commun
 * Trouver de l'inspiration dans la recherche d'une solution
@@ -419,18 +543,20 @@ Le concept sera étendu et nous trouverons en complément :
 
 ## Les patrons de conception
 
-### Intérêts des design patterns (2/2)
+### Intérêts des patrons de conception (2/2)
 
-En pratique, vous retrouverez plus facilement vos petits en Java et dans les frameworks orientés objet :
+En pratique, la **connaissance des patrons facilitera l'apprentissage de Java et la découverte des bibliothèques et frameworks** :
 
 * Connaissance du vocabulaire commun (`*Builder`, `*Factory`, `*::getInstance`, `addChild`, etc.).
-* Compréhension des architectures par identification des patterns.
+* Compréhension des architectures par identification des patrons.
 
-Aussi, vous pourrez rechercher des solutions aux problèmes classiques que vous rencontrez :
+La connaissance des patrons vous aidera à **comprendre des choix de conception semblant inutilement complexes** dans le cas contraire (̀èx : `new BufferedReader(new FileReader(...))`)
+
+Aussi, vous pourrez **rechercher des solutions aux problèmes classiques** :
 
 * Comment faire un interpréteur?
 * Comment faire un undo/redo?
-* Est-ce qu'il y a un framework MVC pour ce langage?
+* Est-ce qu'il y a un framework MVC avec de l'injection de dépendance pour ce langage?
 
 ---
 
