@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Les spécificités des langages</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+    integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+    integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+
+  <header class="container">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-print-none">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">
+          <img src="assets/img/logo-ign.png" alt="IGN" style="padding: 5px" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Annexes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="references.html">Références</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="depots.html">Dépôts</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="container">
+
+    <div class="markdown-body">
+      <h1 id="les-spécificités-des-langages">Les spécificités des langages</h1><ul>
+<li><a href="#la-gestion-de-la-mémoire">La gestion de la mémoire</a></li>
+<li><a href="#la-présence-de-concepts-complémentaires">La présence de concepts complémentaires</a></li>
+<li><a href="#la-présence-dautres-paradigmes">La présence d&#39;autres paradigmes</a></li>
+</ul>
+<h2 id="la-gestion-de-la-mémoire">La gestion de la mémoire</h2><p>Les choix de conception se feront en fonction des mécanismes de <strong>gestion de la mémoire</strong> du langage utilisé :</p>
+<ul>
+<li>Présence d&#39;un <strong>ramasse-miettes</strong> (<em>garbage collector</em>) (ex : Java)?<ul>
+<li>Se limitant à faire du <strong>comptage de références</strong> (ex : PHP)?</li>
+</ul>
+</li>
+<li>Nécessité de traiter la <strong>libération de la mémoire</strong>?<ul>
+<li>Possibilité d&#39;utiliser des pointeurs intelligent (C++)?</li>
+<li>Notion de propriétaire d&#39;une variable (Rust)?</li>
+</ul>
+</li>
+</ul>
+<p>En fonction des cas, nous serons <strong>plus ou moins contraint sur les relations entre les objets</strong>.</p>
+<blockquote>
+<p>Impact : Concevoir un moteur de jeu vidéo en UML sans se demander s&#39;il sera implémenté en C++ ou en Java n&#39;a pas de sens. Les contraintes ne sont pas les mêmes.</p>
+</blockquote>
+<h2 id="la-présence-de-concepts-complémentaires">La présence de concepts complémentaires</h2><p>Certains langages offriront des <strong>concepts complémentaires aux concepts de base la P.O.O.</strong> :</p>
+<ul>
+<li>Des <strong>accesseurs &quot;magiques&quot;</strong> (ex : <a href="https://learn.microsoft.com/fr-fr/dotnet/csharp/programming-guide/classes-and-structs/properties#properties-with-backing-fields" target="_blank">Property en C#</a>, <a href="https://python-reference.readthedocs.io/en/latest/docs/dunderattr/getattr.html" target="_blank"><code>__getattr___</code> en Python</a>,...)</li>
+</ul>
+<blockquote>
+<p>Impact : Il n&#39;est pas obligatoire (ou pas dans les moeurs) de définir des méthodes <code>get</code> / <code>set</code> dans certains langages.</p>
+</blockquote>
+<ul>
+<li>Des <strong>Annotations</strong> pouvant être exploitées via mécanismes d&#39;<strong>introspection</strong> et de <strong>réflexion</strong></li>
+</ul>
+<blockquote>
+<p>Impact : JUnit et Spring s&#39;appuieront sur ces mécanismes en Java quand nous trouverons des mécanismes de génération de code pour avoir les équivalents dans d&#39;autres langages (ex : macro en C++ et Rust, <a href="https://doc.qt.io/qt-6/moc.html" target="_blank">Qt Meta-Object Compiler</a>,...)</p>
+</blockquote>
+<h2 id="la-présence-dautres-paradigmes">La présence d&#39;autres paradigmes</h2><p>Dans de nombreux langages, nous noterons que la P.O.O. cohabitera avec d&#39;<strong>autres paradigmes</strong> :</p>
+<ul>
+<li>La <strong>programmation générique</strong> (<code>template</code>)</li>
+<li>La <strong>programmation fonctionnelle</strong> (<code>.map</code>, <code>.filter</code>, <code>.reduce</code>,...) avec éventuellement des coroutines et le mot clé <code>yield</code></li>
+</ul>
+<p>Nous soulignerons que nous pourrons :</p>
+<ul>
+<li><strong>Hybrider la P.O.O. avec la programmation générique</strong> (*)</li>
+<li>Établir des <strong>ponts en la P.O.O. et la programmation générique</strong> à l&#39;aide de concepts spécifiques (<a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html" target="_blank">Stream</a> en Java) ou du patron itérateur que nous verrons par la suite.</li>
+</ul>
+<blockquote>
+<p>(*) Spoiler : nous verrons en TP que cette approche permet d&#39;avoir un visiteur renvoyant un résultat.</p>
+</blockquote>
+
+    </div>
+
+  </main>
+
+  <footer class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        ©2023 - <a href="https://github.com/mborne" target="_blank">Mickaël Borne</a> - <a href="https://mborne.github.io/cours-patron-conception">mborne.github.io/cours-patron-conception</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
+    integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
+    integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>hljs.highlightAll();</script> 
+
+</body>
+
+</html>

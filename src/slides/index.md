@@ -1,5 +1,5 @@
 
-## Les patrons de conception
+# Les patrons de conception
 
 <br />
 
@@ -22,6 +22,7 @@
 * A vous maintenant!
 * Les patrons architecturaux
 * Le refactoring
+* Encore à vous!
 * Annexes et références
 
 ---
@@ -72,13 +73,17 @@ Nous serons souvent amené à **prioriser ces critères** (ex : privilégier les
 
 ### Les patrons de conception dans tout ça?
 
-Pour bien l'**intérêt des patrons de conception**, nous allons d'abord balayer un ensemble de **prérequis**  :
+Ce cours s'inspire de la lecture de **"Design patterns: tête la première" de Eric Freeman et Kathy Sierra**. Pour bien l'**intérêt des patrons de conception**, nous allons d'abord balayer un ensemble de **prérequis**  :
 
 * **Les concept de base de la P.O.O.**
 * **Les principes de conception**
 
 Nous verrons quelques **mauvaises pratiques** à travers les **anti-patrons**. Puis,
-nous nous attarderons sur les **bonnes pratiques** avec les **patrons de conception**.
+nous nous attarderons sur les **bonnes pratiques** avec les **patrons de conception** à l'échelle de quelques classes. Nous mettrons en pratique avec un premier TP.
+
+Nous verrons ensuite que ces principes de conception et le concept de patron de conception s'applique à d'autres niveau avec les **patrons architecturaux**.
+
+Nous verrons enfin comment **refactorer** un code existant pour introduire ces patrons et 
 
 ---
 
@@ -117,32 +122,23 @@ Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la
 
 => [Méditons quelques exemples](meditation.md).
 
-
 ---
 
 ## Les bases de la P.O.O.
 
-### Les concepts avancés
+### Une conception à adapter au langage
 
-Les langages ont leurs spécificités qui doivent être prises en compte dans la conception :
+Les langages permettant de définir et manipuler les concepts de base de la P.O.O. sont nombreux (Java, JavaScript (ES6), TypeScript, C++, Python, PHP, Go, Rust,...).
 
-* Gestion de la mémoire (*Garbage collector*, notion de propriétaire d'une variable (Rust),...)
-* *Property* (getter/setter "magiques")
-* Introspection et réflexion
-* Annotations
-* Cohabitation de la P.O.O. avec d'autres paradigmes :
-  * Programmation générique (`template`)
-  * Programmation fonctionnelle (`.map`, `.filter`, `.reduce`,... avec éventuellement des coroutines et le mot clé `yield`)
-* ...
+Nous traiterons ce cours avec des exemples et TP en Java en nous concentrant sur ce qui applicable à de nombreux langages.
 
-Nous n'entrerons pas dans ce niveau de détail en nous concentrant sur les éléments applicables avec la plupart des langages disposant du concept de classe.
+Nous devons toutefois noter que **[les langages ont des spécificités](annexe/specificites-langages.html) qui devront être prises en compte et exploitées dans la conception**.
 
 ---
 
 ## Les principes de conception
 
-Les patrons de conception que nous allons bientôt voir sont (entre autres) une
-mise en pratique de principes de conception qui s'ajoutent aux principes
+Nous allons maintenant parcourir quelques **principes de conception** qui s'ajoutent aux principes
 de base de la P.O.O. (abstraction, encapsulation, etc.) et qu'il faut avoir en tête.
 
 ---
@@ -612,11 +608,11 @@ Pour bien comprendre l'intérêt des patrons de conception, nous allons traiter 
 Nous avons vu jusque là des patrons de conception à l'échelle de quelques classes. Nous soulignerons l'existence de **patron de conception architecturaux** agissant à l'**échelle d'une application ou d'un système** :
 
 * [Architecture en couches](annexe/design_pattern/architectural/couches.html)
-* Architecture micro-service
+* [Architecture micro-service](https://learn.microsoft.com/fr-fr/azure/architecture/guide/architecture-styles/microservices)
 * [Model-View-Controller (MVC)](annexe/design_pattern/architectural/MVC.html)
 * [Inversion de contrôle (IoC)](https://github.com/mborne/spring-ioc-principe#readme)
 * [MapReduce](annexe/design_pattern/architectural/MapReduce.html)
-* Event-Driven architecture/Message Oriented Middleware (MOM)
+* [Event-Driven architecture/Message Oriented Middleware (MOM)](https://learn.microsoft.com/fr-fr/azure/architecture/guide/architecture-styles/event-driven)
 
 > Nous verrons dans le prochain TP que [Spring](https://spring.io/) combine l'utilisation de [Inversion de contrôle (IoC)](https://github.com/mborne/spring-ioc-principe#readme) et [Model-View-Controller (MVC)](annexe/design_pattern/architectural/MVC.html).
 
@@ -626,7 +622,28 @@ Nous avons vu jusque là des patrons de conception à l'échelle de quelques cla
 
 Nous noterons que souvent, nous serons face à des applications existantes où il sera potentiellement intéressant de **se mettre en conformité avec des principes de conception** et d'**introduire des patrons de conception**.
 
-Nous verrons rapidement [les grands principes du refactoring de code](refactoring.md) avant de traiter le [TP - Réfactoring sur des traitements de graphe](annexe/tp-graph/index.html) où l'idée est de faire une mise en situation d'optimisation et d'industrialisation d'un code existant.
+Nous verrons rapidement [les grands principes du refactoring de code](refactoring.md) avant de poursuivre avec un nouveau TP.
+
+---
+
+## Encore à vous!
+
+Pour la fin de journée, vous êtes invité à poursuivre la lecture de [refactoring.com - Catalogue](http://www.refactoring.com/catalog/)!
+
+> Marquer une pause de quelques secondes... J'rigole! Vous pourrez le parcourir en autonomie. Lire en complément ["Clean Code" de Robert C. Martin résumé derrière ce lien](https://gist.github.com/cedrickchee/55ecfbaac643bf0c24da6874bf4feb08#file-clean_code-md) sera aussi intéressant.
+
+---
+
+## Encore à vous!
+
+Nous allons surtout traiter [TP - Réfactoring sur des traitements de graphe](annexe/tp-graph/index.html) où l'idée est de faire une **mise en situation d'optimisation et d'industrialisation d'un code existant**.
+
+Vous serez invité à :
+
+* Mesurer la **difficulté de l'exercice de refactoring** donc l'intérêt de **respecter dès le début les principes de conception**.
+* Constater que **l'utilisation de patrons de conception aide à respecter ces principes** (sans résoudre pour autant tous les problèmes)
+* L'intérêt des **tests pour éviter des régressions**
+* Les **limites des tests fonctionnels par rapport aux tests unitaires** (vous devriez être quelques-un à faire la même erreur et avoir du mal à la trouver 😈)
 
 ---
 

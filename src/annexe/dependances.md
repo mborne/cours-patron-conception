@@ -1,14 +1,16 @@
 # Les outils de gestion des dépendances
 
-Les outils de gestion de dépendance comportent généralement :
+## Principe
+
+Un outil de gestion de dépendances s'appuie généralement sur :
 
 * Un **descripteur de projet** qui **liste les dépendances et leurs versions**
 * Un **utilitaire en ligne de commande pour télécharger les dépendances** et **construire le projet**
 * Au moins un **dépôt public** permettant le téléchargement des dépendances (tout en ayant la **possibilité d'avoir dépôts privés**)
 
-Nous trouverons quelques exemples ci-dessous.
+## Quelques exemples
 
-## Java - Apache Maven
+### Apache Maven (Java) 
 
 [Maven](https://maven.apache.org/) est couramment utilisé pour gérer les dépendances d'un projet JAVA.
 
@@ -17,7 +19,7 @@ Nous trouverons quelques exemples ci-dessous.
 * Démarrage rapide : [Maven in five minutes](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)
 * Alternative : [Gradle](https://gradle.org/)
 
-## NodeJS - NPM
+### NPM (NodeJS, JavaScript) 
 
 [npm](https://www.npmjs.com/) est principalement utilisé pour gérer les dépendances NodeJS (express par exemple) et les dépendances du front (jquery, bootstrap, OpenLayers, etc.) :
 

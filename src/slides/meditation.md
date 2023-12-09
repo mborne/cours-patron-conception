@@ -1,7 +1,7 @@
 # Méditation
 
-Quelques exemples de codes à méditer pour bien comprendre l'intérêt
-des différents concepts de la P.O.O.
+Quelques exemples à méditer pour bien **comprendre l'intérêt
+des différents concepts de la P.O.O.**
 
 * Intérêt des classes et des attributs
 * Intérêt des constructeurs

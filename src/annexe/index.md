@@ -7,3 +7,7 @@ Ces fiches sont les annexes venant compléter la présentation [mborne.github.io
 * Le [TP - Réfactoring sur des traitements de graphe](tp-graph/index.md)
 * [Les dépôts](depots.md) correspondant à la présentation et aux projets de démarrage des TP.
 
+Vous retrouverez aussi les notes sur :
+
+* [Les spécificités des langages](specificites-langages.md)
+* [Les outils de gestion des dépendances](dependances.md)
