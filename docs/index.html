@@ -84,7 +84,7 @@ Nous serons souvent amené à **prioriser ces critères** (ex : privilégier les
 
 ### Les patrons de conception dans tout ça?
 
-Ce cours s'inspire de la lecture de **"Design patterns: tête la première" de Eric Freeman et Kathy Sierra**. Pour bien l'**intérêt des patrons de conception**, nous allons d'abord balayer un ensemble de **prérequis**  :
+Ce cours s'inspire de la lecture de **"Design patterns: tête la première" de Eric Freeman et Kathy Sierra**. Pour bien comprendre l'**intérêt des patrons de conception**, nous allons d'abord balayer un ensemble de **prérequis**  :
 
 * **Les concept de base de la P.O.O.**
 * **Les principes de conception**
@@ -92,7 +92,7 @@ Ce cours s'inspire de la lecture de **"Design patterns: tête la première" de E
 Nous verrons quelques **mauvaises pratiques** à travers les **anti-patrons**. Puis,
 nous nous attarderons sur les **bonnes pratiques** avec les **patrons de conception** à l'échelle de quelques classes. Nous mettrons en pratique avec un premier TP.
 
-Nous verrons ensuite que ces principes de conception et le concept de patron de conception s'applique à d'autres niveau avec les **patrons architecturaux**.
+Nous verrons ensuite que ces principes de conception et le concept de patron de conception s'appliquent à d'autres niveau avec les **patrons architecturaux**.
 
 Nous verrons enfin comment **refactorer** un code existant pour introduire ces patrons et 
 
@@ -143,7 +143,7 @@ Les langages permettant de définir et manipuler les concepts de base de la P.O.
 
 Nous traiterons ce cours avec des exemples et TP en Java en nous concentrant sur ce qui applicable à de nombreux langages.
 
-Nous devons toutefois noter que **[les langages ont des spécificités](annexe/specificites-langages.html) qui devront être prises en compte et exploitées dans la conception**.
+Nous noterons toutefois que **[les langages ont des spécificités](annexe/specificites-langages.html) qui devront être prises en compte et exploitées dans la conception**.
 
 ---
 
@@ -175,12 +175,12 @@ Nous allons commencer par **5 principes fondamentaux** regroupés dans l'acronym
 **Une classe remplit une fonction et une seule.**
 
 .bad-left[
-Cette classe permet le téléchargement des communes ADMINEXPRESS et le calcul des statistiques sur les communes.
+Cette classe permet la lecture des communes à partir du fichier ADMINEXPRESS et le calcul des statistiques sur les communes.
 ]
 
 .good-right[
 * Cette classe permet le calcul des statistiques sur une liste de communes
-* Cette classe se charge de lire les communes au modèle ADMINEXPRESS
+* Cette classe se charge de lire les communes à partir du fichier ADMINEXPRESS
 ]
 
 ---
@@ -189,7 +189,7 @@ Cette classe permet le téléchargement des communes ADMINEXPRESS et le calcul d
 
 ### (O)pen Closed Principle
 
-**Une classe est ouverte à l’extension, mais fermée aux modifications.**
+**Une classe doit être est ouverte à l’extension, mais fermée aux modifications.**
 
 .bad-left[
 Pour ajouter modifier le comportement d'une classe existante, je modifie son code.
@@ -200,6 +200,8 @@ Pour modifier le comportement d'une classe, je peux en hériter et surcharger un
 
 > Spoiler : le patron décorateur permettra une approche plus élégante.
 ]
+
+> En Java, si une classe est fermée à l'extension, nous pourrons la marquer comme `final`.
 
 ---
 
