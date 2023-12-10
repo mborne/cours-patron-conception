@@ -7,7 +7,7 @@ La fabrique s'adresse à la problématique de la création d'instances dérivée
 
 ## Cas d'école
 
-Nous avons par exemple de la hiérarchie suivante :
+Nous avons par exemple la hiérarchie suivante :
 
 * Animal
 * Chat hérite de Animal
