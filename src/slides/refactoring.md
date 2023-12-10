@@ -112,17 +112,16 @@ Les tests unitaires et fonctionnels permettront d'éviter des régressions.
 
 ## Techniques de refactoring
 
-Outre l'introduction de patron de conception, il existe une multitude de modifications classiques qui tendent à améliorer la qualité d'un code :
+Outre l'introduction de patron de conception, il existe une multitude de modifications classiques qui tendent à améliorer la qualité d'un code. A l'instar des patrons de conception, **ces techniques peuvent être cataloguées**.
 
-* Renommage de variable
-* Extraction de méthode
-* Extraction d'une interface
-* Introduction d'un patron de conception
+Nous verrons quelques exemple sur [refactoring.com - Catalogue](http://www.refactoring.com/catalog/) :
+
+* [Renommage d'une variable](https://www.refactoring.com/catalog/renameVariable.html)
+* [Suppression d'un setter](https://www.refactoring.com/catalog/removeSettingMethod.html)
+* [Extraction d'une méthode](https://www.refactoring.com/catalog/extractFunction.html)
 * ...
 
-A l'instar des patrons de conception, ces techniques peuvent être cataloguées :
-
-[Catalogue sur refactoring.com](http://www.refactoring.com/catalog/)
+Nous noterons que nous pourrons aussi introduire d'un patron de conception (par exemple, une fabrique pour éviter de répéter du code).
 
 ---
 

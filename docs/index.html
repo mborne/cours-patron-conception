@@ -248,11 +248,11 @@ Je définis une interface pour chaque protocole : `HttpClient`, `FtpClient`, `Ma
 **Il faut dépendre des interfaces, pas des implémentations (classes concrètes).**
 
 .bad-left[
-J'utilise des types correspondant à des classes (`ArrayList`, `HashMap`...) dans les déclarations de mes constructeurs et méthodes.
+Je référence des classes (`ArrayList`, `HashMap`...) dans les déclarations des constructeurs et des méthodes.
 ]
 
 .good-right[
-J'utilise plutôt des types correspondant à des interfaces (`List`, `Map`...) dans les déclarations.
+Je référence des interfaces (`List`, `Map`...) dans les déclarations.
 ]
 
 ---
@@ -263,7 +263,14 @@ J'utilise plutôt des types correspondant à des interfaces (`List`, `Map`...) d
 
 **Le copier/coller n'est pas une méthode acceptable de réutilisation des codes.**
 
-Pour **réutiliser un code**, il faut le **mettre en facteur**.
+.bad-left[
+Pour réutiliser un code, je le copie/colle dans ma méthode.
+]
+
+.good-right[
+Pour réutiliser un code, je le **met en facteur** dans une méthode et une classe que j'utilise à plusieurs endroits.
+]
+
 
 ---
 
@@ -271,8 +278,9 @@ Pour **réutiliser un code**, il faut le **mettre en facteur**.
 
 ### YAGNI : you ain't gonna need it
 
-On ne code que ce qui est utile. On n'ajoute pas des codes en se disant que ça
-servira un jour.
+**Il convient de coder uniquement ce qui est utile, de ne pas ajouter du code en se disant que ça servira un jour.**
+
+> Spoiler : Nous verrons dans le deuxième TP que **rendre immuable ce qui n'a pas besoin d'être modifié après l'initialisation** correspond à ce principe et limite la complexité.
 
 ---
 
@@ -280,13 +288,14 @@ servira un jour.
 
 ### Principe d'exposition minimale
 
-**Il convient d'exposer un minimum de fonctionnalité au niveau d'une classe**.
+**Il convient d'exposer un minimum de fonctionnalités au niveau d'une classe** (i.e. de maximiser l'encapsulation).
 
 En pratique :
 
 * Les **méthodes et attributs sont privés par défaut**
 * Les **accesseurs** sont définis et accessibles **uniquement si c'est nécessaire** (ex : ~~`public Logger getLogger()`~~)
-* Une **méthode spécifique est préférée à un accesseur permettant de nombreuses opérations** (ex : définir `addPoint(p)` pour permettre l'ajout d'un point à une liste VS définir `getPoints(): List<Point>` et permettre des modifications arbitraires sur la liste)
+* Une **méthode spécifique est préférée à un accesseur permettant de nombreuses opérations**
+  * Les **collections sont encapsulées** (ex : définir `addPoint(p)` pour permettre l'ajout d'un point à une liste VS définir `getPoints(): List<Point>` et permettre des modifications arbitraires sur la liste)
 
 ---
 
@@ -294,8 +303,7 @@ En pratique :
 
 ### Identifier et encapsuler ce qui varie (1/2)
 
-Cas d'école : J'identifie le besoin d'écrire mes logs dans la console
-ou dans un fichier...
+Cas d'école : J'identifie le besoin d'écrire mes journaux applicatifs (logs) dans la console ou dans un fichier...
 
 ```java
 class MaClasse {
@@ -386,7 +394,7 @@ Avant de mettre un nom sur des modèles de conception, nous allons maintenant **
 
 Par exemple :
 
-* Développer un système pour l'écriture des journaux applicatifs
+* Développer son propre système pour l'écriture des journaux applicatifs
 * Développer son propre système d'exécution de tests unitaires
 * ...
 
@@ -400,7 +408,7 @@ Par exemple :
 
 En conséquence, il est difficile de modifier une partie du code sans en altérer le fonctionnement.
 
-> Spoiler : Nous verrons comment les patrons architecturaux donnent des solutions à ce problème.
+> Spoiler : Nous verrons que les patrons architecturaux donnent des solutions à ce problème.
 
 ---
 
@@ -435,8 +443,7 @@ Avec un bon marteau, tous les problèmes sont des clous! **Un outil est placé c
 <div class="center">
     <img src="img/golden-hammer.jpg" alt="Marteau d'or" />
     <br />
-    (Source
-    <a href="http://www.engravingawardsgifts.com/">engravingawardsgifts.com</a>)
+    (Source <a href="http://www.engravingawardsgifts.com/">engravingawardsgifts.com</a>)
 </div>
 
 Il peut s'agir d'une bibliothèque, d'une base de données, d'une suite de logiciel, etc.
@@ -449,7 +456,9 @@ Il peut s'agir d'une bibliothèque, d'une base de données, d'une suite de logic
 
 **Un code non finalisé est mis en production. Il n'est plus possible de le remanier.**
 
-Notez bien que ce problème pourra concerner aussi bien des bibliothèques que des API WEB et en ligne de commande (CLI).
+Ce problème pourra concerner aussi bien des bibliothèques que des API WEB ou en ligne de commande (CLI). Il conviendra de **considérer que livrer revient à figer les interfaces publiques**.
+
+> Spoiler : Nous verrons dans la partie [refactoring](refactoring.html) que nous pourrons traiter les changements en gérant proprement des versions.
 
 ---
 
@@ -490,7 +499,7 @@ Proposition de méthode :
 
 ## Les patrons de conception
 
-Nous y venons enfin! Alors, les patrons de conception, Quésako?
+Nous y venons enfin! Alors, les **patrons de conception**, Quésako?
 
 ---
 
@@ -518,9 +527,22 @@ Le « Gang of Four » définit trois familles de patrons de conception :
 
 ## Les patrons de conception
 
+### Formalisme des patrons de conception
+
+Ces patrons obéirons au formalisme suivant :
+
+* Un **nom**
+* Un **problème**
+* Une **solution**
+* Des **conséquences** (avantages et inconvénients)
+
+---
+
+## Les patrons de conception
+
 ### Autres familles de patrons de conception
 
-Ce concept sera étendu et nous trouverons en complément :
+Le concept de patron sera étendu par la suite et nous trouverons en complément :
 
 * Des **patrons architecturaux** qui traitent des styles d'architecture de logiciel (MVC, micro-service, etc.)
 * Des familles de **patrons spécifiques à des domaines d'application** (cloud, big-data, etc.)
@@ -530,23 +552,16 @@ Ce concept sera étendu et nous trouverons en complément :
 
 ## Les patrons de conception
 
-### Formalisme des patrons de conception
-
-* Un nom
-* Un problème
-* Une solution
-* Des conséquences (avantages et inconvénients)
-
----
-
-## Les patrons de conception
-
 ### Intérêts des patrons de conception (1/2)
 
-* Utiliser un vocabulaire commun
-* Trouver de l'inspiration dans la recherche d'une solution
-* Uniformiser la conception (MVC, IoC, MQ, etc.)
-* Faciliter la compréhension des codes
+Les patrons de conception permettront de :
+
+* **Faciliter la compréhension des codes** par l'utilisation d'un **vocabulaire commun** (`clone()`,  `*Builder`, `*Factory`, `*::getInstance`, `addChild`, etc.)
+* **Faciliter la découverte du code et la compréhension des architectures** en standardisant celles-ci (MVC, IoC, MQ, etc.)
+* **Trouver de l'inspiration dans la recherche d'une solution** :
+  * Comment faire un interpréteur?
+  * Comment faire un undo/redo?
+  * Est-ce qu'il y a un framework MVC avec de l'injection de dépendance pour ce langage?
 
 ---
 
@@ -554,18 +569,9 @@ Ce concept sera étendu et nous trouverons en complément :
 
 ### Intérêts des patrons de conception (2/2)
 
-En pratique, la **connaissance des patrons facilitera l'apprentissage de Java et la découverte des bibliothèques et frameworks** :
+En particulier, la **connaissance des patrons facilitera l'apprentissage la découverte des bibliothèques standards (ex : [OpenJDK](https://devdocs.io/openjdk/)) et frameworks orientés objets** (ex : [GeoTools](https://docs.geotools.org/),...).
 
-* Connaissance du vocabulaire commun (`*Builder`, `*Factory`, `*::getInstance`, `addChild`, etc.).
-* Compréhension des architectures par identification des patrons.
-
-La connaissance des patrons vous aidera à **comprendre des choix de conception semblant inutilement complexes** dans le cas contraire (̀èx : `new BufferedReader(new FileReader(...))`)
-
-Aussi, vous pourrez **rechercher des solutions aux problèmes classiques** :
-
-* Comment faire un interpréteur?
-* Comment faire un undo/redo?
-* Est-ce qu'il y a un framework MVC avec de l'injection de dépendance pour ce langage?
+Pour faire simple, **sans connaissance des patrons, certains choix de conception sembleront inutilement complexes** (̀ex : `new BufferedReader(new FileReader(...))`)
 
 ---
 
