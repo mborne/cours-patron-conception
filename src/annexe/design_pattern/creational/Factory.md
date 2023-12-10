@@ -29,7 +29,7 @@ if ( typeAnimal.equals("chat") ){
 animal.setNom(nomAnimal);
 ```
 
-**En cas d'ajout d'un type d'animal, nous deverons modifier tous les codes créant des animaux.**
+**En cas d'ajout d'un type d'animal, nous devrons modifier tous les codes créant des animaux.**
 
 
 ## Solution
