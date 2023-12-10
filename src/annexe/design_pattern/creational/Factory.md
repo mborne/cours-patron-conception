@@ -5,13 +5,17 @@
 
 La fabrique s'adresse à la problématique de la création d'instances dérivées d'une classe.
 
-On dispose par exemple de la hiérarchie suivante :
+## Cas d'école
+
+Nous avons par exemple de la hiérarchie suivante :
 
 * Animal
 * Chat hérite de Animal
 * Chien hérite de Animal
 
-Supposons que l'on charge un fichier contenant des animaux et que l'on fasse appel à "new" en fonction du type de l'animal, on aura le morceau de code suivant :
+Supposons que nous devons charger un fichier contenant des animaux et créer des animaux via une API WEB.
+
+A chaque fois, nous devrons faire appel à "new" en fonction du type de l'animal :
 
 ```java
 Animal animal = null ;
@@ -25,10 +29,12 @@ if ( typeAnimal.equals("chat") ){
 animal.setNom(nomAnimal);
 ```
 
-En cas d'ajout d'un type d'animal, on doit modifier tous les codes créant des animaux.
+**En cas d'ajout d'un type d'animal, nous deverons modifier tous les codes créant des animaux.**
 
 
 ## Solution
+
+Nous pouvons définir une classe avec une méthode dédiée à la création des animaux :
 
 ![UML Prototype](uml/UML_DP_Fabrique.png)
 
@@ -59,12 +65,12 @@ animal.setNom(nomAnimal);
 
 ## Variantes
 
-On trouvera de nombreuses variantes du concept de fabrique :
+Nous trouverons de nombreuses variantes du concept de fabrique :
 
 * La fabrique statique
 
 ```java
-Animal.createByType("chien")
+AnimalFactory.createByType("chien")
 ```
 
 * Les fabriques basées sur des prototypes (composition de pattern)
