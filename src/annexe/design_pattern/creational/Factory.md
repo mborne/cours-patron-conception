@@ -1,5 +1,5 @@
 
-# Factory
+# Factory (Fabrique)
 
 ## Problème
 
@@ -34,13 +34,13 @@ animal.setNom(nomAnimal);
 
 ## Solution
 
-Nous pouvons définir une classe avec une méthode dédiée à la création des animaux :
+Nous pouvons définir une **classe avec une méthode dédiée à la création des instances** :
 
-![UML Prototype](uml/UML_DP_Fabrique.png)
+![UML Fabrique](uml/UML_DP_Fabrique.png)
 
-Appliqué à notre exemple, une AnimalFactory devient l'entité responsable de
-la création d'un animal en fonction de son type.
+Source : https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique
 
+Appliqué à notre exemple, nous pouvons créer une classe `AnimalFactory` avec une méthode permettant de créer un animal en fonction de son type :
 
 ```java
 class AnimalFactory {
@@ -56,7 +56,7 @@ class AnimalFactory {
 }
 ```
 
-Les autres codes sont insensibles à l'ajout d'un nouveau type.
+Il sera alors **possible d'ajouter un type sans modifier les différents codes** créant les animaux :
 
 ```java
 Animal animal = animalFactory.createAnimal(typeAnimal) ;
@@ -73,7 +73,7 @@ Nous trouverons de nombreuses variantes du concept de fabrique :
 AnimalFactory.createByType("chien")
 ```
 
-* Les fabriques basées sur des prototypes (composition de pattern)
+* Les fabriques basées sur des [prototypes](Prototype.md) (composition de pattern) :
 
 ```java
 class AnimalFactory throws AnimalTypeNotFound {
@@ -89,26 +89,24 @@ class AnimalFactory throws AnimalTypeNotFound {
 }
 ```
 
+* Les **fabriques utilitaires** qui ne créent pas des instances de types différents, mais avec des états initiaux différents :
 
-* Les fabriques utilitaires qui ne créent pas des instances de types différents, mais avec des états initiaux différents
+```java
+FractalFactory.createSierpinskiTriangles(8);
+```
 
 
 ## Exemple en Java
 
-Les fabriques sont nombreuses dans l'API java et dans les bibliothèques.
+Les fabriques sont nombreuses dans l'API java et dans les bibliothèques :
 
-* [GeometryFactory de JTS](https://locationtech.github.io/jts/javadoc/org/locationtech/jts/geom/GeometryFactory.html)
-
-Création de géométrie de différents types (Point, LineString, Polygon, etc.)
-
-* [java.sql.DriverManager](https://docs.oracle.com/javase/8/docs/api/java/sql/DriverManager.html)
-
-C'est une variante sous forme d'une fabrique statique
+* [GeometryFactory de JTS](https://locationtech.github.io/jts/javadoc/org/locationtech/jts/geom/GeometryFactory.html) pour la création de géométrie de différents types (Point, LineString, Polygon, etc.)
+* [java.sql.DriverManager](https://docs.oracle.com/javase/8/docs/api/java/sql/DriverManager.html) où nous trouvons une fabrique statique :
 
 ```java
 Connection connection = DriverManager.getConnection("jdbc:postgresql:mabase")
 ```
 
-## Lien(s) utile(s)
+## Liens utiles
 
-https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique
+* [fr.wikibooks.org - Fabrique](https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique)

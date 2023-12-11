@@ -2,28 +2,26 @@
 
 ## Problème
 
-* La classe ne doit être instanciée qu'une seule fois
-* L'instance doit être accessible statiquement
+Nous avons une classe qui doit être instanciée qu'une seule fois.
 
 ## Solution
 
 ![UML Singleton](uml/UML_DP_Singleton.png)
 
-Exemple d'implémentation
+Source : https://fr.wikibooks.org/wiki/Patrons_de_conception/Singleton
+
+## Exemple d'implémentation
 
 ```java
-class Singleton {
+class MonSingleton {
 
-    private static Singleton instance ;
+    private static MonSingleton instance = new MonSingleton() ;
 
-    private Singleton(){
+    private MonSingleton(){
 
     }
 
-    public static Singleton getInstance(){
-        if ( null == instance ){
-            instance = new Singleton();
-        }
+    public static MonSingleton getInstance(){
         return instance ;
     }
 
@@ -36,10 +34,12 @@ class Singleton {
 
 ## Mise en garde
 
-* Il y a plusieurs variantes d'implémentation
-* Les implémentations thread safe dépendent du langage
-* **La singletonite est un anti-pattern**
+* Il existe plusieurs variantes d'implémentation (*thread safe*, *lazy loading*,...)
+* **La singletonite est un anti-pattern** (ne pas utiliser un singleton pour le seul motif qu'il est pratique d'avoir accès statiquement à l'instance)
+* L'utilisation d'un singleton rend le code difficilement testable
 
-## Lien(s) utile(s)
+## Liens utiles
 
-https://fr.wikibooks.org/wiki/Patrons_de_conception/Singleton
+* [fr.wikibooks.org - Singleton](https://fr.wikibooks.org/wiki/Patrons_de_conception/Singleton)
+* [thecodersbreakfast.net - De la bonne implémentation du Singleton en Java](https://thecodersbreakfast.net/index.php?post/2008/02/25/26-de-la-bonne-implementation-du-singleton-en-java)
+

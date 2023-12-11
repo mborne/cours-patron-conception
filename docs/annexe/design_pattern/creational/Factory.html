@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Les patrons de conception (Annexes) - Factory</title>
+  <title>Les patrons de conception (Annexes) - Factory (Fabrique)</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
     integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
@@ -58,7 +58,7 @@
       <a href="https://github.com/mborne/cours-patron-conception/blob/master/src/annexe/design_pattern/creational/Factory.md?plain=1" target="_blank">Éditer sur GitHub</a>
     </div>
     <div class="markdown-body">
-      <h1 id="factory">Factory</h1><h2 id="problème">Problème</h2><p>La fabrique s&#39;adresse à la problématique de la création d&#39;instances dérivées d&#39;une classe.</p>
+      <h1 id="factory-fabrique">Factory (Fabrique)</h1><h2 id="problème">Problème</h2><p>La fabrique s&#39;adresse à la problématique de la création d&#39;instances dérivées d&#39;une classe.</p>
 <h2 id="cas-décole">Cas d&#39;école</h2><p>Nous avons par exemple la hiérarchie suivante :</p>
 <ul>
 <li>Animal</li>
@@ -78,10 +78,10 @@ if ( typeAnimal.equals(&quot;chat&quot;) ){
 animal.setNom(nomAnimal);
 </code></pre>
 <p><strong>En cas d&#39;ajout d&#39;un type d&#39;animal, nous devrons modifier tous les codes créant des animaux.</strong></p>
-<h2 id="solution">Solution</h2><p>Nous pouvons définir une classe avec une méthode dédiée à la création des animaux :</p>
-<p><img src="uml/UML_DP_Fabrique.png" alt="UML Prototype"></p>
-<p>Appliqué à notre exemple, une AnimalFactory devient l&#39;entité responsable de
-la création d&#39;un animal en fonction de son type.</p>
+<h2 id="solution">Solution</h2><p>Nous pouvons définir une <strong>classe avec une méthode dédiée à la création des instances</strong> :</p>
+<p><img src="uml/UML_DP_Fabrique.png" alt="UML Fabrique"></p>
+<p>Source : <a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique" target="_blank">https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique</a></p>
+<p>Appliqué à notre exemple, nous pouvons créer une classe <code>AnimalFactory</code> avec une méthode permettant de créer un animal en fonction de son type :</p>
 <pre><code class="language-java">class AnimalFactory {
     public Animal createAnimal(String typeAnimal) throws AnimalTypeNotFound {
         if ( typeAnimal.equals(&quot;chat&quot;) ){
@@ -94,7 +94,7 @@ la création d&#39;un animal en fonction de son type.</p>
     }
 }
 </code></pre>
-<p>Les autres codes sont insensibles à l&#39;ajout d&#39;un nouveau type.</p>
+<p>Il sera alors <strong>possible d&#39;ajouter un type sans modifier les différents codes</strong> créant les animaux :</p>
 <pre><code class="language-java">Animal animal = animalFactory.createAnimal(typeAnimal) ;
 animal.setNom(nomAnimal);
 </code></pre>
@@ -105,7 +105,7 @@ animal.setNom(nomAnimal);
 <pre><code class="language-java">AnimalFactory.createByType(&quot;chien&quot;)
 </code></pre>
 <ul>
-<li>Les fabriques basées sur des prototypes (composition de pattern)</li>
+<li>Les fabriques basées sur des <a href="Prototype.html">prototypes</a> (composition de pattern) :</li>
 </ul>
 <pre><code class="language-java">class AnimalFactory throws AnimalTypeNotFound {
     private Map&lt;String, Animal&gt; prototypes = new HashMap&lt;&gt;();
@@ -120,20 +120,20 @@ animal.setNom(nomAnimal);
 }
 </code></pre>
 <ul>
-<li>Les fabriques utilitaires qui ne créent pas des instances de types différents, mais avec des états initiaux différents</li>
+<li>Les <strong>fabriques utilitaires</strong> qui ne créent pas des instances de types différents, mais avec des états initiaux différents :</li>
 </ul>
+<pre><code class="language-java">FractalFactory.createSierpinskiTriangles(8);
+</code></pre>
 <h2 id="exemple-en-java">Exemple en Java</h2><p>Les fabriques sont nombreuses dans l&#39;API java et dans les bibliothèques.</p>
 <ul>
-<li><a href="https://locationtech.github.io/jts/javadoc/org/locationtech/jts/geom/GeometryFactory.html" target="_blank">GeometryFactory de JTS</a></li>
+<li><a href="https://locationtech.github.io/jts/javadoc/org/locationtech/jts/geom/GeometryFactory.html" target="_blank">GeometryFactory de JTS</a> pour la création de géométrie de différents types (Point, LineString, Polygon, etc.)</li>
+<li><a href="https://docs.oracle.com/javase/8/docs/api/java/sql/DriverManager.html" target="_blank">java.sql.DriverManager</a> où nous trouvons une fabrique statique :</li>
 </ul>
-<p>Création de géométrie de différents types (Point, LineString, Polygon, etc.)</p>
-<ul>
-<li><a href="https://docs.oracle.com/javase/8/docs/api/java/sql/DriverManager.html" target="_blank">java.sql.DriverManager</a></li>
-</ul>
-<p>C&#39;est une variante sous forme d&#39;une fabrique statique</p>
 <pre><code class="language-java">Connection connection = DriverManager.getConnection(&quot;jdbc:postgresql:mabase&quot;)
 </code></pre>
-<h2 id="liens-utiles">Lien(s) utile(s)</h2><p><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique" target="_blank">https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique</a></p>
+<h2 id="liens-utiles">Liens utiles</h2><ul>
+<li><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique" target="_blank">fr.wikibooks.org - Fabrique</a></li>
+</ul>
 
     </div>
   </main>
