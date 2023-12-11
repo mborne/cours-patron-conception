@@ -1,141 +1,39 @@
-# Builder
+# Builder (Monteur)
 
 ## Problème
 
 Les fabriques traitent principalement de l'instanciation de classes en présence d'une hiérarchie.
 
-Le patron de conception "Builder" s'attaque à l'instanciation de classes où
-la complexité est liée à la complexité des objets et relations entre ces objets.
+Le patron de conception "Builder" s'attaque à l'instanciation de classes où la complexité est liée à la complexité des objets et relations entre ces objets.
 
-En outre, ce patron de conception est utile quand :
+En outre, ce patron de conception sera utile pour **éviter** :
 
-* On est tenté par la multiplication des constructeurs
-* On doit appeler de nombreux accesseurs (set, add, etc.)
-
+* De **nombreux appels à des accesseurs** (set, add, etc.)
+* La **multiplication des constructeurs**
 
 ## Solution
 
-* On met en place un nombre minimum de constructeurs
-* On délègue la complexité de création des instances à des objets dédiés : Director et Builder
-
+Dans sa forme originale, le patron de conception monteur préconise de déléguer la complexité de la construction à des instances dédiée (Builder et Director) comme suit :
 
 ![UML Builder](uml/UML_DP_Builder.png)
 
 Source [https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Builder](https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Builder)
 
+Un [exemple en Java est disponible](https://fr.wikipedia.org/wiki/Monteur_%28patron_de_conception%29#Java) avec :
 
-
-## Exemple
-
-Source : [https://fr.wikipedia.org/wiki/Monteur_%28patron_de_conception%29#Java](https://fr.wikipedia.org/wiki/Monteur_%28patron_de_conception%29#Java)
-
-
-### Un produit Pizza
-
-```java
-/* Produit */
-class Pizza {
-    private String pate = "";
-    private String sauce = "";
-    private String garniture = "";
-
-    public void setPate(String pate){
-        this.pate = pate;
-    }
-
-    public void setSauce(String sauce){
-        this.sauce = sauce;
-    }
-    public void setGarniture(String garniture) {
-        this.garniture = garniture;
-    }
-}
-```
-
-### Un monteur abstrait de pizza
-
-```java
-/* Monteur */
-abstract class MonteurPizza {
-  protected Pizza pizza;
-
-  public Pizza getPizza() { return pizza; }
-  public void creerNouvellePizza() { pizza = new Pizza(); }
-
-  public abstract void monterPate();
-  public abstract void monterSauce();
-  public abstract void monterGarniture();
-}
-```
-
-### Des monteurs concrets
-
-* Monteur pizza hawaii
-
-```java
-class MonteurPizzaHawaii extends MonteurPizza {
-  public void monterPate()      { pizza.setPate("croisée"); }
-  public void monterSauce()     { pizza.setSauce("douce"); }
-  public void monterGarniture() { pizza.setGarniture("jambon+ananas"); }
-}
-```
-
-* Monteur pizza piquante
-
-```java
-class MonteurPizzaPiquante extends MonteurPizza {
-  public void monterPate()      { pizza.setPate("feuilletée"); }
-  public void monterSauce()     { pizza.setSauce("piquante"); }
-  public void monterGarniture() { pizza.setGarniture("pepperoni+salami"); }
-}
-```
-
-### Un serveur dans le rôle du Directeur
-
-```java
-class Serveur {
-    private MonteurPizza monteurPizza;
-
-    public void setMonteurPizza(MonteurPizza mp) {
-        monteurPizza = mp;
-    }
-
-    public Pizza getPizza() {
-        return monteurPizza.getPizza();
-    }
-
-    public void construirePizza() {
-        monteurPizza.creerNouvellePizza();
-        monteurPizza.monterPate();
-        monteurPizza.monterSauce();
-        monteurPizza.monterGarniture();
-    }
-}
-```
-
-### Exemple d'utilisation
-
-```java
-Serveur serveur = new Serveur();
-MonteurPizza monteurPizzaHawaii  = new MonteurPizzaHawaii();
-MonteurPizza monteurPizzaPiquante = new MonteurPizzaPiquante();
-
-serveur.setMonteurPizza(monteurPizzaHawaii);
-serveur.construirePizza();
-
-Pizza pizza = serveur.getPizza();
-```
+* Des **Pizza** (*Product*) 
+* Une interface **MonteurPizza** (*Builder*) avec deux implémentations (*ConcreteBuilder*)
+  * **MonteurPizzaReine**
+  * **MonteurPizzaPiquante**
+* Un **Serveur** (*Director*)
 
 ## Variantes
 
-La terminologie builder est généralisée à toute création par partie d'objet via la séquence suivante :
+En pratique, la distinction ne sera pas toujours faite entre "Director" et "Builder". La **terminologie builder est généralisée à la création incrémentale d'objet** :
 
-* Récupération d'un builder
+* Création ou récupération d'un builder
 * Définition de la cible par appels successifs au builder (add, set, etc...)
 * Récupération de l'instance produite (getProduct)
-
-En outre, la distinction n'est pas toujours faite entre "Director" et "Builder".
-
 
 ## Exemple en Java
 
@@ -151,7 +49,7 @@ Calendar cal = new Calendar.Builder()
 ;
 ```
 
-* `ProcessBuilder`
+* [ProcessBuilder](https://docs.oracle.com/javase/8/docs/api/java/lang/ProcessBuilder.html)
 
 ```java
 // Création du builder (argument obligatoire du processus)
@@ -168,10 +66,11 @@ pb.directory(new File("myDir"));
 Process p = pb.start();
 ```
 
+* [locationtech.github.io - JTS - DelaunayTriangulationBuilder](https://locationtech.github.io/jts/javadoc/org/locationtech/jts/triangulate/DelaunayTriangulationBuilder.html)
+
+
 ## Liens utiles
 
 * [Discussion sur l'intérêt des beans couplés au design pattern Builder](https://kodelog.wordpress.com/tag/telescopic-constructor-pattern/)
-
 * [Exemple d'utilisation dans la création de formulaire dans Symfony (PHP)](http://symfony.com/doc/current/book/forms.html#building-the-form)
-
 * [Exemple d'utilisation dans la création de requête SQL (PHP)](http://doctrine-orm.readthedocs.org/projects/doctrine-orm/en/latest/reference/query-builder.html#high-level-api-methods)
