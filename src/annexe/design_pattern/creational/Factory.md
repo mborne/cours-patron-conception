@@ -95,6 +95,14 @@ class AnimalFactory throws AnimalTypeNotFound {
 FractalFactory.createSierpinskiTriangles(8);
 ```
 
+* *Factory Method* où **le choix de la fabrique déterminera le type créé** :
+
+![UML_DP_FactoryMethod](uml/UML_DP_FactoryMethod.png)
+
+* *Abstract Factory* où **le choix de la fabrique déterminera la famille des objets créés** (cas d'école : plusieurs implémentations pour des classes géométriques) :
+
+![UML_DP_FactoryMethod](uml/UML_DP_FabriqueAbstraite_me.png)
+
 
 ## Exemple en Java
 
@@ -110,3 +118,7 @@ Connection connection = DriverManager.getConnection("jdbc:postgresql:mabase")
 ## Liens utiles
 
 * [fr.wikibooks.org - Fabrique](https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique)
+* [fr.wikibooks.org - Fabrique abstraite - exemple avec des widgets d'interface WIN32 et OSX](https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique_abstraite)
+* [refactoring.guru - Fabrique abstraite](https://refactoring.guru/fr/design-patterns/abstract-factory)
+* [stackoverflow.com - Factory vs Factory method vs Abstract Factory](https://stackoverflow.com/questions/13029261/design-patterns-factory-vs-factory-method-vs-abstract-factory)
+

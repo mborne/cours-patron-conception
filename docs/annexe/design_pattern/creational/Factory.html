@@ -124,7 +124,15 @@ animal.setNom(nomAnimal);
 </ul>
 <pre><code class="language-java">FractalFactory.createSierpinskiTriangles(8);
 </code></pre>
-<h2 id="exemple-en-java">Exemple en Java</h2><p>Les fabriques sont nombreuses dans l&#39;API java et dans les bibliothèques.</p>
+<ul>
+<li><em>Factory Method</em> où <strong>le choix de la fabrique déterminera le type créé</strong> :</li>
+</ul>
+<p><img src="uml/UML_DP_FactoryMethod.png" alt="UML_DP_FactoryMethod"></p>
+<ul>
+<li><em>Abstract Factory</em> où <strong>le choix de la fabrique déterminera la famille des objets créés</strong> (cas d&#39;école : plusieurs implémentations pour des classes géométriques) :</li>
+</ul>
+<p><img src="uml/UML_DP_FabriqueAbstraite_me.png" alt="UML_DP_FactoryMethod"></p>
+<h2 id="exemple-en-java">Exemple en Java</h2><p>Les fabriques sont nombreuses dans l&#39;API java et dans les bibliothèques :</p>
 <ul>
 <li><a href="https://locationtech.github.io/jts/javadoc/org/locationtech/jts/geom/GeometryFactory.html" target="_blank">GeometryFactory de JTS</a> pour la création de géométrie de différents types (Point, LineString, Polygon, etc.)</li>
 <li><a href="https://docs.oracle.com/javase/8/docs/api/java/sql/DriverManager.html" target="_blank">java.sql.DriverManager</a> où nous trouvons une fabrique statique :</li>
@@ -133,6 +141,9 @@ animal.setNom(nomAnimal);
 </code></pre>
 <h2 id="liens-utiles">Liens utiles</h2><ul>
 <li><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique" target="_blank">fr.wikibooks.org - Fabrique</a></li>
+<li><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique_abstraite" target="_blank">fr.wikibooks.org - Fabrique abstraite - exemple avec des widgets d&#39;interface WIN32 et OSX</a></li>
+<li><a href="https://refactoring.guru/fr/design-patterns/abstract-factory" target="_blank">refactoring.guru - Fabrique abstraite</a></li>
+<li><a href="https://stackoverflow.com/questions/13029261/design-patterns-factory-vs-factory-method-vs-abstract-factory" target="_blank">stackoverflow.com - Factory vs Factory method vs Abstract Factory</a></li>
 </ul>
 
     </div>
