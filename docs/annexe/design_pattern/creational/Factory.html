@@ -53,13 +53,14 @@
     </div>
     <div class="markdown-body">
       <h1 id="factory">Factory</h1><h2 id="problème">Problème</h2><p>La fabrique s&#39;adresse à la problématique de la création d&#39;instances dérivées d&#39;une classe.</p>
-<p>On dispose par exemple de la hiérarchie suivante :</p>
+<h2 id="cas-décole">Cas d&#39;école</h2><p>Nous avons par exemple la hiérarchie suivante :</p>
 <ul>
 <li>Animal</li>
 <li>Chat hérite de Animal</li>
 <li>Chien hérite de Animal</li>
 </ul>
-<p>Supposons que l&#39;on charge un fichier contenant des animaux et que l&#39;on fasse appel à &quot;new&quot; en fonction du type de l&#39;animal, on aura le morceau de code suivant :</p>
+<p>Supposons que nous devons charger un fichier contenant des animaux et créer des animaux via une API WEB.</p>
+<p>A chaque fois, nous devrons faire appel à &quot;new&quot; en fonction du type de l&#39;animal :</p>
 <pre><code class="language-java">Animal animal = null ;
 if ( typeAnimal.equals(&quot;chat&quot;) ){
     animal = new Chat() ;
@@ -70,8 +71,9 @@ if ( typeAnimal.equals(&quot;chat&quot;) ){
 }
 animal.setNom(nomAnimal);
 </code></pre>
-<p>En cas d&#39;ajout d&#39;un type d&#39;animal, on doit modifier tous les codes créant des animaux.</p>
-<h2 id="solution">Solution</h2><p><img src="uml/UML_DP_Fabrique.png" alt="UML Prototype"></p>
+<p><strong>En cas d&#39;ajout d&#39;un type d&#39;animal, nous devrons modifier tous les codes créant des animaux.</strong></p>
+<h2 id="solution">Solution</h2><p>Nous pouvons définir une classe avec une méthode dédiée à la création des animaux :</p>
+<p><img src="uml/UML_DP_Fabrique.png" alt="UML Prototype"></p>
 <p>Appliqué à notre exemple, une AnimalFactory devient l&#39;entité responsable de
 la création d&#39;un animal en fonction de son type.</p>
 <pre><code class="language-java">class AnimalFactory {
@@ -90,11 +92,11 @@ la création d&#39;un animal en fonction de son type.</p>
 <pre><code class="language-java">Animal animal = animalFactory.createAnimal(typeAnimal) ;
 animal.setNom(nomAnimal);
 </code></pre>
-<h2 id="variantes">Variantes</h2><p>On trouvera de nombreuses variantes du concept de fabrique :</p>
+<h2 id="variantes">Variantes</h2><p>Nous trouverons de nombreuses variantes du concept de fabrique :</p>
 <ul>
 <li>La fabrique statique</li>
 </ul>
-<pre><code class="language-java">Animal.createByType(&quot;chien&quot;)
+<pre><code class="language-java">AnimalFactory.createByType(&quot;chien&quot;)
 </code></pre>
 <ul>
 <li>Les fabriques basées sur des prototypes (composition de pattern)</li>
