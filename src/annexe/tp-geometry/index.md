@@ -1,4 +1,4 @@
-# TP - Mise en oeuvre des patterns sur des Geometry
+# TP - Mise en oeuvre des patrons de conception avec des classes géométriques
 
 [[toc]]
 
@@ -8,30 +8,29 @@ L'objectif de ce TP est de s'exercer à mettre oeuvre des patrons de conception 
 
 ![Géométrie OGC](schema/geometries-light.png)
 
-## Mise en garde
+Vous noterez toutefois que ceci n'est qu'un exercice :
 
-Dans la vraie vie :
-
-* Vous utiliserez plutôt des bibliothèques du type [JTS](https://locationtech.github.io/jts/javadoc/index.html).
-* Les patrons de conception ne seront pas la solution à tous les problèmes et nous n'en n'utiliserons pas autant.
+* **Nous allons réinventer la roue carrée** (utilisez plutôt [JTS](https://locationtech.github.io/jts/javadoc/index.html) et [GeoTools](https://docs.geotools.org/latest/userguide/index.html) dans la vraie vie).
+* **Nous allons sombrer dans la paternite** (les patrons de conception ne seront pas la solution à tous les problèmes et nous n'en n'utiliserons pas autant)
 
 ## Démarrage
 
-* Cloner le projet https://github.com/mborne/tp-pattern-geometry
-
-```bash
-mkdir ~/workspace_pattern
-cd ~/workspace_pattern
-git clone https://github.com/mborne/tp-pattern-geometry.git
-cd tp-pattern-geometry
-# vérifier que vous êtes bien sur la branche "initial"
-git branch
-```
-
+* Forker le projet https://github.com/mborne/tp-pattern-geometry
+* Cloner le fork
+* Lire le fichier [README](https://github.com/mborne/tp-pattern-geometry#tp-pattern-geometry)
 * Importer le projet maven dans eclipse ou votre IDE préféré
 
-(Au besoin, voir [Configuration eclipse/maven avec un proxy](https://github.com/mborne/maven-eclipse#configuration-eclipsemaven-avec-un-proxy))
+## Mise en garde
 
+Vous devrez impérativement :
+
+* **Livrer un code fonctionnel et testé sur la <u>branche par défaut</u> de votre fork**
+* **Avoir au moins un commit (voire une branche) par question avec un commentaire permettant de l'identifier**
+
+Pour ce faire, il vous est vivement conseillé de :
+
+* Lancer à chaque étape la construction et les tests automatiques (`mvn clean package`)
+* Travailler avec une branche "dev" si vous voulez pousser des résultats non finalisés.
 
 ## 0.1 - Coordinate (2D)
 

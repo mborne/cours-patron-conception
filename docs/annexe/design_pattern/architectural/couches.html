@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Architecture en couche</title>
+  <title>Les patrons de conception (Annexes) - Architecture en couche</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
     integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
@@ -33,13 +33,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="../../index.html">Annexes</a>
+              <a class="nav-link" href="../../index.html">Accueil</a>
+            </li>          
+            <li class="nav-item">
+              <a class="nav-link" href="../../../#2">Présentation</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../../references.html">Références</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../../depots.html">Dépôts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/mborne/cours-patron-conception#contact">Contact</a>
             </li>
           </ul>
         </div>
@@ -52,8 +58,17 @@
       <a href="https://github.com/mborne/cours-patron-conception/blob/master/src/annexe/design_pattern/architectural/couches.md?plain=1" target="_blank">Éditer sur GitHub</a>
     </div>
     <div class="markdown-body">
-      <h1 id="architecture-en-couche">Architecture en couche</h1><p>Nous trouverons plusieurs styles d&#39;<a href="https://fr.wikipedia.org/wiki/Architecture_en_couches" target="_blank">architecture en couche</a> avec par exemple les architectures n-tiers illustrée ci-dessous dans le cas d&#39;une application web :</p>
+      <h1 id="architecture-en-couche">Architecture en couche</h1><h2 id="problème">Problème</h2><p>Il convient de respecter le principe de responsabilité unique à l&#39;échelle d&#39;un système.</p>
+<h2 id="solution">Solution</h2><p>Nous trouverons plusieurs styles d&#39;<a href="https://fr.wikipedia.org/wiki/Architecture_en_couches" target="_blank"><strong>architecture en couche</strong></a> où <strong>chaque composant traitera une thématique particulière en s&#39;appuyant sur un plusieurs composants de plus bas niveau</strong>.</p>
+<h2 id="exemples">Exemples</h2><ul>
+<li>Les <strong>architectures n-tiers</strong> :</li>
+</ul>
 <p><img src="schema/ntiers-web.png" alt="Illustration architecture n-tiers"></p>
+<ul>
+<li>Les <a href="https://fr.wikipedia.org/wiki/Architecture_trois_tiers" target="_blank">architectures 3-tiers</a></li>
+<li>Le <a href="https://fr.wikipedia.org/wiki/Mod%C3%A8le_OSI" target="_blank">modèle OSI</a></li>
+<li>...</li>
+</ul>
 
     </div>
   </main>

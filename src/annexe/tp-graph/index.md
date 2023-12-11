@@ -26,11 +26,13 @@ Pour cela, nous allons faire une revue de code et procéder par étape.
 
 ## Mise en garde
 
-Vous devrez impérativement **livrer un code fonctionnel sur la branche par défaut de votre fork**.
+Vous devrez impérativement :
+
+* **Livrer un code fonctionnel sur la <u>branche par défaut</u> de votre fork**.
+* **Avoir au moins un commit (voire une branche) par question avec un commentaire permettant de l'identifier**
 
 Pour ce faire, il vous est vivement conseillé de :
 
-* Travailler sur une autre branche (ex : `develop`), en particulier si vous voulez pousser des travaux en cours.
 * Lancer à chaque étape la construction et les tests automatiques (`mvn clean package`).
 * Compléter ces tests automatiques avec un test manuel sur l'API.
 

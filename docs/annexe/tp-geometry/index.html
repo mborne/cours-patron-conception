@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>TP - Mise en oeuvre des patterns sur des Geometry</title>
+  <title>Les patrons de conception (Annexes) - TP - Mise en oeuvre des patrons de conception avec des classes géométriques</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
     integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
@@ -33,13 +33,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="../index.html">Annexes</a>
+              <a class="nav-link" href="../index.html">Accueil</a>
+            </li>          
+            <li class="nav-item">
+              <a class="nav-link" href="../../#2">Présentation</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../references.html">Références</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../depots.html">Dépôts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/mborne/cours-patron-conception#contact">Contact</a>
             </li>
           </ul>
         </div>
@@ -52,10 +58,10 @@
       <a href="https://github.com/mborne/cours-patron-conception/blob/master/src/annexe/tp-geometry/index.md?plain=1" target="_blank">Éditer sur GitHub</a>
     </div>
     <div class="markdown-body">
-      <h1 id="tp---mise-en-oeuvre-des-patterns-sur-des-geometry">TP - Mise en oeuvre des patterns sur des Geometry</h1><ul>
+      <h1 id="tp---mise-en-oeuvre-des-patrons-de-conception-avec-des-classes-géométriques">TP - Mise en oeuvre des patrons de conception avec des classes géométriques</h1><ul>
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#mise-en-garde">Mise en garde</a></li>
 <li><a href="#démarrage">Démarrage</a></li>
+<li><a href="#mise-en-garde">Mise en garde</a></li>
 <li><a href="#01---coordinate-2d">0.1 - Coordinate (2D)</a></li>
 <li><a href="#02---geometry-point-et-linestring">0.2 - Geometry, Point et LineString</a></li>
 <li><a href="#03---geometryisempty">0.3 - Geometry.isEmpty()</a></li>
@@ -76,25 +82,27 @@
 </ul>
 <h2 id="introduction">Introduction</h2><p>L&#39;objectif de ce TP est de s&#39;exercer à mettre oeuvre des patrons de conception via la création d&#39;une petite bibliothèque de manipulation des géométries OGC :</p>
 <p><img src="schema/geometries-light.png" alt="Géométrie OGC"></p>
-<h2 id="mise-en-garde">Mise en garde</h2><p>Dans la vraie vie :</p>
+<p>Vous noterez toutefois que ceci n&#39;est qu&#39;un exercice :</p>
 <ul>
-<li>Vous utiliserez plutôt des bibliothèques du type <a href="https://locationtech.github.io/jts/javadoc/index.html" target="_blank">JTS</a>.</li>
-<li>Les patrons de conception ne seront pas la solution à tous les problèmes et nous n&#39;en n&#39;utiliserons pas autant.</li>
+<li><strong>Nous allons réinventer la roue carrée</strong> (utilisez plutôt <a href="https://locationtech.github.io/jts/javadoc/index.html" target="_blank">JTS</a> et <a href="https://docs.geotools.org/latest/userguide/index.html" target="_blank">GeoTools</a> dans la vraie vie).</li>
+<li><strong>Nous allons sombrer dans la paternite</strong> (les patrons de conception ne seront pas la solution à tous les problèmes et nous n&#39;en n&#39;utiliserons pas autant)</li>
 </ul>
 <h2 id="démarrage">Démarrage</h2><ul>
-<li>Cloner le projet <a href="https://github.com/mborne/tp-pattern-geometry" target="_blank">https://github.com/mborne/tp-pattern-geometry</a></li>
-</ul>
-<pre><code class="language-bash">mkdir ~/workspace_pattern
-cd ~/workspace_pattern
-git clone https://github.com/mborne/tp-pattern-geometry.git
-cd tp-pattern-geometry
-# vérifier que vous êtes bien sur la branche &quot;initial&quot;
-git branch
-</code></pre>
-<ul>
+<li>Forker le projet <a href="https://github.com/mborne/tp-pattern-geometry" target="_blank">https://github.com/mborne/tp-pattern-geometry</a></li>
+<li>Cloner le fork</li>
+<li>Lire le fichier <a href="https://github.com/mborne/tp-pattern-geometry#tp-pattern-geometry" target="_blank">README</a></li>
 <li>Importer le projet maven dans eclipse ou votre IDE préféré</li>
 </ul>
-<p>(Au besoin, voir <a href="https://github.com/mborne/maven-eclipse#configuration-eclipsemaven-avec-un-proxy" target="_blank">Configuration eclipse/maven avec un proxy</a>)</p>
+<h2 id="mise-en-garde">Mise en garde</h2><p>Vous devrez impérativement :</p>
+<ul>
+<li><strong>Livrer un code fonctionnel et testé sur la <u>branche par défaut</u> de votre fork</strong></li>
+<li><strong>Avoir au moins un commit (voire une branche) par question avec un commentaire permettant de l&#39;identifier</strong></li>
+</ul>
+<p>Pour ce faire, il vous est vivement conseillé de :</p>
+<ul>
+<li>Lancer à chaque étape la construction et les tests automatiques (<code>mvn clean package</code>)</li>
+<li>Travailler avec une branche &quot;dev&quot; si vous voulez pousser des résultats non finalisés.</li>
+</ul>
 <h2 id="01---coordinate-2d">0.1 - Coordinate (2D)</h2><blockquote>
 <p>Objectif : Préparation du TP, principe de base, encapsulation</p>
 </blockquote>

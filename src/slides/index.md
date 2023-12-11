@@ -1,4 +1,3 @@
-
 # Les patrons de conception
 
 <br />
@@ -11,23 +10,20 @@
 
 ## Plan
 
-* Introduction
-* Les bases de la P.O.O.
-* Les principes de conception
-* Les anti-patrons
-* Les designs patterns
-* Les patrons de création
-* Les patrons de structure
-* Les patrons de comportement
-* A vous maintenant!
-* Les patrons architecturaux
-* Le refactoring
-* Encore à vous!
-* Annexes et références
-
----
-
-## Introduction
+* [Introduction](#3)
+* [Les bases de la P.O.O.](#6)
+* [Les principes de conception](#9)
+* [Les anti-patrons](#23)
+* [Les patrons de conception](#33)
+* [Les patrons de création](#40)
+* [Les patrons de structure](#41)
+* [Les patrons de comportement](#42)
+* [A vous maintenant!](#43)
+* [Les patrons architecturaux](#44)
+* [Le refactoring](#45)
+* [Encore à vous!](#46)
+* [Conclusion](#47)
+* [Annexes et références](annexe/)
 
 ---
 
@@ -42,7 +38,7 @@ De nombreux événements conduiront à modifier le code d'une application :
 * Modification des fonctionnalités et modèles
 * Changement de cible (desktop, serveur, cloud, mobile, etc.)
 * Augmentation du nombre d'utilisateurs et des volumes de données (parallélisation, etc.)
-* Obsolescence des outils (bibliothèques, frameworks, etc.)
+* Obsolescence des outils (bibliothèques, frameworks, services tiers, etc.)
 * Choix politique (base de données, opensource, etc.)
 * ...
 
@@ -57,12 +53,12 @@ De nombreux événements conduiront à modifier le code d'une application :
 Il conviendra de **cibler plusieurs critères qualités qui guideront la conception** :
 
 * **Fiabilité**       : Pouvoir faire tourner le programme sans risque de plantage
-* **Maintenabilité**  : Pouvoir corriger un bug, mettre à jour les dépendances, etc.
-* **Performance**     : Temps d'exécution, consommation de RAM, espace disque, etc.
+* **Maintenabilité**  : Pouvoir facilement corriger un bug, mettre à jour les dépendances, etc.
+* **Performance**     : Minimiser le temps d'exécution, la consommation de RAM, de stockage, etc.
 * **Évolutivité**     : Pouvoir ajouter facilement des fonctionnalités sans risque de régression.
 * **Réutilisabilité** : Pouvoir réutiliser un code dans un autre contexte.
 * **Portabilité**     : Pouvoir porter facilement un programme développé pour une cible vers une autre.
-* **Testabilité**     : Pouvoir automatiser facilement les tests unitaires et fonctionnels sur un programme.
+* **Testabilité**     : Pouvoir écrire facilement des tests unitaires et fonctionnels pour un programme.
 * ...
 
 Nous serons souvent amené à **prioriser ces critères** (ex : privilégier les performances plutôt que la généricité)
@@ -73,17 +69,17 @@ Nous serons souvent amené à **prioriser ces critères** (ex : privilégier les
 
 ### Les patrons de conception dans tout ça?
 
-Ce cours s'inspire de la lecture de **"Design patterns: tête la première" de Eric Freeman et Kathy Sierra**. Pour bien comprendre l'**intérêt des patrons de conception**, nous allons d'abord balayer un ensemble de **prérequis**  :
+Ce cours s'inspire de la lecture de **"Design patterns: tête la première" de Eric Freeman et Kathy Sierra**. Nous allons d'abord balayer un ensemble de **prérequis** permettant de **comprendre l'intérêt des patrons de conception** :
 
 * **Les concept de base de la P.O.O.**
 * **Les principes de conception**
 
 Nous verrons quelques **mauvaises pratiques** à travers les **anti-patrons**. Puis,
-nous nous attarderons sur les **bonnes pratiques** avec les **patrons de conception** à l'échelle de quelques classes. Nous mettrons en pratique avec un premier TP.
+nous nous attarderons sur les **bonnes pratiques** avec les principaux **patrons de conception** qui seront mis en pratique avec un premier TP.
 
-Nous verrons ensuite que ces principes de conception et le concept de patron de conception s'appliquent à d'autres niveau avec les **patrons architecturaux**.
+Nous verrons ensuite que ces principes et patrons de conception s'appliquent à d'autres niveaux du système avec les **patrons architecturaux**.
 
-Nous verrons enfin comment **refactorer** un code existant pour introduire ces patrons et 
+Nous verrons enfin comment **réfactorer un code existant** avec une partie théorique et un second TP.
 
 ---
 
@@ -186,11 +182,10 @@ Pour ajouter modifier le comportement d'une classe existante, je modifie son cod
 
 .good-right[
 Pour modifier le comportement d'une classe, je peux en hériter et surcharger une ou plusieurs méthodes
-
-> Spoiler : le patron décorateur permettra une approche plus élégante.
 ]
 
-> En Java, si une classe est fermée à l'extension, nous pourrons la marquer comme `final`.
+
+> En Java, nous pourrons toutefois déclarer une classe `final` pour bloquer l'héritage. Nous ne modifierons pas pour autant le code d'une telle classe pour ajouter des fonctionnalités.
 
 ---
 
@@ -209,7 +204,7 @@ Cas 2 : J'ajoute une classe à une hiérarchie, je provoque le lancement d'excep
 .good-right[
 Avant d'hériter d'une classe, je m'assure que je pourrai implémenter toutes les méthodes et que ça ne posera pas de problème dans le reste du code.
 
-> Spoiler : Le patron visiteur pourra aider à se protéger contre le deuxième cas.
+> Spoiler : Le patron visiteur aidera à se protéger contre le deuxième cas.
 ]
 
 ---
@@ -607,7 +602,7 @@ Pour faire simple, **sans connaissance des patrons, certains choix de conception
 
 ## A vous maintenant!
 
-Pour bien comprendre l'intérêt des patrons de conception, nous allons traiter le [TP - Mise en oeuvre des patterns sur des Geometry](annexe/tp-geometry/index.html)
+Pour bien comprendre l'intérêt des patrons de conception, nous allons traiter le [TP - Mise en oeuvre des patrons de conception avec des classes géométriques](annexe/tp-geometry/index.html)
 
 ---
 
@@ -619,8 +614,8 @@ Nous avons vu jusque là des patrons de conception à l'échelle de quelques cla
 * [Architecture micro-service](https://learn.microsoft.com/fr-fr/azure/architecture/guide/architecture-styles/microservices)
 * [Model-View-Controller (MVC)](annexe/design_pattern/architectural/MVC.html)
 * [Inversion de contrôle (IoC)](https://github.com/mborne/spring-ioc-principe#readme)
-* [MapReduce](annexe/design_pattern/architectural/MapReduce.html)
 * [Event-Driven architecture/Message Oriented Middleware (MOM)](https://learn.microsoft.com/fr-fr/azure/architecture/guide/architecture-styles/event-driven)
+* [MapReduce](annexe/design_pattern/architectural/MapReduce.html)
 
 > Nous verrons dans le prochain TP que [Spring](https://spring.io/) combine l'utilisation de [Inversion de contrôle (IoC)](https://github.com/mborne/spring-ioc-principe#readme) et [Model-View-Controller (MVC)](annexe/design_pattern/architectural/MVC.html).
 
@@ -632,13 +627,7 @@ Nous noterons que souvent, nous serons face à des applications existantes où i
 
 Nous verrons rapidement [les grands principes du refactoring de code](refactoring.md) avant de poursuivre avec un nouveau TP.
 
----
-
-## Encore à vous!
-
-Pour la fin de journée, vous êtes invité à poursuivre la lecture de [refactoring.com - Catalogue](http://www.refactoring.com/catalog/)!
-
-> Marquer une pause de quelques secondes... J'rigole! Vous pourrez le parcourir en autonomie. Lire en complément ["Clean Code" de Robert C. Martin résumé derrière ce lien](https://gist.github.com/cedrickchee/55ecfbaac643bf0c24da6874bf4feb08#file-clean_code-md) sera aussi intéressant.
+Vous pourrez parcourir en autonomie [refactoring.com - Catalogue](http://www.refactoring.com/catalog/) et lire en complément ["Clean Code" de Robert C. Martin résumé derrière ce lien](https://gist.github.com/cedrickchee/55ecfbaac643bf0c24da6874bf4feb08#file-clean_code-md) sera aussi intéressant.
 
 ---
 
@@ -646,26 +635,24 @@ Pour la fin de journée, vous êtes invité à poursuivre la lecture de [refacto
 
 Nous allons surtout traiter [TP - Réfactoring sur des traitements de graphe](annexe/tp-graph/index.html) où l'idée est de faire une **mise en situation d'optimisation et d'industrialisation d'un code existant**.
 
-Vous serez invité à :
+Vous pourrez constater :
 
-* Mesurer la **difficulté de l'exercice de refactoring** donc l'intérêt de **respecter dès le début les principes de conception**.
-* Constater que **l'utilisation de patrons de conception aide à respecter ces principes** (sans résoudre pour autant tous les problèmes)
+* La **difficulté de l'exercice de refactoring** (donc l'intérêt de **respecter dès le début les principes de conception**)
+* Que l'utilisation **de patrons de conception aide à respecter ces principes** (sans résoudre pour autant tous les problèmes)
 * L'intérêt des **tests pour éviter des régressions**
-* Les **limites des tests fonctionnels par rapport aux tests unitaires** (vous devriez être quelques-un à faire la même erreur et avoir du mal à la trouver 😈)
+* Les **limites des tests fonctionnels par rapport aux tests unitaires** (vous devriez être plusieurs à faire la même erreur et avoir du mal à la trouver 😈)
 
 ---
+
+## Conclusion
+
+Après ce cours et ces TP, j'espère que vous comprendrez qu'il est **fondamental de respecter les principes de conception** à tous les niveaux du système et en quoi **les patrons de conception peuvent vous aider**.
 
 ### Comment progresser?
 
 * Comprendre et apprendre les principaux patrons de conception
 * **Identifier les patrons de conception dans les codes existants** (rechercher les fabriques, les monteurs, les stratégies, les décorateurs, etc.)
-* **Expérimenter!**
+* **Expérimenter** (et apprendre de ses erreurs)! 
 * **Concevoir** des codes en pensant aux **principes de conception** et **patrons de conception** (sans sombrer dans la paternite)
 * **Concevoir des codes en les testant unitairement** (un code mal conçu ne pouvant être testé unitairement)
 * **Comprendre des architectures existantes** (vous constaterez que les mêmes principes s'appliquent à diverses échelles des systèmes)
-
----
-
-## Annexes et références
-
-Voir [annexes](annexe/).
