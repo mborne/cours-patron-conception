@@ -59,10 +59,9 @@
     </div>
     <div class="markdown-body">
       <h1 id="adapter">Adapter</h1><h2 id="problème">Problème</h2><p>L&#39;idée est la même que pour les adaptateurs dans la vie courante :
-On fait face à deux interfaces qui ont des fonctionnalités équivalentes mais qui
-sont incompatibles. On va créer un intermédiaire.</p>
-<h2 id="exemple">Exemple</h2><p>On dispose d&#39;un algorithme qui effectue la concaténation de chaînes de caractères
-avec un séparateur.</p>
+<strong>Nous avons deux interfaces qui ont des fonctionnalités équivalentes mais qui sont incompatibles</strong>. </p>
+<h2 id="cas-décole">Cas d&#39;école</h2><p>Nous disposons d&#39;un algorithme qui effectue la concaténation de chaînes de caractères
+avec un séparateur et prenant en entrée un <code>Enumeration</code> :</p>
 <pre><code class="language-java">class EnumerationUtils {
 
     public static String concat(Enumeration&lt;String&gt; items, String separator){
@@ -71,14 +70,12 @@ avec un séparateur.</p>
 
 }
 </code></pre>
-<p>Pas de chance : Nous devons appliquer cet algorithme sur un Iterator<String>.</p>
-<p>On remarque que niveau fonctionnement, les deux interfaces Iterator et Enumeration sont sensiblement
-similaires :</p>
+<p>Nous devons appliquer cet algorithme sur un <code>Iterator&lt;String&gt;</code> présentant un comportement similaire :</p>
 <ul>
 <li><a href="https://docs.oracle.com/javase/7/docs/api/java/util/Enumeration.html" target="_blank">Enumeration</a></li>
 <li><a href="https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html" target="_blank">Iterator</a></li>
 </ul>
-<p>On va donc pouvoir créer un adaptateur :</p>
+<h2 id="solution">Solution</h2><p>Nous allons créer un intermédiaire qui permettra d&#39;adapter les appels :</p>
 <pre><code class="language-java">class IteratorToEnumationAdapter implements Enumeration&lt;String&gt; {
 
     private Iterator&lt;String&gt; adaptee ;
@@ -97,15 +94,19 @@ similaires :</p>
 
 }
 </code></pre>
-<p>Puis, appeler l&#39;algorithme comme suit :</p>
+<p>Nous pourrons appeler l&#39;algorithme comme suit :</p>
 <pre><code class="language-java">Iterator&lt;String&gt; items ;
 //...
 System.out.println(EnumerationUtils.concat(
     new IteratorToEnumationAdapter(items)
 ));
 </code></pre>
-<h2 id="remarque">Remarque</h2><p>Le livre &quot;tête la première dans les designs patterns&quot; traite le cas inverse
-et l&#39;adaptation partielle (absence de la fonction &quot;remove&quot; sur les Enumeration)</p>
+<blockquote>
+<p>Remarque : Le livre &quot;tête la première dans les designs patterns&quot; traite le cas inverse et l&#39;adaptation partielle (absence de la fonction &quot;remove&quot; sur les Enumeration)</p>
+</blockquote>
+<h2 id="liens-utiles">Liens utiles</h2><ul>
+<li><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Adaptateur" target="_blank">fr.wikibooks.org - Adaptateur</a></li>
+</ul>
 
     </div>
   </main>

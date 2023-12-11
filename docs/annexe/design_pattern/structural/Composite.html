@@ -58,12 +58,14 @@
       <a href="https://github.com/mborne/cours-patron-conception/blob/master/src/annexe/design_pattern/structural/Composite.md?plain=1" target="_blank">Éditer sur GitHub</a>
     </div>
     <div class="markdown-body">
-      <h1 id="composite">Composite</h1><h2 id="problème">Problème</h2><p>Nous manipulons un arbre et nous souhaitons appeler une opération sans faire la distinction entre les noeuds porteurs d&#39;enfants et les feuilles.</p>
-<h2 id="solution">Solution</h2><p><img src="uml/UML_Composite.png" alt="UML Composite">
-Source <a href="https://en.wikipedia.org/wiki/Composite_pattern" target="_blank"><a href="https://en.wikipedia.org/wiki/Composite_pattern" target="_blank">https://en.wikipedia.org/wiki/Composite_pattern</a></a></p>
-<h2 id="exemple">Exemple</h2><p>Dans un éditeur, nous manipulons des formes (<code>Shape</code>) primitives (<code>Circle</code>, <code>Square</code>, etc.) et
+      <h1 id="composite">Composite</h1><h2 id="problème">Problème</h2><p>Nous manipulons un <strong>arbre</strong> et nous souhaitons <strong>réaliser un traitement sans faire la distinction entre les noeuds porteurs d&#39;enfants et les feuilles</strong>.</p>
+<h2 id="cas-décole">Cas d&#39;école</h2><p>Dans un éditeur, nous manipulons des formes (<code>Shape</code>) primitives (<code>Circle</code>, <code>Square</code>, etc.) et
 des groupes de formes (<code>ShapeCollection</code>).</p>
-<p>Nous pouvons unifier le rendu comme suit en nous inspirant de ce patron :</p>
+<p>Nous voulons unifier le rendu.</p>
+<h2 id="solution">Solution</h2><p>Le patron composite propose de procéder comme suit :</p>
+<p><img src="uml/UML_Composite.png" alt="UML Composite"></p>
+<p>Source <a href="https://en.wikipedia.org/wiki/Composite_pattern" target="_blank"><a href="https://en.wikipedia.org/wiki/Composite_pattern" target="_blank">https://en.wikipedia.org/wiki/Composite_pattern</a></a></p>
+<p>Nous aurons par exemple :</p>
 <pre><code class="language-java">interface Shape {
 
     public void render() ;
@@ -97,6 +99,10 @@ des groupes de formes (<code>ShapeCollection</code>).</p>
         }
     }
 }
+</code></pre>
+<p>Ainsi, à l&#39;utilisation, nous pourrons faire le rendu sans nous préoccuper du type d&#39;objet :</p>
+<pre><code class="language-java">Shape shape = /* une forme ou collection de formes */
+shape.render();
 </code></pre>
 
     </div>
