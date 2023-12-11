@@ -55,6 +55,7 @@ Côté client, nous retrouverons des variantes du concept de MVC où l'idée est
 
 ## Ressources
 
+* [java-design-patterns.com - Model-View-Controller](https://java-design-patterns.com/patterns/model-view-controller/)
 * [spring.io - Building an Application with Spring Boot](https://spring.io/guides/gs/spring-boot/)
 * [Symfony versus Flat PHP](http://symfony.com/doc/current/book/from_flat_php_to_symfony2.html)
 
