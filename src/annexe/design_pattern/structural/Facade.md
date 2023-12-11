@@ -2,17 +2,13 @@
 
 ## Problème
 
-On dispose d'un système complexe faisant intervenir de nombreuses classes
-en relation les unes avec les autres.
+Nous disposons d'un système complexe faisant intervenir de nombreuses classes en relation les unes avec les autres. Nous souhaite **fournir une abstraction pour les cas d'usage simples**.
 
-On souhaite fournir une abstraction pour les cas d'usage simple.
+## Cas d'école
 
-## Exemple
+Nous avons une classe qui construit dynamiquement une triangulation à partir d'un semi de points :
 
-On fournit une classe qui construit dynamiquement une triangulation
-à partir d'un semi de points :
-
-```
+```java
 interface TriangulationBuilder {
 
     public Vertex addVertex( Coordinate coordinate ) ;
@@ -22,10 +18,14 @@ interface TriangulationBuilder {
 }
 ```
 
-On identifie qu'à l'usage, de nombreux clients vont se contenter de trianguler
-des "tableaux" de points. On met en place une simplification :
+Nous identifions qu'à l'usage, de nombreux clients vont se contenter de trianguler
+des "tableaux" de points.
 
-```
+## Solution
+
+Nous mettons à disposition une méthode répondant à ce besoin :
+
+```java
 class TriangulationFacade {
 
     public static Triangulation tesselate(Coordinate[] coordinates){
@@ -38,3 +38,7 @@ class TriangulationFacade {
 
 }
 ```
+
+## Liens utiles
+
+* [fr.wikibooks.org - Façade](https://fr.wikibooks.org/wiki/Patrons_de_conception/Fa%C3%A7ade)

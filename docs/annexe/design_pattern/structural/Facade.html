@@ -58,12 +58,9 @@
       <a href="https://github.com/mborne/cours-patron-conception/blob/master/src/annexe/design_pattern/structural/Facade.md?plain=1" target="_blank">Éditer sur GitHub</a>
     </div>
     <div class="markdown-body">
-      <h1 id="facade">Facade</h1><h2 id="problème">Problème</h2><p>On dispose d&#39;un système complexe faisant intervenir de nombreuses classes
-en relation les unes avec les autres.</p>
-<p>On souhaite fournir une abstraction pour les cas d&#39;usage simple.</p>
-<h2 id="exemple">Exemple</h2><p>On fournit une classe qui construit dynamiquement une triangulation
-à partir d&#39;un semi de points :</p>
-<pre><code>interface TriangulationBuilder {
+      <h1 id="facade">Facade</h1><h2 id="problème">Problème</h2><p>Nous disposons d&#39;un système complexe faisant intervenir de nombreuses classes en relation les unes avec les autres. Nous souhaite <strong>fournir une abstraction pour les cas d&#39;usage simples</strong>.</p>
+<h2 id="cas-décole">Cas d&#39;école</h2><p>Nous avons une classe qui construit dynamiquement une triangulation à partir d&#39;un semi de points :</p>
+<pre><code class="language-java">interface TriangulationBuilder {
 
     public Vertex addVertex( Coordinate coordinate ) ;
 
@@ -71,9 +68,10 @@ en relation les unes avec les autres.</p>
 
 }
 </code></pre>
-<p>On identifie qu&#39;à l&#39;usage, de nombreux clients vont se contenter de trianguler
-des &quot;tableaux&quot; de points. On met en place une simplification :</p>
-<pre><code>class TriangulationFacade {
+<p>Nous identifions qu&#39;à l&#39;usage, de nombreux clients vont se contenter de trianguler
+des &quot;tableaux&quot; de points.</p>
+<h2 id="solution">Solution</h2><p>Nous mettons à disposition une méthode répondant à ce besoin :</p>
+<pre><code class="language-java">class TriangulationFacade {
 
     public static Triangulation tesselate(Coordinate[] coordinates){
         TriangulationBuilder builder = new TriangulationBuilder();
@@ -85,6 +83,9 @@ des &quot;tableaux&quot; de points. On met en place une simplification :</p>
 
 }
 </code></pre>
+<h2 id="liens-utiles">Liens utiles</h2><ul>
+<li><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Fa%C3%A7ade" target="_blank">fr.wikibooks.org - Façade</a></li>
+</ul>
 
     </div>
   </main>
