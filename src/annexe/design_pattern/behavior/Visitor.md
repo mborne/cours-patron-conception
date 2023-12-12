@@ -2,12 +2,27 @@
 
 ## Problème
 
-On dispose d'une hiérarchie et on souhaite pouvoir profiter du polymorphisme en dehors de la hiérarchie.
+Nous disposons d'une hiérarchie et nous souhaitons pouvoir profiter du polymorphisme en dehors de la hiérarchie.
+
+## Cas d'école
+
+Nous avons une hiérarchie représentant des géométries et nous souhaitons pouvoir réaliser facilement des traitements en dehors de la hiérarchie sans avoir à tester le type comme suit :
+
+```java
+if ( geometry instanceof Point ){
+    Point point = (Point)geometry;
+    // traiter le cas Point
+}else if ( geometry instanceof LineString ){
+    LineString lineString = (LineString)geometry;
+    // traiter le cas LineString
+}else{
+    throw new RuntimeException("geometry type not supported");
+}
+```
 
 ## Solution
 
-On définit un visitor porteur de méthode correspondant aux différents
-type de la hiérarchie :
+* Définir une interface `GeometryVisitor` porteuse d'une méthode `visit` par type présent dans la hiérarchie :
 
 ```java
 interface GeometryVisitor {
@@ -19,8 +34,7 @@ interface GeometryVisitor {
 }
 ```
 
-Dans la hiérarchie, on ajoute une méthode `accept(visitor)` qui va appeler
-`visit` sur le visitor dans les classes dérivées.
+* Déclarer une méthode `accept(visitor)` au niveau de `Geometry`
 
 ```java
 interface Geometry {
@@ -28,7 +42,7 @@ interface Geometry {
 }
 ```
 
-On implémente cette méthode sur les classes dérivées :
+* Implémenter cette méthode au niveau des classes dérivées :
 
 ```java
 class Point implements Geometry {
@@ -38,8 +52,7 @@ class Point implements Geometry {
 }
 ```
 
-Ainsi, on peut externaliser les traitements de la hiérarchie sans
-perdre l'intérêt du polymorphisme :
+Ainsi, nous pourrons externaliser les traitements de la hiérarchie sans perdre l'intérêt du polymorphisme :
 
 ```java
 class GeometryRenderer implements GeometryVisitor {
@@ -55,45 +68,37 @@ class GeometryRenderer implements GeometryVisitor {
 }
 ```
 
+A l'usage :
+
+```java
+Geometry geometry = /* Point ou LineString ou Polygon */
+GeometryRenderer renderer = new GeometryRenderer();
+geometry.accept(renderer);
+```
+
 ## Comment ça marche?
 
-La méthode `accept` convertit un polymorphisme par héritage en polymorphisme
-paramétrique. Pour bien comprendre ce mécanisme, il faut bien comprendre
-les mécanismes de résolution des liens dans le cadre du polymorphisme paramétrique.
+La méthode `accept` **convertit un polymorphisme par héritage en polymorphisme paramétrique**. 
 
-
-## Mise en garde
+## Remarques
 
 ### Extension des hiérarchies
 
-Quand la hiérarchie est étendue par un tiers, ce tiers ne pourra pas facilement
-étendre l'interface du visitor original.
-
-Par conséquent, les visiteurs existants seront généralement incapables de gérer 
-le type ajouté.
-
-Exemple :
-
-La bibliothèque géométrique utilise un `GeometryRendererVisitor`. Un
-client implémente l'interface `Geometry` pour ajoute le concept de courbe
-de bézier. `GeometryRendererVisitor` ne saura pas effectuer le rendu.
+L'utilisation du patron visiteur peut **bloquer l'ajout de nouveau type à la hiérarchie** dans un code client.
 
 ### Capacité des langages
 
-On doit s'adapter en fonction des capacités des différents langages en
-matière de polymorphisme paramétrique.
+Nous devrons **adapter l'implémentation en fonction des capacités des différents langages en matière de polymorphisme paramétrique**.
 
-## Variante
+## Variantes
 
-* Traverse visitor : En plus de parcourir la hiérarchie, on parcourt les enfants
+* **Traverse visitor** où les enfants seront parcourus en plus de parcourir la hiérarchie (ex : `CoordinateVisitor` appelé pour toutes les coordonnées de la géométrie visitée)
 
-* Double dispatching :
+* **Double dispatching** (ex : calcul de distance, d'intersection, d'union,... entre deux géométries) :
 
 ```java
 visitor.visit(Visitable a, Visitable b);
 ```
-
-Cas d'usage : Calcul de distance, d'intersection, d'union, etc. entre deux géométries.
 
 
 

@@ -228,10 +228,10 @@ method := grayScale|blur
 <li>Le <strong>principe de responsabilité unique</strong> (Application assure le calcul ainsi que l&#39;orchestration de la lecture et les écritures des fichiers).</li>
 <li><strong>Privilégier la composition à l&#39;héritage s&#39;applique aussi pour l&#39;encapsulation des traitements</strong>.</li>
 </ul>
-<h2 id="solution">Solution</h2><p>Avec Strategy, au lieu d&#39;hériter pour faire varier le comportement, nous allons <strong>encapsuler le traitement objet dont le seul rôle se limitera à appliquer le traitement</strong>.</p>
-<p>Nous aurons pas exemple :</p>
+<h2 id="solution">Solution</h2><p>Avec Strategy, au lieu d&#39;hériter pour faire varier le comportement, nous allons <strong>encapsuler le traitement dans un objet dont le seul rôle se limitera à appliquer le traitement</strong>.</p>
+<p>Nous aurons par exemple :</p>
 <ul>
-<li>Interface <code>ImageProcessorStrategy</code> correspondant à la stratégie :</li>
+<li>Une interface <code>ImageProcessorStrategy</code> correspondant à la stratégie :</li>
 </ul>
 <pre><code class="language-java">interface ImageProcessorStrategy {
     public void process(Image image) ;

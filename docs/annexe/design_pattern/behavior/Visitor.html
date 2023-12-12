@@ -58,9 +58,21 @@
       <a href="https://github.com/mborne/cours-patron-conception/blob/master/src/annexe/design_pattern/behavior/Visitor.md?plain=1" target="_blank">Éditer sur GitHub</a>
     </div>
     <div class="markdown-body">
-      <h1 id="visitor">Visitor</h1><h2 id="problème">Problème</h2><p>On dispose d&#39;une hiérarchie et on souhaite pouvoir profiter du polymorphisme en dehors de la hiérarchie.</p>
-<h2 id="solution">Solution</h2><p>On définit un visitor porteur de méthode correspondant aux différents
-type de la hiérarchie :</p>
+      <h1 id="visitor">Visitor</h1><h2 id="problème">Problème</h2><p>Nous disposons d&#39;une hiérarchie et nous souhaitons pouvoir profiter du polymorphisme en dehors de la hiérarchie.</p>
+<h2 id="cas-décole">Cas d&#39;école</h2><p>Nous avons une hiérarchie représentant des géométries et nous souhaitons pouvoir réaliser facilement des traitements en dehors de la hiérarchie sans avoir à tester le type comme suit :</p>
+<pre><code class="language-java">if ( geometry instanceof Point ){
+    Point point = (Point)geometry;
+    // traiter le cas Point
+}else if ( geometry instanceof LineString ){
+    LineString lineString = (LineString)geometry;
+    // traiter le cas LineString
+}else{
+    throw new RuntimeException(&quot;geometry type not supported&quot;);
+}
+</code></pre>
+<h2 id="solution">Solution</h2><ul>
+<li>Définir une interface <code>GeometryVisitor</code> porteuse d&#39;une méthode <code>visit</code> par type présent dans la hiérarchie :</li>
+</ul>
 <pre><code class="language-java">interface GeometryVisitor {
 
     public void visit( Point point ) ;
@@ -69,21 +81,23 @@ type de la hiérarchie :</p>
 
 }
 </code></pre>
-<p>Dans la hiérarchie, on ajoute une méthode <code>accept(visitor)</code> qui va appeler
-<code>visit</code> sur le visitor dans les classes dérivées.</p>
+<ul>
+<li>Déclarer une méthode <code>accept(visitor)</code> au niveau de <code>Geometry</code></li>
+</ul>
 <pre><code class="language-java">interface Geometry {
     public void accept(GeometryVisitor visitor);
 }
 </code></pre>
-<p>On implémente cette méthode sur les classes dérivées :</p>
+<ul>
+<li>Implémenter cette méthode au niveau des classes dérivées :</li>
+</ul>
 <pre><code class="language-java">class Point implements Geometry {
     public void accept(GeometryVisitor visitor){
         visitor.visit(this);
     }
 }
 </code></pre>
-<p>Ainsi, on peut externaliser les traitements de la hiérarchie sans
-perdre l&#39;intérêt du polymorphisme :</p>
+<p>Ainsi, nous pourrons externaliser les traitements de la hiérarchie sans perdre l&#39;intérêt du polymorphisme :</p>
 <pre><code class="language-java">class GeometryRenderer implements GeometryVisitor {
 
     public void visit( Point point ){
@@ -96,28 +110,22 @@ perdre l&#39;intérêt du polymorphisme :</p>
 
 }
 </code></pre>
-<h2 id="comment-ça-marche">Comment ça marche?</h2><p>La méthode <code>accept</code> convertit un polymorphisme par héritage en polymorphisme
-paramétrique. Pour bien comprendre ce mécanisme, il faut bien comprendre
-les mécanismes de résolution des liens dans le cadre du polymorphisme paramétrique.</p>
-<h2 id="mise-en-garde">Mise en garde</h2><h3 id="extension-des-hiérarchies">Extension des hiérarchies</h3><p>Quand la hiérarchie est étendue par un tiers, ce tiers ne pourra pas facilement
-étendre l&#39;interface du visitor original.</p>
-<p>Par conséquent, les visiteurs existants seront généralement incapables de gérer 
-le type ajouté.</p>
-<p>Exemple :</p>
-<p>La bibliothèque géométrique utilise un <code>GeometryRendererVisitor</code>. Un
-client implémente l&#39;interface <code>Geometry</code> pour ajoute le concept de courbe
-de bézier. <code>GeometryRendererVisitor</code> ne saura pas effectuer le rendu.</p>
-<h3 id="capacité-des-langages">Capacité des langages</h3><p>On doit s&#39;adapter en fonction des capacités des différents langages en
-matière de polymorphisme paramétrique.</p>
-<h2 id="variante">Variante</h2><ul>
-<li><p>Traverse visitor : En plus de parcourir la hiérarchie, on parcourt les enfants</p>
+<p>A l&#39;usage :</p>
+<pre><code class="language-java">Geometry geometry = /* Point ou LineString ou Polygon */
+GeometryRenderer renderer = new GeometryRenderer();
+geometry.accept(renderer);
+</code></pre>
+<h2 id="comment-ça-marche">Comment ça marche?</h2><p>La méthode <code>accept</code> <strong>convertit un polymorphisme par héritage en polymorphisme paramétrique</strong>. </p>
+<h2 id="remarques">Remarques</h2><h3 id="extension-des-hiérarchies">Extension des hiérarchies</h3><p>L&#39;utilisation du patron visiteur peut <strong>bloquer l&#39;ajout de nouveau type à la hiérarchie</strong> dans un code client.</p>
+<h3 id="capacité-des-langages">Capacité des langages</h3><p>Nous devrons <strong>adapter l&#39;implémentation en fonction des capacités des différents langages en matière de polymorphisme paramétrique</strong>.</p>
+<h2 id="variantes">Variantes</h2><ul>
+<li><p><strong>Traverse visitor</strong> où les enfants seront parcourus en plus de parcourir la hiérarchie (ex : <code>CoordinateVisitor</code> appelé pour toutes les coordonnées de la géométrie visitée)</p>
 </li>
-<li><p>Double dispatching :</p>
+<li><p><strong>Double dispatching</strong> (ex : calcul de distance, d&#39;intersection, d&#39;union,... entre deux géométries) :</p>
 </li>
 </ul>
 <pre><code class="language-java">visitor.visit(Visitable a, Visitable b);
 </code></pre>
-<p>Cas d&#39;usage : Calcul de distance, d&#39;intersection, d&#39;union, etc. entre deux géométries.</p>
 
     </div>
   </main>
