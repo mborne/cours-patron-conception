@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Dans ce TP où l'idée est de se mettre en situation où nous devons industrialiser un prototype. Nous allons réfactorer une application qui charge un graphe et calcule le plus court chemin entre deux sommets.
+Dans ce TP, l'idée est de se mettre en situation où **nous devons industrialiser un prototype**. Nous allons réfactorer une **application qui charge un graphe et calcule le plus court chemin** entre deux sommets.
 
 L'application se présente sous la forme d'une API basée sur [spring boot](https://spring.io/guides/gs/spring-boot/)
 
