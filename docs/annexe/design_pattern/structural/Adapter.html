@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Les patrons de conception (Annexes) - Adapter</title>
+  <title>Les patrons de conception (Annexes) - Adapter (Adaptateur)</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
     integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
@@ -58,8 +58,7 @@
       <a href="https://github.com/mborne/cours-patron-conception/blob/master/src/annexe/design_pattern/structural/Adapter.md?plain=1" target="_blank">Éditer sur GitHub</a>
     </div>
     <div class="markdown-body">
-      <h1 id="adapter">Adapter</h1><h2 id="problème">Problème</h2><p>L&#39;idée est la même que pour les adaptateurs dans la vie courante :
-<strong>Nous avons deux interfaces qui ont des fonctionnalités équivalentes mais qui sont incompatibles</strong>. </p>
+      <h1 id="adapter-adaptateur">Adapter (Adaptateur)</h1><h2 id="problème">Problème</h2><p><strong>Nous avons deux interfaces qui ont des fonctionnalités équivalentes mais qui sont incompatibles</strong>. </p>
 <h2 id="cas-décole">Cas d&#39;école</h2><p>Nous disposons d&#39;un algorithme qui effectue la concaténation de chaînes de caractères
 avec un séparateur et prenant en entrée un <code>Enumeration</code> :</p>
 <pre><code class="language-java">class EnumerationUtils {
@@ -75,7 +74,7 @@ avec un séparateur et prenant en entrée un <code>Enumeration</code> :</p>
 <li><a href="https://docs.oracle.com/javase/7/docs/api/java/util/Enumeration.html" target="_blank">Enumeration</a></li>
 <li><a href="https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html" target="_blank">Iterator</a></li>
 </ul>
-<h2 id="solution">Solution</h2><p>Nous allons créer un intermédiaire qui permettra d&#39;adapter les appels :</p>
+<h2 id="solution">Solution</h2><p>L&#39;idée est la même que pour les adaptateurs dans la vie courante. Nous allons <strong>créer un intermédiaire qui se charger d&#39;adapter les appels</strong> :</p>
 <pre><code class="language-java">class IteratorToEnumationAdapter implements Enumeration&lt;String&gt; {
 
     private Iterator&lt;String&gt; adaptee ;

@@ -2,11 +2,11 @@
 
 ## Problème
 
-On souhaite simplifier la gestion des références nulles et ainsi éviter le risque de `NullPointerException`.
+Nous souhaitons simplifier la gestion des références nulles pour éviter le risque de `NullPointerException`.
 
 ## Cas d'école
 
-On s'appuie sur une interface `MailerInterface` pour l'envoi de mail :
+Nous avons l'interface `MailerInterface` permettant d'envoyer des courriels :
 
 ```java
 interface MailerInterface {
@@ -20,14 +20,14 @@ interface MailerInterface {
 }
 ```
 
-Dans une classe `Client`, on décide d'envoyer ou non un mail en fin de traitement à un administrateur :
+Nous souhaitons **rendre optionnel l'envoi de ces courriels** en fin de traitement. En première approche, nous pourrions procéder comme suit :
 
 ```java
-class Client {
+class MonTraitement {
 
     private MailerInterface mailer ;
 
-    public Client(){
+    public MonTraitement(){
         this.mailer = null ;
     }
 
@@ -50,11 +50,11 @@ class Client {
 }
 ```
 
-Problème : On multiplie les contrôles `null != this.mailer`
+Problème : Nous allons multiplier les contrôles `null != this.mailer` et finir par oublier un cas.
 
 # Solution
 
-* Créer un `NullMailer`
+* Créer un `NullMailer` ne faisant rien comme suit :
 
 ```java
 class NullMailer implements MailerInterface {
@@ -99,9 +99,15 @@ class Client {
 }
 ```
 
+## Variantes
+
+* Une **collection vide** peut jouer le **même rôle qu'un objet null**.
+* Le **vide** peut être modélisé sur des **objets mathématiques** avec des valeurs particulières (ex : `Double.NaN`)
+
 ## Remarques
 
-* Une collection vide peut jouer le même rôle qu'un objet null. Il est d'ailleurs conseillé
-de renvoyer des listes vides plutôt que des listes nulles.
+Penser à **composer NullObject avec Singleton et ses variantes** pour limiter les créations d'objet :
 
-* Penser à composer NullObject et Singleton dans le cas où l'initialisation de NullObject est fréquente.
+* `NullMailer.getInstance()`
+* `Coordinate.EMPTY`
+

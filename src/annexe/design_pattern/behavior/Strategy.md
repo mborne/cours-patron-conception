@@ -1,12 +1,12 @@
 # Strategy
 
+[[toc]]
+
 ## Problème
 
 Nous souhaitons pouvoir **faire varier dynamiquement le comportement d'une partie d'un traitement**.
 
-## Exemple
-
-### Cas d'école sur un traitement simple
+## Cas d'école
 
 Prenons le cas d'une application qui applique les trois étapes suivantes :
 
@@ -37,7 +37,7 @@ class Application {
 }
 ```
 
-On expose cette classe sous forme d'un exécutable appelé ainsi :
+Nous exposons cette classe sous forme d'un exécutable appelé ainsi :
 
 ```bash
 traitement-image input.png output.png
@@ -56,14 +56,16 @@ class ApplicationCLI {
 }
 ```
 
-On souhaite maintenant permettre le choix sur le traitement appliqué :
+Nous souhaitons maintenant permettre le choix sur le traitement appliqué :
 
 ```bash
 traitement-image <input> <output> [method]
 method := grayScale|blur
 ```
 
-### Première tentative sans strategy (switch)
+## Tentons différentes approches...
+
+### Pouvons nous nous appuyer sur un switch?
 
 ```java
 class Application {
@@ -96,18 +98,18 @@ class Application {
 }
 ```
 
-Problème :
+**Problèmes :**
 
 * Ajouter un algorithme implique la mise à jour de run (Violation du principe ouvert/fermé)
-* La classe Application aura tendance à devenir un objet divin
-* A terme, si les algorithmes ont des paramètres spécifiques, il faudra ajouter des attributs sur la classe Application
+* La classe `Application` aura tendance à devenir un **objet divin**
+* A terme, si les algorithmes ont des paramètres spécifiques, il faudra ajouter des attributs sur la classe `Application`
 
 
-### Deuxième tentative sans strategy (abstract)
+### Pouvons nous exploiter le polymorphisme?
 
-Exploitons donc le polymorphisme!
+Nous pourrions nous inspirer du patron **template methode** en procédant comme suit avec :
 
-* Classe abstraite Application
+* Une classe abstraite `Application`
 
 ```java
 abstract class Application {
@@ -130,7 +132,7 @@ abstract class Application {
 }
 ```
 
-* Implémentation GrayScale
+* Un implémentation de `Application` pour le niveau de gris :
 
 ```java
 class ApplicationGrayScale extends Application {
@@ -143,7 +145,7 @@ class ApplicationGrayScale extends Application {
 }
 ```
 
-* Implémentation Blur
+* Une implémentation de `Application` pour le niveau de gris :
 
 ```java
 class ApplicationBlur extends Application {
@@ -156,7 +158,7 @@ class ApplicationBlur extends Application {
 }
 ```
 
-* ApplicationCLI
+* Une classe `ApplicationCLI` pour sélectionner la méthode :
 
 ```java
 class ApplicationCLI {
@@ -177,24 +179,27 @@ class ApplicationCLI {
 }
 ```
 
-A première vue, on pourrait être satisfait d'une telle conception. Dommage :
-On souhaite maintenant pouvoir appliquer deux traitements successifs !
+A première vue, nous pourrions être satisfait d'une telle conception...
 
-Avec l'héritage, on obtient soit :
-* Une explosion combinatoire (ApplicationBlur, ApplicationGrayScale, ApplicationGrayScaleBlur, ApplicationBlurGrayScale)
-* Des écritures/relectures de fichiers
+**Problème : Que se passe-t'il si nous souhaitons maintenant pouvoir appliquer deux traitements successifs?**
 
-Qu'est-ce qu'on a raté :
+Nous avons soit :
 
-* Le principe de responsabilité unique (Application effectue le calcul tout en orchestrant la lecture et les écritures).
-* Privilégier la composition à l'héritage s'applique aussi pour l'encapsulation des traitements.
+* Une **explosion combinatoire** (`ApplicationBlur`, `ApplicationGrayScale`, `ApplicationGrayScaleBlur`, `ApplicationBlurGrayScale`)
+* Des écritures/relectures multiples de fichiers
 
-### Solution avec une stratégie
+Le problème de fond réside dans le fait que **nous ne respectons pas plusieurs principes de conception** :
 
-Au lieu d'hériter, on va encapsuler un objet dont le seul rôle se limitera à appliquer le traitement.
+* Le **principe de responsabilité unique** (Application assure le calcul ainsi que l'orchestration de la lecture et les écritures des fichiers).
+* **Privilégier la composition à l'héritage s'applique aussi pour l'encapsulation des traitements**.
 
+## Solution
 
-* ImageProcessorStrategy : Interface pour la stratégie de traitement
+Avec Strategy, au lieu d'hériter pour faire varier le comportement, nous allons **encapsuler le traitement objet dont le seul rôle se limitera à appliquer le traitement**.
+
+Nous aurons pas exemple :
+
+* Interface `ImageProcessorStrategy` correspondant à la stratégie :
 
 ```java
 interface ImageProcessorStrategy {
@@ -202,7 +207,7 @@ interface ImageProcessorStrategy {
 }
 ```
 
-* Application encapsulant un traitement
+* Une `Application` appelant ce traitement :
 
 ```java
 class Application {
@@ -229,8 +234,9 @@ class Application {
 }
 ```
 
+Pour l'implémentation des traitements, nous aurons :
 
-* Implémentation de la stratégie GrayScale
+* Une implémentation pour le passage en niveau de gris :
 
 ```java
 class ImageProcessorGrayScale implements ImageProcessorStrategy {
@@ -244,7 +250,7 @@ class ImageProcessorGrayScale implements ImageProcessorStrategy {
 }
 ```
 
-* Implémentation Blur
+* Une implémentation pour le flou :
 
 ```java
 class ImageProcessorBlur implements ImageProcessorStrategy {
@@ -257,7 +263,7 @@ class ImageProcessorBlur implements ImageProcessorStrategy {
 }
 ```
 
-* [Composite](../structural/Composite.md) sur ImageProcessorStrategy
+Pour enchaîner les traitements, nous utiliserons conjointement les patrons **Strategy** et [Composite](../structural/Composite.md) :
 
 ```java
 class ImageProcessorComposite implements ImageProcessorStrategy {
@@ -282,13 +288,13 @@ class ImageProcessorComposite implements ImageProcessorStrategy {
 }
 ```
 
-* A l'utilisation
+A l'utilisation, nous aurons la possibilité de procéder comme suit :
 
 ```java
 File input    = new File(args[0]);
 File output   = new File(args[1]);
 
-// On imagera qu'on peut gérer le paramètre méthode sous forme d'une expression.
+// TODO : remplacer les lignes suivantes par un parser d'expression
 ImageProcessorComposite compositeStrategy = new ImageProcessorComposite();
 compositeStrategy.add(new ApplicationGrayScale());
 compositeStrategy.add(new ApplicationBlur());
@@ -297,4 +303,7 @@ Application application = new Application(compositeStrategy);
 application.run(input,output);
 ```
 
-Où est le changement? On peut appliquer le même principe sur la lecture ou l'écriture des fichiers!
+Il nous restera simplement à 
+
+* Écrire le parseur d'expression correspondant au TODO
+* Appliquer le même principe sur la lecture ou l'écriture des fichiers (`ImageReader`, `ImageWriter`) si nous voulons supporter plusieurs formats

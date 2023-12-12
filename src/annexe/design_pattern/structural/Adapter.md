@@ -1,8 +1,7 @@
-# Adapter
+# Adapter (Adaptateur)
 
 ## Problème
 
-L'idée est la même que pour les adaptateurs dans la vie courante :
 **Nous avons deux interfaces qui ont des fonctionnalités équivalentes mais qui sont incompatibles**. 
 
 ## Cas d'école
@@ -27,7 +26,7 @@ Nous devons appliquer cet algorithme sur un `Iterator<String>` présentant un co
 
 ## Solution
 
-Nous allons créer un intermédiaire qui permettra d'adapter les appels :
+L'idée est la même que pour les adaptateurs dans la vie courante. Nous allons **créer un intermédiaire qui se charger d'adapter les appels** :
 
 ```java
 class IteratorToEnumationAdapter implements Enumeration<String> {

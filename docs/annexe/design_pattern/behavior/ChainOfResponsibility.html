@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Les patrons de conception (Annexes) - Null Object</title>
+  <title>Les patrons de conception (Annexes) - Chain of responsibility (Chaîne de responsabilité)</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
     integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
@@ -55,99 +55,32 @@
 
   <main id="main" class="container">
     <div>
-      <a href="https://github.com/mborne/cours-patron-conception/blob/master/src/annexe/design_pattern/behavior/NullObject.md?plain=1" target="_blank">Éditer sur GitHub</a>
+      <a href="https://github.com/mborne/cours-patron-conception/blob/master/src/annexe/design_pattern/behavior/ChainOfResponsibility.md?plain=1" target="_blank">Éditer sur GitHub</a>
     </div>
     <div class="markdown-body">
-      <h1 id="null-object">Null Object</h1><h2 id="problème">Problème</h2><p>Nous souhaitons simplifier la gestion des références nulles pour éviter le risque de <code>NullPointerException</code>.</p>
-<h2 id="cas-décole">Cas d&#39;école</h2><p>Nous avons l&#39;interface <code>MailerInterface</code> permettant d&#39;envoyer des courriels :</p>
-<pre><code class="language-java">interface MailerInterface {
+      <h1 id="chain-of-responsibility-chaîne-de-responsabilité">Chain of responsibility (Chaîne de responsabilité)</h1><h2 id="problème">Problème</h2><p>Nous avons un <strong>traitement décomposé en une succession d&#39;étapes</strong>. Nous voulons structurer au mieux cet enchaînement et être en mesure de modifier dynamiquement le traitement.</p>
+<h2 id="cas-décole">Cas d&#39;école</h2><p>Nous avons un formulaire d&#39;inscription sur une application web. Nous devons <strong>valider les mots de passe</strong> avec une politique dépendant du rôle de l&#39;utilisateur (utilisateur simple ou administrateur).</p>
+<h2 id="solution">Solution</h2><p>Nous pouvons nous inspirer du patron de conception chaîne de responsabilité prenant la forme générale suivante :</p>
+<p><img src="uml/UML_ChainOfResponsibility.drawio.png" alt="UML ChainOfResponsibility"></p>
+<p>Nous procéderons comme suit en prenant la <strong>liberté d&#39;adapter avec l&#39;ajout d&#39;un paramètre et d&#39;une valeur en retour</strong> :</p>
+<p><img src="uml/UML_ChainOfResponsibility-PasswordValidator.drawio.png" alt="UML ChainOfResponsibility"></p>
+<p>A l&#39;usage, nous pourrons mettre en oeuvre deux politiques dans <code>RegistrationForm</code> comme suit :</p>
+<pre><code class="language-java">/*
+ * Création d&#39;une politique avec peu de contraintes
+ * pour les utilisateurs lambda
+ */
+PasswordValidator userPasswordValidator = new LengthValidator(8);
 
-    public void sendMail(
-        String to,
-        String title,
-        String body
-    );
-
-}
+/*
+ * Création d&#39;une politique plus contraignante
+ * pour les administrateurs
+ */
+PasswordValidator adminPasswordValidator = new LengthValidator(12);
+adminPasswordValidator.setSuccessor(new HasDigitValidator());
+// ...
 </code></pre>
-<p>Nous souhaitons <strong>rendre optionnel l&#39;envoi de ces courriels</strong> en fin de traitement. En première approche, nous pourrions procéder comme suit :</p>
-<pre><code class="language-java">class MonTraitement {
-
-    private MailerInterface mailer ;
-
-    public MonTraitement(){
-        this.mailer = null ;
-    }
-
-    public void setMailer(MailerInterface mailer){
-        this.mailer = mailer ;
-    }
-
-    public void doSomething(){
-        //... traitement ...
-
-        if ( null != this.mailer ){
-            this.mailer.sendMail(
-                &quot;admin@acme.org&quot;,
-                &quot;Traitement des donnnées&quot;,
-                &quot;Le traitement a été effectué.&quot;
-            );
-        }
-    }
-
-}
-</code></pre>
-<p>Problème : Nous allons multiplier les contrôles <code>null != this.mailer</code> et finir par oublier un cas.</p>
-<h1 id="solution">Solution</h1><ul>
-<li>Créer un <code>NullMailer</code> ne faisant rien comme suit :</li>
-</ul>
-<pre><code class="language-java">class NullMailer implements MailerInterface {
-    public void sendMail(
-        String to,
-        String title,
-        String body
-    ){
-        // ne fait rien
-    }
-}
-</code></pre>
-<ul>
-<li>Initialiser <code>mailer</code> avec un <code>NullMailer</code> plutôt que <code>null</code></li>
-</ul>
-<pre><code class="language-java">class Client {
-
-    private MailerInterface mailer ;
-
-    public Client(){
-        this.mailer = new NullMailer() ;
-    }
-
-    public void setMailer(MailerInterface mailer){
-        assert( this.mailer != null );
-        this.mailer = mailer ;
-    }
-
-    public void doSomething(){
-        // traitement...
-
-        // Le contrôle sur this.mailer != null devient innutile
-        this.mailer.sendMail(
-            &quot;admin@acme.org&quot;,
-            &quot;Traitement des donnnées&quot;,
-            &quot;Le traitement a été effectué.&quot;
-        );
-    }
-
-}
-</code></pre>
-<h2 id="variantes">Variantes</h2><ul>
-<li>Une <strong>collection vide</strong> peut jouer le <strong>même rôle qu&#39;un objet null</strong>.</li>
-<li>Le <strong>vide</strong> peut être modélisé sur des <strong>objets mathématiques</strong> avec des valeurs particulières (ex : <code>Double.NaN</code>)</li>
-</ul>
-<h2 id="remarques">Remarques</h2><p>Penser à <strong>composer NullObject avec Singleton et ses variantes</strong> pour limiter les créations d&#39;objet :</p>
-<ul>
-<li><code>NullMailer.getInstance()</code></li>
-<li><code>Coordinate.EMPTY</code></li>
+<h2 id="liens-utiles">Liens utiles</h2><ul>
+<li><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Cha%C3%AEne_de_responsabilit%C3%A9" target="_blank">fr.wikibooks.org - Chaîne de responsabilité</a></li>
 </ul>
 
     </div>
