@@ -72,7 +72,7 @@ AnimalFactory.createByType("chien")
 * Les fabriques basées sur des [prototypes](Prototype.md) (composition de pattern) :
 
 ```java
-class AnimalFactory throws AnimalTypeNotFound {
+class AnimalFactory {
     private Map<String, Animal> prototypes = new HashMap<>();
 
     public Animal createAnimal(String typeAnimal){
