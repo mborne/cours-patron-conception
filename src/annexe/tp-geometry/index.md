@@ -4,11 +4,11 @@
 
 ## Introduction
 
-L'objectif de ce TP est de s'exercer à mettre oeuvre des patrons de conception via la création d'une petite bibliothèque de manipulation des géométries OGC :
+L'objectif de ce TP est de s'exercer à mettre en oeuvre des patrons de conception via la création d'une petite bibliothèque de manipulation des géométries OGC :
 
 ![Géométrie OGC](schema/geometries-light.png)
 
-Vous noterez toutefois que ceci n'est qu'un exercice :
+Vous noterez toutefois que **ceci n'est qu'un exercice** :
 
 * **Nous allons réinventer la roue carrée** (utilisez plutôt [JTS](https://locationtech.github.io/jts/javadoc/index.html) et [GeoTools](https://docs.geotools.org/latest/userguide/index.html) dans la vraie vie).
 * **Nous allons sombrer dans la paternite** (les patrons de conception ne seront pas la solution à tous les problèmes et nous n'en n'utiliserons pas autant)
