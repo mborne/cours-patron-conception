@@ -2,11 +2,11 @@
 
 ## Problème
 
-On veut des algorithmes capables de fonctionner sur tous les types de collections (tableaux, listes, sets, etc.)
+Nous voulons des traitements capables de fonctionner sur tous les types de collections (`List`, `Map`, `Set`...).
 
 ## Solution
 
-On fait abstraction sur le parcours d'une collection :
+Nous faisons abstraction sur le parcours d'une collection :
 
 ```java
 interface Iterator {
@@ -15,29 +15,17 @@ interface Iterator {
 }
 ```
 
-En procédant ainsi, on obtient quelques avantages par rapport aux interfaces des collections :
-
-* Moins consommateur de mémoire qu'une approche où on renvoie des collections concrètes
-* Plus simple à adapter (au sens du patron de conception adapter) qu'une interface offrant plus riche du type "Array", "List".
-
-De plus, quand les itérateurs font partie intégrante des bibliothèques standards, s'appuyer sur les itérateurs permet généralement de supporter la plupart des collections. On évite ainsi d'être amené à faire des copies pour exploiter les algorithmes.
-
+Nous aurons ainsi des traitements **moins consommateur de mémoire** et **plus réutilisables** que ceux dépendant d'interface précises (`List`, `Map`, `Set`...).
 
 ## Variantes
 
-Il existe de nombreuses variantes de ce patron de conception :
+Nous trouverons plusieurs variantes pour ce patron de conception :
 
-* `Iterator.reset` : Permet de recommencer la lecture au début
+* `Iterator.reset` permettant de reprendre la lecture au début au début.
+* `ReverseIterator` permettant un parcours en sens inverse.
+* `CircularIterator` (CGAL) permettant un parcours sans début et sans fin (parcours des sommets d'un polygone)
 
-* `ReverseIterator` : Permet de représenter un itérateur effectuant un parcours en sens inverse
+## Ressources
 
-* `CircularIterator` (CGAL) : Itérateur sans début et sans fin revenant en position initiale (parcours des sommets d'un polygone)
+* [Iterator](https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html) dans la bibliothèque standard Java.
 
-
-## Resources
-
-* [Itérateur de la bibliothèque standard C++ (STL)](http://www.cplusplus.com/reference/iterator/)
-
-On remarquera l'utilisation de l'opérateur "++" et différentes catégories d'itérateurs (`RandomAccess`, `Bidirectional`, `Forward`, `Input`, `Output`).
-
-* [Itérateurs de la bibliothèque standard PHP (SPL)](http://php.net/manual/fr/spl.iterators.php)

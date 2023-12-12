@@ -3,15 +3,13 @@
 
 ## Problème
 
-La fabrique s'adresse à la problématique de la création d'instances dérivées d'une classe.
+La fabrique classique s'adresse à la problématique de la création d'instances dérivées d'une classe. Nous verrons qu'elle admet plusieurs variantes. 
 
 ## Cas d'école
 
 Nous avons par exemple la hiérarchie suivante :
 
-* Animal
-* Chat hérite de Animal
-* Chien hérite de Animal
+![UML_DP_FabriqueAnimal](uml/UML_DP_FabriqueAnimal.drawio.png)
 
 Supposons que nous devons charger un fichier contenant des animaux et créer des animaux via une API WEB.
 
@@ -34,17 +32,15 @@ animal.setNom(nomAnimal);
 
 ## Solution
 
-Nous pouvons définir une **classe avec une méthode dédiée à la création des instances** :
+Nous pouvons définir une **classe avec une méthode dédiée à la création des instances** en fonction d'un type :
 
-![UML Fabrique](uml/UML_DP_Fabrique.png)
+![UML Fabrique](uml/UML_DP_FabriqueAnimal-solution.drawio.png)
 
-Source : https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique
-
-Appliqué à notre exemple, nous pouvons créer une classe `AnimalFactory` avec une méthode permettant de créer un animal en fonction de son type :
+Le **code gérant la logique de création sera localisé dans cette fabrique** :
 
 ```java
-class AnimalFactory {
-    public Animal createAnimal(String typeAnimal) throws AnimalTypeNotFound {
+class FabriqueAnimal {
+    public Animal createAnimal(String typeAnimal){
         if ( typeAnimal.equals("chat") ){
             return new Chat() ;
         }else if (typeAnimal.equals("chien")){
@@ -56,7 +52,7 @@ class AnimalFactory {
 }
 ```
 
-Il sera alors **possible d'ajouter un type sans modifier les différents codes** créant les animaux :
+Il sera alors **possible d'ajouter un type sans modifier les codes faisant appel à cette fabrique** :
 
 ```java
 Animal animal = animalFactory.createAnimal(typeAnimal) ;
@@ -67,7 +63,7 @@ animal.setNom(nomAnimal);
 
 Nous trouverons de nombreuses variantes du concept de fabrique :
 
-* La fabrique statique
+* La **fabrique statique**
 
 ```java
 AnimalFactory.createByType("chien")
@@ -95,11 +91,11 @@ class AnimalFactory throws AnimalTypeNotFound {
 FractalFactory.createSierpinskiTriangles(8);
 ```
 
-* *Factory Method* où **le choix de la fabrique déterminera le type créé** :
+* **Factory Method** où **le choix de la fabrique déterminera le type créé** :
 
 ![UML_DP_FactoryMethod](uml/UML_DP_FactoryMethod.png)
 
-* *Abstract Factory* où **le choix de la fabrique déterminera la famille des objets créés** (cas d'école : plusieurs implémentations pour des classes géométriques) :
+* **Abstract Factory** où **le choix de la fabrique déterminera la famille des objets créés** (cas d'école : plusieurs implémentations pour des classes géométriques) :
 
 ![UML_DP_FactoryMethod](uml/UML_DP_FabriqueAbstraite_me.png)
 

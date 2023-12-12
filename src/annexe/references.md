@@ -12,28 +12,19 @@
 
 > Présente les patrons de conception à travers des problématiques concrètes. Le style d'écriture rend la lecture plus agréable que le parcours d'un catalogue.
 
-## Ressources en ligne
+## Catalogues en ligne
 
 * [principles-wiki.net - OOD Principle Language](http://principles-wiki.net/collections:ood_principle_language)
-
-> Catalogue de principes de conception.
-
-* [java-design-patterns.com - Design patterns implemented in Java](https://java-design-patterns.com/)
-
-> Implémentation de nombreux patrons de conception en java sur des exemples concrets et présentation des principes de conceptions (dépôt github disponible : https://github.com/iluwatar/java-design-patterns)
-
-* [sourcemaking.com - Design Patterns](https://sourcemaking.com/design_patterns) et [AntiPatterns](https://sourcemaking.com/antipatterns)
-
-> Catalogue des principaux patrons de conception (avec des exemples dans plusieurs langages) et anti-patrons (dans plusieurs domaines : développement, architecture et gestion de projet).
-
+* [java-design-patterns.com](https://java-design-patterns.com/)
+  * [java-design-patterns.com - Programming Principles](https://java-design-patterns.com/principles/)
+  * [java-design-patterns.com - Design Pattern Catalog](https://java-design-patterns.com/patterns/)
+* [sourcemaking.com](https://sourcemaking.com/)
+  * [sourcemaking.com - Design Patterns](https://sourcemaking.com/design_patterns)
+  * [sourcemaking.com - AntiPatterns](https://sourcemaking.com/antipatterns)
+  * [sourcemaking.com - Refactoring](https://sourcemaking.com/refactoring)
+* [refactoring.guru](https://refactoring.guru)
+  * [refactoring.guru - Design Patterns](https://refactoring.guru/design-patterns)
+  * [refactoring.guru - Refactoring](https://refactoring.guru/refactoring)
 * [fr.wikibooks.org - WIKIBOOK, Patrons de conception/Patrons du *Gang of Four*](https://fr.wikibooks.org/wiki/Patrons_de_conception)
-
-> Présentation des principaux patrons de conception
-
+* [refactoring.com - Catalog of refactorings](http://www.refactoring.com/catalog/)
 * [learn.microsoft.com - Cloud Design Patterns](https://learn.microsoft.com/en-us/azure/architecture/patterns/)
-
-> Patron de conception de plus haut niveau pour le développement de services hébergés dans le *cloud*.
-
-* [refactoring.com - Catalogue](http://www.refactoring.com/catalog/)
-
-> Catalogue des actions de refactoring classiques

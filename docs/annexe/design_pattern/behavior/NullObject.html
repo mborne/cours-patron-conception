@@ -59,7 +59,7 @@
     </div>
     <div class="markdown-body">
       <h1 id="null-object">Null Object</h1><h2 id="problème">Problème</h2><p>Nous souhaitons simplifier la gestion des références nulles pour éviter le risque de <code>NullPointerException</code>.</p>
-<h2 id="cas-décole">Cas d&#39;école</h2><p>Nous avons l&#39;interface <code>MailerInterface</code> permettant d&#39;envoyer des courriels :</p>
+<h2 id="cas-décole">Cas d&#39;école</h2><p>Nous avons l&#39;interface <code>MailerInterface</code> ci-après permettant d&#39;envoyer des courriels :</p>
 <pre><code class="language-java">interface MailerInterface {
 
     public void sendMail(
@@ -97,7 +97,7 @@
 
 }
 </code></pre>
-<p>Problème : Nous allons multiplier les contrôles <code>null != this.mailer</code> et finir par oublier un cas.</p>
+<p><strong>Problème</strong> : Nous allons multiplier les contrôles <code>null != this.mailer</code> et finir par oublier un cas.</p>
 <h1 id="solution">Solution</h1><ul>
 <li>Créer un <code>NullMailer</code> ne faisant rien comme suit :</li>
 </ul>
@@ -142,9 +142,9 @@
 </code></pre>
 <h2 id="variantes">Variantes</h2><ul>
 <li>Une <strong>collection vide</strong> peut jouer le <strong>même rôle qu&#39;un objet null</strong>.</li>
-<li>Le <strong>vide</strong> peut être modélisé sur des <strong>objets mathématiques</strong> avec des valeurs particulières (ex : <code>Double.NaN</code>)</li>
+<li>Le <strong>vide</strong> peut être modélisé sur des <strong>objets mathématiques</strong> avec des <strong>valeurs particulières</strong> (ex : <code>Double.NaN</code>)</li>
 </ul>
-<h2 id="remarques">Remarques</h2><p>Penser à <strong>composer NullObject avec Singleton et ses variantes</strong> pour limiter les créations d&#39;objet :</p>
+<h2 id="remarques">Remarques</h2><p>Penser à <strong>composer NullObject avec Singleton et ses variantes</strong> pour limiter le nombre d&#39;objets créés :</p>
 <ul>
 <li><code>NullMailer.getInstance()</code></li>
 <li><code>Coordinate.EMPTY</code></li>

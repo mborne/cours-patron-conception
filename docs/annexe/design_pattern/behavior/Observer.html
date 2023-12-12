@@ -59,11 +59,10 @@
     </div>
     <div class="markdown-body">
       <h1 id="observer">Observer</h1><h2 id="problème">Problème</h2><p>Nous souhaitons pouvoir réaliser des actions en cas d&#39;événement particulier sur un objet (ex : modification de l&#39;état de l&#39;objet).</p>
-<h2 id="solution">Solution</h2><p>Nous pouvons procéder comme suit en ajoutant des &quot;observateurs&quot; qui seront notifié en cas d&#39;événement sur un &quot;observable&quot; :</p>
+<h2 id="solution">Solution</h2><p>Nous pouvons procéder comme suit en ajoutant des &quot;observateurs&quot; qui seront notifiés en cas d&#39;événement sur un &quot;observable&quot; :</p>
 <p><img src="uml/UML_Observer.png" alt="UML Observer"></p>
 <p>Source <a href="https://fr.wikipedia.org/wiki/Observateur_(patron_de_conception)" target="_blank"><a href="https://fr.wikipedia.org/wiki/Observateur_(patron_de_conception)" target="_blank">https://fr.wikipedia.org/wiki/Observateur_(patron_de_conception)</a></a></p>
-<h2 id="remarques">Remarques</h2><p>Dans l&#39;API Java, nous trouverons des classes <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Observer.html" target="_blank">Observer</a> et <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Observable.html" target="_blank">Observable</a>.</p>
-<p>Toutefois, nous trouverons de <strong>nombreuses variantes pour la gestion des événements</strong> dans les bibliothèques Java et autres langages :</p>
+<h2 id="remarques">Remarques</h2><p>Dans l&#39;API Java, nous trouverons des classes <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Observer.html" target="_blank">Observer</a> et <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Observable.html" target="_blank">Observable</a>. Toutefois, nous trouverons de <strong>nombreuses variantes pour la gestion des événements</strong> dans les bibliothèques Java et autres langages :</p>
 <ul>
 <li><a href="https://docs.oracle.com/javase/tutorial/uiswing/events/actionlistener.html" target="_blank">WindowListener, ActionListener,...</a> au niveau de la gestion des composants graphiques avec AWT.</li>
 <li><code>addEventListener</code> en JavaScript</li>

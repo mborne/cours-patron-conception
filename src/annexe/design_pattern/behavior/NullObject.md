@@ -6,7 +6,7 @@ Nous souhaitons simplifier la gestion des références nulles pour éviter le ri
 
 ## Cas d'école
 
-Nous avons l'interface `MailerInterface` permettant d'envoyer des courriels :
+Nous avons l'interface `MailerInterface` ci-après permettant d'envoyer des courriels :
 
 ```java
 interface MailerInterface {
@@ -50,7 +50,7 @@ class MonTraitement {
 }
 ```
 
-Problème : Nous allons multiplier les contrôles `null != this.mailer` et finir par oublier un cas.
+**Problème** : Nous allons multiplier les contrôles `null != this.mailer` et finir par oublier un cas.
 
 # Solution
 
@@ -102,11 +102,11 @@ class Client {
 ## Variantes
 
 * Une **collection vide** peut jouer le **même rôle qu'un objet null**.
-* Le **vide** peut être modélisé sur des **objets mathématiques** avec des valeurs particulières (ex : `Double.NaN`)
+* Le **vide** peut être modélisé sur des **objets mathématiques** avec des **valeurs particulières** (ex : `Double.NaN`)
 
 ## Remarques
 
-Penser à **composer NullObject avec Singleton et ses variantes** pour limiter les créations d'objet :
+Penser à **composer NullObject avec Singleton et ses variantes** pour limiter le nombre d'objets créés :
 
 * `NullMailer.getInstance()`
 * `Coordinate.EMPTY`

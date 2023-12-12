@@ -124,7 +124,7 @@ Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la
 
 ### Une conception à adapter au langage
 
-Les langages permettant de définir et manipuler les concepts de base de la P.O.O. sont nombreux (Java, JavaScript (ES6), TypeScript, C++, Python, PHP, Go, Rust,...).
+Les langages qui permettent de définir et manipuler les concepts de base de la P.O.O. sont nombreux (Java, JavaScript (ES6), TypeScript, C++, Python, PHP, Go, Rust,...).
 
 Nous traiterons ce cours avec des exemples et TP en Java en nous concentrant sur ce qui applicable à de nombreux langages.
 
@@ -160,12 +160,12 @@ Nous allons commencer par **5 principes fondamentaux** regroupés dans l'acronym
 **Une classe remplit une fonction et une seule.**
 
 .bad-left[
-Cette classe permet la lecture des communes à partir du fichier ADMINEXPRESS et le calcul des statistiques sur les communes.
+Cette classe permet la lecture des communes à partir d'un fichier [ADMINEXPRESS](https://geoservices.ign.fr/adminexpress) et le calcul des statistiques sur les communes.
 ]
 
 .good-right[
 * Cette classe permet le calcul des statistiques sur une liste de communes
-* Cette classe se charge de lire les communes à partir du fichier ADMINEXPRESS
+* Cette classe lit les communes à partir d'un fichier [ADMINEXPRESS](https://geoservices.ign.fr/adminexpress)
 ]
 
 ---
@@ -177,7 +177,7 @@ Cette classe permet la lecture des communes à partir du fichier ADMINEXPRESS et
 **Une classe doit être est ouverte à l’extension, mais fermée aux modifications.**
 
 .bad-left[
-Pour ajouter modifier le comportement d'une classe existante, je modifie son code.
+Pour modifier le comportement d'une classe existante, je modifie son code.
 ]
 
 .good-right[
@@ -245,14 +245,14 @@ Je référence des interfaces (`List`, `Map`...) dans les déclarations.
 
 ### DRY : Don't Repeat Yourself
 
-**Le copier/coller n'est pas une méthode acceptable de réutilisation des codes.**
+**Il convient d'éviter les répétitions de code**
 
 .bad-left[
 Pour réutiliser un code, je le copie/colle dans ma méthode.
 ]
 
 .good-right[
-Pour réutiliser un code, je le **met en facteur** dans une méthode et une classe que j'utilise à plusieurs endroits.
+Pour réutiliser un code, je le **met en facteur** dans une méthode ou une classe que j'utilise à plusieurs endroits.
 ]
 
 
@@ -306,7 +306,7 @@ class MaClasse {
 
 ### Identifier et encapsuler ce qui varie (2/2)
 
-... je fais abstraction sur l'écriture des logs en posant un concept à l'aide d'une classe `Logger` dédiée à l'écriture des logs :
+... je fais abstraction sur l'écriture des journaux applicatifs en posant un concept à l'aide d'une classe `Logger` dédiée à l'écriture des logs :
 
 ```java
 class MaClasse {
@@ -333,7 +333,7 @@ class MaClasse {
 ### Préférer la composition à l'héritage (1/2)
 
 * Nous **<u>pourrons</u> hériter d'une classe seulement si nous pouvons dire "EST-UN"** :
-  * "un `Cercle` est une `Forme`"
+  * "Un `Cercle` est une `Forme`"
   * "~~Un `TraitementMetier` est une `BaseDeDonnees`~~" -> "Un `TraitementMetier` utilise une `BaseDeDonnees`".
 * Nous **préférerons toutefois les états aux classes dérivées** :
   * Il sera naturel d'**hériter** d'une `Forme` pour modéliser des `Cercle` et des `Rectangle` avec des **attributs spécifiques** (`rayon` vs `largeur` et `hauteur`)
@@ -390,9 +390,13 @@ Par exemple :
 
 **Le rôle des différents éléments du système n'est pas identifiable et il est difficile de savoir qui appelle qui**.
 
-En conséquence, il est difficile de modifier une partie du code sans en altérer le fonctionnement.
+En conséquence, il est difficile de :
 
-> Spoiler : Nous verrons que les patrons architecturaux donnent des solutions à ce problème.
+* Modifier une partie du code sans en altérer le fonctionnement
+* Trouver la cause d'un bug
+* ...
+
+> Spoiler : Nous verrons que les patrons architecturaux amènent un cadre permettant d'éviter ce problème.
 
 ---
 
@@ -553,9 +557,9 @@ Les patrons de conception permettront de :
 
 ### Intérêts des patrons de conception (2/2)
 
-En particulier, la **connaissance des patrons facilitera l'apprentissage la découverte des bibliothèques standards (ex : [OpenJDK](https://devdocs.io/openjdk/)) et frameworks orientés objets** (ex : [GeoTools](https://docs.geotools.org/),...).
+En particulier, la **connaissance des patrons facilitera l'apprentissage la découverte des bibliothèques standards (ex : [OpenJDK](https://devdocs.io/openjdk/)) et frameworks orientés objets** (ex : [GeoTools](https://docs.geotools.org/)).
 
-Pour faire simple, **sans connaissance des patrons, certains choix de conception sembleront inutilement complexes** (̀ex : `new BufferedReader(new FileReader(...))`)
+Pour faire simple, **sans connaissance des patrons, certains choix de conception sembleront inutilement complexes** (̀ex : `new BufferedReader(new FileReader(...))`) et il sera **difficile de trouver comment initialiser les objets**.
 
 ---
 
@@ -587,12 +591,13 @@ Pour faire simple, **sans connaissance des patrons, certains choix de conception
 * [Strategy (Stratégie)](annexe/design_pattern/behavior/Strategy.html)
 * [Visitor (Visiteur)](annexe/design_pattern/behavior/Visitor.html)
 * [Chain of responsibility (Chaîne de responsabilité)](annexe/design_pattern/behavior/ChainOfResponsibility.html)
+* [Observer (Observateur)](annexe/design_pattern/behavior/Observer.html)
+* [State (État)](annexe/design_pattern/behavior/State.html)
+* Mediator (Médiateur)
 * Command (Commande)
 * Interpreter (Interpréteur)
-* Mediator (Médiateur)
 * Memento (Mémento)
-* [Observer (Observateur)](annexe/design_pattern/behavior/Observer.html)
-* State (État)
+
 
 * [Null Object (objet null)](annexe/design_pattern/behavior/NullObject.html)
 

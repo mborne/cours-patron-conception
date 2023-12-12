@@ -4,22 +4,18 @@
 
 Les fabriques traitent principalement de l'instanciation de classes en présence d'une hiérarchie.
 
-Le patron de conception "Builder" s'attaque à l'instanciation de classes où la complexité est liée à la complexité des objets et relations entre ces objets.
-
-En outre, ce patron de conception sera utile pour **éviter** :
+Le patron de conception **Builder (Monteur)** s'attaque à l'**instanciation de classes avec des états ou relations complexes**. Il sera **utile pour éviter** :
 
 * De **nombreux appels à des accesseurs** (set, add, etc.)
 * La **multiplication des constructeurs**
 
 ## Solution
 
-Dans sa forme originale, le patron de conception monteur préconise de déléguer la complexité de la construction à des instances dédiée (Builder et Director) comme suit :
+Dans sa **forme originale**, le patron de conception monteur préconise de déléguer la complexité de la construction à des instances dédiées (**Builder et Director**) comme suit :
 
 ![UML Builder](uml/UML_DP_Builder.png)
 
-Source [https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Builder](https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Builder)
-
-Un [exemple en Java est disponible](https://fr.wikipedia.org/wiki/Monteur_%28patron_de_conception%29#Java) avec :
+Source [https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Builder](https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Builder) où un [exemple en Java est disponible](https://fr.wikipedia.org/wiki/Monteur_%28patron_de_conception%29#Java) avec :
 
 * Des **Pizza** (*Product*) 
 * Une interface **MonteurPizza** (*Builder*) avec deux implémentations (*ConcreteBuilder*)
@@ -45,7 +41,7 @@ En pratique, la distinction ne sera pas toujours faite entre "Director" et "Buil
 Calendar cal = new Calendar.Builder()
     .setCalendarType("iso8601")
     .setWeekDate(2013, 1, MONDAY)
-    .build()
+    .build() // récupération du résultat
 ;
 ```
 
@@ -62,7 +58,7 @@ env.remove("OTHERVAR");
 env.put("VAR2", env.get("VAR1") + "suffix");
 pb.directory(new File("myDir"));
 
-// Récupération du processus
+// Récupération du résultat
 Process p = pb.start();
 ```
 

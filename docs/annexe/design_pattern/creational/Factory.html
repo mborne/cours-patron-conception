@@ -58,13 +58,9 @@
       <a href="https://github.com/mborne/cours-patron-conception/blob/master/src/annexe/design_pattern/creational/Factory.md?plain=1" target="_blank">Éditer sur GitHub</a>
     </div>
     <div class="markdown-body">
-      <h1 id="factory-fabrique">Factory (Fabrique)</h1><h2 id="problème">Problème</h2><p>La fabrique s&#39;adresse à la problématique de la création d&#39;instances dérivées d&#39;une classe.</p>
+      <h1 id="factory-fabrique">Factory (Fabrique)</h1><h2 id="problème">Problème</h2><p>La fabrique classique s&#39;adresse à la problématique de la création d&#39;instances dérivées d&#39;une classe. Nous verrons qu&#39;elle admet plusieurs variantes. </p>
 <h2 id="cas-décole">Cas d&#39;école</h2><p>Nous avons par exemple la hiérarchie suivante :</p>
-<ul>
-<li>Animal</li>
-<li>Chat hérite de Animal</li>
-<li>Chien hérite de Animal</li>
-</ul>
+<p><img src="uml/UML_DP_FabriqueAnimal.drawio.png" alt="UML_DP_FabriqueAnimal"></p>
 <p>Supposons que nous devons charger un fichier contenant des animaux et créer des animaux via une API WEB.</p>
 <p>A chaque fois, nous devrons faire appel à &quot;new&quot; en fonction du type de l&#39;animal :</p>
 <pre><code class="language-java">Animal animal = null ;
@@ -78,12 +74,11 @@ if ( typeAnimal.equals(&quot;chat&quot;) ){
 animal.setNom(nomAnimal);
 </code></pre>
 <p><strong>En cas d&#39;ajout d&#39;un type d&#39;animal, nous devrons modifier tous les codes créant des animaux.</strong></p>
-<h2 id="solution">Solution</h2><p>Nous pouvons définir une <strong>classe avec une méthode dédiée à la création des instances</strong> :</p>
-<p><img src="uml/UML_DP_Fabrique.png" alt="UML Fabrique"></p>
-<p>Source : <a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique" target="_blank">https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique</a></p>
-<p>Appliqué à notre exemple, nous pouvons créer une classe <code>AnimalFactory</code> avec une méthode permettant de créer un animal en fonction de son type :</p>
-<pre><code class="language-java">class AnimalFactory {
-    public Animal createAnimal(String typeAnimal) throws AnimalTypeNotFound {
+<h2 id="solution">Solution</h2><p>Nous pouvons définir une <strong>classe avec une méthode dédiée à la création des instances</strong> en fonction d&#39;un type :</p>
+<p><img src="uml/UML_DP_FabriqueAnimal-solution.drawio.png" alt="UML Fabrique"></p>
+<p>Le <strong>code gérant la logique de création sera localisé dans cette fabrique</strong> :</p>
+<pre><code class="language-java">class FabriqueAnimal {
+    public Animal createAnimal(String typeAnimal){
         if ( typeAnimal.equals(&quot;chat&quot;) ){
             return new Chat() ;
         }else if (typeAnimal.equals(&quot;chien&quot;)){
@@ -94,13 +89,13 @@ animal.setNom(nomAnimal);
     }
 }
 </code></pre>
-<p>Il sera alors <strong>possible d&#39;ajouter un type sans modifier les différents codes</strong> créant les animaux :</p>
+<p>Il sera alors <strong>possible d&#39;ajouter un type sans modifier les codes faisant appel à cette fabrique</strong> :</p>
 <pre><code class="language-java">Animal animal = animalFactory.createAnimal(typeAnimal) ;
 animal.setNom(nomAnimal);
 </code></pre>
 <h2 id="variantes">Variantes</h2><p>Nous trouverons de nombreuses variantes du concept de fabrique :</p>
 <ul>
-<li>La fabrique statique</li>
+<li>La <strong>fabrique statique</strong></li>
 </ul>
 <pre><code class="language-java">AnimalFactory.createByType(&quot;chien&quot;)
 </code></pre>
@@ -125,11 +120,11 @@ animal.setNom(nomAnimal);
 <pre><code class="language-java">FractalFactory.createSierpinskiTriangles(8);
 </code></pre>
 <ul>
-<li><em>Factory Method</em> où <strong>le choix de la fabrique déterminera le type créé</strong> :</li>
+<li><strong>Factory Method</strong> où <strong>le choix de la fabrique déterminera le type créé</strong> :</li>
 </ul>
 <p><img src="uml/UML_DP_FactoryMethod.png" alt="UML_DP_FactoryMethod"></p>
 <ul>
-<li><em>Abstract Factory</em> où <strong>le choix de la fabrique déterminera la famille des objets créés</strong> (cas d&#39;école : plusieurs implémentations pour des classes géométriques) :</li>
+<li><strong>Abstract Factory</strong> où <strong>le choix de la fabrique déterminera la famille des objets créés</strong> (cas d&#39;école : plusieurs implémentations pour des classes géométriques) :</li>
 </ul>
 <p><img src="uml/UML_DP_FabriqueAbstraite_me.png" alt="UML_DP_FactoryMethod"></p>
 <h2 id="exemple-en-java">Exemple en Java</h2><p>Les fabriques sont nombreuses dans l&#39;API java et dans les bibliothèques :</p>

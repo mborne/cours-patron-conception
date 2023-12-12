@@ -2,7 +2,7 @@
 
 ## Problème
 
-Nous disposons d'un système complexe faisant intervenir de nombreuses classes en relation les unes avec les autres. Nous souhaite **fournir une abstraction pour les cas d'usage simples**.
+Nous disposons d'un système complexe faisant intervenir de nombreuses classes en relation les unes avec les autres. Nous souhaitons **fournir une abstraction pour les cas d'usage simples**.
 
 ## Cas d'école
 

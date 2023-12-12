@@ -59,16 +59,14 @@
     </div>
     <div class="markdown-body">
       <h1 id="builder-monteur">Builder (Monteur)</h1><h2 id="problème">Problème</h2><p>Les fabriques traitent principalement de l&#39;instanciation de classes en présence d&#39;une hiérarchie.</p>
-<p>Le patron de conception &quot;Builder&quot; s&#39;attaque à l&#39;instanciation de classes où la complexité est liée à la complexité des objets et relations entre ces objets.</p>
-<p>En outre, ce patron de conception sera utile pour <strong>éviter</strong> :</p>
+<p>Le patron de conception <strong>Builder (Monteur)</strong> s&#39;attaque à l&#39;<strong>instanciation de classes avec des états ou relations complexes</strong>. Il sera <strong>utile pour éviter</strong> :</p>
 <ul>
 <li>De <strong>nombreux appels à des accesseurs</strong> (set, add, etc.)</li>
 <li>La <strong>multiplication des constructeurs</strong></li>
 </ul>
-<h2 id="solution">Solution</h2><p>Dans sa forme originale, le patron de conception monteur préconise de déléguer la complexité de la construction à des instances dédiée (Builder et Director) comme suit :</p>
+<h2 id="solution">Solution</h2><p>Dans sa <strong>forme originale</strong>, le patron de conception monteur préconise de déléguer la complexité de la construction à des instances dédiées (<strong>Builder et Director</strong>) comme suit :</p>
 <p><img src="uml/UML_DP_Builder.png" alt="UML Builder"></p>
-<p>Source <a href="https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Builder" target="_blank">https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Builder</a></p>
-<p>Un <a href="https://fr.wikipedia.org/wiki/Monteur_%28patron_de_conception%29#Java" target="_blank">exemple en Java est disponible</a> avec :</p>
+<p>Source <a href="https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Builder" target="_blank">https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Builder</a> où un <a href="https://fr.wikipedia.org/wiki/Monteur_%28patron_de_conception%29#Java" target="_blank">exemple en Java est disponible</a> avec :</p>
 <ul>
 <li>Des <strong>Pizza</strong> (<em>Product</em>) </li>
 <li>Une interface <strong>MonteurPizza</strong> (<em>Builder</em>) avec deux implémentations (<em>ConcreteBuilder</em>)<ul>
@@ -93,7 +91,7 @@
 <pre><code class="language-java">Calendar cal = new Calendar.Builder()
     .setCalendarType(&quot;iso8601&quot;)
     .setWeekDate(2013, 1, MONDAY)
-    .build()
+    .build() // récupération du résultat
 ;
 </code></pre>
 <ul>
@@ -109,7 +107,7 @@ env.remove(&quot;OTHERVAR&quot;);
 env.put(&quot;VAR2&quot;, env.get(&quot;VAR1&quot;) + &quot;suffix&quot;);
 pb.directory(new File(&quot;myDir&quot;));
 
-// Récupération du processus
+// Récupération du résultat
 Process p = pb.start();
 </code></pre>
 <ul>

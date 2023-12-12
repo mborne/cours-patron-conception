@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Les patrons de conception (Annexes) - Les patrons de comportement</title>
+  <title>Les patrons de conception (Annexes) - State (État)</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
     integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
@@ -55,34 +55,36 @@
 
   <main id="main" class="container">
     <div>
-      <a href="https://github.com/mborne/cours-patron-conception/blob/master/src/annexe/design_pattern/behavior/index.md?plain=1" target="_blank">Éditer sur GitHub</a>
+      <a href="https://github.com/mborne/cours-patron-conception/blob/master/src/annexe/design_pattern/behavior/State.md?plain=1" target="_blank">Éditer sur GitHub</a>
     </div>
     <div class="markdown-body">
-      <h1 id="les-patrons-de-comportement">Les patrons de comportement</h1><ul>
-<li><p><a href="Iterator.html">Iterator (Itérateur)</a></p>
-</li>
-<li><p>Template Method (Patron de méthode)</p>
-</li>
-<li><p><a href="Strategy.html">Strategy (Stratégie)</a></p>
-</li>
-<li><p><a href="Visitor.html">Visitor (Visiteur)</a></p>
-</li>
-<li><p><a href="ChainOfResponsibility.html">Chain of responsibility (Chaîne de responsabilité)</a></p>
-</li>
-<li><p><a href="Observer.html">Observer (Observateur)</a></p>
-</li>
-<li><p><a href="State.html">State (État)</a></p>
-</li>
-<li><p>Mediator (Médiateur)</p>
-</li>
-<li><p>Command (Commande)</p>
-</li>
-<li><p>Interpreter (Interpréteur)</p>
-</li>
-<li><p>Memento (Mémento)</p>
-</li>
-<li><p><a href="NullObject.html">Null Object (objet null)</a></p>
-</li>
+      <h1 id="state-état">State (État)</h1><h2 id="problème">Problème</h2><p>Nous avons des traitements dépendant le l&#39;état d&#39;un objet et souhaitons externaliser la logique correspondante.</p>
+<h2 id="cas-décole">Cas d&#39;école</h2><p>Nous avons une <strong>simulation de particules</strong> initialisées avec une vitesse initiale passant par trois états successifs :</p>
+<ul>
+<li><strong>MOVING</strong> où la particule est mise à jour par un moteur physique</li>
+<li><strong>EXPLODING</strong> produisant une animation quand la particule entre en collision par exemple avec le terrain</li>
+<li><strong>DEAD</strong> quand l&#39;animation est terminée</li>
+</ul>
+<p>Nous ne voulons pas gérer toute cette logique dans une méthode <code>update(elapsedTime)</code> sur la classe <code>Particule</code>.</p>
+<h2 id="solution">Solution</h2><p>Nous pouvons nous inspirer du patron état comme suit avec une classe par état :</p>
+<p><img src="uml/UML_State-Projectile.drawio.png" alt="UML State Projectile"></p>
+<p>Nous aurons un code du style suivant pour la gestion du mouvement :</p>
+<pre><code class="language-java">class MovingProjectile {
+    public void update(double elapsedTime){
+        // calcul du déplacement...
+        // détection d&#39;une éventuelle collision
+        if ( collision != null ){
+            projectile.setPosition(collision.getPosition()); 
+            projectile.setSpeed(Vector.ZERO);
+            // changement de l&#39;état
+            projectile.setState(new ExplodingState(projectile));
+        }
+    }
+}
+</code></pre>
+<h2 id="liens-utiles">Liens utiles</h2><ul>
+<li><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/%C3%89tat" target="_blank">fr.wikibooks.org - État</a></li>
+<li><a href="https://refactoring.guru/fr/design-patterns/state" target="_blank">refactoring.guru - État</a></li>
 </ul>
 
     </div>
