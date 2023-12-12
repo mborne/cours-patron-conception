@@ -2,48 +2,83 @@
 
 ## Problème
 
-On souhaite découpler une abstraction de son implémentation afin que les deux puissent
-varier indépendemment l'une de l'autre.
+Nous souhaitons découpler une abstraction de son implémentation afin que les deux puissent
+varier indépendamment l'une de l'autre.
 
+## Cas d'école
+
+Nous développement des algorithmes réalisant des traitements géométriques. Pour être en mesure d'analyser les problèmes, nous souhaitons soit :
+
+* Écrire classiquement des journaux applicatifs dans la console
+* Écrire ces journaux applicatifs dans une table PostGIS (`timestamp;message;geometry`)
 
 ## Solution
+
+Nous pouvons nous inspirer du patron bridge :
 
 ![UML Bridge](uml/UML_Bridge.png)
 
 Source [<https://en.wikipedia.org/wiki/Bridge_pattern>](https://en.wikipedia.org/wiki/Bridge_pattern)
 
-## Exemple
+Nous pourrons par exemple :
 
-* On pose un interface pour les transformations de coordonnées géographique
+* Définir une interface `GeoLogger`
 
 ```java
-interface ProjectionTransform {
-    public Geometry transform(String sourceCRS, String targetCRS, Geometry g );
+interface GeoLogger {
+    void log(LogLevel level, String message, Geometry g);
 }
 ```
 
-* On réalise l'implémentation à l'aide de geotools
+* Implémenter cette interface pour écrire dans la console :
 
 ```java
-interface GeotoolProjectionTransform {
-    public Geometry transform(String sourceCRS, String targetCRS, Geometry g );
+class ConsoleGeoLogger implements GeoLogger {
+    void log(LogLevel level, String message, Geometry g){
+        // écriture d'un message dans la console
+    }
 }
 ```
 
-=> On limite la dépendance à geotools dès lors que l'on dépend de `ProjectionTransform`.
+* Implémenter cette interface pour écrire dans la console :
 
-## Mise en garde
+```java
+class DatabaseGeoLogger implements GeoLogger {
+    void log(LogLevel level, String message, Geometry g){
+        // écriture d'une ligne dans une table
+    }
+}
+```
 
-A ne pas confondre avec "Bridge" et "Adapter". Les objectifs ne sont
-pas les mêmes.
+A l'utilisation, nous dépendrons uniquement de `GeoLogger` qui pourra être initialisé en fonction de variables fournies à l'exécution :
+
+```java
+class MonTraitement {
+    private GeoLogger logger;
+
+    public MonTraitement(GeoLogger logger){
+        this.logger = logger;
+    }
+
+    public void traitement(Geometry geometry){
+        this.logger.log(LogLevel.INFO, "calcul d'un buffer...", geometry);
+        Geometry buffer = geometry.buffer();
+        this.logger.log(LogLevel.INFO, "buffer résultant...", buffer);
+        //...
+    }
+}
+```
+
+## Autres cas d'usage
+
+En pratique, bridge sera souvent utilisé pour :
+
+* S'appuyer sur une bibliothèque sans en dépendre partout dans son code.
+* Permettre à l'utilisateur de choisir entre plusieurs bibliothèques (par exemple pour écrire des journaux applicatifs)
 
 ## Liens utiles
 
-* [Description détaillées sur sourcemaking.com](https://sourcemaking.com/design_patterns/bridge)
-
-* [Exemple de l'envoie de message de types différents](https://springframework.guru/gang-of-four-design-patterns/bridge-pattern/) qui utilise aussi l'injection de dépendance via spring.
-
-* [Exemple d'API de dessin](http://www.tutorialspoint.com/design_pattern/bridge_pattern.htm)
-
-* [Les ponts entre Symfony et bibliothèques tierces](https://github.com/symfony/symfony/tree/master/src/Symfony/Bridge) (`Monolog` pour la gestion des log, `Doctrine` pour la gestion des données (ORM), etc.)
+* [docs.spring.io - Logging](https://docs.spring.io/spring-framework/reference/core/spring-jcl.html)
+* [sourcemaking.com - Bridge Design Pattern](https://sourcemaking.com/design_patterns/bridge)
+* [springframework.guru - Bridge Pattern](https://springframework.guru/gang-of-four-design-patterns/bridge-pattern/) qui prend l'exemple de l'envoi de messages de types différents (TextMessage, EmailMessage,...) avec des systèmes différents.
 

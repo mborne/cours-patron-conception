@@ -58,36 +58,67 @@
       <a href="https://github.com/mborne/cours-patron-conception/blob/master/src/annexe/design_pattern/structural/Bridge.md?plain=1" target="_blank">Éditer sur GitHub</a>
     </div>
     <div class="markdown-body">
-      <h1 id="bridge">Bridge</h1><h2 id="problème">Problème</h2><p>On souhaite découpler une abstraction de son implémentation afin que les deux puissent
-varier indépendemment l&#39;une de l&#39;autre.</p>
-<h2 id="solution">Solution</h2><p><img src="uml/UML_Bridge.png" alt="UML Bridge"></p>
-<p>Source <a href="https://en.wikipedia.org/wiki/Bridge_pattern" target="_blank"><a href="https://en.wikipedia.org/wiki/Bridge_pattern" target="_blank">https://en.wikipedia.org/wiki/Bridge_pattern</a></a></p>
-<h2 id="exemple">Exemple</h2><ul>
-<li>On pose un interface pour les transformations de coordonnées géographique</li>
+      <h1 id="bridge">Bridge</h1><h2 id="problème">Problème</h2><p>Nous souhaitons découpler une abstraction de son implémentation afin que les deux puissent
+varier indépendamment l&#39;une de l&#39;autre.</p>
+<h2 id="cas-décole">Cas d&#39;école</h2><p>Nous développement des algorithmes réalisant des traitements géométriques. Pour être en mesure d&#39;analyser les problèmes, nous souhaitons soit :</p>
+<ul>
+<li>Écrire classiquement des journaux applicatifs dans la console</li>
+<li>Écrire ces journaux applicatifs dans une table PostGIS (<code>timestamp;message;geometry</code>)</li>
 </ul>
-<pre><code class="language-java">interface ProjectionTransform {
-    public Geometry transform(String sourceCRS, String targetCRS, Geometry g );
+<h2 id="solution">Solution</h2><p>Nous pouvons nous inspirer du patron bridge :</p>
+<p><img src="uml/UML_Bridge.png" alt="UML Bridge"></p>
+<p>Source <a href="https://en.wikipedia.org/wiki/Bridge_pattern" target="_blank"><a href="https://en.wikipedia.org/wiki/Bridge_pattern" target="_blank">https://en.wikipedia.org/wiki/Bridge_pattern</a></a></p>
+<p>Nous pourrons par exemple :</p>
+<ul>
+<li>Définir une interface <code>GeoLogger</code></li>
+</ul>
+<pre><code class="language-java">interface GeoLogger {
+    void log(LogLevel level, String message, Geometry g);
 }
 </code></pre>
 <ul>
-<li>On réalise l&#39;implémentation à l&#39;aide de geotools</li>
+<li>Implémenter cette interface pour écrire dans la console :</li>
 </ul>
-<pre><code class="language-java">interface GeotoolProjectionTransform {
-    public Geometry transform(String sourceCRS, String targetCRS, Geometry g );
+<pre><code class="language-java">class ConsoleGeoLogger implements GeoLogger {
+    void log(LogLevel level, String message, Geometry g){
+        // écriture d&#39;un message dans la console
+    }
 }
 </code></pre>
-<p>=&gt; On limite la dépendance à geotools dès lors que l&#39;on dépend de <code>ProjectionTransform</code>.</p>
-<h2 id="mise-en-garde">Mise en garde</h2><p>A ne pas confondre avec &quot;Bridge&quot; et &quot;Adapter&quot;. Les objectifs ne sont
-pas les mêmes.</p>
+<ul>
+<li>Implémenter cette interface pour écrire dans la console :</li>
+</ul>
+<pre><code class="language-java">class DatabaseGeoLogger implements GeoLogger {
+    void log(LogLevel level, String message, Geometry g){
+        // écriture d&#39;une ligne dans une table
+    }
+}
+</code></pre>
+<p>A l&#39;utilisation, nous dépendrons uniquement de <code>GeoLogger</code> qui pourra être initialisé en fonction de variables fournies à l&#39;exécution :</p>
+<pre><code class="language-java">class MonTraitement {
+    private GeoLogger logger;
+
+    public MonTraitement(GeoLogger logger){
+        this.logger = logger;
+    }
+
+    public void traitement(Geometry geometry){
+        this.logger.log(LogLevel.INFO, &quot;calcul d&#39;un buffer...&quot;, geometry);
+        Geometry buffer = geometry.buffer();
+        this.logger.log(LogLevel.INFO, &quot;buffer résultant...&quot;, buffer);
+        //...
+    }
+}
+</code></pre>
+<h2 id="autres-cas-dusage">Autres cas d&#39;usage</h2><p>En pratique, bridge sera souvent utilisé pour :</p>
+<ul>
+<li>S&#39;appuyer sur une bibliothèque sans en dépendre partout dans son code.</li>
+<li>Permettre à l&#39;utilisateur de choisir entre plusieurs bibliothèques (par exemple pour écrire des journaux applicatifs)</li>
+</ul>
 <h2 id="liens-utiles">Liens utiles</h2><ul>
-<li><p><a href="https://sourcemaking.com/design_patterns/bridge" target="_blank">Description détaillées sur sourcemaking.com</a></p>
-</li>
-<li><p><a href="https://springframework.guru/gang-of-four-design-patterns/bridge-pattern/" target="_blank">Exemple de l&#39;envoie de message de types différents</a> qui utilise aussi l&#39;injection de dépendance via spring.</p>
-</li>
-<li><p><a href="http://www.tutorialspoint.com/design_pattern/bridge_pattern.htm" target="_blank">Exemple d&#39;API de dessin</a></p>
-</li>
-<li><p><a href="https://github.com/symfony/symfony/tree/master/src/Symfony/Bridge" target="_blank">Les ponts entre Symfony et bibliothèques tierces</a> (<code>Monolog</code> pour la gestion des log, <code>Doctrine</code> pour la gestion des données (ORM), etc.)</p>
-</li>
+<li><a href="https://docs.spring.io/spring-framework/reference/core/spring-jcl.html" target="_blank">docs.spring.io - Logging</a></li>
+<li><a href="https://sourcemaking.com/design_patterns/bridge" target="_blank">sourcemaking.com - Bridge Design Pattern</a></li>
+<li><a href="https://springframework.guru/gang-of-four-design-patterns/bridge-pattern/" target="_blank">springframework.guru - Bridge Pattern</a> qui prend l&#39;exemple de l&#39;envoi de messages de types différents (TextMessage, EmailMessage,...) avec des systèmes différents.</li>
 </ul>
 
     </div>
