@@ -2,7 +2,7 @@
 
 ## Problème
 
-Les fabriques traitent principalement de l'instanciation de classes en présence d'une hiérarchie.
+Les fabriques traitent principalement l'instanciation de classes en présence d'une hiérarchie.
 
 Le patron de conception **Builder (Monteur)** s'attaque à l'**instanciation de classes avec des états ou relations complexes**. Il sera **utile pour éviter** :
 
