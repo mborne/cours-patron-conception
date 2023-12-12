@@ -195,11 +195,11 @@ Le problème de fond réside dans le fait que **nous ne respectons pas plusieurs
 
 ## Solution
 
-Avec Strategy, au lieu d'hériter pour faire varier le comportement, nous allons **encapsuler le traitement objet dont le seul rôle se limitera à appliquer le traitement**.
+Avec Strategy, au lieu d'hériter pour faire varier le comportement, nous allons **encapsuler le traitement dans un objet dont le seul rôle se limitera à appliquer le traitement**.
 
-Nous aurons pas exemple :
+Nous aurons par exemple :
 
-* Interface `ImageProcessorStrategy` correspondant à la stratégie :
+* Une interface `ImageProcessorStrategy` correspondant à la stratégie :
 
 ```java
 interface ImageProcessorStrategy {
