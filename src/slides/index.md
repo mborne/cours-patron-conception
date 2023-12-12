@@ -499,18 +499,6 @@ Un **patron de conception** est la **description d'une solution réutilisable po
 
 ## Les patrons de conception
 
-### Famille de patrons de conception du GoF
-
-Le « Gang of Four » définit trois familles de patrons de conception :
-
-* Les **patrons de création** (*creational patterns*) qui décrivent des **techniques d'initialisation des objets**.
-* Les **patrons de structure** (*structural patterns*) qui décrivent des **organisations classiques de classes**.
-* Les **patrons de comportement** (*behavioral patterns*) qui décrivent des méthodes de communications entre objets au sein d'une application.
-
----
-
-## Les patrons de conception
-
 ### Formalisme des patrons de conception
 
 Ces patrons obéiront au formalisme suivant :
@@ -519,6 +507,18 @@ Ces patrons obéiront au formalisme suivant :
 * Un **problème**
 * Une **solution**
 * Des **conséquences** (avantages et inconvénients)
+
+---
+
+## Les patrons de conception
+
+### Famille de patrons de conception du GoF
+
+Le « Gang of Four » définit trois familles de patrons de conception :
+
+* Les **patrons de création** (*creational patterns*) qui décrivent des **techniques d'initialisation des objets**.
+* Les **patrons de structure** (*structural patterns*) qui décrivent des **organisations classiques de classes**.
+* Les **patrons de comportement** (*behavioral patterns*) qui décrivent des méthodes de communications entre objets au sein d'une application.
 
 ---
 
@@ -631,7 +631,7 @@ Vous pourrez parcourir en autonomie [refactoring.com - Catalogue](http://www.ref
 
 ## Encore à vous!
 
-Nous allons surtout traiter [TP - Réfactoring sur des traitements de graphe](annexe/tp-graph/index.html) où l'idée est de faire une **mise en situation d'optimisation et d'industrialisation d'un code existant**.
+Nous allons traiter [TP - Réfactoring sur des traitements de graphe](annexe/tp-graph/index.html) où l'idée est de faire une **mise en situation d'optimisation et d'industrialisation d'un code existant**.
 
 Vous pourrez constater :
 

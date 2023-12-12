@@ -60,24 +60,24 @@
     <div class="markdown-body">
       <h1 id="bridge">Bridge</h1><h2 id="problème">Problème</h2><p>Nous souhaitons découpler une abstraction de son implémentation afin que les deux puissent
 varier indépendamment l&#39;une de l&#39;autre.</p>
-<h2 id="cas-décole">Cas d&#39;école</h2><p>Nous développement des algorithmes réalisant des traitements géométriques. Pour être en mesure d&#39;analyser les problèmes, nous souhaitons soit :</p>
+<h2 id="cas-décole">Cas d&#39;école</h2><p>Nous développons des algorithmes réalisant des parcours de graphes. Pour être en mesure d&#39;analyser les problèmes et de visualiser le comportement de l&#39;algorithme, <strong>nous souhaitons soit</strong> :</p>
 <ul>
-<li>Écrire classiquement des journaux applicatifs dans la console</li>
-<li>Écrire ces journaux applicatifs dans une table PostGIS (<code>timestamp;message;geometry</code>)</li>
+<li><strong>Écrire classiquement des journaux applicatifs</strong> dans la console</li>
+<li><strong>Écrire ces journaux applicatifs dans une table géométrique</strong> (<code>timestamp;message;geometry</code>) qui nous permettra par exemple de visualiser le déroulé du traitement à l&#39;aide d&#39;une animation temporelle dans QGIS (voir <a href="https://www.birdseyeviewgis.com/blog/2020/8/14/creating-a-covid-19-temporal-animation-with-qgis" target="_blank">www.birdseyeviewgis.com - Creating a COVID-19 Temporal Animation with QGIS</a>)</li>
 </ul>
 <h2 id="solution">Solution</h2><p>Nous pouvons nous inspirer du patron bridge :</p>
 <p><img src="uml/UML_Bridge.png" alt="UML Bridge"></p>
 <p>Source <a href="https://en.wikipedia.org/wiki/Bridge_pattern" target="_blank"><a href="https://en.wikipedia.org/wiki/Bridge_pattern" target="_blank">https://en.wikipedia.org/wiki/Bridge_pattern</a></a></p>
-<p>Nous pourrons par exemple :</p>
+<p>Nous aurons par exemple :</p>
 <ul>
-<li>Définir une interface <code>GeoLogger</code></li>
+<li>Une interface <code>GeoLogger</code></li>
 </ul>
 <pre><code class="language-java">interface GeoLogger {
     void log(LogLevel level, String message, Geometry g);
 }
 </code></pre>
 <ul>
-<li>Implémenter cette interface pour écrire dans la console :</li>
+<li>Une implémentation pour l&#39;écriture classique :</li>
 </ul>
 <pre><code class="language-java">class ConsoleGeoLogger implements GeoLogger {
     void log(LogLevel level, String message, Geometry g){
@@ -86,7 +86,7 @@ varier indépendamment l&#39;une de l&#39;autre.</p>
 }
 </code></pre>
 <ul>
-<li>Implémenter cette interface pour écrire dans la console :</li>
+<li>Une implémentation pour l&#39;écriture dans une table :</li>
 </ul>
 <pre><code class="language-java">class DatabaseGeoLogger implements GeoLogger {
     void log(LogLevel level, String message, Geometry g){
@@ -94,7 +94,7 @@ varier indépendamment l&#39;une de l&#39;autre.</p>
     }
 }
 </code></pre>
-<p>A l&#39;utilisation, nous dépendrons uniquement de <code>GeoLogger</code> qui pourra être initialisé en fonction de variables fournies à l&#39;exécution :</p>
+<p>A l&#39;utilisation, nous dépendrons uniquement de <code>GeoLogger</code> qui pourra être initialisée en fonction de variables fournies à l&#39;exécution :</p>
 <pre><code class="language-java">class MonTraitement {
     private GeoLogger logger;
 
@@ -110,13 +110,12 @@ varier indépendamment l&#39;une de l&#39;autre.</p>
     }
 }
 </code></pre>
-<h2 id="autres-cas-dusage">Autres cas d&#39;usage</h2><p>En pratique, bridge sera souvent utilisé pour :</p>
+<h2 id="remarques">Remarques</h2><p>En pratique, le patron bridge sera souvent utilisé pour :</p>
 <ul>
-<li>S&#39;appuyer sur une bibliothèque sans en dépendre partout dans son code.</li>
-<li>Permettre à l&#39;utilisateur de choisir entre plusieurs bibliothèques (par exemple pour écrire des journaux applicatifs)</li>
+<li><strong>Localiser la dépendance à une bibliothèque</strong> (i.e. ne pas en dépendre partout dans son code).</li>
+<li><strong>Permettre le choix entre plusieurs bibliothèques</strong> (Voir <a href="https://docs.spring.io/spring-framework/reference/core/spring-jcl.html" target="_blank">docs.spring.io - Logging</a> illustrant la possibilité d&#39;utiliser au choix log4j2, SLF4J,... en utilisant le framework)</li>
 </ul>
 <h2 id="liens-utiles">Liens utiles</h2><ul>
-<li><a href="https://docs.spring.io/spring-framework/reference/core/spring-jcl.html" target="_blank">docs.spring.io - Logging</a></li>
 <li><a href="https://sourcemaking.com/design_patterns/bridge" target="_blank">sourcemaking.com - Bridge Design Pattern</a></li>
 <li><a href="https://springframework.guru/gang-of-four-design-patterns/bridge-pattern/" target="_blank">springframework.guru - Bridge Pattern</a> qui prend l&#39;exemple de l&#39;envoi de messages de types différents (TextMessage, EmailMessage,...) avec des systèmes différents.</li>
 </ul>
