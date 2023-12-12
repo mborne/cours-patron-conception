@@ -58,20 +58,22 @@
       <a href="https://github.com/mborne/cours-patron-conception/blob/master/src/annexe/design_pattern/behavior/Observer.md?plain=1" target="_blank">Éditer sur GitHub</a>
     </div>
     <div class="markdown-body">
-      <h1 id="observer">Observer</h1><h2 id="problème">Problème</h2><p>On souhaite réagir lorsqu&#39;un objet effectue des opérations (changement d&#39;état par exemple).</p>
-<h2 id="solution">Solution</h2><p>L&#39;observable porte des observateurs. Il envoie un signal aux observables
-en appelant une méthode <code>notify</code>.</p>
+      <h1 id="observer">Observer</h1><h2 id="problème">Problème</h2><p>Nous souhaitons pouvoir réaliser des actions en cas d&#39;événement particulier sur un objet (ex : modification de l&#39;état de l&#39;objet).</p>
+<h2 id="solution">Solution</h2><p>Nous pouvons procéder comme suit en ajoutant des &quot;observateurs&quot; qui seront notifié en cas d&#39;événement sur un &quot;observable&quot; :</p>
 <p><img src="uml/UML_Observer.png" alt="UML Observer"></p>
 <p>Source <a href="https://fr.wikipedia.org/wiki/Observateur_(patron_de_conception)" target="_blank"><a href="https://fr.wikipedia.org/wiki/Observateur_(patron_de_conception)" target="_blank">https://fr.wikipedia.org/wiki/Observateur_(patron_de_conception)</a></a></p>
-<h2 id="exemple">Exemple</h2><p>On modélise un interrupteur (Switch) qui va signaler ses changements d&#39;état.</p>
-<p>En rendant ce switch Observable, on peut créer un observer qui allume/éteind une lampe,
-un autre qui joue un son, etc.</p>
-<h2 id="variante">Variante</h2><p>On retrouve plusieurs variantes dans les systèmes. Il est souvent question d&#39;événements (<code>EventListener</code>, <code>EventSubscriber</code>, <code>EventDispatcher</code> dans Symfony2, <code>trigger/on</code> avec JQuery, <code>signal/slot</code> dans C++/Qt, etc.)</p>
-<h2 id="resource">Resource</h2><ul>
-<li><p><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Observer.html" target="_blank">Observer</a> et <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Observable.html" target="_blank">Observable</a> dans l&#39;API Java</p>
-</li>
-<li><p><a href="http://design-patterns.fr/observateur-en-java" target="_blank">Design pattern Observateur en Java : positionnement via un GPS (design-patterns.fr)</a></p>
-</li>
+<h2 id="remarques">Remarques</h2><p>Dans l&#39;API Java, nous trouverons des classes <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Observer.html" target="_blank">Observer</a> et <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Observable.html" target="_blank">Observable</a>.</p>
+<p>Toutefois, nous trouverons de <strong>nombreuses variantes pour la gestion des événements</strong> dans les bibliothèques Java et autres langages :</p>
+<ul>
+<li><a href="https://docs.oracle.com/javase/tutorial/uiswing/events/actionlistener.html" target="_blank">WindowListener, ActionListener,...</a> au niveau de la gestion des composants graphiques avec AWT.</li>
+<li><code>addEventListener</code> en JavaScript</li>
+<li><code>trigger/on</code> avec JQuery</li>
+<li><code>EventListener</code>, <code>EventSubscriber</code>, <code>EventDispatcher</code> dans Symfony</li>
+<li><code>signal/slot</code> dans C++/Qt</li>
+<li>etc.</li>
+</ul>
+<h2 id="liens-utiles">Liens utiles</h2><ul>
+<li><a href="http://design-patterns.fr/observateur-en-java" target="_blank">Design pattern Observateur en Java : positionnement via un GPS (design-patterns.fr)</a></li>
 </ul>
 
     </div>

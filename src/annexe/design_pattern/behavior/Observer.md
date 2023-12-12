@@ -2,31 +2,30 @@
 
 ## Problème
 
-On souhaite réagir lorsqu'un objet effectue des opérations (changement d'état par exemple).
+Nous souhaitons pouvoir réaliser des actions en cas d'événement particulier sur un objet (ex : modification de l'état de l'objet).
 
 ## Solution
 
-L'observable porte des observateurs. Il envoie un signal aux observables
-en appelant une méthode `notify`.
+Nous pouvons procéder comme suit en ajoutant des "observateurs" qui seront notifié en cas d'événement sur un "observable" :
 
 ![UML Observer](uml/UML_Observer.png)
 
 Source [<https://fr.wikipedia.org/wiki/Observateur_(patron_de_conception)>](https://fr.wikipedia.org/wiki/Observateur_(patron_de_conception))
 
-## Exemple
+## Remarques
 
-On modélise un interrupteur (Switch) qui va signaler ses changements d'état.
+Dans l'API Java, nous trouverons des classes [Observer](https://docs.oracle.com/javase/8/docs/api/java/util/Observer.html) et [Observable](https://docs.oracle.com/javase/8/docs/api/java/util/Observable.html).
 
-En rendant ce switch Observable, on peut créer un observer qui allume/éteind une lampe,
-un autre qui joue un son, etc.
+Toutefois, nous trouverons de **nombreuses variantes pour la gestion des événements** dans les bibliothèques Java et autres langages :
 
-## Variante
+* [WindowListener, ActionListener,...](https://docs.oracle.com/javase/tutorial/uiswing/events/actionlistener.html) au niveau de la gestion des composants graphiques avec AWT.
+* `addEventListener` en JavaScript
+* `trigger/on` avec JQuery
+* `EventListener`, `EventSubscriber`, `EventDispatcher` dans Symfony
+* `signal/slot` dans C++/Qt
+* etc.
 
-On retrouve plusieurs variantes dans les systèmes. Il est souvent question d'événements (`EventListener`, `EventSubscriber`, `EventDispatcher` dans Symfony2, `trigger/on` avec JQuery, `signal/slot` dans C++/Qt, etc.)
-
-## Resource
-
-* [Observer](https://docs.oracle.com/javase/8/docs/api/java/util/Observer.html) et [Observable](https://docs.oracle.com/javase/8/docs/api/java/util/Observable.html) dans l'API Java
+## Liens utiles
 
 * [Design pattern Observateur en Java : positionnement via un GPS (design-patterns.fr)](http://design-patterns.fr/observateur-en-java)
 

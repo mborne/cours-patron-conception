@@ -583,6 +583,7 @@ Pour faire simple, **sans connaissance des patrons, certains choix de conception
 ## Les patrons de comportement
 
 * [Iterator (Itérateur)](annexe/design_pattern/behavior/Iterator.html)
+* Template Method (Patron de méthode)
 * [Strategy (Stratégie)](annexe/design_pattern/behavior/Strategy.html)
 * [Visitor (Visiteur)](annexe/design_pattern/behavior/Visitor.html)
 * [Chain of responsibility (Chaîne de responsabilité)](annexe/design_pattern/behavior/ChainOfResponsibility.html)
@@ -592,7 +593,6 @@ Pour faire simple, **sans connaissance des patrons, certains choix de conception
 * Memento (Mémento)
 * [Observer (Observateur)](annexe/design_pattern/behavior/Observer.html)
 * State (État)
-* Template Method (Patron de méthode)
 
 * [Null Object (objet null)](annexe/design_pattern/behavior/NullObject.html)
 
