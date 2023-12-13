@@ -81,7 +81,7 @@ class Client {
     }
 
     public void setMailer(MailerInterface mailer){
-        assert( this.mailer != null );
+        assert( mailer != null );
         this.mailer = mailer ;
     }
 
