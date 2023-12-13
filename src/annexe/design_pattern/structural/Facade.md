@@ -28,10 +28,10 @@ Nous mettons à disposition une méthode répondant à ce besoin :
 ```java
 class TriangulationFacade {
 
-    public static Triangulation tesselate(Coordinate[] coordinates){
+    public static Triangulation tesselate(Collection<Coordinate> coordinates){
         TriangulationBuilder builder = new TriangulationBuilder();
-        for ( int i = 0; i < coordinates.length; i++ ){
-            builder.addVertex(coordinates[0]);
+        for ( Coordinate c : coordinates){
+            builder.addVertex(c);
         }
         return builder.getTriangulation();
     }
