@@ -142,7 +142,7 @@ Nous souhaitons calculer l'emprise d'une géométrie (la bbox). La logique de ca
 
 Nous allons donc procéder comme suit :
 
-* Ajouter une classe `Envelope` représentant une emprise rectangulaire de la géométrie
+* Ajouter une classe `Envelope` représentant une emprise rectangulaire de la géométrie avec le format suivant pour `toString()` : `xMin,yMin,xMax,yMax` (c'est celui de WMS)
 * Ajouter une classe utilitaire `EnvelopeBuilder` qui aura pour rôle de construire cette emprise
 
 ![Schéma UML](schema/mcd-06.png)

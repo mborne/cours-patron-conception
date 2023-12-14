@@ -186,7 +186,7 @@ copy.translate(10.0,10.0);
 <p>Nous souhaitons calculer l&#39;emprise d&#39;une géométrie (la bbox). La logique de calcul de min/max en oeuvre étant assez complexe, nous ne souhaitons pas l&#39;implémenter dans les classes <code>Point</code> et <code>LineString</code>.</p>
 <p>Nous allons donc procéder comme suit :</p>
 <ul>
-<li>Ajouter une classe <code>Envelope</code> représentant une emprise rectangulaire de la géométrie</li>
+<li>Ajouter une classe <code>Envelope</code> représentant une emprise rectangulaire de la géométrie avec le format suivant pour <code>toString()</code> : <code>xMin,yMin,xMax,yMax</code> (c&#39;est celui de WMS)</li>
 <li>Ajouter une classe utilitaire <code>EnvelopeBuilder</code> qui aura pour rôle de construire cette emprise</li>
 </ul>
 <p><img src="schema/mcd-06.png" alt="Schéma UML"></p>
