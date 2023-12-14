@@ -112,7 +112,8 @@
 <ul>
 <li>Cette classe est immuable (<strong>une fois construite, une coordonnée ne peut être modifiée</strong>)</li>
 <li>Le constructeur par défaut initialisera une coordonnée vide matérialisée par <code>x=Double.NaN</code> et <code>y=Double.NaN</code></li>
-<li><code>isEmpty()</code> permettra de tester si une coordonnée est vide.</li>
+<li><code>isEmpty()</code> permettra de tester si une coordonnée est vide</li>
+<li>Il convient d&#39;utiliser <code>Double.isNaN(value)</code> pour l&#39;implémenter.</li>
 <li><code>toString()</code> renverra un tableau au format JSON (<code>[3.0,4.0]</code>, <code>[NaN,NaN]</code>)</li>
 </ul>
 <p>Exemple d&#39;utilisation :</p>
@@ -177,7 +178,7 @@ copy.translate(10.0,10.0);
 <p>Remarques :</p>
 <ul>
 <li>Sans <code>clone()</code>, un traitement particulier serait nécessaire pour copier un <code>Point</code>, une <code>LineString</code>, etc.</li>
-<li>Nous procéderons à une <strong>copie en profondeur</strong> pour les seules propriétés immuables.</li>
+<li>Nous procéderons à une <strong>copie en profondeur</strong> pour les seules propriétés non immuables.</li>
 </ul>
 <h2 id="06---envelope-et-envelopebuilder">0.6 - Envelope et EnvelopeBuilder</h2><blockquote>
 <p>Objectif : Patron de conception Builder</p>
@@ -237,8 +238,8 @@ assertEquals(&quot;POINT(3.0 4.0)&quot;, writer.write(g));
 </code></pre>
 <p>Remarques :</p>
 <ul>
-<li>On s&#39;interdira de modifier les classes <code>Geometry</code>, <code>Point</code> et <code>LineString</code> pour mettre en oeuvre cette fonctionnalité.</li>
-<li>On s&#39;autorisera l&#39;utilisation d&#39;un fragment de code ressemblant à ceci pour traiter les différents types concrets :</li>
+<li>Nous ne modifierons pas les classes <code>Geometry</code>, <code>Point</code> et <code>LineString</code> pour mettre en oeuvre cette fonctionnalité.</li>
+<li>Nous utiliserons un fragment de code du style suivant pour traiter les différents types concrets :</li>
 </ul>
 <pre><code class="language-java">if ( geometry instanceof Point ){
     Point point = (Point)geometry;

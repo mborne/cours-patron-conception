@@ -44,7 +44,8 @@ Nous soulignerons que :
 
 * Cette classe est immuable (**une fois construite, une coordonnée ne peut être modifiée**)
 * Le constructeur par défaut initialisera une coordonnée vide matérialisée par `x=Double.NaN` et `y=Double.NaN`
-* `isEmpty()` permettra de tester si une coordonnée est vide.
+* `isEmpty()` permettra de tester si une coordonnée est vide
+* Il convient d'utiliser `Double.isNaN(value)` pour l'implémenter.
 * `toString()` renverra un tableau au format JSON (`[3.0,4.0]`, `[NaN,NaN]`)
 
 Exemple d'utilisation :
@@ -130,7 +131,7 @@ copy.translate(10.0,10.0);
 Remarques :
 
 * Sans `clone()`, un traitement particulier serait nécessaire pour copier un `Point`, une `LineString`, etc.
-* Nous procéderons à une **copie en profondeur** pour les seules propriétés immuables.
+* Nous procéderons à une **copie en profondeur** pour les seules propriétés non immuables.
 
 
 ## 0.6 - Envelope et EnvelopeBuilder
@@ -211,8 +212,8 @@ assertEquals("POINT(3.0 4.0)", writer.write(g));
 
 Remarques :
 
-* On s'interdira de modifier les classes `Geometry`, `Point` et `LineString` pour mettre en oeuvre cette fonctionnalité.
-* On s'autorisera l'utilisation d'un fragment de code ressemblant à ceci pour traiter les différents types concrets :
+* Nous ne modifierons pas les classes `Geometry`, `Point` et `LineString` pour mettre en oeuvre cette fonctionnalité.
+* Nous utiliserons un fragment de code du style suivant pour traiter les différents types concrets :
 
 ```java
 if ( geometry instanceof Point ){

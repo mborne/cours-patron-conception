@@ -102,7 +102,7 @@ animal.setNom(nomAnimal);
 <ul>
 <li>Les fabriques basées sur des <a href="Prototype.html">prototypes</a> (composition de pattern) :</li>
 </ul>
-<pre><code class="language-java">class AnimalFactory throws AnimalTypeNotFound {
+<pre><code class="language-java">class AnimalFactory {
     private Map&lt;String, Animal&gt; prototypes = new HashMap&lt;&gt;();
 
     public Animal createAnimal(String typeAnimal){

@@ -73,10 +73,10 @@ des &quot;tableaux&quot; de points.</p>
 <h2 id="solution">Solution</h2><p>Nous mettons à disposition une méthode répondant à ce besoin :</p>
 <pre><code class="language-java">class TriangulationFacade {
 
-    public static Triangulation tesselate(Coordinate[] coordinates){
+    public static Triangulation tesselate(Collection&lt;Coordinate&gt; coordinates){
         TriangulationBuilder builder = new TriangulationBuilder();
-        for ( int i = 0; i &lt; coordinates.length; i++ ){
-            builder.addVertex(coordinates[0]);
+        for ( Coordinate c : coordinates){
+            builder.addVertex(c);
         }
         return builder.getTriangulation();
     }
