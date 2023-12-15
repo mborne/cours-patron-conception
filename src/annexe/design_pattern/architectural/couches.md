@@ -6,7 +6,7 @@ Il convient de respecter le principe de responsabilité unique à l'échelle d'u
 
 ## Solution
 
-Nous trouverons plusieurs styles d'[**architecture en couche**](https://fr.wikipedia.org/wiki/Architecture_en_couches) où **chaque composant traitera une thématique particulière en s'appuyant sur un plusieurs composants de plus bas niveau**.
+Nous trouverons plusieurs styles d'[**architecture en couche**](https://fr.wikipedia.org/wiki/Architecture_en_couches) où **chaque composant traitera une thématique particulière en s'appuyant sur un ou plusieurs composants de plus bas niveau**.
 
 ## Exemples
 
