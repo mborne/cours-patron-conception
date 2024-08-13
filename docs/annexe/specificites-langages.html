@@ -59,13 +59,32 @@
     </div>
     <div class="markdown-body">
       <h1 id="les-spécificités-des-langages">Les spécificités des langages</h1><ul>
+<li><a href="#typage-fort-ou-typage-faible">Typage fort ou typage faible</a></li>
 <li><a href="#la-gestion-de-la-mémoire">La gestion de la mémoire</a></li>
 <li><a href="#la-présence-de-concepts-complémentaires">La présence de concepts complémentaires</a></li>
 <li><a href="#la-présence-dautres-paradigmes">La présence d&#39;autres paradigmes</a></li>
 </ul>
+<h2 id="typage-fort-ou-typage-faible">Typage fort ou typage faible</h2><p>Quelque soit le langage de programmation utilisé, une variable aura toujours un <strong>type</strong>. Ceci permettra par exemple d&#39;avoir comme résultat :</p>
+<ul>
+<li><code>5</code> pour l&#39;addition de deux nombres <code>2+3</code></li>
+<li><code>&quot;23&quot;</code> pour l&#39;addition de deux chaînes de caractères <code>&quot;2&quot;+&quot;3&quot;</code></li>
+</ul>
+<p>Nous aurons toutefois deux cas de figure en fonction des langages :</p>
+<ul>
+<li>Le langage sera dit à <strong>typage statique</strong> (ou <strong>typage fort</strong>) si <strong>le type <u>doit être</u> déclaré lors de la définition de la variable</strong> (Java, C++, Rust,...)</li>
+<li>Le langage sera dit à <strong>typage dynamique</strong> (ou <strong>typage faible</strong>) si <strong>le type est connu après affectation d&#39;une valeur à la variable</strong> (il peut changer pendant l&#39;exécution du programme)</li>
+</ul>
+<p>Dans la deuxième catégorie à laquelle appartiennent les langages tels JavaScript, TypeScript, PHP, Python,..., nous soulignerons que :</p>
+<ul>
+<li>Les langages à typage dynamique sont de plus nombreux à <strong>permettre la déclaration d&#39;un type</strong> (ex : PHP, <a href="https://docs.python.org/3/library/typing.html" target="_blank">Python &gt;= 3.5</a>), ce qui permet des <strong>contrôles à l&#39;exécution</strong> et l&#39;<strong>analyse statique de code</strong>.</li>
+<li>Les langages à <strong>typage dynamique</strong> imposent généralement l&#39;<strong>unicité du nom des fonctions et méthodes</strong>.</li>
+</ul>
+<blockquote>
+<p>Impact : Nous serons à adapter la présentation de certains patrons de conception pour rendre unique les noms des fonctions et méthodes. En outre, <strong>certains patrons de conception seront plus utiles avec des langages fortement typés</strong> qu&#39;avec des langages tels Python, JavaScript, TypeScript,...</p>
+</blockquote>
 <h2 id="la-gestion-de-la-mémoire">La gestion de la mémoire</h2><p>Les choix de conception se feront en fonction des mécanismes de <strong>gestion de la mémoire</strong> du langage utilisé :</p>
 <ul>
-<li>Présence d&#39;un <strong>ramasse-miettes</strong> (<em>garbage collector</em>) (ex : Java)?<ul>
+<li>Présence d&#39;un <strong>ramasse-miettes</strong> (<em>garbage collector</em>) (ex : Java, Python)?<ul>
 <li>Se limitant à faire du <strong>comptage de références</strong> (ex : PHP)?</li>
 </ul>
 </li>
@@ -77,20 +96,20 @@
 </ul>
 <p>En fonction des cas, nous serons <strong>plus ou moins contraint sur les relations entre les objets</strong>.</p>
 <blockquote>
-<p>Impact : Concevoir un moteur de jeu vidéo en UML sans se demander s&#39;il sera implémenté en C++ ou en Java n&#39;a pas de sens. Les contraintes ne sont pas les mêmes.</p>
+<p>Impact : Concevoir un moteur de jeu vidéo en UML sans se demander s&#39;il sera implémenté en C++, en Java ou en JavaScript n&#39;a pas de sens. Les contraintes ne sont pas les mêmes.</p>
 </blockquote>
 <h2 id="la-présence-de-concepts-complémentaires">La présence de concepts complémentaires</h2><p>Certains langages offriront des <strong>concepts complémentaires aux concepts de base la P.O.O.</strong> :</p>
 <ul>
 <li>Des <strong>accesseurs &quot;magiques&quot;</strong> (ex : <a href="https://learn.microsoft.com/fr-fr/dotnet/csharp/programming-guide/classes-and-structs/properties#properties-with-backing-fields" target="_blank">Property en C#</a>, <a href="https://python-reference.readthedocs.io/en/latest/docs/dunderattr/getattr.html" target="_blank"><code>__getattr___</code> en Python</a>,...)</li>
 </ul>
 <blockquote>
-<p>Impact : Il n&#39;est pas obligatoire (ou pas dans les moeurs) de définir des méthodes <code>get</code> / <code>set</code> dans certains langages.</p>
+<p>Impact : Il n&#39;est pas obligatoire (voire pas dans la culture) de définir des méthodes <code>get</code> / <code>set</code> dans certains langages.</p>
 </blockquote>
 <ul>
-<li>Des <strong>Annotations</strong> pouvant être exploitées via mécanismes d&#39;<strong>introspection</strong> et de <strong>réflexion</strong></li>
+<li>Des <strong>Annotations</strong> pouvant être exploitées via mécanismes d&#39;<strong>introspection</strong> et de <strong>réflexion</strong> (PHP, Java,...)</li>
 </ul>
 <blockquote>
-<p>Impact : JUnit et Spring s&#39;appuieront sur ces mécanismes en Java quand nous trouverons des mécanismes de génération de code pour avoir les équivalents dans d&#39;autres langages (ex : macro en C++ et Rust, <a href="https://doc.qt.io/qt-6/moc.html" target="_blank">Qt Meta-Object Compiler</a>,...)</p>
+<p>Impact : En Java, JUnit et Spring s&#39;appuieront sur ces mécanismes quand nous trouverons des mécanismes de génération de code pour avoir les équivalents dans d&#39;autres langages (ex : macro en C++ et Rust, <a href="https://doc.qt.io/qt-6/moc.html" target="_blank">Qt Meta-Object Compiler</a>,...)</p>
 </blockquote>
 <h2 id="la-présence-dautres-paradigmes">La présence d&#39;autres paradigmes</h2><p>Dans de nombreux langages, nous noterons que la P.O.O. cohabitera avec d&#39;<strong>autres paradigmes</strong> :</p>
 <ul>
@@ -99,12 +118,9 @@
 </ul>
 <p>Nous soulignerons que nous pourrons :</p>
 <ul>
-<li><strong>Hybrider la P.O.O. avec la programmation générique</strong> (*)</li>
-<li>Établir des <strong>ponts en la P.O.O. et la programmation générique</strong> à l&#39;aide de concepts spécifiques (<a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html" target="_blank">Stream</a> en Java) ou du patron itérateur que nous verrons par la suite.</li>
+<li><strong>Hybrider la P.O.O. avec la programmation générique</strong></li>
+<li>Établir des <strong>ponts en la P.O.O. et la programmation générique</strong> à l&#39;aide du patron itérateur que nous verrons par la suite.</li>
 </ul>
-<blockquote>
-<p>(*) Spoiler : nous verrons en TP que cette approche permet d&#39;avoir un visiteur renvoyant un résultat.</p>
-</blockquote>
 
     </div>
   </main>

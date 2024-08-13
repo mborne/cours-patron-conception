@@ -104,13 +104,13 @@ Les concepts suivants sont normalement connus avant de débuter ce cours :
 * Les **constructeurs**
 * Les **objets**
 * La **visibilité** (public, private, protected)
-* Les accesseurs (get, set, add, remove,...)
+* Les **accesseurs** (get, set, add, remove,...)
 * Les **relations** (composition, agrégation)
 * L'**héritage** et le **polymorphisme**
-* Les méthodes et classes **abstraites**
-* Les **interfaces**
 * Les **méthodes statiques**
 * Les **attributs statiques**
+
+Nous aborderons au besoin d'**interface** et de **classes abstraites** qui seront probablement moins connue cette année.
 
 ---
 
@@ -129,6 +129,8 @@ Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la
 
 => [Méditons quelques exemples](meditation.html).
 
+Certains langages tels Java et PHP distinguent des classes abstraites et des interfaces (vous pourrez consultez au besoin [Méditation - interfaces et classes abstraites](src/slides/meditation-suite.html) qui a été supprimé depuis le remplacement de Java par TypeScript pour ce cours)
+
 ---
 
 ## Les bases de la P.O.O.
@@ -137,7 +139,7 @@ Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la
 
 Les langages qui permettent de définir et manipuler les concepts de base de la P.O.O. sont nombreux (Java, JavaScript (ES6), TypeScript, C++, Python, PHP, Go, Rust,...).
 
-Nous traiterons ce cours avec des exemples et TP en Java en nous concentrant sur ce qui applicable à de nombreux langages.
+Nous traiterons ce cours avec des exemples et TP en TypeScript en nous concentrant sur ce qui applicable à de nombreux langages.
 
 Nous noterons toutefois que **[les langages ont des spécificités](annexe/specificites-langages.html) qui devront être prises en compte et exploitées dans la conception**.
 
@@ -243,11 +245,22 @@ Je définis une interface pour chaque protocole : `HttpClient`, `FtpClient`, `Ma
 **Il faut dépendre des interfaces, pas des implémentations (classes concrètes).**
 
 .bad-left[
-Je référence des classes (`ArrayList`, `HashMap`...) dans les déclarations des constructeurs et des méthodes.
+Je référence des classes concrètes dans les déclarations des constructeurs et des méthodes :
+
+* `GpsLocationProvider`
+* `GeoplateformeGeocoder`
+* ...
+
+
 ]
 
 .good-right[
-Je référence des interfaces (`List`, `Map`...) dans les déclarations.
+Je référence des interfaces dans les déclarations :
+
+* `LocationProvider`
+* `Geocoder`
+* ...
+
 ]
 
 ---
@@ -283,14 +296,14 @@ Pour réutiliser un code, je le **met en facteur** dans une méthode ou une clas
 
 ### Principe d'exposition minimale
 
-**Il convient d'exposer un minimum de fonctionnalités au niveau d'une classe** (i.e. de maximiser l'encapsulation).
+Quand le langage le permet (PHP, Java, C++,...), **il convient d'exposer un minimum de fonctionnalités au niveau d'une classe** (i.e. de maximiser l'encapsulation).
 
 En pratique :
 
 * Les **méthodes et attributs sont privés par défaut**
-* Les **accesseurs** sont définis et accessibles **uniquement si c'est nécessaire** (ex : ~~`public Logger getLogger()`~~)
+* Les **accesseurs** sont définis et accessibles **uniquement si c'est nécessaire** (ex : ~~`getLogger()`~~)
 * Une **méthode spécifique est préférée à un accesseur permettant de nombreuses opérations**
-  * Les **collections sont encapsulées** (ex : définir `addPoint(p)` pour permettre l'ajout d'un point à une liste VS définir `getPoints(): List<Point>` et permettre des modifications arbitraires sur la liste)
+  * Les **collections sont encapsulées** (ex : définir `addPoint(p)` plutôt que permettre `obj.points.add(p)`)
 
 ---
 
@@ -300,11 +313,11 @@ En pratique :
 
 Cas d'école : J'identifie le besoin d'écrire mes journaux applicatifs (logs) dans la console ou dans un fichier...
 
-```java
+```ts
 class MaClasse {
 
-    public void faireUnTruc(){
-        System.out.println("Je fais un truc");
+    faireUnTruc(){
+        console.log("Je fais un truc");
         // ...
     }
 
@@ -317,19 +330,19 @@ class MaClasse {
 
 ### Identifier et encapsuler ce qui varie (2/2)
 
-... je fais abstraction sur l'écriture des journaux applicatifs en posant un concept à l'aide d'une classe `Logger` dédiée à l'écriture des logs :
+... je fais abstraction sur l'écriture des journaux applicatifs à l'aide d'une classe `Logger` :
 
-```java
+```ts
 class MaClasse {
 
-    private Logger logger ;
+    logger: Logger;
 
-    public MaClasse(Logger logger){
+    constructor(logger: Logger){
       this.logger = logger;
     }
 
-    public void faireUnTruc(){
-        logger.info("Je fais un truc");
+    faireUnTruc(){
+        this.logger.info("Je fais un truc");
     }
 
 }

@@ -8,10 +8,8 @@ des différents concepts de la P.O.O.**
 * Intérêt de l'encapsulation
 * Mise en garde sur encapsulation
 * Intérêt du polymorphisme
-* Intérêt de abstract
 * Intérêt des interfaces
 * Mise en garde sur les interface
-* Couplage interface et abstract
 
 ---
 
@@ -19,15 +17,17 @@ des différents concepts de la P.O.O.**
 
 Pour comprendre l'**intérêt des classes et des attributs**, il faut d'abord comprendre l'intérêt de la possibilité de définir un type utilisateur (ex : `struct` en C).
 
+Prenons le cas d'une fonction qui teste si deux intervals s'intersectent :
+
 .pull-left[
 Sans :
 
 ```c
-double[] centroid(
-    double[] tabX,
-    double[] tabY 
+bool intersects(
+    double x1, double y1,
+    double x2, double y2
 ){
-    //...
+    // 
 }
 ```
 ]
@@ -36,15 +36,16 @@ double[] centroid(
 Avec :
 
 ```c
-struct Coordinate {
-    double x ;
-    double y ;
+struct Interval {
+    double lower ;
+    double upper ;
 }
 
-Coordinate centroid(
-    Coordinate[] coordinate
+bool intersects(
+    Interval a, 
+    Interval b
 ){
-    //...
+    // 
 }
 ```
 ]
@@ -53,9 +54,9 @@ Quel est l'apport de la deuxième approche en matière d'**abstraction**, de **c
 
 ---
 
-## Intérêt des classes et des attributs (1/2)
+## Intérêt des classes et des attributs (2/2)
 
-Dans le cas de figure suivant où un utilitaire produit un chaîne de caractères sous la forme `"[x,y]"` :
+Prenons un autre cas d'école où un utilitaire produit un chaîne de caractères sous la forme `"[x,y]"` :
 
 .pull-left[
 Sans :
@@ -89,11 +90,11 @@ string to_json(
 ]
 
 
-Si nous ajoutons un Z optionnel, combien d'appels faudra-t'il modifier pour traiter les cas 2D et 3D de manière transparente?
+Si nous ajoutons un Z optionnel, **combien d'appels faudra-t'il modifier** pour traiter les cas 2D et 3D de manière transparente?
 
 ---
 
-## Intérêt des constructeurs
+## Intérêt des constructeurs (1/2)
 
 Pour comprendre l'**intérêt des constructeurs**, il faut s'intéresser à la **sécurisation de l'initialisation des objets**.
 
@@ -113,49 +114,78 @@ Coordinate c = new Coordinate(3.0,4.0) ;
 
 Quel est l'apport de la deuxième approche :
 
-* Pour éviter les erreurs de codage?
-* Si nous ajoutons un "z"?
-
-Quelle est l'intérêt par rapport à la possibilité de définir un utilitaire pour créer une coordonnées (ex : `createCoordinate(x,y): Coordinate`)?
+* Pour **éviter les erreurs de codage** (ex : oubli d'affectation du "y")?
+* Pour **permettre l'ajout d'une propriété optionnelle** (ex : un "z" défini à `NaN` pour les coordonnées 2D)?
 
 ---
 
-## Intérêt de l'encapsulation (1/2)
+## Intérêt des constructeurs (2/2)
 
-Sur une classe aussi simple que celle ci-après, nous pouvons nous demander à quoi bon mettre des attributs privés :
+En l'absence du concept de constructeur, nous pouvons définir une fonction utilitaire :
 
-```java
-class User {
-    public String username ;
-    public int age ;
+```c
+Coordinate create_coordinate(double x, double y){
+    Coordinate c ;
+    c.x = x;
+    c.y = y;
+    return c;
 }
 ```
 
-Après tout, il est plus simple d'appeler partout dans le programme `user.age` plutôt que `user.getAge()` non?
+Le **concept de constructeur impose tout simplement l'utilisation de cette fonction d'initialisation** aux utilisateurs du type `Coordinate`.
 
 ---
 
-## Intérêt de l'encapsulation (2/2)
+## Intérêt de l'encapsulation (1/3)
 
-Toutefois, si nous sommes amené à stocker ces utilisateurs dans un fichier ou dans une base de données, nous aurons envie de **changer la conception** pour stocker plutôt des "dates de naissances" (invariant temporel).
+Avec une classe représentant une personne modélisée comme suit, nous pouvons **nous demander à quoi bon vouloir définir des d'attributs privés** :
 
-En présence d'accesseurs, nous pourrons **changer la structure interne sans casser les appels** à `user.getAge()` :
+.center[
+![Exemple de classe Personne](img/class-person.png)
 
-```java
-class User {
-    private String username ;
-    private Date birthDate ;
+> [github.com - Asabeneh/30-Days-Of-Python - Class Constructor](https://github.com/Asabeneh/30-Days-Of-Python/blob/master/21_Day_Classes_and_objects/21_classes_and_objects.md#class-constructor)
 
-    public int getAge(){
-        // calcul à partir de birthDate
-    }
+]
 
-    @deprecated
-    public void setAge(int age){
-        // calcul de birthDate à partir de l'age
-    }
-}
-```
+Après tout :
+
+* Il est plus simple d'appeler partout dans le programme `user.age` plutôt que `user.getAge()`
+* Certains langages tels Python ne propose pas le mot clé `private` (c'est dire l'utilité de la chose...)
+
+Pour comprendre l'intérêt de ce mot clé, nous allons :
+
+* Stocker des personnes ainsi modélisées dans des fichiers ou des tables
+* Laisser passer un an...
+
+
+---
+
+## Intérêt de l'encapsulation (2/3)
+
+En effet, après un an, nous aurons envie de **changer la modélisation** pour :
+
+* Stocker la date de naissance (invariant temporel)
+* Calculer l'age à partir de la date de naissance
+
+.center[
+![Exemple de classe Personne v2](img/class-person-v2.png)
+]
+
+**Permettre l'accès aux données uniquement via une indirection** (ex : `person.getAge()` voire `person.age()`), c'est **se donner la possibilité de modifier une classe sans casser le code client** (ex : `person.age >= 18`). 
+
+> (*) Dans le cas particulier de Python, la possibilité d'implémenter `__getattr__` nous permettra aussi d'éviter un changement cassant.
+
+---
+
+## Intérêt de l'encapsulation (3/3)
+
+Si vous vous imaginez qu'il est si rare que ça de devoir revoir sa copie, notez que :
+
+* Nous sommes sur un cas très simple! Vous pouvez imaginer :
+  * Devoir remplacer l'envoi de mail par un autre mécanisme de notification
+  * Devoir remplacer PostGIS par MongoDB
+  * ...
+* Il reste une erreur de modélisation sur la classe précédente...
 
 ---
 
@@ -167,135 +197,54 @@ Toutefois, **il ne suffit pas de mettre mécaniquement des "private", "getters" 
 
 Il sera plutôt question d'**exposer uniquement ce qui doit l'être**.
 
----
-
-## Intérêt du polymorphisme (1/2)
-
-Quel est l'intérêt de l'approche suivante par rapport à un `switch` pour effectuer le rendu de composant graphique?
-
-* `Widget`  Un élément graphique dans une interface
-
-```java
-class Widget {
-
-    private Dimension dimension ;
-
-    public void paint(Painter painter){
-        System.out.println("Rendu du contour du widget");
-    }
-
-}
-```
+En outre, en fonction des langages, **l'encapsulation pourra prendre différentes formes** (exemple : une fonction JavaScript non exposée à l'aide de `export`).
 
 ---
 
-## Intérêt du polymorphisme (2/2)
+## Intérêt du polymorphisme
 
-* ̀`Button` : Un type de `Widget` particulier
+Quel est l'intérêt de l'utilisation d'une méthode abstraite `render` dans la hiérarchie suivante :
 
-```java
-class Button extends Widget {
+.center[
+![Exemple de polymorphisme](img/shape-render.png)
+]
 
-    private String text ;
+Quel est l'**apport de l'utilisation du polymorphisme par rapport à l'utilisation d'un switch** dans l'approche ci-après?
 
-    public Button(String text){
-        this.text = text ;
-    }
-
-    public void paint(Painter painter){
-        super.paint(painter);
-        System.out.println("Rendu du texte : "+text);
+```js
+function render(canvas: Canvas, shape: Shape){
+    if ( shape instanceof Circle ){
+        // dessin d'un cercle dans le canvas
+    }else if ( shape instanceof Rectangle ){
+        // dessin d'un rectangle dans le canvas
+    }else{
+        throw new TypeNotSupportedError(shape);
     }
 }
 ```
 
----
-
-## Intérêt de abstract (1/3)
-
-`abstract` sera souvent utile pour éviter des redondances dans l'implémentation des classes réelles. Par exemple :
-
-```java
-class AbstractLogger {
-
-    public void debug(String message){
-        log(LogLevel.DEBUG,message);
-    }
-
-    public void warn(String message){
-        log(LogLevel.WARN,message);
-    }
-
-    public void error(String message){
-        log(LogLevel.ERROR,message);
-    }
-
-    /* Seul comportement à implémenter sur les classes concrètes */
-    public abstract void log(LogLevel level, String message ) ;
-
-}
-```
-
----
-
-## Intérêt de abstract (2/3)
-
-Implémentation concrète pour l'écriture dans la console :
-
-```java
-class ConsoleLogger {
-
-    public void log(LogLevel level, String message ) {
-        System.out.println("["+level+"] "+message);
-    }
-
-}
-```
-
----
-
-## Intérêt de abstract (3/3)
-
-Implémentation concrète pour l'écriture dans une base de données :
-
-```java
-class DatabaseLogger {
-
-    private Connection connection;
-
-    public DatabaseLogger(Connection connection){
-        this.connection = connection ;
-    }
-
-    public void log(LogLevel level, String message ) {
-        // stockage du message dans une table de log
-    }
-
-}
-```
 
 ---
 
 ## Intérêt des interfaces
 
-Les interfaces fournissent la seule définition du contrat qui sera respecté par
-les classes dérivées : La liste des méthodes supportées.
 
-```java
-interface LocationProvider {
+Dans de nombreux langages, nous trouvons le **concept d'interface** permettant de **définir le contrat qui sera respecté par les classes dérivées**.
 
-    public Coordinate getLocation() ;
+Avec des langages tels Java, il sera uniquement possible de définir la liste des méthodes supportées. Avec TypeScript, nous pourrons aussi spécifier des attributs :
 
+```ts
+interface Shape {
+    readonly type: string;
+    draw(canvas: Canvas): void;
 }
 ```
-
-Les classes ont une grande liberté sur la méthode d'implémentation des contrats définis à travers les interfaces.
 
 ---
 
 ## Mise en garde sur les interface (1/3)
 
-**Il ne suffit pas de définir aveuglément des interfaces** pour avoir de la souplesse sur l'implémentation possibles :
+**Il ne suffit pas de définir aveuglément des interfaces** pour avoir de la souplesse sur l'implémentation :
 
 * Concevoir une interface revient à faire des choix
 * Ces choix peuvent impacter les performances
@@ -309,17 +258,17 @@ Les classes ont une grande liberté sur la méthode d'implémentation des contra
 
 Ici, nous choisissons d'appeler `LocationProvider` pour obtenir la position :
 
-```java
+```ts
 interface LocationProvider {
-    public Coordinate getLocation() ;
+    getLocation(): Coordinate;
 }
 ```
 
 Là, nous choisissons d'être appelé par `LocationProvider` (par exemple en cas de déplacement) :
 
-```java
+```ts
 interface LocationProvider {
-    public void addListener(LocationListener event) ;
+    addListener(listener: LocationListener): void ;
 }
 ```
 
@@ -327,90 +276,13 @@ interface LocationProvider {
 
 ## Mise en garde sur les interface (3/3)
 
-Ici, en renvoyant une liste, nous imposons le chargement en RAM :
+Ici, en renvoyant un tableau, nous imposons le chargement en RAM :
 
-```java
+```ts
 interface Database {
-    public List<Row> query(String sql, String[] params);
+    query(String sql, String[] params): Row[];
 }
 ```
 
-Là, nous prévoyons des itérations sur des jeux de données volumineux :
+Nous verrons qu'il sera souvent pertinent de **permettre seulement l'itération sur les résultats** pour les données volumineuses.
 
-```java
-interface Database {
-    public Iterator<Row> query(String sql, String[] params);
-}
-```
-
----
-
-## Couplage interface et abstract (1/3)
-
-Il sera assez rare de trouver une classe abstraite au sommet d'une hiérarchie. Il sera plus intéressant de **procéder sur trois niveaux d'héritage** avec :
-
-* Une **interface**
-* Une **classe abstraite** qui implémente les parties communes
-* Des **classes concrètes** qui héritent de la classe abstraite
-
-### Une interface
-
-```java
-interface LoggerInterface {
-
-    public void debug(String message) ;
-
-    public void warn(String message) ;
-
-    public void error(String message) ;
-
-    public void log(LogLevel level, String message ) ;
-
-}
-```
-
----
-
-## Couplage interface et abstract (2/3)
-
-### Une classe abstraite qui implémente les parties communes
-
-```java
-abstract class AbstractLogger implements LoggerInterface {
-
-    public void debug(String message){
-        log(LogLevel.DEBUG,message);
-    }
-
-    public void warn(String message){
-        log(LogLevel.WARN,message);
-    }
-
-    public void error(String message){
-        log(LogLevel.ERROR,message);
-    }
-
-}
-```
-
----
-
-## Couplage interface et abstract (3/3)
-
-### Des classes concrètes qui héritent de la classe abstraite
-
-```java
-class ConsoleLogger extends AbstractLogger {
-    public void log(LogLevel level, String message ) {
-        // écriture du message dans la console
-    }
-}
-```
-
-```java
-class DatabaseLogger extends AbstractLogger {
-    public void log(LogLevel level, String message ) {
-        // écriture du message dans une table
-    }
-}
-```
