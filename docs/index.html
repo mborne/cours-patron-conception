@@ -96,6 +96,40 @@ Nous verrons enfin comment **réfactorer un code existant** avec une partie thé
 
 ## Les bases de la P.O.O.
 
+### Un paradygme omniprésent
+
+De nombreux programmeurs manipulent des objets sans en avoir conscience. En Python, par exemple, tout est objet :
+
+<div class="center">
+    <img src="img/python-tout-objet.png" alt="Illustration de quelques types en Python" height="300" />
+</div>
+
+Si j'appelle `chaine.upper()` pour transformer la chaîne en majuscule, je ferai appel à la **notation pointée** typique de la P.O.O.
+
+---
+
+## Les bases de la P.O.O.
+
+### Un paradigme difficile à maîtriser
+
+**Utiliser des classes existantes ne demandera pas d'effort**. Il sera toutefois plus délicat de :
+
+* **Concevoir proprement <u>ses propres classes</u>**
+* **Faire un choix entre la définition d'une classe ou le recours à un autre paradigme** (ex : définition d'une fonction) quand le langage le permet.
+
+Dans ce cours qui présente les patrons de conception, nous allons nous concentrer sur le premier point. Nous prendrons le risque de définir de définir trop de classes en mentionnant la **possibilité de mixer les paradigmes dans la vraie vie** :
+
+```js
+const nombreUtilisateursMajeurs = userRepo.getUsers()
+  .filter(user => user.age >= 18) // programmation fonctionnelle + P.O.O.
+  .count()
+;
+```
+
+---
+
+## Les bases de la P.O.O.
+
 ### Les concepts de base
 
 Les concepts suivants sont normalement connus avant de débuter ce cours :
@@ -107,10 +141,10 @@ Les concepts suivants sont normalement connus avant de débuter ce cours :
 * Les **accesseurs** (get, set, add, remove,...)
 * Les **relations** (composition, agrégation)
 * L'**héritage** et le **polymorphisme**
+* Les **méthodes et classes abstraites**
+* Les **interfaces**
 * Les **méthodes statiques**
 * Les **attributs statiques**
-
-Nous aborderons au besoin d'**interface** et de **classes abstraites** qui seront probablement moins connue cette année.
 
 ---
 
@@ -128,8 +162,6 @@ Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la
 * ...
 
 => [Méditons quelques exemples](meditation.html).
-
-Certains langages tels Java et PHP distinguent des classes abstraites et des interfaces (vous pourrez consultez au besoin [Méditation - interfaces et classes abstraites](src/slides/meditation-suite.html) qui a été supprimé depuis le remplacement de Java par TypeScript pour ce cours)
 
 ---
 
@@ -198,8 +230,6 @@ Pour modifier le comportement d'une classe, je peux en hériter et surcharger un
 ]
 
 
-> En Java, nous pourrons toutefois déclarer une classe `final` pour bloquer l'héritage. Nous ne modifierons pas pour autant le code d'une telle classe pour ajouter des fonctionnalités.
-
 ---
 
 ## Les principes de conception
@@ -217,7 +247,6 @@ Cas 2 : J'ajoute une classe à une hiérarchie, je provoque le lancement d'excep
 .good-right[
 Avant d'hériter d'une classe, je m'assure que je pourrai implémenter toutes les méthodes et que ça ne posera pas de problème dans le reste du code.
 
-> Spoiler : Le patron visiteur aidera à se protéger contre le deuxième cas.
 ]
 
 ---
@@ -288,7 +317,19 @@ Pour réutiliser un code, je le **met en facteur** dans une méthode ou une clas
 
 **Il convient de coder uniquement ce qui est utile, de ne pas ajouter du code en se disant que ça servira un jour.**
 
-> Spoiler : Nous verrons dans le deuxième TP que **rendre immuable ce qui n'a pas besoin d'être modifié après l'initialisation** correspond à ce principe et limite la complexité.
+
+.bad-left[
+* Je produis mes résultats dans de nombreux formats (shapefile, CSV, JSON, GeoJSON, GML,...)
+* Je supporte la 2D et la 3D car certaines de mes sources de données sont en 3D.
+* Je créé une classe `Batiment` avec tous les attributs BDTOPO.
+]
+
+.good-right[
+* Je produis mes résultats dans un nombre limité de formats demandés par les utilisateurs.
+* J'ignore la 3D tant que j'en l'utilise pas dans mon application.
+* Je créé une classe `Batiment` avec les seuls attributs BDTOPO que j'utilise.
+]
+
 
 ---
 
@@ -309,9 +350,9 @@ En pratique :
 
 ## Les principes de conception
 
-### Identifier et encapsuler ce qui varie (1/2)
+### Identifier et encapsuler ce qui varie (1/3)
 
-Cas d'école : J'identifie le besoin d'écrire mes journaux applicatifs (logs) dans la console ou dans un fichier...
+**Cas d'école** : J'identifie le besoin de **produire des journaux applicatifs (logs) plus ou moins détaillés**...
 
 ```ts
 class MaClasse {
@@ -328,7 +369,7 @@ class MaClasse {
 
 ## Les principes de conception
 
-### Identifier et encapsuler ce qui varie (2/2)
+### Identifier et encapsuler ce qui varie (2/3)
 
 ... je fais abstraction sur l'écriture des journaux applicatifs à l'aide d'une classe `Logger` :
 
@@ -348,7 +389,38 @@ class MaClasse {
 }
 ```
 
-> Spoiler : Nous verrons ce cas de figure en TP où nous ferons le **lien avec la capacité à tester unitairement son code**.
+Je peux ainsi configurer le niveau de production des logs au niveau au niveau de l'instance `logger`.
+
+---
+
+## Les principes de conception
+
+### Identifier et encapsuler ce qui varie (3/3)
+
+Nous remarquerons que cette approche est aussi la clé pour **rendre un code unitairement testable** :
+
+```ts
+class MonTraitement {
+
+  constructor(httpClient: HttpClient){
+    this.httpClient = httpClient;
+  }
+
+  async afficheLesCommunes(codePostal: string): void {
+    const url = 
+      `https://apicarto.ign.fr/api/codes-postaux/communes/${codePostal}`
+    ;
+
+    // Non bouchonnable
+    //const data = await fetch(url);
+
+    // Bouchonnable (faux httpClient possible)
+    const data = await this.httpClient.get(url);
+    console.log(data);
+  }
+}
+```
+
 
 ---
 
@@ -468,9 +540,9 @@ Il peut s'agir d'une bibliothèque, d'une base de données, d'une suite de logic
 
 **Un code non finalisé est mis en production. Il n'est plus possible de le remanier.**
 
-Ce problème pourra concerner aussi bien des bibliothèques que des API WEB ou en ligne de commande (CLI). Il conviendra de **considérer que livrer revient à figer les interfaces publiques**.
+Ce problème pourra concerner aussi bien des bibliothèques que des API WEB ou en ligne de commande (CLI). Il conviendra de considérer que **livrer revient à figer les interfaces publiques**.
 
-> Spoiler : Nous verrons dans la partie [refactoring](refactoring.html) que nous pourrons traiter les changements en gérant proprement des versions.
+> Spoiler : Nous verrons dans la partie [refactoring](refactoring.html) que nous pourrons **traiter les changements en gérant proprement des versions**.
 
 ---
 
@@ -503,9 +575,9 @@ Exemples :
 
 Proposition de méthode :
 
-* **Se concentrer sur les optimisations globales dans la conception** (choix de structures efficaces, indexations, gestion des caches, etc.).
+* **Se concentrer sur les optimisations globales dans la conception** (choix de structures efficaces, indexation, mise en cache, etc.).
 * Coder en mettant en place des **tests** et des **mesures de performance** (*bench*).
-* **Profiler** et réaliser les **optimisations locales sur les fonctions souvent appelées**.
+* **Profiler** et réaliser les **optimisations locales sur les fonctions souvent appelées**
 
 ---
 
@@ -568,7 +640,7 @@ Le concept de patron sera étendu par la suite et nous trouverons en complément
 
 Les patrons de conception permettront de :
 
-* **Faciliter la compréhension des codes** par l'utilisation d'un **vocabulaire commun** (`clone()`,  `*Builder`, `*Factory`, `*::getInstance`, `addChild`, etc.)
+* **Faciliter la compréhension des codes** par l'utilisation d'un **vocabulaire commun** (`*Builder`, `*Factory`, `addChild`, etc.)
 * **Faciliter la découverte du code et la compréhension des architectures** en standardisant celles-ci (MVC, IoC, MQ, etc.)
 * **Trouver de l'inspiration dans la recherche d'une solution** :
   * Comment faire un interpréteur?
@@ -581,9 +653,9 @@ Les patrons de conception permettront de :
 
 ### Intérêts des patrons de conception (2/2)
 
-En particulier, la **connaissance des patrons facilitera l'apprentissage la découverte des bibliothèques standards (ex : [OpenJDK](https://devdocs.io/openjdk/)) et frameworks orientés objets** (ex : [GeoTools](https://docs.geotools.org/)).
+En particulier, la **connaissance des patrons facilitera l'apprentissage la découverte des bibliothèques et frameworks orientés objets**.
 
-Pour faire simple, **sans connaissance des patrons, certains choix de conception sembleront inutilement complexes** (̀ex : `new BufferedReader(new FileReader(...))`) et il sera **difficile de trouver comment initialiser les objets**.
+Pour faire simple, **sans connaissance des patrons, certains choix de conception sembleront inutilement complexes** et il sera **difficile de trouver comment initialiser les objets**.
 
 ---
 

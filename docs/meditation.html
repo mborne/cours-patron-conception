@@ -21,6 +21,7 @@ des différents concepts de la P.O.O.**
 * Intérêt du polymorphisme
 * Intérêt des interfaces
 * Mise en garde sur les interface
+* Intérêt des classes abstraites
 
 ---
 
@@ -242,7 +243,11 @@ function render(canvas: Canvas, shape: Shape){
 
 Dans de nombreux langages, nous trouvons le **concept d'interface** permettant de **définir le contrat qui sera respecté par les classes dérivées**.
 
-Avec des langages tels Java, il sera uniquement possible de définir la liste des méthodes supportées. Avec TypeScript, nous pourrons aussi spécifier des attributs :
+Avec des langages tels Java ou PHP, il sera uniquement possible de définir la liste des méthodes supportées :
+
+![Exemple d'interface](img/interface-shape.png)
+
+Avec TypeScript, nous pourrons aussi spécifier des attributs :
 
 ```ts
 interface Shape {
@@ -275,7 +280,7 @@ interface LocationProvider {
 }
 ```
 
-Là, nous choisissons d'être appelé par `LocationProvider` (par exemple en cas de déplacement) :
+Là, ce sera `LocationProvider` qui réalisera les appels pour fournir la position (par exemple en cas de déplacement) :
 
 ```ts
 interface LocationProvider {
@@ -296,6 +301,20 @@ interface Database {
 ```
 
 Nous verrons qu'il sera souvent pertinent de **permettre seulement l'itération sur les résultats** pour les données volumineuses.
+
+---
+
+## Intérêt des classes abstraites
+
+Certains langages tels Java, PHP, TypeScript,... permettent de définir des **classes abstraites**, c'est à dire des classes où **certaines méthodes sont déclarées sans être implémentées**.
+
+Elles seront principalement utilisées pour **mettre en facteur l'implémentation commune à plusieurs classes concrètes** :
+
+<div class="center">
+    <img src="img/logger-heritage-3-niveaux.png" alt="Exemple d'héritage à trois niveaux" height="300px"/>
+    <br />
+    <span>Exemple d'héritage à trois niveaux : Une interface / Une classe abstraite pour l'implémentation commune / Les classes concrètes</span>
+</div>
 
 
     </textarea>
