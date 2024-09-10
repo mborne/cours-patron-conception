@@ -3,7 +3,7 @@
 
 ## Problème
 
-La fabrique classique s'adresse à la problématique de la création d'instances dérivées d'une classe. Nous verrons qu'elle admet plusieurs variantes. 
+La fabrique classique s'adresse à la problématique de la création d'instances dérivées d'une classe. Nous verrons qu'elle admet plusieurs variantes.
 
 ## Cas d'école
 
@@ -11,16 +11,16 @@ Nous avons par exemple la hiérarchie suivante :
 
 ![UML_DP_FabriqueAnimal](uml/UML_DP_FabriqueAnimal.drawio.png)
 
-Supposons que nous devons charger un fichier contenant des animaux et créer des animaux via une API WEB.
+Supposons que nous devons créer des instances de la classe Animal dans plusieurs parties de l'application (chargement à partir d'un fichier CSV, chargement à partir d'une requête sur une API,...)
 
 A chaque fois, nous devrons faire appel à "new" en fonction du type de l'animal :
 
-```java
-Animal animal = null ;
-if ( typeAnimal.equals("chat") ){
+```ts
+let animal: Animal = null ;
+if ( typeAnimal == "chat" ){
     animal = new Chat() ;
-}else if (typeAnimal.equals("chien")){
-    animal = new Chien() ;
+}else if (typeAnimal == "chien"){
+    ranimal = new Chien() ;
 }else{
     throw new AnimalTypeNotFound(typeAnimal);
 }
@@ -36,14 +36,14 @@ Nous pouvons définir une **classe avec une méthode dédiée à la création de
 
 ![UML Fabrique](uml/UML_DP_FabriqueAnimal-solution.drawio.png)
 
-Le **code gérant la logique de création sera localisé dans cette fabrique** :
+Le **code gérant la logique de création en fonction du type sera localisé dans cette fabrique** :
 
-```java
+```ts
 class FabriqueAnimal {
-    public Animal createAnimal(String typeAnimal){
-        if ( typeAnimal.equals("chat") ){
+    public createAnimal(typeAnimal: string): Animal {
+        if ( typeAnimal == "chat" ){
             return new Chat() ;
-        }else if (typeAnimal.equals("chien")){
+        }else if (typeAnimal == "chien"){
             return new Chien() ;
         }else{
             throw new AnimalTypeNotFound(typeAnimal);
@@ -54,8 +54,8 @@ class FabriqueAnimal {
 
 Il sera alors **possible d'ajouter un type sans modifier les codes faisant appel à cette fabrique** :
 
-```java
-Animal animal = animalFactory.createAnimal(typeAnimal) ;
+```ts
+const animal = animalFactory.createAnimal(typeAnimal) ;
 animal.setNom(nomAnimal);
 ```
 
@@ -69,21 +69,7 @@ Nous trouverons de nombreuses variantes du concept de fabrique :
 AnimalFactory.createByType("chien")
 ```
 
-* Les fabriques basées sur des [prototypes](Prototype.md) (composition de pattern) :
-
-```java
-class AnimalFactory {
-    private Map<String, Animal> prototypes = new HashMap<>();
-
-    public Animal createAnimal(String typeAnimal){
-        Animal prototype = prototypes.get(typeName);
-        if ( prototype == null ){
-            throw new AnimalTypeNotFound(typeAnimal);
-        }
-        return prototype.clone();
-    }
-}
-```
+* Les fabriques basées sur des [prototypes](Prototype.md) (composition de pattern) travaillant par copie de modèle d'instance.
 
 * Les **fabriques utilitaires** qui ne créent pas des instances de types différents, mais avec des états initiaux différents :
 
@@ -98,18 +84,6 @@ FractalFactory.createSierpinskiTriangles(8);
 * **Abstract Factory** où **le choix de la fabrique déterminera la famille des objets créés** (cas d'école : plusieurs implémentations pour des classes géométriques) :
 
 ![UML_DP_FactoryMethod](uml/UML_DP_FabriqueAbstraite_me.png)
-
-
-## Exemple en Java
-
-Les fabriques sont nombreuses dans l'API java et dans les bibliothèques :
-
-* [GeometryFactory de JTS](https://locationtech.github.io/jts/javadoc/org/locationtech/jts/geom/GeometryFactory.html) pour la création de géométrie de différents types (Point, LineString, Polygon, etc.)
-* [java.sql.DriverManager](https://docs.oracle.com/javase/8/docs/api/java/sql/DriverManager.html) où nous trouvons une fabrique statique :
-
-```java
-Connection connection = DriverManager.getConnection("jdbc:postgresql:mabase")
-```
 
 ## Liens utiles
 

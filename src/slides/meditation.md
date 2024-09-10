@@ -151,12 +151,12 @@ Avec une classe représentant une personne modélisée comme suit, nous pouvons 
 Après tout :
 
 * Il est plus simple d'appeler partout dans le programme `user.age` plutôt que `user.getAge()`
-* Certains langages tels Python ne propose pas le mot clé `private` (c'est dire l'utilité de la chose...)
+* Certains langages tels Python ne proposent pas le mot clé `private` (c'est dire l'utilité de la chose...)
 
-Pour comprendre l'intérêt de ce mot clé, nous allons :
+Pour comprendre l'intérêt de ce mot clé, imaginons que :
 
-* Stocker des personnes ainsi modélisées dans des fichiers ou des tables
-* Laisser passer un an...
+* Nous stockons des personnes ainsi modélisées dans des fichiers
+* Nous laissons passer un an...
 
 
 ---
@@ -174,7 +174,7 @@ En effet, après un an, nous aurons envie de **changer la modélisation** pour :
 
 **Permettre l'accès aux données uniquement via une indirection** (ex : `person.getAge()` voire `person.age()`), c'est **se donner la possibilité de modifier une classe sans casser le code client** (ex : `person.age >= 18`). 
 
-> (*) Dans le cas particulier de Python, la possibilité d'implémenter `__getattr__` nous permettra aussi d'éviter un changement cassant.
+> Dans le cas particulier de Python, il serait en réalité possible d'implémenter `__getattr__` pour éviter un changement cassant.
 
 ---
 
@@ -183,8 +183,8 @@ En effet, après un an, nous aurons envie de **changer la modélisation** pour :
 Si vous vous imaginez qu'il est si rare que ça de devoir revoir sa copie, notez que :
 
 * Nous sommes sur un cas très simple! Vous pouvez imaginer :
-  * Devoir remplacer l'envoi de mail par un autre mécanisme de notification
-  * Devoir remplacer PostGIS par MongoDB
+  * Devoir remplacer l'envoi de mail par un autre mécanisme de notification (ex : SMS)
+  * Devoir remplacer PostgreSQL par MongoDB pour le stockage des données
   * ...
 * Il reste une erreur de modélisation sur la classe précédente...
 
@@ -194,7 +194,7 @@ Si vous vous imaginez qu'il est si rare que ça de devoir revoir sa copie, notez
 
 Les **accesseurs et mécanismes de visibilité** donneront la **liberté de modifier l'implémentation des classes**. En limitant la surface d'exposition, nous limiterons le risque de changement cassant.
 
-Toutefois, **il ne suffit pas de mettre mécaniquement des "private", "getters" et "setters" sur tous les attributs** pour résoudre tous les problèmes car **certains accesseurs exposeront trop d'informations sur la structure interne**.
+Toutefois, **il ne suffit pas de mettre mécaniquement des "getters" et "setters" sur tous les attributs** pour résoudre tous les problèmes car **certains accesseurs exposeront trop d'informations sur la structure interne**.
 
 Il sera plutôt question d'**exposer uniquement ce qui doit l'être**.
 
@@ -232,7 +232,7 @@ function render(canvas: Canvas, shape: Shape){
 
 Dans de nombreux langages, nous trouvons le **concept d'interface** permettant de **définir le contrat qui sera respecté par les classes dérivées**.
 
-Avec des langages tels Java ou PHP, il sera uniquement possible de définir la liste des méthodes supportées :
+Avec des langages tels Java ou PHP, il sera uniquement possible de **définir la liste des méthodes supportées** :
 
 ![Exemple d'interface](img/interface-shape.png)
 
@@ -249,7 +249,7 @@ interface Shape {
 
 ## Mise en garde sur les interface (1/3)
 
-**Il ne suffit pas de définir aveuglément des interfaces** pour avoir de la souplesse sur l'implémentation :
+**Il ne suffira pas de définir aveuglément des interfaces** pour avoir de la souplesse sur l'implémentation :
 
 * Concevoir une interface revient à faire des choix
 * Ces choix peuvent impacter les performances
@@ -259,29 +259,9 @@ interface Shape {
 
 ---
 
-## Mise en garde sur les interface (2/3)
+## Mise en garde sur les interface (2/2)
 
-Ici, nous choisissons d'appeler `LocationProvider` pour obtenir la position :
-
-```ts
-interface LocationProvider {
-    getLocation(): Coordinate;
-}
-```
-
-Là, ce sera `LocationProvider` qui réalisera les appels pour fournir la position (par exemple en cas de déplacement) :
-
-```ts
-interface LocationProvider {
-    addListener(listener: LocationListener): void ;
-}
-```
-
----
-
-## Mise en garde sur les interface (3/3)
-
-Ici, en renvoyant un tableau, nous imposons le chargement en RAM :
+Par exemple, en renvoyant un tableau, nous imposerons le chargement en RAM :
 
 ```ts
 interface Database {

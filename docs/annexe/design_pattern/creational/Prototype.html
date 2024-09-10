@@ -63,13 +63,15 @@
 <h2 id="solution">Solution</h2><p>Toutes les classes dérivées implémentent une méthode &quot;clone()&quot; renvoyant une copie conforme.</p>
 <p><img src="uml/UML_DP_Prototype.png" alt="UML Prototype"></p>
 <p>Source : <a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Prototype" target="_blank">https://fr.wikibooks.org/wiki/Patrons_de_conception/Prototype</a></p>
-<h2 id="exemple-dans-lapi-java">Exemple dans l&#39;API Java</h2><p>Les exemples sont légion, l&#39;API dispose d&#39;une interface Cloneable.</p>
-<h2 id="mise-en-garde">Mise en garde</h2><ul>
+<h2 id="mises-en-garde">Mises en garde</h2><ul>
 <li>L&#39;<strong>implémentation de clone est délicate!</strong> (ex : sans précaution particulière, deux copies pourront pointer sur le même tableau)</li>
 <li>Il convient de <strong>copier les variables</strong> membres pour les objets qui peuvent être modifiés après la construction (notion d&#39;<a href="http://docs.oracle.com/javase/tutorial/essential/concurrency/immutable.html" target="_blank">Immutable Objects</a>)</li>
+<li>La méthode de copie dépendra du langage et le patron prototype ne sera pas toujours le plus adapté.</li>
 </ul>
-<h2 id="liens-utiles">Lien(s) utile(s)</h2><ul>
-<li><a href="https://rules.sonarsource.com/java/tag/suspicious/RSPEC-2975/" target="_blank">rules.sonarsource.com - &quot;clone&quot; should not be overridden</a> qui détaille les risques en Java et propose des alternatives (constructeur de copie et méthode dédiée à la création d&#39;une copie).</li>
+<h2 id="liens-utiles">Lien(s) utile(s)</h2><p>Voir aussi :</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/structuredClone" target="_blank">structuredClone</a> pour JavaScript</li>
+<li><a href="https://docs.python.org/fr/3/library/copy.html" target="_blank">copy</a> pour Python</li>
 </ul>
 
     </div>

@@ -58,16 +58,16 @@
       <a href="https://github.com/mborne/cours-patron-conception/blob/master/src/annexe/design_pattern/creational/Factory.md?plain=1" target="_blank">Éditer sur GitHub</a>
     </div>
     <div class="markdown-body">
-      <h1 id="factory-fabrique">Factory (Fabrique)</h1><h2 id="problème">Problème</h2><p>La fabrique classique s&#39;adresse à la problématique de la création d&#39;instances dérivées d&#39;une classe. Nous verrons qu&#39;elle admet plusieurs variantes. </p>
+      <h1 id="factory-fabrique">Factory (Fabrique)</h1><h2 id="problème">Problème</h2><p>La fabrique classique s&#39;adresse à la problématique de la création d&#39;instances dérivées d&#39;une classe. Nous verrons qu&#39;elle admet plusieurs variantes.</p>
 <h2 id="cas-décole">Cas d&#39;école</h2><p>Nous avons par exemple la hiérarchie suivante :</p>
 <p><img src="uml/UML_DP_FabriqueAnimal.drawio.png" alt="UML_DP_FabriqueAnimal"></p>
-<p>Supposons que nous devons charger un fichier contenant des animaux et créer des animaux via une API WEB.</p>
+<p>Supposons que nous devons créer des instances de la classe Animal dans plusieurs parties de l&#39;application (chargement à partir d&#39;un fichier CSV, chargement à partir d&#39;une requête sur une API,...)</p>
 <p>A chaque fois, nous devrons faire appel à &quot;new&quot; en fonction du type de l&#39;animal :</p>
-<pre><code class="language-java">Animal animal = null ;
-if ( typeAnimal.equals(&quot;chat&quot;) ){
+<pre><code class="language-ts">let animal: Animal = null ;
+if ( typeAnimal == &quot;chat&quot; ){
     animal = new Chat() ;
-}else if (typeAnimal.equals(&quot;chien&quot;)){
-    animal = new Chien() ;
+}else if (typeAnimal == &quot;chien&quot;){
+    ranimal = new Chien() ;
 }else{
     throw new AnimalTypeNotFound(typeAnimal);
 }
@@ -76,12 +76,12 @@ animal.setNom(nomAnimal);
 <p><strong>En cas d&#39;ajout d&#39;un type d&#39;animal, nous devrons modifier tous les codes créant des animaux.</strong></p>
 <h2 id="solution">Solution</h2><p>Nous pouvons définir une <strong>classe avec une méthode dédiée à la création des instances</strong> en fonction d&#39;un type :</p>
 <p><img src="uml/UML_DP_FabriqueAnimal-solution.drawio.png" alt="UML Fabrique"></p>
-<p>Le <strong>code gérant la logique de création sera localisé dans cette fabrique</strong> :</p>
-<pre><code class="language-java">class FabriqueAnimal {
-    public Animal createAnimal(String typeAnimal){
-        if ( typeAnimal.equals(&quot;chat&quot;) ){
+<p>Le <strong>code gérant la logique de création en fonction du type sera localisé dans cette fabrique</strong> :</p>
+<pre><code class="language-ts">class FabriqueAnimal {
+    public createAnimal(typeAnimal: string): Animal {
+        if ( typeAnimal == &quot;chat&quot; ){
             return new Chat() ;
-        }else if (typeAnimal.equals(&quot;chien&quot;)){
+        }else if (typeAnimal == &quot;chien&quot;){
             return new Chien() ;
         }else{
             throw new AnimalTypeNotFound(typeAnimal);
@@ -90,7 +90,7 @@ animal.setNom(nomAnimal);
 }
 </code></pre>
 <p>Il sera alors <strong>possible d&#39;ajouter un type sans modifier les codes faisant appel à cette fabrique</strong> :</p>
-<pre><code class="language-java">Animal animal = animalFactory.createAnimal(typeAnimal) ;
+<pre><code class="language-ts">const animal = animalFactory.createAnimal(typeAnimal) ;
 animal.setNom(nomAnimal);
 </code></pre>
 <h2 id="variantes">Variantes</h2><p>Nous trouverons de nombreuses variantes du concept de fabrique :</p>
@@ -100,22 +100,10 @@ animal.setNom(nomAnimal);
 <pre><code class="language-java">AnimalFactory.createByType(&quot;chien&quot;)
 </code></pre>
 <ul>
-<li>Les fabriques basées sur des <a href="Prototype.html">prototypes</a> (composition de pattern) :</li>
-</ul>
-<pre><code class="language-java">class AnimalFactory {
-    private Map&lt;String, Animal&gt; prototypes = new HashMap&lt;&gt;();
-
-    public Animal createAnimal(String typeAnimal){
-        Animal prototype = prototypes.get(typeName);
-        if ( prototype == null ){
-            throw new AnimalTypeNotFound(typeAnimal);
-        }
-        return prototype.clone();
-    }
-}
-</code></pre>
-<ul>
-<li>Les <strong>fabriques utilitaires</strong> qui ne créent pas des instances de types différents, mais avec des états initiaux différents :</li>
+<li><p>Les fabriques basées sur des <a href="Prototype.html">prototypes</a> (composition de pattern) travaillant par copie de modèle d&#39;instance.</p>
+</li>
+<li><p>Les <strong>fabriques utilitaires</strong> qui ne créent pas des instances de types différents, mais avec des états initiaux différents :</p>
+</li>
 </ul>
 <pre><code class="language-java">FractalFactory.createSierpinskiTriangles(8);
 </code></pre>
@@ -127,13 +115,6 @@ animal.setNom(nomAnimal);
 <li><strong>Abstract Factory</strong> où <strong>le choix de la fabrique déterminera la famille des objets créés</strong> (cas d&#39;école : plusieurs implémentations pour des classes géométriques) :</li>
 </ul>
 <p><img src="uml/UML_DP_FabriqueAbstraite_me.png" alt="UML_DP_FactoryMethod"></p>
-<h2 id="exemple-en-java">Exemple en Java</h2><p>Les fabriques sont nombreuses dans l&#39;API java et dans les bibliothèques :</p>
-<ul>
-<li><a href="https://locationtech.github.io/jts/javadoc/org/locationtech/jts/geom/GeometryFactory.html" target="_blank">GeometryFactory de JTS</a> pour la création de géométrie de différents types (Point, LineString, Polygon, etc.)</li>
-<li><a href="https://docs.oracle.com/javase/8/docs/api/java/sql/DriverManager.html" target="_blank">java.sql.DriverManager</a> où nous trouvons une fabrique statique :</li>
-</ul>
-<pre><code class="language-java">Connection connection = DriverManager.getConnection(&quot;jdbc:postgresql:mabase&quot;)
-</code></pre>
 <h2 id="liens-utiles">Liens utiles</h2><ul>
 <li><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique" target="_blank">fr.wikibooks.org - Fabrique</a></li>
 <li><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Fabrique_abstraite" target="_blank">fr.wikibooks.org - Fabrique abstraite - exemple avec des widgets d&#39;interface WIN32 et OSX</a></li>

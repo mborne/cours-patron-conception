@@ -98,13 +98,13 @@ Nous verrons enfin comment **réfactorer un code existant** avec une partie thé
 
 ### Un paradygme omniprésent
 
-De nombreux programmeurs manipulent des objets sans en avoir conscience. En Python, par exemple, tout est objet :
+De nombreux programmeurs manipulent des objets sans en avoir conscience. En Python, par exemple, tout est objet&nbsp;:
 
 <div class="center">
     <img src="img/python-tout-objet.png" alt="Illustration de quelques types en Python" height="300" />
 </div>
 
-Si j'appelle `chaine.upper()` pour transformer la chaîne en majuscule, je ferai appel à la **notation pointée** typique de la P.O.O.
+En appelant, `chaine.upper()` pour transformer la chaîne en majuscules, nous ferons appel à la **notation pointée** typique de la P.O.O.
 
 ---
 
@@ -112,7 +112,7 @@ Si j'appelle `chaine.upper()` pour transformer la chaîne en majuscule, je ferai
 
 ### Un paradigme difficile à maîtriser
 
-**Utiliser des classes existantes ne demandera pas d'effort**. Il sera toutefois plus délicat de :
+**Utiliser des classes existantes ne demandera pas d'effort**. Il sera plus délicat de :
 
 * **Concevoir proprement <u>ses propres classes</u>**
 * **Faire un choix entre la définition d'une classe ou le recours à un autre paradigme** (ex : définition d'une fonction) quand le langage le permet.
@@ -326,7 +326,7 @@ Pour réutiliser un code, je le **met en facteur** dans une méthode ou une clas
 
 .good-right[
 * Je produis mes résultats dans un nombre limité de formats demandés par les utilisateurs.
-* J'ignore la 3D tant que j'en l'utilise pas dans mon application.
+* J'ignore la 3D tant que je ne l'utilise pas dans mon application.
 * Je créé une classe `Batiment` avec les seuls attributs BDTOPO que j'utilise.
 ]
 
@@ -433,7 +433,7 @@ class MonTraitement {
   * "~~Un `TraitementMetier` est une `BaseDeDonnees`~~" -> "Un `TraitementMetier` utilise une `BaseDeDonnees`".
 * Nous **préférerons toutefois les états aux classes dérivées** :
   * Il sera naturel d'**hériter** d'une `Forme` pour modéliser des `Cercle` et des `Rectangle` avec des **attributs spécifiques** (`rayon` vs `largeur` et `hauteur`)
-  * Il sera préférable d'ajouter des attributs à une classe `Animal` (ex : `type`, `birthDate`,...) plutôt que définir des classes `Chat` et `Chien` dérivées.
+  * Pour une classe `Animal`, nous préférerons l'ajout d'un attribut `type` à la création de classes `Chat` et `Chien` dérivées sans attributs spécifiques.
 
 ---
 
@@ -643,8 +643,8 @@ Les patrons de conception permettront de :
 * **Faciliter la compréhension des codes** par l'utilisation d'un **vocabulaire commun** (`*Builder`, `*Factory`, `addChild`, etc.)
 * **Faciliter la découverte du code et la compréhension des architectures** en standardisant celles-ci (MVC, IoC, MQ, etc.)
 * **Trouver de l'inspiration dans la recherche d'une solution** :
-  * Comment faire un interpréteur?
-  * Comment faire un undo/redo?
+  * Comment implémenter un interpréteur?
+  * Comment implémenter un annuler/refaire?
   * Est-ce qu'il y a un framework MVC avec de l'injection de dépendance pour ce langage?
 
 ---

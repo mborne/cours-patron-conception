@@ -19,7 +19,7 @@
   },
   "homepage": "https://mborne.github.io/cours-patron-conception/",
   "devDependencies": {
-    "@mborne/markdown-to-html": "0.10.1",
+    "@mborne/markdown-to-html": "0.10.4",
     "http-server": "^14.1.1",
     "shelljs": "^0.8.5"
   }

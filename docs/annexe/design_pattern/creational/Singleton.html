@@ -61,30 +61,53 @@
       <h1 id="singleton">Singleton</h1><h2 id="problème">Problème</h2><p>Nous avons une classe qui doit être instanciée qu&#39;une seule fois.</p>
 <h2 id="solution">Solution</h2><p><img src="uml/UML_DP_Singleton.png" alt="UML Singleton"></p>
 <p>Source : <a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Singleton" target="_blank">https://fr.wikibooks.org/wiki/Patrons_de_conception/Singleton</a></p>
-<h2 id="exemple-dimplémentation">Exemple d&#39;implémentation</h2><pre><code class="language-java">class MonSingleton {
+<h2 id="exemple-dimplémentation">Exemple d&#39;implémentation</h2><p>Nous pouvons par exemple définir une classe pour disposer d&#39;un compteur global à l&#39;application comme suit :</p>
+<pre><code class="language-ts">class Sequence {
 
-    private static MonSingleton instance = new MonSingleton() ;
+    private static _instance: Sequence = new Sequence();
 
-    private MonSingleton(){
+    private _current = 0;
 
+    private Sequence(){
     }
 
-    public static MonSingleton getInstance(){
-        return instance ;
+    public static getInstance(): Sequence {
+        return Sequence._instance ;
     }
 
+    public current(): number {
+        return this._current;
+    }
+
+    public next(){
+        return this._current++;
+    }
 }
 </code></pre>
-<h2 id="exemple-dans-lapi-java">Exemple dans l&#39;API JAVA</h2><ul>
-<li><code>Runtime</code> accessible via <code>System.getRuntime()</code></li>
-</ul>
+<p>A l&#39;utilisation, nous aurons :</p>
+<pre><code class="language-ts">const sequence = Sequence.getInstance();
+console.log(sequence.next()); // 0
+console.log(sequence.next()); // 1
+</code></pre>
 <h2 id="mise-en-garde">Mise en garde</h2><ul>
-<li>Il existe plusieurs variantes d&#39;implémentation (<em>thread safe</em>, <em>lazy loading</em>,...)</li>
-<li><strong>La singletonite est un anti-pattern</strong> (ne pas utiliser un singleton pour le seul motif qu&#39;il est pratique d&#39;avoir accès statiquement à l&#39;instance)</li>
-<li>L&#39;utilisation d&#39;un singleton rend le code difficilement testable</li>
+<li>Il existe plusieurs variantes d&#39;implémentation (<em>thread safe</em>, <em>lazy loading</em>,...) fonction du langage</li>
+<li>L&#39;utilisation d&#39;un singleton rend le <strong>code difficilement testable</strong></li>
+<li>L&#39;utilisation d&#39;un singleton rend le <strong>code moins flexible</strong> (ex : <code>Camera.getInstance()</code> dans un jeu 3D imposerait la présence d&#39;une seule caméra)</li>
+<li><strong>La singletonite est un anti-pattern</strong> :<ul>
+<li>La tentation est grande de l&#39;utiliser pour disposer d&#39;un accès statique à une instance</li>
+<li>Le problème est le même qu&#39;en cas d&#39;utilisation d&#39;une variable globale</li>
 </ul>
+</li>
+<li>Il convient de <strong>réserver l&#39;utilisation du singleton dans le cas où l&#39;instance doit être unique</strong>.</li>
+</ul>
+<h2 id="variantes">Variantes</h2><p>En JavaScript et TypeScript, nous remarquerons que les concepteurs utilisent plutôt des <strong>variables globales</strong> (ex : <a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/geolocation" target="_blank">navigator.geolocation</a> pour l&#39;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation" target="_blank">API de géolocalisation</a>). Il sera aussi plus naturel d&#39;<strong>assurer l&#39;unicité de la construction au niveau d&#39;un module</strong> plutôt que de recourir à un constructeur privé :</p>
+<pre><code class="language-ts">// helpers/globalSequence.ts - instance globale unique de Sequence
+const globalSequence : Sequence = new Sequence();
+export default globalSequence ;
+</code></pre>
 <h2 id="liens-utiles">Liens utiles</h2><ul>
 <li><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Singleton" target="_blank">fr.wikibooks.org - Singleton</a></li>
+<li><a href="https://refactoring.guru/design-patterns/singleton/typescript/example" target="_blank">refactoring.guru - Singleton in TypeScript</a></li>
 <li><a href="https://thecodersbreakfast.net/index.php?post/2008/02/25/26-de-la-bonne-implementation-du-singleton-en-java" target="_blank">thecodersbreakfast.net - De la bonne implémentation du Singleton en Java</a></li>
 </ul>
 
