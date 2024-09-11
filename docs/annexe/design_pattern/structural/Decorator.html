@@ -63,65 +63,64 @@
 <ul>
 <li>Une interface Personnage :</li>
 </ul>
-<pre><code class="language-java">interface Personnage {
-    public double getWeight() ;
+<pre><code class="language-ts">interface Personnage {
+    getWeight(): number;
 }
 </code></pre>
 <ul>
 <li>Une classe concrète Humain :</li>
 </ul>
-<pre><code class="language-java">class Humain implements Personnage {
-    public double getWeight(){
-        return 80.0 ;
+<pre><code class="language-ts">class Humain implements Personnage {
+
+    getWeight(): number {
+        return 80.0;
     }
+
 }
 </code></pre>
 <p>Nous souhaitons pouvoir modifier les caractéristiques de ces personnages avec l&#39;ajout d&#39;une hache, d&#39;un chapeau,...</p>
 <h2 id="solution">Solution</h2><p>Nous pouvons implémenter <strong>hériter de l&#39;interface et nous appuyer sur l&#39;instance originale pour l&#39;implémentation</strong> :</p>
-<pre><code class="language-java">class PersonnageAvecHache implements Personnage {
+<pre><code class="language-ts">class PersonnageAvecHache implements Personnage {
 
-    private Personnage original ;
+    private original: Personnage;
 
-    public PersonnageAvecHache(Personnage original){
-        this.original = original ;
+    constructor(original: Personnage) {
+        this.original = original;
     }
 
-    public double getWeight(){
-        return original.getWeight() + 15.0 ;
+    getWeight(): number {
+        return this.original.getWeight() + 15.0;
     }
 }
 </code></pre>
-<pre><code class="language-java">class PersonnageAvecChapeau implements Personnage {
+<pre><code class="language-ts">class PersonnageAvecChapeau implements Personnage {
 
-    private Personnage original ;
+    private original: Personnage;
 
-    public PersonnageAvecChapeau(Personnage original){
-        this.original = original ;
+    constructor(original: Personnage) {
+        this.original = original;
     }
 
-    public double getWeight(){
-        return original.getWeight() + 2.0 ;
+    public getWeight(): number {
+        return this.original.getWeight() + 2.0;
     }
 }
 </code></pre>
 <p>A l&#39;usage :</p>
-<pre><code class="language-java">Personnage personnage = new Humain();
+<pre><code class="language-ts">let personnage = new Humain();
 personnage = new PersonnageAvecHache(personnage);
 personnage = new PersonnageAvecChapeau(personnage);
-System.out.println(personnage.getWeight()); // 80 + 15 + 2
+console.log(personnage.getWeight()) // 80 + 15 + 2
 </code></pre>
 <h2 id="autres-cas-décole">Autres cas d&#39;école</h2><ul>
-<li><code>RetryingHttpRequest</code> décorant <code>HttpRequest</code> avec plusieurs tentatives sur GET </li>
-<li><code>HideSecretLogger</code> décorant <code>Logger</code> pour masquer des secrets dans les messages des journaux applicatifs</li>
+<li><code>RetryingHttpClient</code> décorant <code>HttpClient</code> avec plusieurs tentatives sur les requêtes GET .</li>
+<li><code>HideSecretLogger</code> décorant <code>Logger</code> pour masquer des secrets dans les messages des journaux applicatifs.</li>
 <li><a href="https://github.com/IGNF/validator/blob/v4.4.5/validator-core/src/main/java/fr/ign/validator/report/FilteredReportBuilder.java" target="_blank">FilteredReportBuilder</a> décorant <a href="https://github.com/IGNF/validator/blob/v4.4.5/validator-core/src/main/java/fr/ign/validator/report/ReportBuilder.java" target="_blank">ReportBuilder</a> pour limiter le nombre d&#39;erreur d&#39;un même type dans un rapport de validation de données </li>
 <li>...</li>
 </ul>
-<h2 id="autres-exemples-en-java">Autres exemples en Java</h2><ul>
-<li><a href="https://docs.oracle.com/javase/7/docs/api/java/io/BufferedReader.html" target="_blank">BufferedReader/Reader</a></li>
-<li><a href="https://docs.oracle.com/javase/7/docs/api/java/io/LineNumberReader.html" target="_blank">LineNumberReader/BufferedReader</a></li>
-</ul>
 <h2 id="liens-utiles">Liens utiles</h2><ul>
 <li><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/D%C3%A9corateur#Java" target="_blank">fr.wikibooks.org - Décorateur avec exemple en Java avec des composants d&#39;IHM</a></li>
+<li><a href="https://refactoring.guru/fr/design-patterns/decorator" target="_blank">refactoring.guru - Decorator</a></li>
 </ul>
 
     </div>

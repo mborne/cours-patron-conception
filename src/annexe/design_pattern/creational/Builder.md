@@ -28,45 +28,21 @@ Source [https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Builder](
 En pratique, la distinction ne sera pas toujours faite entre "Director" et "Builder". La **terminologie builder est généralisée à la création incrémentale d'objet** :
 
 * Création ou récupération d'un builder
-* Définition de la cible par appels successifs au builder (add, set, etc...)
+* Appels successifs au builder pour fournir les informations requises pour la construction (add, set, etc...)
 * Récupération de l'instance produite (getProduct)
 
-## Exemple en Java
+Par exemple, avec un `DelaunayTriangulationBuilder` implémentant une triangulation de Delaunay :
 
-* [StringBuilder](https://docs.oracle.com/javase/8/docs/api/java/lang/StringBuilder.html)
-
-* [CalendarBuilder](https://docs.oracle.com/javase/8/docs/api/java/util/Calendar.Builder.html)
-
-```java
-Calendar cal = new Calendar.Builder()
-    .setCalendarType("iso8601")
-    .setWeekDate(2013, 1, MONDAY)
-    .build() // récupération du résultat
-;
+```ts
+const builder = new DelaunayTriangulationBuilder();
+for ( const point of points ){
+  builder.addPoint(point);
+}
+builder.getTriangles(); // récupération des triangles
 ```
-
-* [ProcessBuilder](https://docs.oracle.com/javase/8/docs/api/java/lang/ProcessBuilder.html)
-
-```java
-// Création du builder (argument obligatoire du processus)
-ProcessBuilder pb = new ProcessBuilder("myCommand", "myArg1", "myArg2");
-
-// Manipulation du builder (argument optionnels du processus)
-Map env = pb.environment();
-env.put("VAR1", "myValue");
-env.remove("OTHERVAR");
-env.put("VAR2", env.get("VAR1") + "suffix");
-pb.directory(new File("myDir"));
-
-// Récupération du résultat
-Process p = pb.start();
-```
-
-* [locationtech.github.io - JTS - DelaunayTriangulationBuilder](https://locationtech.github.io/jts/javadoc/org/locationtech/jts/triangulate/DelaunayTriangulationBuilder.html)
-
 
 ## Liens utiles
 
-* [Discussion sur l'intérêt des beans couplés au design pattern Builder](https://kodelog.wordpress.com/tag/telescopic-constructor-pattern/)
+* [fr.wikibooks.org - Monteur](https://fr.wikibooks.org/wiki/Patrons_de_conception/Monteur)
 * [Exemple d'utilisation dans la création de formulaire dans Symfony (PHP)](http://symfony.com/doc/current/book/forms.html#building-the-form)
 * [Exemple d'utilisation dans la création de requête SQL (PHP)](http://doctrine-orm.readthedocs.org/projects/doctrine-orm/en/latest/reference/query-builder.html#high-level-api-methods)

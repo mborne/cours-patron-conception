@@ -2,7 +2,7 @@
 
 ## Problème
 
-Nous avons une classe qui doit être instanciée qu'une seule fois.
+Nous avons une classe qui ne doit être instanciée qu'une seule fois.
 
 ## Solution
 
@@ -55,7 +55,7 @@ console.log(sequence.next()); // 1
 * **La singletonite est un anti-pattern** :
   * La tentation est grande de l'utiliser pour disposer d'un accès statique à une instance
   * Le problème est le même qu'en cas d'utilisation d'une variable globale
-* Il convient de **réserver l'utilisation du singleton dans le cas où l'instance doit être unique**.
+* Il convient de **réserver l'utilisation du singleton dans le cas où l'instance <u>doit être</u> unique**.
 
 ## Variantes
 
@@ -70,5 +70,6 @@ export default globalSequence ;
 ## Liens utiles
 
 * [fr.wikibooks.org - Singleton](https://fr.wikibooks.org/wiki/Patrons_de_conception/Singleton)
+* [refactoring.guru - Singleton](https://refactoring.guru/fr/design-patterns/singleton)
 * [refactoring.guru - Singleton in TypeScript](https://refactoring.guru/design-patterns/singleton/typescript/example)
 * [thecodersbreakfast.net - De la bonne implémentation du Singleton en Java](https://thecodersbreakfast.net/index.php?post/2008/02/25/26-de-la-bonne-implementation-du-singleton-en-java)

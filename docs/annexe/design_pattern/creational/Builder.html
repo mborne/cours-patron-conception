@@ -79,42 +79,18 @@
 <h2 id="variantes">Variantes</h2><p>En pratique, la distinction ne sera pas toujours faite entre &quot;Director&quot; et &quot;Builder&quot;. La <strong>terminologie builder est généralisée à la création incrémentale d&#39;objet</strong> :</p>
 <ul>
 <li>Création ou récupération d&#39;un builder</li>
-<li>Définition de la cible par appels successifs au builder (add, set, etc...)</li>
+<li>Appels successifs au builder pour fournir les informations requises pour la construction (add, set, etc...)</li>
 <li>Récupération de l&#39;instance produite (getProduct)</li>
 </ul>
-<h2 id="exemple-en-java">Exemple en Java</h2><ul>
-<li><p><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/StringBuilder.html" target="_blank">StringBuilder</a></p>
-</li>
-<li><p><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Calendar.Builder.html" target="_blank">CalendarBuilder</a></p>
-</li>
-</ul>
-<pre><code class="language-java">Calendar cal = new Calendar.Builder()
-    .setCalendarType(&quot;iso8601&quot;)
-    .setWeekDate(2013, 1, MONDAY)
-    .build() // récupération du résultat
-;
+<p>Par exemple, avec un <code>DelaunayTriangulationBuilder</code> implémentant une triangulation de Delaunay :</p>
+<pre><code class="language-ts">const builder = new DelaunayTriangulationBuilder();
+for ( const point of points ){
+  builder.addPoint(point);
+}
+builder.getTriangles(); // récupération des triangles
 </code></pre>
-<ul>
-<li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/ProcessBuilder.html" target="_blank">ProcessBuilder</a></li>
-</ul>
-<pre><code class="language-java">// Création du builder (argument obligatoire du processus)
-ProcessBuilder pb = new ProcessBuilder(&quot;myCommand&quot;, &quot;myArg1&quot;, &quot;myArg2&quot;);
-
-// Manipulation du builder (argument optionnels du processus)
-Map env = pb.environment();
-env.put(&quot;VAR1&quot;, &quot;myValue&quot;);
-env.remove(&quot;OTHERVAR&quot;);
-env.put(&quot;VAR2&quot;, env.get(&quot;VAR1&quot;) + &quot;suffix&quot;);
-pb.directory(new File(&quot;myDir&quot;));
-
-// Récupération du résultat
-Process p = pb.start();
-</code></pre>
-<ul>
-<li><a href="https://locationtech.github.io/jts/javadoc/org/locationtech/jts/triangulate/DelaunayTriangulationBuilder.html" target="_blank">locationtech.github.io - JTS - DelaunayTriangulationBuilder</a></li>
-</ul>
 <h2 id="liens-utiles">Liens utiles</h2><ul>
-<li><a href="https://kodelog.wordpress.com/tag/telescopic-constructor-pattern/" target="_blank">Discussion sur l&#39;intérêt des beans couplés au design pattern Builder</a></li>
+<li><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Monteur" target="_blank">fr.wikibooks.org - Monteur</a></li>
 <li><a href="http://symfony.com/doc/current/book/forms.html#building-the-form" target="_blank">Exemple d&#39;utilisation dans la création de formulaire dans Symfony (PHP)</a></li>
 <li><a href="http://doctrine-orm.readthedocs.org/projects/doctrine-orm/en/latest/reference/query-builder.html#high-level-api-methods" target="_blank">Exemple d&#39;utilisation dans la création de requête SQL (PHP)</a></li>
 </ul>

@@ -113,8 +113,14 @@ varier indépendamment l&#39;une de l&#39;autre.</p>
 <h2 id="remarques">Remarques</h2><p>En pratique, le patron bridge sera souvent utilisé pour :</p>
 <ul>
 <li><strong>Localiser la dépendance à une bibliothèque</strong> (i.e. ne pas en dépendre partout dans son code).</li>
-<li><strong>Permettre le choix entre plusieurs bibliothèques</strong> (Voir <a href="https://docs.spring.io/spring-framework/reference/core/spring-jcl.html" target="_blank">docs.spring.io - Logging</a> illustrant la possibilité d&#39;utiliser au choix log4j2, SLF4J,... en utilisant le framework)</li>
+<li><strong>Permettre le choix entre plusieurs bibliothèques</strong></li>
 </ul>
+<p>Nous trouverons souvent des bridges dans les Framework :</p>
+<ul>
+<li>En Java, avec <a href="https://docs.spring.io/spring-framework/reference/core/spring-jcl.html" target="_blank">docs.spring.io - Logging</a> illustrant la possibilité d&#39;utiliser au choix log4j2, SLF4J,...</li>
+<li>En PHP, où <a href="https://github.com/symfony/symfony/tree/7.2/src/Symfony/Bridge" target="_blank">Symfony utilise des bridges pour l&#39;ORM (Doctrine), l&#39;écriture des logs (Monolog), le templating (Twig),...</a></li>
+</ul>
+<p>En TypeScript, vous pourriez par exemple être amené à faire un bridge sur <a href="https://turfjs.org/" target="_blank">Turf.js</a> ou <a href="https://github.com/bjornharrtell/jsts?tab=readme-ov-file#jsts" target="_blank">JSTS</a> pour localiser la dépendance aux bibliothèques de calcul géométrique.</p>
 <h2 id="liens-utiles">Liens utiles</h2><ul>
 <li><a href="https://sourcemaking.com/design_patterns/bridge" target="_blank">sourcemaking.com - Bridge Design Pattern</a></li>
 <li><a href="https://springframework.guru/gang-of-four-design-patterns/bridge-pattern/" target="_blank">springframework.guru - Bridge Pattern</a> qui prend l&#39;exemple de l&#39;envoi de messages de types différents (TextMessage, EmailMessage,...) avec des systèmes différents.</li>

@@ -24,6 +24,9 @@ Source : https://fr.wikibooks.org/wiki/Patrons_de_conception/Prototype
 
 ## Lien(s) utile(s)
 
+* [refactoring.guru - Prototype](https://refactoring.guru/fr/design-patterns/prototype)
+* [fr.wikibooks.org - Prototype](https://fr.wikibooks.org/wiki/Patrons_de_conception/Prototype)
+
 Voir aussi :
 
 * [structuredClone](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone) pour JavaScript

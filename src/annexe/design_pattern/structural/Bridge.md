@@ -74,7 +74,15 @@ class MonTraitement {
 En pratique, le patron bridge sera souvent utilisé pour :
 
 * **Localiser la dépendance à une bibliothèque** (i.e. ne pas en dépendre partout dans son code).
-* **Permettre le choix entre plusieurs bibliothèques** (Voir [docs.spring.io - Logging](https://docs.spring.io/spring-framework/reference/core/spring-jcl.html) illustrant la possibilité d'utiliser au choix log4j2, SLF4J,... en utilisant le framework)
+* **Permettre le choix entre plusieurs bibliothèques**
+
+Nous trouverons souvent des bridges dans les Framework :
+
+* En Java, avec [docs.spring.io - Logging](https://docs.spring.io/spring-framework/reference/core/spring-jcl.html) illustrant la possibilité d'utiliser au choix log4j2, SLF4J,...
+* En PHP, où [Symfony utilise des bridges pour l'ORM (Doctrine), l'écriture des logs (Monolog), le templating (Twig),...](https://github.com/symfony/symfony/tree/7.2/src/Symfony/Bridge)
+
+En TypeScript, vous pourriez par exemple être amené à faire un bridge sur [Turf.js](https://turfjs.org/) ou [JSTS](https://github.com/bjornharrtell/jsts?tab=readme-ov-file#jsts) pour localiser la dépendance aux bibliothèques de calcul géométrique.
+
 
 ## Liens utiles
 

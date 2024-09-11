@@ -59,32 +59,25 @@
     </div>
     <div class="markdown-body">
       <h1 id="facade">Facade</h1><h2 id="problème">Problème</h2><p>Nous disposons d&#39;un système complexe faisant intervenir de nombreuses classes en relation les unes avec les autres. Nous souhaitons <strong>fournir une abstraction pour les cas d&#39;usage simples</strong>.</p>
-<h2 id="cas-décole">Cas d&#39;école</h2><p>Nous avons une classe qui construit dynamiquement une triangulation à partir d&#39;un semi de points :</p>
-<pre><code class="language-java">interface TriangulationBuilder {
-
-    public Vertex addVertex( Coordinate coordinate ) ;
-
-    public Triangulation getTriangulation() ;
-
-}
-</code></pre>
-<p>Nous identifions qu&#39;à l&#39;usage, de nombreux clients vont se contenter de trianguler
-des &quot;tableaux&quot; de points.</p>
+<h2 id="cas-décole">Cas d&#39;école</h2><p>Nous développons une bibliothèque de triangulation avec une classe <a href="../creational/Builder.html">DelaunayTriangulationBuilder</a> offrant une fonctionnalité de triangulation incrémentale.</p>
+<p>Nous identifions qu&#39;à l&#39;usage, de nombreux clients se contenteront de trianguler des tableaux de points.</p>
 <h2 id="solution">Solution</h2><p>Nous mettons à disposition une méthode répondant à ce besoin :</p>
-<pre><code class="language-java">class TriangulationFacade {
+<pre><code class="language-ts">class Triangulation {
 
-    public static Triangulation tesselate(Collection&lt;Coordinate&gt; coordinates){
-        TriangulationBuilder builder = new TriangulationBuilder();
-        for ( Coordinate c : coordinates){
-            builder.addVertex(c);
+    static tesselate(coordinates: array&lt;Point&gt;): array&lt;Triangle&gt; {
+        const builder = new DelaunayTriangulationBuilder();
+        for ( const point of points ){
+            builder.addPoint(point);
         }
-        return builder.getTriangulation();
+        return builder.getTriangles();
     }
 
 }
 </code></pre>
+<p>Il sera ainsi <strong>plus simple d&#39;utiliser la bibliothèque</strong> de triangulation. De plus, <strong>le risque de répétition de code ou d&#39;abstraction inverse sera limité</strong>.</p>
 <h2 id="liens-utiles">Liens utiles</h2><ul>
 <li><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Fa%C3%A7ade" target="_blank">fr.wikibooks.org - Façade</a></li>
+<li><a href="https://refactoring.guru/fr/design-patterns/facade" target="_blank">refactoring.guru - Facade</a></li>
 </ul>
 
     </div>

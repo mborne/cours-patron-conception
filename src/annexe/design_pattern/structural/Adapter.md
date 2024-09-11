@@ -63,4 +63,4 @@ System.out.println(EnumerationUtils.concat(
 ## Liens utiles
 
 * [fr.wikibooks.org - Adaptateur](https://fr.wikibooks.org/wiki/Patrons_de_conception/Adaptateur)
-
+* [refactoring.guru - Adaptateur](https://refactoring.guru/fr/design-patterns/adapter)
