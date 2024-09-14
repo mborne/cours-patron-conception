@@ -21,18 +21,18 @@ class Sequence {
 
     private _current = 0;
 
-    private Sequence(){
+    private constructor(){
     }
 
-    public static getInstance(): Sequence {
+    static getInstance(): Sequence {
         return Sequence._instance ;
     }
 
-    public current(): number {
+    current(): number {
         return this._current;
     }
 
-    public next(){
+    next(){
         return this._current++;
     }
 }

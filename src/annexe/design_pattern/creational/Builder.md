@@ -25,11 +25,13 @@ Source [https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Builder](
 
 ## Variantes
 
+### Absence de Director
+
 En pratique, la distinction ne sera pas toujours faite entre "Director" et "Builder". La **terminologie builder est généralisée à la création incrémentale d'objet** :
 
 * Création ou récupération d'un builder
-* Appels successifs au builder pour fournir les informations requises pour la construction (add, set, etc...)
-* Récupération de l'instance produite (getProduct)
+* Appels successifs au builder pour fournir les informations permettant de construire l'objet (add, set, etc...)
+* Récupération de l'instance produite
 
 Par exemple, avec un `DelaunayTriangulationBuilder` implémentant une triangulation de Delaunay :
 
@@ -38,7 +40,7 @@ const builder = new DelaunayTriangulationBuilder();
 for ( const point of points ){
   builder.addPoint(point);
 }
-builder.getTriangles(); // récupération des triangles
+builder.getTriangles();
 ```
 
 ## Liens utiles
