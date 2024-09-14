@@ -59,51 +59,15 @@
     </div>
     <div class="markdown-body">
       <h1 id="composite">Composite</h1><h2 id="problème">Problème</h2><p>Nous manipulons un <strong>arbre</strong> et nous souhaitons <strong>réaliser un traitement sans faire la distinction entre les noeuds porteurs d&#39;enfants et les feuilles</strong>.</p>
-<h2 id="cas-décole">Cas d&#39;école</h2><p>Dans un éditeur, nous manipulons des formes (<code>Shape</code>) primitives (<code>Circle</code>, <code>Square</code>, etc.) et
+<h2 id="cas-décole">Cas d&#39;école</h2><p>Dans un éditeur, nous manipulons des formes (<code>Shape</code>) primitives (<code>Circle</code>, <code>Rectangle</code>, etc.) et
 des groupes de formes (<code>ShapeCollection</code>).</p>
-<p>Nous voulons unifier le rendu.</p>
+<p>Nous ne souhaitons pas traiter un cas particulier pour le rendu de ces groupes de formes.</p>
 <h2 id="solution">Solution</h2><p>Le patron composite propose de procéder comme suit :</p>
-<p><img src="uml/UML_Composite.png" alt="UML Composite"></p>
+<img alt="UML Composite" src="uml/UML_Composite.png" style="height: 320px" />
+
 <p>Source <a href="https://en.wikipedia.org/wiki/Composite_pattern" target="_blank"><a href="https://en.wikipedia.org/wiki/Composite_pattern" target="_blank">https://en.wikipedia.org/wiki/Composite_pattern</a></a></p>
-<p>Nous aurons par exemple :</p>
-<pre><code class="language-java">interface Shape {
-
-    public void render() ;
-
-}
-</code></pre>
-<pre><code class="language-java">class Circle implements Shape {
-    //center, radius,...
-
-    public void render(){
-        System.out.println(&quot;Rendu du cercle&quot;);
-    }
-}
-</code></pre>
-<pre><code class="language-java">class ShapeCollection implements Shape {
-
-    protected List&lt;Shape&gt; children = new ArrayList&lt;Shape&gt;();
-
-    public void add(Shape child){
-        this.children.add(child);
-    }
-
-    public void remove(Shape child){
-        this.children.remove(child);
-    }
-
-    public void render(){
-        System.out.println(&quot;Rendu du groupe de forme&quot;);
-        for ( Shape child : children ){
-            child.render();
-        }
-    }
-}
-</code></pre>
-<p>Ainsi, à l&#39;utilisation, nous pourrons faire le rendu sans nous préoccuper du type d&#39;objet :</p>
-<pre><code class="language-java">Shape shape = /* une forme ou collection de formes */
-shape.render();
-</code></pre>
+<p>Dans notre cas d&#39;école, nous pourrons procéder comme suit :</p>
+<p><img src="uml/UML_DP_CompositeShape.drawio.png" alt="Exemple en UML d&#39;utilisation du patron composite"></p>
 
     </div>
   </main>

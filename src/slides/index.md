@@ -650,7 +650,7 @@ Pour faire simple, **sans connaissance des patrons, certains choix de conception
 
 ## Les patrons de création
 
-Nous nous concentrerons sur les patrons du GoF suivant :
+Nous nous concentrerons sur les patrons de création du GoF ci-après :
 
 * [Singleton](annexe/design_pattern/creational/Singleton.html)
 * [Prototype](annexe/design_pattern/creational/Prototype.html)
@@ -666,11 +666,16 @@ Nous irons un peu plus loin avec :
 
 ## Les patrons de structure
 
+Nous nous concentrerons sur les patrons de structure du GoF ci-après :
+
 * [Facade (Façade)](annexe/design_pattern/structural/Facade.html)
 * [Decorator (Décorateur)](annexe/design_pattern/structural/Decorator.html)
 * [Composite (Objet composite)](annexe/design_pattern/structural/Composite.html)
 * [Adapter (Adaptateur)](annexe/design_pattern/structural/Adapter.html)
 * [Bridge (Pont)](annexe/design_pattern/structural/Bridge.html)
+
+Nous noterons qu'il en existe d'autres :
+
 * Proxy
 * Flyweight (Poids-mouche)
 

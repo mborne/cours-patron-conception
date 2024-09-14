@@ -6,65 +6,21 @@ Nous manipulons un **arbre** et nous souhaitons **réaliser un traitement sans f
 
 ## Cas d'école
 
-Dans un éditeur, nous manipulons des formes (`Shape`) primitives (`Circle`, `Square`, etc.) et
+Dans un éditeur, nous manipulons des formes (`Shape`) primitives (`Circle`, `Rectangle`, etc.) et
 des groupes de formes (`ShapeCollection`).
 
-Nous voulons unifier le rendu.
+Nous ne souhaitons pas traiter un cas particulier pour le rendu de ces groupes de formes.
 
 ## Solution
 
 Le patron composite propose de procéder comme suit :
 
-![UML Composite](uml/UML_Composite.png)
+<img alt="UML Composite" src="uml/UML_Composite.png" style="height: 320px" />
 
 Source [<https://en.wikipedia.org/wiki/Composite_pattern>](https://en.wikipedia.org/wiki/Composite_pattern)
 
-Nous aurons par exemple :
+Dans notre cas d'école, nous pourrons procéder comme suit :
 
-```java
-interface Shape {
-
-    public void render() ;
-
-}
-```
-
-```java
-class Circle implements Shape {
-    //center, radius,...
-
-    public void render(){
-        System.out.println("Rendu du cercle");
-    }
-}
-```
+![Exemple en UML d'utilisation du patron composite](uml/UML_DP_CompositeShape.drawio.png)
 
 
-```java
-class ShapeCollection implements Shape {
-
-    protected List<Shape> children = new ArrayList<Shape>();
-
-    public void add(Shape child){
-        this.children.add(child);
-    }
-
-    public void remove(Shape child){
-        this.children.remove(child);
-    }
-
-    public void render(){
-        System.out.println("Rendu du groupe de forme");
-        for ( Shape child : children ){
-            child.render();
-        }
-    }
-}
-```
-
-Ainsi, à l'utilisation, nous pourrons faire le rendu sans nous préoccuper du type d'objet :
-
-```java
-Shape shape = /* une forme ou collection de formes */
-shape.render();
-```
