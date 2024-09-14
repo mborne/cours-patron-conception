@@ -59,50 +59,49 @@
     </div>
     <div class="markdown-body">
       <h1 id="adapter-adaptateur">Adapter (Adaptateur)</h1><h2 id="problème">Problème</h2><p><strong>Nous avons deux interfaces qui ont des fonctionnalités équivalentes mais qui sont incompatibles</strong>. </p>
-<h2 id="cas-décole">Cas d&#39;école</h2><p>Nous disposons d&#39;un algorithme qui effectue la concaténation de chaînes de caractères
-avec un séparateur et prenant en entrée un <code>Enumeration</code> :</p>
-<pre><code class="language-java">class EnumerationUtils {
+<h2 id="cas-décole">Cas d&#39;école</h2><p>Nous travaillons sur un système historique où seules des transformations de coordonnées triviales sont réalisées entre des coordonnées cartographiques et des coordonnées écrans. Nous souhaitons intégrer la gestion des reprojections cartographiques à l&#39;aide d&#39;une bibliothèque mettant à disposition une classe <code>Proj4Transform</code> avec quelques différences de conception :</p>
+<p><img src="uml/UML_DP_Adapter_CoordinateTransform.png" alt="UML - Exemple d&#39;incompabilité entre deux interfaces"></p>
+<p>En particulier, <code>Proj4Transform</code> prend des tableaux en paramètre quand notre système utilise une classe <code>Coordinate</code>.</p>
+<h2 id="solution">Solution</h2><p>Nous pouvons implémenter <code>CoordinateTransform</code> en utilisant une instance de <code>Proj4Transform</code> :</p>
+<p><img src="uml/UML_DP_Adapter_CoordinateTransform-solution.png" alt="UML - Solution avec Proj4Adapter"></p>
+<p>Nous aurons par exemple le code suivant pour l&#39;adaptation :</p>
+<pre><code class="language-ts">class Proj4Adapter {
 
-    public static String concat(Enumeration&lt;String&gt; items, String separator){
-        //...
+    proj4Transform: Proj4Transform;
+
+    constructor(proj4Transform: Proj4Transform){
+        this.proj4Transform = proj4Transform;
+    }
+
+    direct(c: Coordinate){
+        const result = this.proj4Transform.direct([c.x,c.y]);
+        return {
+            x: result[0],
+            y: result[1]
+        }
+    }
+
+    inverse(c: Coordinate){
+        const result = this.proj4Transform.inverse([c.x,c.y]);
+        return {
+            x: result[0],
+            y: result[1]
+        }
     }
 
 }
 </code></pre>
-<p>Nous devons appliquer cet algorithme sur un <code>Iterator&lt;String&gt;</code> présentant un comportement similaire :</p>
-<ul>
-<li><a href="https://docs.oracle.com/javase/7/docs/api/java/util/Enumeration.html" target="_blank">Enumeration</a></li>
-<li><a href="https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html" target="_blank">Iterator</a></li>
-</ul>
-<h2 id="solution">Solution</h2><p>L&#39;idée est la même que pour les adaptateurs dans la vie courante. Nous allons <strong>créer un intermédiaire qui se charger d&#39;adapter les appels</strong> :</p>
-<pre><code class="language-java">class IteratorToEnumationAdapter implements Enumeration&lt;String&gt; {
-
-    private Iterator&lt;String&gt; adaptee ;
-
-    public Adapter(Iterator&lt;String&gt; adaptee){
-        this.adaptee = adaptee ;
-    }
-
-    public boolean hasMoreElements(){
-        return adaptee.hasNext() ;
-    }
-
-    public String nextElement(){
-        return adaptee.next() ;
-    }
-
-}
+<p>A l&#39;utilisation :</p>
+<pre><code class="language-ts">const proj4Transform = new Proj4Transform(&quot;EPSG:2154&quot;,&quot;EPSG:3857&quot;);
+const transform = new Proj4Adapter(proj4Transform);
 </code></pre>
-<p>Nous pourrons appeler l&#39;algorithme comme suit :</p>
-<pre><code class="language-java">Iterator&lt;String&gt; items ;
-//...
-System.out.println(EnumerationUtils.concat(
-    new IteratorToEnumationAdapter(items)
-));
+<h2 id="variantes">Variantes</h2><p>Il existe <strong>plusieurs styles d&#39;interfaces permettant d&#39;itérer sur des collections</strong> (stream, iterator, generator,...). Nous retrouvons souvent l&#39;idée d&#39;adapteur dans ce contexte :</p>
+<pre><code class="language-ts">const myReadableStream = ReadableStream.from(iteratorOrAsyncIterator);
 </code></pre>
 <blockquote>
-<p>Remarque : Le livre &quot;tête la première dans les designs patterns&quot; traite le cas inverse et l&#39;adaptation partielle (absence de la fonction &quot;remove&quot; sur les Enumeration)</p>
+<p>Source : <a href="https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream#convert_an_iterator_or_async_iterator_to_a_stream" target="_blank">developer.mozilla.org - Convert an iterator or async iterator to a stream</a></p>
 </blockquote>
+<p>De même, il existe <strong>plusieurs approches pour gérer les traitements asynchrones</strong>. Le concept d&#39;adapteur pourra par exemple être repris dans le cadre de la conversion de callback en <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank">Promise</a>.</p>
 <h2 id="liens-utiles">Liens utiles</h2><ul>
 <li><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Adaptateur" target="_blank">fr.wikibooks.org - Adaptateur</a></li>
 <li><a href="https://refactoring.guru/fr/design-patterns/adapter" target="_blank">refactoring.guru - Adaptateur</a></li>
