@@ -61,6 +61,7 @@
       <h1 id="strategy">Strategy</h1><ul>
 <li><a href="#problème">Problème</a></li>
 <li><a href="#cas-décole">Cas d&#39;école</a></li>
+<li><a href="#problème-1">Problème</a></li>
 <li><a href="#tentons-différentes-approches">Tentons différentes approches...</a><ul>
 <li><a href="#pouvons-nous-nous-appuyer-sur-un-switch">Pouvons nous nous appuyer sur un switch?</a></li>
 <li><a href="#pouvons-nous-exploiter-le-polymorphisme">Pouvons nous exploiter le polymorphisme?</a></li>
@@ -69,265 +70,57 @@
 <li><a href="#solution">Solution</a></li>
 </ul>
 <h2 id="problème">Problème</h2><p>Nous souhaitons pouvoir <strong>faire varier dynamiquement le comportement d&#39;une partie d&#39;un traitement</strong>.</p>
-<h2 id="cas-décole">Cas d&#39;école</h2><p>Prenons le cas d&#39;une application qui applique les trois étapes suivantes :</p>
+<h2 id="cas-décole">Cas d&#39;école</h2><p>Prenons le cas d&#39;une <strong>application de traitement d&#39;image</strong> qui applique les trois étapes suivantes :</p>
 <ul>
-<li>Charger une image PNG</li>
-<li>Passer l&#39;image en niveau de gris</li>
-<li>Stocker l&#39;image résultante</li>
+<li>Charger une image PNG à partir d&#39;un fichier (<code>inputFile</code>)</li>
+<li>Flouter l&#39;image (<code>blur</code>)</li>
+<li>Sauvegarder l&#39;image dans un fichier (<code>outputFile</code>)</li>
 </ul>
-<pre><code class="language-java">class Application {
-
-    public void run(File input, File output){
-        Image image = readImagePNG(input);
-        grayScale(image) ;
-        writeImagePNG(image,output)
-    }
-
-    protected void grayScale(Image image){
-        // Transforme en niveau de gris
-    }
-
-    protected Image readImagePNG(File input){
-        // Chargement de l&#39;image PNG
-    }
-
-    protected Image writeImagePNG(File output, Image image){
-        // Sauvegarde de l&#39;image PNG
-    }
-}
+<p><img src="./uml/UML_DP_Strategy-initial.drawio.png" alt="UML_DP_Strategy - initial"></p>
+<p>Nous l&#39;exposons en ligne de commande sous la forme suivante :</p>
+<pre><code class="language-bash">traitement-image data/joconde.jpg data/joconde-blur.jpg
 </code></pre>
-<p>Nous exposons cette classe sous forme d&#39;un exécutable appelé ainsi :</p>
-<pre><code class="language-bash">traitement-image input.png output.png
-</code></pre>
-<pre><code class="language-java">class ApplicationCLI {
-
-    public static void main(String args[]){
-        File input  = new File(args[0]);
-        File output = new File(args[1]);
-        Application application = new Application();
-        application.run(input,output);
-    }
-
-}
-</code></pre>
-<p>Nous souhaitons maintenant permettre le choix sur le traitement appliqué :</p>
-<pre><code class="language-bash">traitement-image &lt;input&gt; &lt;output&gt; [method]
-method := grayScale|blur
-</code></pre>
-<h2 id="tentons-différentes-approches">Tentons différentes approches...</h2><h3 id="pouvons-nous-nous-appuyer-sur-un-switch">Pouvons nous nous appuyer sur un switch?</h3><pre><code class="language-java">class Application {
-
-    public void run(File input, File output, String method){
-        Image image = readImagePNG(input);
-        if ( method.equals(&quot;grayScale&quot;) ){
-            grayScale(image) ;
-        }else if ( method.equals(&quot;blur&quot;) ){
-            blur(image) ;
-        }
-        writeImagePNG(image,output);
-    }
-
-    protected void grayScale(Image image){
-        // Applique un grayScale sur l&#39;image
-    }
-
-    protected void blur(Image image){
-        // Applique un blur sur l&#39;image
-    }
-
-    protected Image readImagePNG(File input){
-        // Chargement de l&#39;image PNG
-    }
-
-    protected Image writeImagePNG(File output, Image image){
-        // Sauvegarde de l&#39;image PNG
-    }
-}
-</code></pre>
-<p><strong>Problèmes :</strong></p>
+<blockquote>
+<p>Voir <a href="https://github.com/mborne/ts-pattern-strategy/tree/initial#readme" target="_blank">mborne/ts-pattern-strategy - branche initial</a></p>
+</blockquote>
+<h2 id="problème-1">Problème</h2><p>Nous souhaitons faire évoluer l&#39;application pour permettre le choix entre plusieurs opérations :</p>
 <ul>
-<li>Ajouter un algorithme implique la mise à jour de run (Violation du principe ouvert/fermé)</li>
-<li>La classe <code>Application</code> aura tendance à devenir un <strong>objet divin</strong></li>
-<li>A terme, si les algorithmes ont des paramètres spécifiques, il faudra ajouter des attributs sur la classe <code>Application</code></li>
+<li>Flouter l&#39;image (<code>blur</code>)</li>
+<li>Convertir l&#39;image en niveau de gris (<code>greyscale</code>)</li>
 </ul>
-<h3 id="pouvons-nous-exploiter-le-polymorphisme">Pouvons nous exploiter le polymorphisme?</h3><p>Nous pourrions nous inspirer du patron <strong>template methode</strong> en procédant comme suit avec :</p>
-<ul>
-<li>Une classe abstraite <code>Application</code></li>
-</ul>
-<pre><code class="language-java">abstract class Application {
-
-    public void run(File input, File output){
-        Image image = readImagePNG(input);
-        process(image);
-        writeImagePNG(image,output);
-    }
-
-    public abstract void process(Image image) ;
-
-    public Image readImagePNG(File input){
-        // Chargement de l&#39;image PNG
-    }
-
-    public Image writeImagePNG(File output, Image image){
-        // Sauvegarde de l&#39;image PNG
-    }
-}
+<p>Nous ciblons pour cela l&#39;ajout d&#39;un paramètre à l&#39;API en ligne de commande comme suit :</p>
+<pre><code>traitement-image {inputFile} {outputFile} (blur|greyscale)
 </code></pre>
+<h2 id="tentons-différentes-approches">Tentons différentes approches...</h2><h3 id="pouvons-nous-nous-appuyer-sur-un-switch">Pouvons nous nous appuyer sur un switch?</h3><p>Nous pourrions nous contenter d&#39;ajouter un paramètre à la méthode <code>run</code> et traiter les différents cas en fonction <code>operationName</code> :</p>
+<p><img src="./uml/UML_DP_Strategy-switch.drawio.png" alt="UML_DP_Strategy - switch"></p>
+<p>Cette approche serait la plus simple mais elle possède plusieurs défauts :</p>
 <ul>
-<li>Un implémentation de <code>Application</code> pour le niveau de gris :</li>
+<li>Ajouter un algorithme impliquera la mise à jour de <code>run</code> (violation du principe ouvert/fermé)</li>
+<li>La classe <code>Application</code> aura tendance à devenir un <strong>objet divin</strong>.</li>
+<li>En particulier, nous risquons à terme de multiplier les attributs spécifiques aux différents traitements (ex : <code>blurRadius</code>) sur la classe <code>Application</code>.</li>
 </ul>
-<pre><code class="language-java">class ApplicationGrayScale extends Application {
-
-    private final static String NAME = &quot;grayScale&quot; ;
-
-    public void process(Image image){
-        // applique traitement grayScale...
-    }
-}
-</code></pre>
-<ul>
-<li>Une implémentation de <code>Application</code> pour le niveau de gris :</li>
-</ul>
-<pre><code class="language-java">class ApplicationBlur extends Application {
-
-    private final static String NAME = &quot;blur&quot; ;
-
-    public void process(Image image){
-        // applique traitement blur...
-    }
-}
-</code></pre>
-<ul>
-<li>Une classe <code>ApplicationCLI</code> pour sélectionner la méthode :</li>
-</ul>
-<pre><code class="language-java">class ApplicationCLI {
-
-    public static void main(String args[]){
-        File input    = new File(args[0]);
-        File output   = new File(args[1]);
-        String method = args[2] ;
-
-        Map&lt;String, Application&gt; applications = new HashMap&lt;String, Application&gt;();
-        applications.put(ApplicationGrayScale.NAME, new ApplicationGrayScale());
-        applications.put(ApplicationBlur.NAME, new ApplicationBlur());
-
-        Application application = applications.get(method);
-        application.run(input,output);
-    }
-
-}
-</code></pre>
+<h3 id="pouvons-nous-exploiter-le-polymorphisme">Pouvons nous exploiter le polymorphisme?</h3><p>Nous pourrions promouvoir <code>Application</code> en interface et nous appuyer sur le polymorphisme comme suit :</p>
+<p><img src="./uml/UML_DP_Strategy-heritage.drawio.png" alt="UML_DP_Strategy - heritage"></p>
+<blockquote>
+<p>Voir <a href="https://github.com/mborne/ts-pattern-strategy/tree/heritage#readme" target="_blank">mborne/ts-pattern-strategy - branche heritage</a></p>
+</blockquote>
 <p>A première vue, nous pourrions être satisfait d&#39;une telle conception...</p>
 <p><strong>Problème : Que se passe-t&#39;il si nous souhaitons maintenant pouvoir appliquer deux traitements successifs?</strong></p>
 <p>Nous avons soit :</p>
 <ul>
-<li>Une <strong>explosion combinatoire</strong> (<code>ApplicationBlur</code>, <code>ApplicationGrayScale</code>, <code>ApplicationGrayScaleBlur</code>, <code>ApplicationBlurGrayScale</code>)</li>
-<li>Des écritures/relectures multiples de fichiers</li>
+<li>Une <strong>explosion combinatoire</strong> (<code>ApplicationBlur</code>, <code>ApplicationGreyscale</code>, <code>ApplicationGreyscaleBlur</code>, <code>ApplicationBlurGreyscale</code>)</li>
+<li>Des écritures/relectures multiples de fichiers si nous nous écrivons dans un fichier temporaire.</li>
 </ul>
 <p>Le problème de fond réside dans le fait que <strong>nous ne respectons pas plusieurs principes de conception</strong> :</p>
 <ul>
-<li>Le <strong>principe de responsabilité unique</strong> (Application assure le calcul ainsi que l&#39;orchestration de la lecture et les écritures des fichiers).</li>
+<li>Le <strong>principe de responsabilité unique</strong> (<code>Application</code> assure le calcul ainsi que l&#39;orchestration de la lecture et les écritures des fichiers).</li>
 <li><strong>Privilégier la composition à l&#39;héritage s&#39;applique aussi pour l&#39;encapsulation des traitements</strong>.</li>
 </ul>
-<h2 id="solution">Solution</h2><p>Avec Strategy, au lieu d&#39;hériter pour faire varier le comportement, nous allons <strong>encapsuler le traitement dans un objet dont le seul rôle se limitera à appliquer le traitement</strong>.</p>
-<p>Nous aurons par exemple :</p>
-<ul>
-<li>Une interface <code>ImageProcessorStrategy</code> correspondant à la stratégie :</li>
-</ul>
-<pre><code class="language-java">interface ImageProcessorStrategy {
-    public void process(Image image) ;
-}
-</code></pre>
-<ul>
-<li>Une <code>Application</code> appelant ce traitement :</li>
-</ul>
-<pre><code class="language-java">class Application {
-
-    private ImageProcessorStrategy processor ;
-
-    public Application(ImageProcessorStrategy processor){
-        this.processor = processor ;
-    }
-
-    public void run(File input, File output){
-        Image image = readImagePNG(input);
-        processor.process(image);
-        writeImagePNG(image,output);
-    }
-
-    public Image readImagePNG(File input){
-        // Chargement de l&#39;image PNG
-    }
-
-    public Image writeImagePNG(File output, Image image){
-        // Sauvegarde de l&#39;image PNG
-    }
-}
-</code></pre>
-<p>Pour l&#39;implémentation des traitements, nous aurons :</p>
-<ul>
-<li>Une implémentation pour le passage en niveau de gris :</li>
-</ul>
-<pre><code class="language-java">class ImageProcessorGrayScale implements ImageProcessorStrategy {
-
-    private final static String NAME = &quot;grayScale&quot; ;
-
-    public void process(Image image){
-        // applique traitement grayScale...
-    }
-
-}
-</code></pre>
-<ul>
-<li>Une implémentation pour le flou :</li>
-</ul>
-<pre><code class="language-java">class ImageProcessorBlur implements ImageProcessorStrategy {
-
-    private final static String NAME = &quot;blur&quot; ;
-
-    public void process(Image image){
-        // applique traitement blur...
-    }
-}
-</code></pre>
-<p>Pour enchaîner les traitements, nous utiliserons conjointement les patrons <strong>Strategy</strong> et <a href="../structural/Composite.html">Composite</a> :</p>
-<pre><code class="language-java">class ImageProcessorComposite implements ImageProcessorStrategy {
-
-    private List&lt;ImageProcessorStrategy&gt; strategies ;
-
-    public ImageProcessorComposite(){
-        this.strategies = new ArrayList&lt;ImageProcessorStrategy&gt;();
-    }
-
-    public void add(ImageProcessorStrategy strategy){
-        this.strategies.add(strategy) ;
-    }
-
-    public void process(Image image){
-        // applique les sous-stratégies
-        for ( ImageProcessorStrategy strategy : strategies ){
-            strategy.process(image);
-        }
-    }
-
-}
-</code></pre>
-<p>A l&#39;utilisation, nous aurons la possibilité de procéder comme suit :</p>
-<pre><code class="language-java">File input    = new File(args[0]);
-File output   = new File(args[1]);
-
-// TODO : remplacer les lignes suivantes par un parser d&#39;expression
-ImageProcessorComposite compositeStrategy = new ImageProcessorComposite();
-compositeStrategy.add(new ApplicationGrayScale());
-compositeStrategy.add(new ApplicationBlur());
-
-Application application = new Application(compositeStrategy);
-application.run(input,output);
-</code></pre>
-<p>Il nous restera simplement à </p>
-<ul>
-<li>Écrire le parseur d&#39;expression correspondant au TODO</li>
-<li>Appliquer le même principe sur la lecture ou l&#39;écriture des fichiers (<code>ImageReader</code>, <code>ImageWriter</code>) si nous voulons supporter plusieurs formats</li>
-</ul>
+<h2 id="solution">Solution</h2><p>Avec le <strong>patron Strategy</strong>, au lieu d&#39;hériter pour faire varier le comportement, nous allons <strong>encapsuler le traitement dans un objet dont le seul rôle se limitera à appliquer le traitement</strong> (<code>ImageProcessor</code>) :</p>
+<p><img src="./uml/UML_DP_Strategy-strategy.drawio.png" alt="UML_DP_Strategy - strategy"></p>
+<blockquote>
+<p>Voir <a href="https://github.com/mborne/ts-pattern-strategy/tree/strategy#readme" target="_blank">mborne/ts-pattern-strategy - branche strategy</a></p>
+</blockquote>
 
     </div>
   </main>

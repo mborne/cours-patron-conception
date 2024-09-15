@@ -72,6 +72,17 @@
 <li><code>ReverseIterator</code> permettant un parcours en sens inverse.</li>
 <li><code>CircularIterator</code> (CGAL) permettant un parcours sans début et sans fin (parcours des sommets d&#39;un polygone)</li>
 </ul>
+<p>Nous soulignerons qu&#39;il existe <strong>plusieurs styles d&#39;interfaces permettant d&#39;itérer sur des collections</strong> (stream, iterator, generator,...). Les conversions seront d&#39;ailleurs souvent réalisées à l&#39;aide du patron de conception adaptateur :</p>
+<pre><code class="language-ts">const myReadableStream = ReadableStream.from(iteratorOrAsyncIterator);
+</code></pre>
+<blockquote>
+<p>Source : <a href="https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream#convert_an_iterator_or_async_iterator_to_a_stream" target="_blank">developer.mozilla.org - Convert an iterator or async iterator to a stream</a></p>
+</blockquote>
+<p>Enfin, nous noterons que <strong>de nombreux langages généralisent la notion de collection itérable</strong> afin d&#39;unifier le parcours des collections, générateur,... :</p>
+<pre><code class="language-ts">for ( const item of anyIterableType ){
+    console.log(item);
+}
+</code></pre>
 <h2 id="ressources">Ressources</h2><ul>
 <li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html" target="_blank">Iterator</a> dans la bibliothèque standard Java.</li>
 </ul>

@@ -95,13 +95,7 @@
 <pre><code class="language-ts">const proj4Transform = new Proj4Transform(&quot;EPSG:2154&quot;,&quot;EPSG:3857&quot;);
 const transform = new Proj4Adapter(proj4Transform);
 </code></pre>
-<h2 id="variantes">Variantes</h2><p>Il existe <strong>plusieurs styles d&#39;interfaces permettant d&#39;itérer sur des collections</strong> (stream, iterator, generator,...). Nous retrouvons souvent l&#39;idée d&#39;adapteur dans ce contexte :</p>
-<pre><code class="language-ts">const myReadableStream = ReadableStream.from(iteratorOrAsyncIterator);
-</code></pre>
-<blockquote>
-<p>Source : <a href="https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream#convert_an_iterator_or_async_iterator_to_a_stream" target="_blank">developer.mozilla.org - Convert an iterator or async iterator to a stream</a></p>
-</blockquote>
-<p>De même, il existe <strong>plusieurs approches pour gérer les traitements asynchrones</strong>. Le concept d&#39;adapteur pourra par exemple être repris dans le cadre de la conversion de callback en <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank">Promise</a>.</p>
+<h2 id="variantes">Variantes</h2><p>Il existe <strong>plusieurs approches pour gérer les traitements asynchrones</strong>. Le concept d&#39;adapteur pourra par exemple être repris dans le cadre de la conversion de callback en <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank">Promise</a>.</p>
 <h2 id="liens-utiles">Liens utiles</h2><ul>
 <li><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Adaptateur" target="_blank">fr.wikibooks.org - Adaptateur</a></li>
 <li><a href="https://refactoring.guru/fr/design-patterns/adapter" target="_blank">refactoring.guru - Adaptateur</a></li>
