@@ -69,13 +69,13 @@
  * Création d&#39;une politique avec peu de contraintes
  * pour les utilisateurs lambda
  */
-PasswordValidator userPasswordValidator = new LengthValidator(8);
+const userPasswordValidator = new LengthValidator(8);
 
 /*
  * Création d&#39;une politique plus contraignante
  * pour les administrateurs
  */
-PasswordValidator adminPasswordValidator = new LengthValidator(12);
+const adminPasswordValidator = new LengthValidator(12);
 adminPasswordValidator.setSuccessor(new HasDigitValidator());
 // ...
 </code></pre>

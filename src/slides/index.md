@@ -748,6 +748,7 @@ Vous pourrez constater :
 
 Après ce cours et ces TP, j'espère que vous comprendrez qu'il est **fondamental de respecter les principes de conception** à tous les niveaux du système et en quoi **les patrons de conception peuvent vous aider**.
 
+
 ### Comment progresser?
 
 * Comprendre et apprendre les principaux patrons de conception
@@ -755,4 +756,4 @@ Après ce cours et ces TP, j'espère que vous comprendrez qu'il est **fondamenta
 * **Expérimenter** (et apprendre de ses erreurs)! 
 * **Concevoir** des codes en pensant aux **principes de conception** et **patrons de conception** (sans sombrer dans la paternite)
 * **Concevoir des codes en les testant unitairement** (un code mal conçu ne pouvant être testé unitairement)
-* **Comprendre des architectures existantes** (vous constaterez que les mêmes principes s'appliquent à diverses échelles des systèmes)
+* **Comprendre des architectures existantes** (vous constaterez que **les mêmes principes de conceptions s'appliquent à diverses échelles des systèmes**)

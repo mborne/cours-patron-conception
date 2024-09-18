@@ -59,32 +59,34 @@
     </div>
     <div class="markdown-body">
       <h1 id="iterator">Iterator</h1><h2 id="problème">Problème</h2><p>Nous voulons des traitements capables de fonctionner sur tous les types de collections (<code>List</code>, <code>Map</code>, <code>Set</code>...).</p>
-<h2 id="solution">Solution</h2><p>Nous faisons abstraction sur le parcours d&#39;une collection :</p>
+<h2 id="solution">Solution</h2><p>Le patron de conception itérateur propose de définir une abstraction sur le parcours d&#39;une collection :</p>
+<p><img src="uml/UML_DP_Iterator.png" alt="UML_DP_Iterator"></p>
 <pre><code class="language-java">interface Iterator {
     public boolean hasNext() ;
     public Object next() ;
 }
 </code></pre>
-<p>Nous aurons ainsi des traitements <strong>moins consommateur de mémoire</strong> et <strong>plus réutilisables</strong> que ceux dépendant d&#39;interface précises (<code>List</code>, <code>Map</code>, <code>Set</code>...).</p>
-<h2 id="variantes">Variantes</h2><p>Nous trouverons plusieurs variantes pour ce patron de conception :</p>
+<p>En procédant ainsi, nous aurons des traitements <strong>moins consommateur de mémoire</strong> et <strong>plus réutilisables</strong> que ceux dépendant d&#39;interface précises (<code>List</code>, <code>Map</code>, <code>Set</code>...).</p>
+<h2 id="variantes">Variantes</h2><p>Nous soulignerons qu&#39;il existe plusieurs variantes :</p>
 <ul>
-<li><code>Iterator.reset</code> permettant de reprendre la lecture au début au début.</li>
+<li><code>Iterator.reset()</code> permettant de reprendre la lecture au début au début.</li>
 <li><code>ReverseIterator</code> permettant un parcours en sens inverse.</li>
 <li><code>CircularIterator</code> (CGAL) permettant un parcours sans début et sans fin (parcours des sommets d&#39;un polygone)</li>
+<li>...</li>
 </ul>
-<p>Nous soulignerons qu&#39;il existe <strong>plusieurs styles d&#39;interfaces permettant d&#39;itérer sur des collections</strong> (stream, iterator, generator,...). Les conversions seront d&#39;ailleurs souvent réalisées à l&#39;aide du patron de conception adaptateur :</p>
+<p>En noterons aussi qu&#39;il existe <strong>plusieurs styles d&#39;interfaces permettant d&#39;itérer sur des collections</strong> (stream, iterator, generator,...) et qu&#39;il sera possible de réaliser des conversions en s&#39;appuyant sur le patron de conception Adaptateur :</p>
 <pre><code class="language-ts">const myReadableStream = ReadableStream.from(iteratorOrAsyncIterator);
 </code></pre>
-<blockquote>
-<p>Source : <a href="https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream#convert_an_iterator_or_async_iterator_to_a_stream" target="_blank">developer.mozilla.org - Convert an iterator or async iterator to a stream</a></p>
-</blockquote>
-<p>Enfin, nous noterons que <strong>de nombreux langages généralisent la notion de collection itérable</strong> afin d&#39;unifier le parcours des collections, générateur,... :</p>
+<p>Enfin, nous remarquerons que certains langages tels JavaScript et PHP <strong>de nombreux langages généralisent la notion de collection itérable</strong> afin d&#39;unifier le parcours des collections, des résultats des générateurs,... :</p>
 <pre><code class="language-ts">for ( const item of anyIterableType ){
     console.log(item);
 }
 </code></pre>
-<h2 id="ressources">Ressources</h2><ul>
+<h2 id="liens-utiles">Liens utiles</h2><ul>
 <li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html" target="_blank">Iterator</a> dans la bibliothèque standard Java.</li>
+<li><a href="https://www.w3schools.com/Js/js_iterables.asp" target="_blank">www.w3schools.com - JavaScript Iterables</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator" target="_blank">developer.mozilla.org - Generator</a></li>
+<li><a href="https://www.php.net/manual/fr/class.traversable.php" target="_blank">PHP Traversable</a>, <a href="https://www.php.net/manual/fr/language.types.iterable.php" target="_blank">PHP Itérables</a>
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream#convert_an_iterator_or_async_iterator_to_a_stream" target="_blank">developer.mozilla.org - Convert an iterator or async iterator to a stream</a></li>
 </ul>
 
     </div>

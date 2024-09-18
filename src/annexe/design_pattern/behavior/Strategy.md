@@ -82,3 +82,8 @@ Avec le **patron Strategy**, nous allons **encapsuler le traitement dans un obje
 Pour enchaîner les traitements (ex : `blur,greyscale`), nous pourrons par exemple exploiter le patron de conception [Composite](../structural/Composite.md) en modélisant une liste de traitement sous forme d'une `ImageProcessorList`.
 
 > Voir [mborne/ts-pattern-strategy - branche strategy](https://github.com/mborne/ts-pattern-strategy/tree/strategy#readme)
+
+## Liens utiles
+
+* [fr.wikibooks.org - Stratégie](https://fr.wikibooks.org/wiki/Patrons_de_conception/Strat%C3%A9gie)
+* [refactoring.guru - Stratégie](https://refactoring.guru/fr/design-patterns/strategy)

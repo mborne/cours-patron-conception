@@ -140,11 +140,17 @@
 
 }
 </code></pre>
-<h2 id="variantes">Variantes</h2><ul>
-<li>Une <strong>collection vide</strong> peut jouer le <strong>même rôle qu&#39;un objet null</strong>.</li>
-<li>Le <strong>vide</strong> peut être modélisé sur des <strong>objets mathématiques</strong> avec des <strong>valeurs particulières</strong> (ex : <code>Double.NaN</code>)</li>
+<h2 id="variantes">Variantes</h2><p>Nous soulignerons que :</p>
+<ul>
+<li>Une <strong>collection vide</strong> peut jouer le <strong>même rôle qu&#39;un objet null</strong> (<code>this.points=null</code> -&gt; <code>this.points=[]</code>)</li>
+<li>Des <strong>valeurs particulières</strong> peuvent être utilisées pour modéliser un <strong>objet mathématique vide</strong> jouant le <strong>même rôle qu&#39;un objet null</strong> :<ul>
+<li><code>{x: Number.NaN, y: Number.NaN}</code> pour une coordonnée 2D vide</li>
+<li><code>{lower: Number.POSITIVE_INFINITY, upper: Number.NEGATIVE_INFINITY}</code> pour un interval vide</li>
+<li>...</li>
 </ul>
-<h2 id="remarques">Remarques</h2><p>Penser à <strong>composer NullObject avec Singleton et ses variantes</strong> pour limiter le nombre d&#39;objets créés :</p>
+</li>
+</ul>
+<p>Penser à <strong>composer NullObject avec Singleton et ses variantes</strong> pour limiter le nombre d&#39;objets créés :</p>
 <ul>
 <li><code>NullMailer.getInstance()</code></li>
 <li><code>Coordinate.EMPTY</code></li>

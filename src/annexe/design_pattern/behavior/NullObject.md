@@ -101,10 +101,13 @@ class Client {
 
 ## Variantes
 
-* Une **collection vide** peut jouer le **même rôle qu'un objet null**.
-* Le **vide** peut être modélisé sur des **objets mathématiques** avec des **valeurs particulières** (ex : `Double.NaN`)
+Nous soulignerons que :
 
-## Remarques
+* Une **collection vide** peut jouer le **même rôle qu'un objet null** (`this.points=null` -> `this.points=[]`)
+* Des **valeurs particulières** peuvent être utilisées pour modéliser un **objet mathématique vide** jouant le **même rôle qu'un objet null** :
+  * `{x: Number.NaN, y: Number.NaN}` pour une coordonnée 2D vide
+  * `{lower: Number.POSITIVE_INFINITY, upper: Number.NEGATIVE_INFINITY}` pour un interval vide
+  * ...
 
 Penser à **composer NullObject avec Singleton et ses variantes** pour limiter le nombre d'objets créés :
 

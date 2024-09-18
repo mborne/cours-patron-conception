@@ -68,6 +68,7 @@
 </ul>
 </li>
 <li><a href="#solution">Solution</a></li>
+<li><a href="#liens-utiles">Liens utiles</a></li>
 </ul>
 <h2 id="problème">Problème</h2><p>Nous souhaitons pouvoir <strong>faire varier dynamiquement le comportement d&#39;une partie d&#39;un traitement</strong>.</p>
 <h2 id="cas-décole">Cas d&#39;école</h2><p>Prenons le cas d&#39;une <strong>application de traitement d&#39;image</strong> qui applique les trois étapes suivantes :</p>
@@ -116,11 +117,16 @@
 <li>Le <strong>principe de responsabilité unique</strong> (<code>Application</code> assure le calcul ainsi que l&#39;orchestration de la lecture et les écritures des fichiers).</li>
 <li><strong>Privilégier la composition à l&#39;héritage s&#39;applique aussi pour l&#39;encapsulation des traitements</strong>.</li>
 </ul>
-<h2 id="solution">Solution</h2><p>Avec le <strong>patron Strategy</strong>, au lieu d&#39;hériter pour faire varier le comportement, nous allons <strong>encapsuler le traitement dans un objet dont le seul rôle se limitera à appliquer le traitement</strong> (<code>ImageProcessor</code>) :</p>
+<h2 id="solution">Solution</h2><p>Avec le <strong>patron Strategy</strong>, nous allons <strong>encapsuler le traitement dans un objet dont le seul rôle se limitera à appliquer le traitement</strong> (<code>ImageProcessor</code>) :</p>
 <p><img src="./uml/UML_DP_Strategy-strategy.drawio.png" alt="UML_DP_Strategy - strategy"></p>
+<p>Pour enchaîner les traitements (ex : <code>blur,greyscale</code>), nous pourrons par exemple exploiter le patron de conception <a href="../structural/Composite.html">Composite</a> en modélisant une liste de traitement sous forme d&#39;une <code>ImageProcessorList</code>.</p>
 <blockquote>
 <p>Voir <a href="https://github.com/mborne/ts-pattern-strategy/tree/strategy#readme" target="_blank">mborne/ts-pattern-strategy - branche strategy</a></p>
 </blockquote>
+<h2 id="liens-utiles">Liens utiles</h2><ul>
+<li><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Strat%C3%A9gie" target="_blank">fr.wikibooks.org - Stratégie</a></li>
+<li><a href="https://refactoring.guru/fr/design-patterns/strategy" target="_blank">refactoring.guru - Stratégie</a></li>
+</ul>
 
     </div>
   </main>
