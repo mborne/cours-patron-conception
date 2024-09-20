@@ -210,7 +210,7 @@ Quel est l'intérêt de l'utilisation d'une méthode abstraite `render` dans la 
 ![Exemple de polymorphisme](img/shape-render.png)
 ]
 
-Quel est l'**apport de l'utilisation du polymorphisme par rapport à l'utilisation d'un switch** dans l'approche ci-après?
+Quel est l'**apport de l'utilisation du polymorphisme** par rapport à l'approche ci-après?
 
 ```js
 function render(canvas: Canvas, shape: Shape){
