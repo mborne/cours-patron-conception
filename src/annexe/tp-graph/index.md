@@ -4,22 +4,20 @@
 
 Dans ce TP, l'idée est de se mettre en situation où **nous devons industrialiser un prototype**. Nous allons réfactorer une **application qui charge un graphe et calcule le plus court chemin** entre deux sommets.
 
-L'application se présente sous la forme d'une API basée sur [spring boot](https://spring.io/guides/gs/spring-boot/)
-
-Les objectifs sont les suivants :
+L'application se présente sous la forme d'une [API NodeJS Express](https://expressjs.com/fr/starter/hello-world.html) écrite en TypeScript. Les objectifs sont les suivants :
 
 * Rendre le code plus robuste
 * Optimiser le calcul de plus court chemin
 * Rendre le calcul de plus court chemin plus générique
 * Améliorer les entrées/sorties du programme
 
-Pour cela, nous allons faire une revue de code et procéder par étape.
+Pour cela, **nous commencerons par une revue de code en séance** et procéderons par étape.
 
 ## Démarrage
 
-* Forker le projet https://github.com/mborne/tp-refactoring-graph
+* Forker le projet https://github.com/mborne/tp-graph-ts
 * Cloner le fork
-* Lire le fichier [README](https://github.com/mborne/tp-refactoring-graph#tp-refactoring-graph) pour :
+* Lire le fichier [README](https://github.com/mborne/tp-graph-ts#readme) pour :
   * Découvrir l'organisation du code
   * Construire le projet et exécuter les tests
   * Démarrer et tester l'API
@@ -29,12 +27,18 @@ Pour cela, nous allons faire une revue de code et procéder par étape.
 Vous devrez impérativement :
 
 * **Livrer un code fonctionnel sur la <u>branche par défaut</u> de votre fork**.
-* **Avoir au moins un commit (voire une branche) par question avec un commentaire permettant de l'identifier**
+* **Avoir au moins un commit (voire une branche) par question avec un commentaire d'identifier la question** (ex `0.1 - blindage de la construction des arcs`)
 
 Pour ce faire, il vous est vivement conseillé de :
 
 * Lancer à chaque étape la construction et les tests automatiques (`mvn clean package`).
 * Compléter ces tests automatiques avec un test manuel sur l'API.
+
+---
+
+**ATTENTION : L'adaptation des questions ci-dessous est en cours**
+
+---
 
 
 ## 0.1 - Blindage de la construction des arcs

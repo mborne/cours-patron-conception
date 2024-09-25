@@ -22,16 +22,16 @@ Nous l'exposons en ligne de commande sous la forme suivante :
 traitement-image data/joconde.jpg data/joconde-blur.jpg
 ```
 
-> Voir [mborne/ts-pattern-strategy - branche initial](https://github.com/mborne/ts-pattern-strategy/tree/initial#readme)
+> Voir [mborne/pattern-strategy-ts - branche initial](https://github.com/mborne/pattern-strategy-ts/tree/initial#readme)
 
 ## Problème
 
-Nous souhaitons faire évoluer l'application pour permettre le choix entre plusieurs opérations :
+Nous souhaitons **faire évoluer l'application pour permettre le choix entre plusieurs opérations** :
 
 * Flouter l'image (`blur`)
 * Convertir l'image en niveau de gris (`greyscale`)
 
-Nous ciblons pour cela l'ajout d'un paramètre à l'API en ligne de commande comme suit :
+Nous ciblons pour cela l'**ajout d'un paramètre à l'API en ligne de commande** comme suit :
 
 ```
 traitement-image {inputFile} {outputFile} (blur|greyscale)
@@ -57,7 +57,7 @@ Nous pourrions promouvoir `Application` en interface et nous appuyer sur le poly
 
 ![UML_DP_Strategy - heritage](./uml/UML_DP_Strategy-heritage.drawio.png)
 
-> Voir [mborne/ts-pattern-strategy - branche heritage](https://github.com/mborne/ts-pattern-strategy/tree/heritage#readme)
+> Voir [mborne/pattern-strategy-ts - branche heritage](https://github.com/mborne/pattern-strategy-ts/tree/heritage#readme)
 
 A première vue, nous pourrions être satisfait d'une telle conception...
 
@@ -81,7 +81,7 @@ Avec le **patron Strategy**, nous allons **encapsuler le traitement dans un obje
 
 Pour enchaîner les traitements (ex : `blur,greyscale`), nous pourrons par exemple exploiter le patron de conception [Composite](../structural/Composite.md) en modélisant une liste de traitement sous forme d'une `ImageProcessorList`.
 
-> Voir [mborne/ts-pattern-strategy - branche strategy](https://github.com/mborne/ts-pattern-strategy/tree/strategy#readme)
+> Voir [mborne/pattern-strategy-ts - branche strategy](https://github.com/mborne/pattern-strategy-ts/tree/strategy#readme)
 
 ## Liens utiles
 

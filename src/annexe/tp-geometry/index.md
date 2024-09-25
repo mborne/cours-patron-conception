@@ -10,64 +10,35 @@ L'objectif de ce TP est de s'exercer à mettre en oeuvre des patrons de concepti
 
 Vous noterez toutefois que **ceci n'est qu'un exercice** :
 
-* **Nous allons réinventer la roue carrée** (utilisez plutôt [JTS](https://locationtech.github.io/jts/javadoc/index.html) et [GeoTools](https://docs.geotools.org/latest/userguide/index.html) dans la vraie vie).
+* **Nous allons réinventer la roue carrée** (utilisez plutôt [JSTS](https://github.com/bjornharrtell/jsts?tab=readme-ov-file#jsts) et [Turf.js](https://turfjs.org/) dans la vraie vie).
 * **Nous allons sombrer dans la paternite** (les patrons de conception ne seront pas la solution à tous les problèmes et nous n'en n'utiliserons pas autant)
 
 ## Démarrage
 
-* Forker le projet https://github.com/mborne/tp-pattern-geometry
+* Forker le projet https://github.com/mborne/tp-geometry-ts
 * Cloner le fork
 * Lire le fichier [README](https://github.com/mborne/tp-pattern-geometry#tp-pattern-geometry)
-* Importer le projet maven dans eclipse ou votre IDE préféré
+* Exécutez les tests et afficher le rapport de couverture.
 
 ## Mise en garde
 
 Vous devrez impérativement :
 
 * **Livrer un code fonctionnel et testé sur la <u>branche par défaut</u> de votre fork**
-* **Avoir au moins un commit (voire une branche) par question avec un commentaire permettant de l'identifier**
+* **Avoir au moins un commit (voire une branche) par question avec un commentaire d'identifier la question** (ex `0.1 - ajout de l'interface Geometry et des classes Point et LineString`)
 
 Pour ce faire, il vous est vivement conseillé de :
 
 * Lancer à chaque étape la construction et les tests automatiques (`mvn clean package`)
 * Travailler avec une branche "dev" si vous voulez pousser des résultats non finalisés.
 
-## 0.1 - Coordinate (2D)
+---
 
-> Objectif : Préparation du TP, principe de base, encapsulation
+**ATTENTION : L'adaptation des questions ci-dessous est en cours**
 
-Créer une classe `Coordinate` permettant de représenter une position en 2D à l'aide d'un couple x,y :
+---
 
-![Schéma UML](schema/mcd-01.png)
-
-Nous soulignerons que :
-
-* Cette classe est immuable (**une fois construite, une coordonnée ne peut être modifiée**)
-* Le constructeur par défaut initialisera une coordonnée vide matérialisée par `x=Double.NaN` et `y=Double.NaN`
-* `isEmpty()` permettra de tester si une coordonnée est vide
-* Il convient d'utiliser `Double.isNaN(value)` pour l'implémenter.
-* `toString()` renverra un tableau au format JSON (`[3.0,4.0]`, `[NaN,NaN]`)
-
-Exemple d'utilisation :
-
-```java
-public class CoordinateTest {
-
-    public static final double EPSILON = 1.0e-15;
-
-    @Test
-    public void testCoordinateXY() {
-        Coordinate c = new Coordinate(3.0, 4.0);
-        assertEquals(3.0, c.getX(), EPSILON);
-        assertEquals(4.0, c.getY(), EPSILON);
-        assertFalse(c.isEmpty());
-        assertEquals("[3.0,4.0]", c.toString());
-    }
-
-}
-```
-
-## 0.2 - Geometry, Point et LineString
+## XX - Geometry, Point et LineString
 
 > Objectif : Préparation du TP, utilisation d'interface, encapsulation
 
@@ -81,7 +52,7 @@ Remarques :
 * Nous nous interdirons de modifier ce comportement dans les questions suivantes (~~`"POINT"`~~, ~~`"LINESTRING"`~~).
 
 
-## 0.3 - Geometry.isEmpty()
+## XX - Geometry.isEmpty()
 
 > Objectif : Bonne pratique *NonNullObject*
 
@@ -100,7 +71,7 @@ Remarque :
 * Nous tâcherons de blinder les appels `new Point(null)` et `new LineString(null)`
 * Nous ne traiterons pas le cas d'un appel `new LineString(points)` avec un point null.
 
-## 0.4 - Geometry.translate(dx,dy)
+## XX - Geometry.translate(dx,dy)
 
 > Objectif : Exploiter une interface pour réaliser un traitement spécifique
 
@@ -110,7 +81,7 @@ Ajouter une méthode de permettant de translater une géométrie.
 
 Remarque : Vous serez amené à créer une nouvelle `Coordinate` pour l'implémentation dans `Point`.
 
-## 0.5 - Geometry.clone()
+## XX - Geometry.clone()
 
 > Objectif : Patron de conception *Prototype*
 
@@ -134,7 +105,7 @@ Remarques :
 * Nous procéderons à une **copie en profondeur** pour les seules propriétés non immuables.
 
 
-## 0.6 - Envelope et EnvelopeBuilder
+## XX - Envelope et EnvelopeBuilder
 
 > Objectif : Patron de conception Builder
 
@@ -175,7 +146,7 @@ Assert.assertEquals(3.0,xmax,EPSILON);
 
 Cette approche ne sera pas "optimale", mais elle peut être un premier jet permettant la mise en oeuvre des tests avant optimisation.
 
-## 0.7 - Geometry.getEnvelope() : Envelope
+## XX - Geometry.getEnvelope() : Envelope
 
 > Objectif : Facade sur EnvelopeBuilder
 
@@ -186,7 +157,7 @@ Ajouter une méthode utilitaire sur `Geometry` pour récupérer facilement l'env
 
 ![Schéma UML](schema/mcd-07.png)
 
-## 0.8 - WktWriter
+## XX - WktWriter
 
 > Objectif : Mesurer l'intérêt d'une conception propre et de GeometryVisitor dans les questions suivantes
 
@@ -227,7 +198,7 @@ if ( geometry instanceof Point ){
 }
 ```
 
-## 0.9 - GeometryVisitor
+## XX - GeometryVisitor
 
 > Objectif : Patron de conception Visitor, prise en main
 
@@ -260,7 +231,7 @@ String result = os.toString("UTF8");
 ```
 
 
-## 0.10 - WktVisitor
+## XX - WktVisitor
 
 > Objectif : Patron de conception Visitor, mise en oeuvre dans un cas concret
 
@@ -279,7 +250,7 @@ assertEquals( "POINT(3.0 4.0)", visitor.getResult() );
 
 Remarque : Au niveau de `visit`, on écrira dans la variable membre `buffer` à l'aide de `append` de `StringBuilder`. Au niveau de `getResult()`, on récupérera la chaîne du `buffer` à l'aide de `toString` de `StringBuilder`.
 
-## 0.11 - Geometry.asText()
+## XX - Geometry.asText()
 
 > Objectif : Patron de conception Facade, héritage à trois niveau avec interface et abstract.
 
@@ -292,7 +263,7 @@ A l'aide de `AbstractGeometry` et `WktVisitor` :
 
 Remarque : Il faudra redéclarer la méthode `clone()` au niveau de `AbstractGeometry`.
 
-## 0.12 - EnvelopeBuilder en tant que GeometryVisitor
+## XX - EnvelopeBuilder en tant que GeometryVisitor
 
 > Objectif : Visitor, refactoring (extraction de l'implémentation d'une fonctionnalité)
 
@@ -302,7 +273,7 @@ Remarque : Il faudra redéclarer la méthode `clone()` au niveau de `AbstractGeo
 ![Schéma UML](schema/mcd-12.png)
 
 
-## 0.13 - GeometryWithCachedEnvelope
+## XX - GeometryWithCachedEnvelope
 
 > Objectif : Patron de conception Decorator
 
@@ -324,7 +295,7 @@ assertSame(a,b);
 
 Remarque : on traitera l'invalidation du cache en cas de modification de la géométrie originale à la prochaine question.
 
-## 0.14 - GeometryListener
+## XX - GeometryListener
 
 > Objectif : Patron de conception Observable
 
@@ -341,7 +312,7 @@ Pour être en mesure d'invalider l'enveloppe précalculée en cas de modificatio
 Remarque : `translate` étant la seule fonction capable de modifier une géométrie, il serait actuellement possible de se contenter d'invalider l'enveloppe en surchargeant `translate` dans `GeometryWithCachedEnvelope` pour nettoyer au passage le cache. Rien ne garanti toutefois que `translate` reste la seule fonction à même de modifier une géométrie et que toutes ces fonctions restent déclarées au niveau `Geometry`.
 
 
-## 0.15 - GeometryCollection
+## XX - GeometryCollection
 
 > Objectif : Patron de conception Composite, Refactoring
 
@@ -358,7 +329,7 @@ GEOMETRYCOLLECTION EMPTY
 GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))
 ```
 
-## 0.16 - GeometryVisitor renvoyant un résultat
+## XX - GeometryVisitor renvoyant un résultat
 
 > Objectif : Exploiter les classes génériques, visiteur renvoyant directement un résultat.
 
@@ -372,23 +343,3 @@ Pour avoir la capacité de renvoyer des résultats avec des types variables :
 LengthVisitor<Double> visitor = new LengthVisitor<Double>();
 Double result = geometry.accept(visitor);
 ```
-
-
-## Aller plus loin...
-
-Pour blinder votre TP :
-
-* Contrôler le **taux de couverture par les tests** et la **pertinence des tests**.
-* Vérifier que vous respectez DRY pour la conversion `Coordinate` en chaîne de caractères dans la production des WKT.
-
-> Se demander par exemple quel serait l'impact de l'ajout d'un paramètre optionnel pour contrôler le nombre de décimales (Indice : Vous avez le droit de définir une méthode privée `writeCoordinate`).
-
-* Vérifier que vous respectez DRY pour le calcul des min/max dans `EnvelopeBuilder` et optimiser la consommation de RAM 
-
-> Indice : En matérialisant le concept mathématique que vous manipulez dans une classe [Interval](https://locationtech.github.io/jts/javadoc/org/locationtech/jts/index/strtree/Interval.html), vous encapsulerez efficacement le calcul d'un `lower` et d'un `upper` avec une méthode `expandToInclude`).
-
-Pour prendre du recul  :
-
-* Remarquer qu'en supprimant `translate` sur `Geometry`, il serait possible de rendre immuable les `Geometry`. Se demander quels seraient les avantages et inconvénients? Quels seraient les patrons de conception inutiles?
-* Se demander s'il serait possible d'ajouter un type de premier niveau tel `Circle` dans une bibliothèque tierce utilisant celle-ci? Quel est le patron de conception utilisé qui serait limitant?
-* Remarquer qu'il est difficile de s'y retrouver dans les différentes classes et qu'il serait intéressant d'organiser les classes en package `io`, etc. (**ne pas traiter**) 
