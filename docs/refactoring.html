@@ -21,7 +21,7 @@ Bien que certains concepts soient les mêmes, nous traiterons principalement le 
 
 * Principe
 * Notion de changement cassant
-* Notion de changements de comportement
+* Notion de changement de comportement
 * Importance des tests
 * Numérotation des versions
 * Accompagnement du changement
@@ -107,9 +107,9 @@ Voir :
 
 Il est difficile d'éviter les changements cassants sur toutes les classes d'une bibliothèque.
 
-A ce titre, au sein d'une même bibliothèque, on trouvera parfois la notion de **code public** et de **code privé** (suffixe `Impl`, namespace `detail`, package `internal`, etc.)
+A ce titre, au sein d'une même bibliothèque, nous trouvons parfois la notion de **code public** et de **code privé** (suffixe `Impl`, namespace `detail`, package `internal`, etc.)
 
-Il faudra **éviter de dépendre du code privé d'une bibliothèque tierces** pour ne pas subir des changements cassants non documentés.
+Il faudra **éviter de dépendre du code privé d'une bibliothèque tierces** pour ne pas subir des changements non documentés.
 
 ---
 
@@ -117,22 +117,22 @@ Il faudra **éviter de dépendre du code privé d'une bibliothèque tierces** po
 
 En cas de refactoring de code, le comportement des clients de ce code ne doit pas changer.
 
-Les tests unitaires et fonctionnels permettront d'éviter des régressions.
+**Les tests unitaires et fonctionnels permettront d'éviter des régressions.**
 
 ---
 
 ## Techniques de refactoring
 
-Outre l'introduction de patron de conception, il existe une multitude de modifications classiques qui tendent à améliorer la qualité d'un code. A l'instar des patrons de conception, **ces techniques peuvent être cataloguées**.
+Outre l'introduction de patron de conception (1), il existe une multitude de modifications classiques qui tendent à améliorer la qualité d'un code.
 
-Nous verrons quelques exemple sur [refactoring.com - Catalogue](http://www.refactoring.com/catalog/) :
+A l'instar des patrons de conception, **ces techniques peuvent être cataloguées**. Nous verrons quelques exemple sur [refactoring.com - Catalogue](http://www.refactoring.com/catalog/) :
 
 * [Renommage d'une variable](https://www.refactoring.com/catalog/renameVariable.html)
 * [Suppression d'un setter](https://www.refactoring.com/catalog/removeSettingMethod.html)
 * [Extraction d'une méthode](https://www.refactoring.com/catalog/extractFunction.html)
 * ...
 
-Nous noterons que nous pourrons aussi introduire d'un patron de conception (par exemple, une fabrique pour éviter de répéter du code).
+> (1) Par exemple, introduire une fabrique pour éviter de répéter du code.
 
 ---
 
@@ -156,8 +156,8 @@ Généralement, nous profiterons d'occasions concrètes pour améliorer le code 
 Plusieurs familles d'outils peuvent aider à maintenir ou améliorer la qualité d'un code :
 
 * Les outils de **mise en forme automatique du code**
-* Les outils d'**analyse statiques de code** (ex : PMD, SonarQube,...)
-* Les outils de **génération de couverture par les tests** (ex : jacoco)
+* Les outils d'**analyse statiques de code** (ex : SonarQube)
+* Les outils de **génération de couverture par les tests** (ex : [nyc](https://github.com/istanbuljs/nyc#readme))
 * Les outils d'**intégration continue** (ex : GitLab-CI, GitHub actions, jenkins, etc.)
 * ...
 
@@ -179,7 +179,7 @@ Plusieurs familles d'outils peuvent aider à maintenir ou améliorer la qualité
                 $(data).append($header);
             }
 
-            var footer = '<span class="footer">ENSG - <a href="./#2">Les patrons de conception</a>, Mickaël BORNE, Décembre 2023</span>';
+            var footer = '<span class="footer">ENSG - <a href="./#2">Les patrons de conception</a>, Mickaël BORNE, Novembre 2024</span>';
             $(data).append(footer);
         });
     </script>

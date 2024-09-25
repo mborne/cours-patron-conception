@@ -172,7 +172,7 @@ En effet, après un an, nous aurons envie de **changer la modélisation** pour :
 ![Exemple de classe Personne v2](img/class-person-v2.png)
 ]
 
-**Permettre l'accès aux données uniquement via une indirection** (ex : `person.getAge()` voire `person.age()`), c'est **se donner la possibilité de modifier une classe sans casser le code client** (ex : `person.age >= 18`). 
+**Permettre l'accès aux données uniquement via une indirection** (ex : `person.getAge()`), c'est **se donner la possibilité de modifier une classe sans casser le code client** (ex : `person.age >= 18`). 
 
 > Dans le cas particulier de Python, il serait en réalité possible d'implémenter `__getattr__` pour éviter un changement cassant.
 
@@ -198,7 +198,7 @@ Toutefois, **il ne suffit pas de mettre mécaniquement des "getters" et "setters
 
 Il sera plutôt question d'**exposer uniquement ce qui doit l'être**.
 
-En outre, en fonction des langages, **l'encapsulation pourra prendre différentes formes** (exemple : une fonction JavaScript non exposée à l'aide de `export`).
+En outre, en fonction des langages, **l'encapsulation pourra prendre différentes formes** (exemple : une fonction non exposée à l'aide de `export` en TypeScript).
 
 ---
 
@@ -210,7 +210,7 @@ Quel est l'intérêt de l'utilisation d'une méthode abstraite `render` dans la 
 ![Exemple de polymorphisme](img/shape-render.png)
 ]
 
-Quel est l'**apport de l'utilisation du polymorphisme** par rapport à l'approche ci-après?
+Quel est l'**apport de l'utilisation du polymorphisme par rapport à la conditionnelle** dans l'approche ci-après?
 
 ```js
 function render(canvas: Canvas, shape: Shape){
@@ -234,7 +234,9 @@ Dans de nombreux langages, nous trouvons le **concept d'interface** permettant d
 
 Avec des langages tels Java ou PHP, il sera uniquement possible de **définir la liste des méthodes supportées** :
 
+.center[
 ![Exemple d'interface](img/interface-shape.png)
+]
 
 Avec TypeScript, nous pourrons aussi spécifier des attributs :
 
@@ -247,7 +249,7 @@ interface Shape {
 
 ---
 
-## Mise en garde sur les interface (1/3)
+## Mise en garde sur les interface (1/2)
 
 **Il ne suffira pas de définir aveuglément des interfaces** pour avoir de la souplesse sur l'implémentation :
 

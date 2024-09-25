@@ -17,12 +17,12 @@
 * [Les patrons de conception](#36)
 * [Les patrons de création](#43)
 * [Les patrons de structure](#44)
-* [Les patrons de comportement](#42)
-* [A vous maintenant!](#43)
-* [Les patrons architecturaux](#44)
-* [Le refactoring](#45)
-* [Encore à vous!](#46)
-* [Conclusion](#47)
+* [Les patrons de comportement](#45)
+* [A vous maintenant!](#46)
+* [Les patrons architecturaux](#47)
+* [Le refactoring](#48)
+* [Encore à vous!](#49)
+* [Conclusion](#50)
 * [Annexes et références](annexe/)
 
 ---
@@ -87,13 +87,14 @@ Nous verrons enfin comment **réfactorer un code existant** avec une partie thé
 
 ### Un paradygme omniprésent
 
-De nombreux programmeurs manipulent des objets sans en avoir conscience. En Python, par exemple, tout est objet&nbsp;:
+De nombreux programmeurs manipulent des objets sans forcément en avoir conscience :
+
+* En appelant, `chaine.upper()` pour transformer une chaîne de caractères en majuscules, nous faisons appel à la **notation pointée** typique de la P.O.O.
+* En Python, tout est objet :
 
 <div class="center">
     <img src="img/python-tout-objet.png" alt="Illustration de quelques types en Python" height="300" />
 </div>
-
-En appelant, `chaine.upper()` pour transformer la chaîne en majuscules, nous ferons appel à la **notation pointée** typique de la P.O.O.
 
 ---
 
@@ -101,12 +102,14 @@ En appelant, `chaine.upper()` pour transformer la chaîne en majuscules, nous fe
 
 ### Un paradigme difficile à maîtriser
 
-**Utiliser des classes existantes ne demandera pas d'effort**. Il sera plus délicat de :
+**Utiliser des classes existantes ne demandera pas d'effort**.
+
+Il sera plus délicat de :
 
 * **Concevoir proprement <u>ses propres classes</u>**
 * **Faire un choix entre la définition d'une classe ou le recours à un autre paradigme** (ex : définition d'une fonction) quand le langage le permet.
 
-Dans ce cours qui présente les patrons de conception, nous allons nous concentrer sur le premier point. Nous prendrons le risque de définir de définir trop de classes en mentionnant la **possibilité de mixer les paradigmes dans la vraie vie** :
+Dans ce cours qui présente les patrons de conception, nous allons nous concentrer sur la P.O.O. Nous mentionnerons toutefois la **possibilité de mixer les paradigmes dans la vraie vie** :
 
 ```js
 const nombreUtilisateursMajeurs = userRepo.getUsers()
@@ -143,7 +146,7 @@ Les concepts suivants sont normalement connus avant de débuter ce cours :
 
 Les **concepts de classe, d'attribut et l'héritage sont généralement bien maîtrisés pour modéliser des données** (objet de domaine).
 
-Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la P.O.O.** pour :
+Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la P.O.O.** pour **modéliser des traitements** :
 
 * Se protéger contre des erreurs de programmation
 * S'assurer d'être en mesure de modifier le code sans casser les appels 
@@ -326,14 +329,15 @@ Pour réutiliser un code, je le **met en facteur** dans une méthode ou une clas
 
 ### Principe d'exposition minimale
 
-Quand le langage le permet (PHP, Java, C++,...), **il convient d'exposer un minimum de fonctionnalités au niveau d'une classe** (i.e. de maximiser l'encapsulation).
+Il convient d'**exposer un minimum de fonctionnalités au niveau d'une classe** (i.e. de maximiser l'encapsulation).
 
-En pratique :
+En pratique, quand le langage le permet (PHP, Java, C++, TypeScript,...) :
 
 * Les **méthodes et attributs sont privés par défaut**
-* Les **accesseurs** sont définis et accessibles **uniquement si c'est nécessaire** (ex : ~~`getLogger()`~~)
+* Les **accesseurs** sont définis et accessibles **uniquement si c'est nécessaire** (~~`traitement.getLogger()`~~)
 * Une **méthode spécifique est préférée à un accesseur permettant de nombreuses opérations**
-  * Les **collections sont encapsulées** (ex : définir `addPoint(p)` plutôt que permettre `obj.points.add(p)`)
+  * Les **collections sont encapsulées** (~~`obj.points.add(p)`~~ -> `obj.addPoint(p)` )
+
 
 ---
 
@@ -400,10 +404,10 @@ class MonTraitement {
       `https://apicarto.ign.fr/api/codes-postaux/communes/${codePostal}`
     ;
 
-    // Non bouchonnable
+    // Non bouchonnable (appel statique)
     //const data = await fetch(url);
 
-    // Bouchonnable (faux httpClient possible)
+    // Bouchonnable (mock possible sur httpClient)
     const data = await this.httpClient.get(url);
     console.log(data);
   }
@@ -450,7 +454,7 @@ Avant de mettre un nom sur des modèles de conception, nous allons maintenant **
 
 ### Principe des anti-patrons
 
-* Nommer des erreurs de conception classiques
+* **Nommer** des erreurs de conception classiques
 * Faciliter l'identification des erreurs de conception
 
 ---
@@ -560,7 +564,7 @@ Exemples :
 
 * Il ne faut pas en conclure que l'optimisation doit être ignorée dans la conception!
 * Il faut rester prudent sur cette affirmation pour les bibliothèques de bas niveau!
-* Parfois, on privilégie la performance à la portabilité.
+* Parfois, on privilégie la performance à la généricité.
 
 Proposition de méthode :
 
@@ -683,6 +687,8 @@ Nous noterons qu'il en existe d'autres :
 
 ## Les patrons de comportement
 
+Nous nous concentrerons sur les patrons de comportement du GoF ci-après :
+
 * [Iterator (Itérateur)](annexe/design_pattern/behavior/Iterator.html)
 * Template Method (Patron de méthode)
 * [Strategy (Stratégie)](annexe/design_pattern/behavior/Strategy.html)
@@ -695,6 +701,7 @@ Nous noterons qu'il en existe d'autres :
 * Interpreter (Interpréteur)
 * Memento (Mémento)
 
+Nous nous intéresserons en complément à :
 
 * [Null Object (objet null)](annexe/design_pattern/behavior/NullObject.html)
 
@@ -714,10 +721,8 @@ Nous avons vu jusque là des patrons de conception à l'échelle de quelques cla
 * [Architecture micro-service](https://learn.microsoft.com/fr-fr/azure/architecture/guide/architecture-styles/microservices)
 * [Model-View-Controller (MVC)](annexe/design_pattern/architectural/MVC.html)
 * [Inversion de contrôle (IoC)](https://github.com/mborne/spring-ioc-principe#readme)
-* [Event-Driven architecture/Message Oriented Middleware (MOM)](https://learn.microsoft.com/fr-fr/azure/architecture/guide/architecture-styles/event-driven)
+* [Event-Driven architecture (EDA)](https://learn.microsoft.com/fr-fr/azure/architecture/guide/architecture-styles/event-driven)
 * [MapReduce](annexe/design_pattern/architectural/MapReduce.html)
-
-> Nous verrons dans le prochain TP que [Spring](https://spring.io/) combine l'utilisation de [Inversion de contrôle (IoC)](https://github.com/mborne/spring-ioc-principe#readme) et [Model-View-Controller (MVC)](annexe/design_pattern/architectural/MVC.html).
 
 ---
 
@@ -740,7 +745,6 @@ Vous pourrez constater :
 * La **difficulté de l'exercice de refactoring** (donc l'intérêt de **respecter dès le début les principes de conception**)
 * Que l'utilisation **de patrons de conception aide à respecter ces principes** (sans résoudre pour autant tous les problèmes)
 * L'intérêt des **tests pour éviter des régressions**
-* Les **limites des tests fonctionnels par rapport aux tests unitaires** (vous devriez être plusieurs à faire la même erreur et avoir du mal à la trouver 😈)
 
 ---
 
@@ -748,10 +752,9 @@ Vous pourrez constater :
 
 Après ce cours et ces TP, j'espère que vous comprendrez qu'il est **fondamental de respecter les principes de conception** à tous les niveaux du système et en quoi **les patrons de conception peuvent vous aider**.
 
-
 ### Comment progresser?
 
-* Comprendre et apprendre les principaux patrons de conception
+* **Comprendre** et apprendre les principaux patrons de conception
 * **Identifier les patrons de conception dans les codes existants** (rechercher les fabriques, les monteurs, les stratégies, les décorateurs, etc.)
 * **Expérimenter** (et apprendre de ses erreurs)! 
 * **Concevoir** des codes en pensant aux **principes de conception** et **patrons de conception** (sans sombrer dans la paternite)

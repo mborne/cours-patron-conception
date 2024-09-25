@@ -58,18 +58,16 @@
       <a href="https://github.com/mborne/cours-patron-conception/blob/master/src/annexe/design_pattern/behavior/Observer.md?plain=1" target="_blank">Éditer sur GitHub</a>
     </div>
     <div class="markdown-body">
-      <h1 id="observer">Observer</h1><h2 id="problème">Problème</h2><p>Nous souhaitons pouvoir réaliser des actions en cas d&#39;événement particulier sur un objet (ex : modification de l&#39;état de l&#39;objet).</p>
+      <h1 id="observer">Observer</h1><h2 id="problème">Problème</h2><p>Nous souhaitons pouvoir réaliser des actions en cas d&#39;événement particulier sur un objet (ex : mettre à jour une interface en cas de modification de l&#39;état de l&#39;objet).</p>
 <h2 id="solution">Solution</h2><p>Nous pouvons procéder comme suit en ajoutant des &quot;observateurs&quot; qui seront notifiés en cas d&#39;événement sur un &quot;observable&quot; :</p>
 <p><img src="uml/UML_Observer.png" alt="UML Observer"></p>
 <p>Source <a href="https://fr.wikipedia.org/wiki/Observateur_(patron_de_conception)" target="_blank"><a href="https://fr.wikipedia.org/wiki/Observateur_(patron_de_conception)" target="_blank">https://fr.wikipedia.org/wiki/Observateur_(patron_de_conception)</a></a></p>
-<h2 id="remarques">Remarques</h2><p>Dans l&#39;API Java, nous trouverons des classes <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Observer.html" target="_blank">Observer</a> et <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Observable.html" target="_blank">Observable</a>. Toutefois, nous trouverons de <strong>nombreuses variantes pour la gestion des événements</strong> dans les bibliothèques Java et autres langages :</p>
+<h2 id="variantes">Variantes</h2><p>Ce principe est repris et adapté dans de nombreux langages et cadriciels :</p>
 <ul>
-<li><a href="https://docs.oracle.com/javase/tutorial/uiswing/events/actionlistener.html" target="_blank">WindowListener, ActionListener,...</a> au niveau de la gestion des composants graphiques avec AWT.</li>
-<li><code>addEventListener</code> en JavaScript</li>
-<li><code>trigger/on</code> avec JQuery</li>
-<li><code>EventListener</code>, <code>EventSubscriber</code>, <code>EventDispatcher</code> dans Symfony</li>
-<li><code>signal/slot</code> dans C++/Qt</li>
-<li>etc.</li>
+<li>En JavaScript, avec <code>addEventListener</code> en standard sur les objets HTML et <code>trigger/on</code> avec JQuery.</li>
+<li>En PHP, où nous trouverons des concepts proches dans Symfony (<code>EventListener</code>, <code>EventSubscriber</code>, <code>EventDispatcher</code>)</li>
+<li>En C++, avec les mécanismes <code>signal/slot</code> dans Qt</li>
+<li>...</li>
 </ul>
 <h2 id="liens-utiles">Liens utiles</h2><ul>
 <li><a href="https://fr.wikibooks.org/wiki/Patrons_de_conception/Observateur" target="_blank">fr.wikibooks.org - Observateur</a></li>

@@ -59,18 +59,23 @@
     </div>
     <div class="markdown-body">
       <h1 id="state-état">State (État)</h1><h2 id="problème">Problème</h2><p>Nous avons des traitements dépendant le l&#39;état d&#39;un objet et souhaitons externaliser la logique correspondante.</p>
-<h2 id="cas-décole">Cas d&#39;école</h2><p>Nous avons une <strong>simulation de particules</strong> initialisées avec une vitesse initiale passant par trois états successifs :</p>
+<h2 id="cas-décole">Cas d&#39;école</h2><p>Nous avons une <strong>simulation de particules</strong> initialisées avec une vitesse initiale et passant par trois états successifs :</p>
 <ul>
 <li><strong>MOVING</strong> où la particule est mise à jour par un moteur physique</li>
 <li><strong>EXPLODING</strong> produisant une animation quand la particule entre en collision par exemple avec le terrain</li>
 <li><strong>DEAD</strong> quand l&#39;animation est terminée</li>
 </ul>
-<p>Nous ne voulons pas gérer toute cette logique dans une méthode <code>update(elapsedTime)</code> sur la classe <code>Particule</code>.</p>
+<p>Nous ne voulons pas gérer cette logique dans une méthode <code>update(elapsedTime)</code> sur la classe <code>Particule</code>.</p>
 <h2 id="solution">Solution</h2><p>Nous pouvons nous inspirer du patron état comme suit avec une classe par état :</p>
 <p><img src="uml/UML_State-Projectile.drawio.png" alt="UML State Projectile"></p>
 <p>Nous aurons un code du style suivant pour la gestion du mouvement :</p>
-<pre><code class="language-java">class MovingProjectile {
-    public void update(double elapsedTime){
+<pre><code class="language-java">class MovingProjectile implements ProjectileState {
+
+    constructor(
+        private Projectile: projectile
+    ){}
+
+    update(double elapsedTime){
         // calcul du déplacement...
         // détection d&#39;une éventuelle collision
         if ( collision != null ){
