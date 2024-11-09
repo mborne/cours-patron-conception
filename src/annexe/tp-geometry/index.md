@@ -34,7 +34,7 @@ Pour ce faire, il vous est vivement conseillé de :
 
 ---
 
-## 01 - Geometry, Point et LineString
+## 0.1 - Geometry, Point et LineString
 
 > Objectif : Préparation du TP, utilisation d'interface, encapsulation
 
@@ -48,7 +48,7 @@ Remarques :
 * Nous nous interdirons de modifier ce comportement dans les questions suivantes (~~`"POINT"`~~, ~~`"LINESTRING"`~~).
 
 
-## 02 - Geometry.isEmpty()
+## 0.2 - Geometry.isEmpty()
 
 > Objectif : Bonne pratique *NonNullObject*
 
@@ -67,7 +67,7 @@ Remarque :
 * Nous tâcherons de blinder les appels `new Point(null)` et `new LineString(null)`
 * Nous ne traiterons pas le cas d'un appel `new LineString(points)` avec un point null.
 
-## 03 - Geometry.translate(dx,dy)
+## 0.3 - Geometry.translate(dx,dy)
 
 > Objectif : Exploiter une interface pour réaliser un traitement spécifique
 
@@ -77,7 +77,7 @@ Ajouter une méthode de permettant de translater une géométrie.
 
 Remarque : Vous serez amené à créer une nouvelle `Coordinate` pour l'implémentation dans `Point`.
 
-## 04 - Geometry.clone()
+## 0.4 - Geometry.clone()
 
 > Objectif : Patron de conception *Prototype*
 
@@ -101,7 +101,7 @@ Remarques :
 * Nous procéderons à une **copie en profondeur** pour les seules propriétés non immuables.
 
 
-## 05 - Envelope et EnvelopeBuilder
+## 0.5 - Envelope et EnvelopeBuilder
 
 > Objectif : Patron de conception Builder
 
@@ -129,7 +129,7 @@ Remarques :
 * Vous avez la **liberté d'ajouter des variables membres privées** dans `EnvelopeBuilder` pour le calcul.
 * En cas de difficulté pour faire des calculs de min/max optimaux, vous pouvez par exemple vous appuyer sur deux variables privées `xVals` et `yVals` pour exploiter les fonctionnalités standards `Math.min` et `Math.max`. Cette approche ne sera pas "optimale", mais elle peut être un premier jet permettant la mise en oeuvre des tests avant optimisation.
 
-## 06 - Geometry.getEnvelope() : Envelope
+## 0.6 - Geometry.getEnvelope() : Envelope
 
 > Objectif : Facade sur EnvelopeBuilder
 
@@ -140,7 +140,7 @@ Ajouter une méthode utilitaire sur `Geometry` pour récupérer facilement l'env
 
 ![Schéma UML](schema/mcd-06.png)
 
-## 07 - WktWriter
+## 0.7 - WktWriter
 
 > Objectif : Mesurer l'intérêt d'une conception propre et de GeometryVisitor dans les questions suivantes
 
@@ -179,7 +179,7 @@ if ( geometry instanceof Point ){
 }
 ```
 
-## 08 - GeometryVisitor
+## 0.8 - GeometryVisitor
 
 > Objectif : Patron de conception Visitor, prise en main
 
@@ -203,7 +203,7 @@ geometry.accept(visitor);
 Remarque : pour les tests, vous pourrez remplacer temporairement `console.log` par une fonction vous permettant de capturer le résultat.
 
 
-## XX - WktVisitor
+## 0.9 - WktVisitor
 
 > Objectif : Patron de conception Visitor, mise en oeuvre dans un cas concret
 
@@ -221,7 +221,7 @@ assertEquals( "POINT(3.0 4.0)", visitor.getResult() );
 ```
 
 
-## XX - Geometry.asText()
+## 0.10 - Geometry.asText()
 
 > Objectif : Patron de conception Facade, héritage à trois niveau avec interface et abstract.
 
@@ -230,27 +230,25 @@ A l'aide de `AbstractGeometry` et `WktVisitor` :
 * Ajouter une méthode `Geometry.asText(): String` renvoyant la géométrie au format WKT
 * Ajouter une classe astraite `AbstractGeometry` implémentant la méthode `asText`
 
-![Schéma UML](schema/mcd-11.png)
+![Schéma UML](schema/mcd-10.png)
 
-Remarque : Il faudra redéclarer la méthode `clone()` au niveau de `AbstractGeometry`.
-
-## XX - EnvelopeBuilder en tant que GeometryVisitor
+## 0.11 - EnvelopeBuilder en tant que GeometryVisitor
 
 > Objectif : Visitor, refactoring (extraction de l'implémentation d'une fonctionnalité)
 
 * Transformer `EnvelopeBuilder` en `GeometryVisitor`
 * Remonter l'implémentation de `getEnvelope` dans `AbstractGeometry`
 
-![Schéma UML](schema/mcd-12.png)
+![Schéma UML](schema/mcd-11.png)
 
 
-## XX - GeometryWithCachedEnvelope
+## 0.12 - GeometryWithCachedEnvelope
 
 > Objectif : Patron de conception Decorator
 
 * Implémenter une classe `GeometryWithCachedEnvelope` qui permet de mettre en cache le calcul de l'enveloppe
 
-![Schéma UML](schema/mcd-13.png)
+![Schéma UML](schema/mcd-12.png)
 
 
 Exemple d'utilisation :
@@ -264,32 +262,16 @@ const b = g.getEnvelope() ; // renvoi de cachedEnvelope
 assertSame(a,b);
 ```
 
-Remarque : nous traiterons l'invalidation du cache en cas de modification de la géométrie originale à la prochaine question.
-
-## XX - GeometryListener
-
-> Objectif : Patron de conception Observable
-
-Pour être en mesure d'invalider l'enveloppe précalculée en cas de modification d'une géométrie, nous allons mettre en place un mécanisme d'événement :
+Remarque : Nous invaliderons ce cache dans `translate(dx,dy)`.
 
 
-* Ajouter une interface `GeometryListener` qui permettra aux utilisateurs d'être notifié en cas de modification d'une géométrie
-* Notifier une modification aux `listeners` dans `translate(dx,dy)` à l'aide de `triggerChange`
-* Exploiter ce mécanisme pour recalculer l'enveloppe en cas de modification dans `GeometryWithCachedEnvelope` qui s'ajoutera comme un `listener`
-
-![Schéma UML](schema/mcd-14.png)
-
-
-Remarque : `translate` étant la seule fonction capable de modifier une géométrie, il serait actuellement possible de se contenter d'invalider l'enveloppe en surchargeant `translate` dans `GeometryWithCachedEnvelope` pour nettoyer au passage le cache. Rien ne garanti toutefois que `translate` reste la seule fonction à même de modifier une géométrie et que toutes ces fonctions restent déclarées au niveau `Geometry`.
-
-
-## XX - GeometryCollection
+## 0.13 - GeometryCollection
 
 > Objectif : Patron de conception Composite, Refactoring
 
 Ajouter une classe `GeometryCollection` représentant une géométrie multiple, adapter les autres fonctionnalités.
 
-![Schéma UML](schema/mcd-15.png)
+![Schéma UML](schema/mcd-13.png)
 
 Remarque : Le format WKT prendra la forme suivante pour les `GeometryCollection` :
 
@@ -298,21 +280,17 @@ GEOMETRYCOLLECTION EMPTY
 GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))
 ```
 
-<!--
+## 0.14 - GeometryVisitor renvoyant un résultat
 
-## XX - GeometryVisitor renvoyant un résultat
-
-> Objectif : Exploiter les classes génériques, visiteur renvoyant directement un résultat.
+> Objectif : Exploiter les [classes génériques](https://www.typescriptlang.org/docs/handbook/2/generics.html#generic-classes), adapter le patron visiteur au contexte.
 
 Pour avoir la capacité de renvoyer des résultats avec des types variables :
 
 * Transformer la classe `GeometryVisitor` en `GeometryVisitor<T>`.
-* Adapter les visiteurs existants ne renvoyant pas de résultat en implémentant `GeometryVisitor<Void>`.
-* Ajouter une classe `LengthVisitor<Double>` renvoyant la longueur de la géométrie en guise de démonstration (0.0 pour un point)
+* Adapter les visiteurs existants ne renvoyant pas de résultat en implémentant `GeometryVisitor<void>`.
+* Ajouter une classe `LengthVisitor<number>` renvoyant la longueur de la géométrie en guise de démonstration (0.0 pour un point)
 
 ```ts
 const visitor = new LengthVisitor();
 const result = geometry.accept(visitor);
 ```
-
--->
