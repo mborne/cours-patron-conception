@@ -29,7 +29,7 @@ Vous devrez impérativement :
 
 Pour ce faire, il vous est vivement conseillé de :
 
-* Lancer à chaque étape la construction et les tests automatiques (`mvn clean package`)
+* Lancer les tests automatiques (`npm run test`) à chaque étape.
 * Travailler avec une branche "dev" si vous voulez pousser des résultats non finalisés.
 
 ---
