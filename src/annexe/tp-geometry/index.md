@@ -40,7 +40,7 @@ Pour ce faire, il vous est vivement conseillé de :
 
 Implémenter les trois classes suivantes illustrées sur le schémas ci-après :
 
-![Schéma UML](schema/mcd-02.png)
+![Schéma UML](schema/mcd-01.png)
 
 Remarques :
 
@@ -60,7 +60,7 @@ Afin d'éviter d'avoir à tester des `coordinate` ou `points` null, nous allons 
 * S'assurer que la variable membre `points` de `LineString` n'est jamais nulle (une liste vide est préférable à une valeur nulle).
 * Déclarer `Geometry.isEmpty` et l'implémenter dans `Point` et `LineString`
 
-![Schéma UML](schema/mcd-03.png)
+![Schéma UML](schema/mcd-02.png)
 
 Remarque : 
 
@@ -73,7 +73,7 @@ Remarque :
 
 Ajouter une méthode de permettant de translater une géométrie.
 
-![Schéma UML](schema/mcd-04.png)
+![Schéma UML](schema/mcd-03.png)
 
 Remarque : Vous serez amené à créer une nouvelle `Coordinate` pour l'implémentation dans `Point`.
 
@@ -85,7 +85,7 @@ En introduisant la fonction précédente, nous avons renoncé à l'idée d'avoir
 
 Nous allons donc ajouter une méthode `clone()` permettant de récupérer une copie d'une géométrie :
 
-![Schéma UML](schema/mcd-05.png)
+![Schéma UML](schema/mcd-04.png)
 
 Exemple d'utilisation :
 
@@ -112,7 +112,7 @@ Nous allons donc procéder comme suit :
 * Ajouter une classe `Envelope` représentant une emprise rectangulaire de la géométrie avec le format suivant pour `toString()` : `xMin,yMin,xMax,yMax` (c'est celui de WMS)
 * Ajouter une classe utilitaire `EnvelopeBuilder` qui aura pour rôle de construire cette emprise
 
-![Schéma UML](schema/mcd-06.png)
+![Schéma UML](schema/mcd-05.png)
 
 Exemple d'utilisation :
 
@@ -129,7 +129,7 @@ Remarques :
 * Vous avez la **liberté d'ajouter des variables membres privées** dans `EnvelopeBuilder` pour le calcul.
 * En cas de difficulté pour faire des calculs de min/max optimaux, vous pouvez par exemple vous appuyer sur deux variables privées `xVals` et `yVals` pour exploiter les fonctionnalités standards `Math.min` et `Math.max`. Cette approche ne sera pas "optimale", mais elle peut être un premier jet permettant la mise en oeuvre des tests avant optimisation.
 
-## XX - Geometry.getEnvelope() : Envelope
+## 06 - Geometry.getEnvelope() : Envelope
 
 > Objectif : Facade sur EnvelopeBuilder
 
@@ -138,9 +138,9 @@ Ajouter une méthode utilitaire sur `Geometry` pour récupérer facilement l'env
 * Déclarer une méthode `getEnvelope` dans `Geometry`
 * Implémenter cette méthode dans `Point` et `LineString` à l'aide de `EnvelopeBuilder`
 
-![Schéma UML](schema/mcd-07.png)
+![Schéma UML](schema/mcd-06.png)
 
-## XX - WktWriter
+## 07 - WktWriter
 
 > Objectif : Mesurer l'intérêt d'une conception propre et de GeometryVisitor dans les questions suivantes
 
@@ -154,7 +154,7 @@ LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0)
 ```
 
 
-![Schéma UML](schema/mcd-08.png)
+![Schéma UML](schema/mcd-07.png)
 
 Exemple d'utilisation :
 
@@ -179,7 +179,7 @@ if ( geometry instanceof Point ){
 }
 ```
 
-## XX - GeometryVisitor
+## 08 - GeometryVisitor
 
 > Objectif : Patron de conception Visitor, prise en main
 
@@ -190,7 +190,7 @@ if ( geometry instanceof Point ){
     * "Je suis une polyligne vide."
     * "Je suis une polyligne définie par 3 point(s)."
 
-![Schéma UML](schema/mcd-09.png)
+![Schéma UML](schema/mcd-08.png)
 
 Exemple d'utilisation :
 
@@ -209,7 +209,7 @@ Remarque : pour les tests, vous pourrez remplacer temporairement `console.log` p
 
 Reprendre l'implémentation de WktWriter sous la forme d'un GeometryVisitor en implémentant une classe `WktVisitor`.
 
-![Schéma UML](schema/mcd-10.png)
+![Schéma UML](schema/mcd-09.png)
 
 Exemple d'utilisation :
 
