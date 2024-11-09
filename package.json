@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "node build.js",
-    "start": "http-server -p 3000 docs"
+    "start": "http-server -p 3000 public"
   },
   "repository": {
     "type": "git",

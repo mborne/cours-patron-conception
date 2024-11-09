@@ -34,11 +34,7 @@ Pour ce faire, il vous est vivement conseillé de :
 
 ---
 
-**ATTENTION : L'adaptation des questions ci-dessous est en cours**
-
----
-
-## XX - Geometry, Point et LineString
+## 01 - Geometry, Point et LineString
 
 > Objectif : Préparation du TP, utilisation d'interface, encapsulation
 
@@ -52,7 +48,7 @@ Remarques :
 * Nous nous interdirons de modifier ce comportement dans les questions suivantes (~~`"POINT"`~~, ~~`"LINESTRING"`~~).
 
 
-## XX - Geometry.isEmpty()
+## 02 - Geometry.isEmpty()
 
 > Objectif : Bonne pratique *NonNullObject*
 
@@ -71,7 +67,7 @@ Remarque :
 * Nous tâcherons de blinder les appels `new Point(null)` et `new LineString(null)`
 * Nous ne traiterons pas le cas d'un appel `new LineString(points)` avec un point null.
 
-## XX - Geometry.translate(dx,dy)
+## 03 - Geometry.translate(dx,dy)
 
 > Objectif : Exploiter une interface pour réaliser un traitement spécifique
 
@@ -81,7 +77,7 @@ Ajouter une méthode de permettant de translater une géométrie.
 
 Remarque : Vous serez amené à créer une nouvelle `Coordinate` pour l'implémentation dans `Point`.
 
-## XX - Geometry.clone()
+## 04 - Geometry.clone()
 
 > Objectif : Patron de conception *Prototype*
 
@@ -93,8 +89,8 @@ Nous allons donc ajouter une méthode `clone()` permettant de récupérer une co
 
 Exemple d'utilisation :
 
-```java
-Geometry copy = g.clone();
+```ts
+const copy = g.clone();
 copy.translate(10.0,10.0);
 //... "g" n'est pas modifiée
 ```
@@ -105,7 +101,7 @@ Remarques :
 * Nous procéderons à une **copie en profondeur** pour les seules propriétés non immuables.
 
 
-## XX - Envelope et EnvelopeBuilder
+## 05 - Envelope et EnvelopeBuilder
 
 > Objectif : Patron de conception Builder
 
@@ -120,8 +116,8 @@ Nous allons donc procéder comme suit :
 
 Exemple d'utilisation :
 
-```java
-EnvelopeBuilder builder = new EnvelopeBuilder();
+```ts
+const builder = new EnvelopeBuilder();
 builder.insert(new Coordinate(0.0,1.0));
 builder.insert(new Coordinate(2.0,0.0));
 builder.insert(new Coordinate(1.0,3.0));
@@ -131,20 +127,7 @@ Envelope result = builder.build();
 Remarques : 
 
 * Vous avez la **liberté d'ajouter des variables membres privées** dans `EnvelopeBuilder` pour le calcul.
-* En cas de difficulté pour faire des calculs de min/max optimaux, vous pouvez par exemple vous appuyer sur deux variables privées `xVals: List<Double>` et `yVals: List<Double>` pour exploiter les fonctionnalités standards java :
-
-```java
-List<Double> xVals = new ArrayList<Double>();
-xVals.add(1.0);
-xVals.add(-1.0);
-xVals.add(3.0);
-double xmin = Collections.min(xVals);
-double xmax = Collections.max(xVals);
-Assert.assertEquals(-1.0,xmin,EPSILON);
-Assert.assertEquals(3.0,xmax,EPSILON);
-```
-
-Cette approche ne sera pas "optimale", mais elle peut être un premier jet permettant la mise en oeuvre des tests avant optimisation.
+* En cas de difficulté pour faire des calculs de min/max optimaux, vous pouvez par exemple vous appuyer sur deux variables privées `xVals` et `yVals` pour exploiter les fonctionnalités standards `Math.min` et `Math.max`. Cette approche ne sera pas "optimale", mais elle peut être un premier jet permettant la mise en oeuvre des tests avant optimisation.
 
 ## XX - Geometry.getEnvelope() : Envelope
 
@@ -175,9 +158,9 @@ LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0)
 
 Exemple d'utilisation :
 
-```java
-Geometry g = new Point(new Coordinate(3.0,4.0));
-WktWriter writer = new WktWriter();
+```ts
+const g = new Point([3.0,4.0]);
+const writer = new WktWriter();
 assertEquals("POINT(3.0 4.0)", writer.write(g));
 ```
 
@@ -186,15 +169,13 @@ Remarques :
 * Nous ne modifierons pas les classes `Geometry`, `Point` et `LineString` pour mettre en oeuvre cette fonctionnalité.
 * Nous utiliserons un fragment de code du style suivant pour traiter les différents types concrets :
 
-```java
+```ts
 if ( geometry instanceof Point ){
-    Point point = (Point)geometry;
     // traiter le cas Point
 }else if ( geometry instanceof LineString ){
-    LineString lineString = (LineString)geometry;
     // traiter le cas LineString
 }else{
-    throw new RuntimeException("geometry type not supported");
+    throw new TypeError("geometry type not supported");
 }
 ```
 
@@ -213,22 +194,13 @@ if ( geometry instanceof Point ){
 
 Exemple d'utilisation :
 
-```java
-LogGeometryVisitor visitor = new LogGeometryVisitor();
-Geometry geometry = new Point(new Coordinate(3.0,4.0));
+```ts
+const visitor = new LogGeometryVisitor();
+const geometry = new Point(new Coordinate(3.0,4.0));
 geometry.accept(visitor);
 ```
 
-Pour tester les écritures dans la console de `LogGeometryVisitor`, nous remarquerons que `System.out` est de type `PrintStream` et qu'il est possible d'écrire dans une chaîne de caractère plutôt que dans la console en procédant comme suit :
-
-```java
-ByteArrayOutputStream os = new ByteArrayOutputStream();
-PrintStream out = new PrintStream(os);
-LogGeometryVisitor visitor = new LogGeometryVisitor(out);
-geometry.accept(visitor);
-// result contiendra ce qui est écrit dans la console
-String result = os.toString("UTF8");
-```
+Remarque : pour les tests, vous pourrez remplacer temporairement `console.log` par une fonction vous permettant de capturer le résultat.
 
 
 ## XX - WktVisitor
@@ -241,14 +213,13 @@ Reprendre l'implémentation de WktWriter sous la forme d'un GeometryVisitor en i
 
 Exemple d'utilisation :
 
-```java
-WktVisitor visitor = new WktVisitor();
-Geometry geometry = new Point(new Coordinate(3.0,4.0));
+```ts
+const visitor = new WktVisitor();
+const geometry = new Point([3.0,4.0]);
 geometry.accept(visitor);
 assertEquals( "POINT(3.0 4.0)", visitor.getResult() );
 ```
 
-Remarque : Au niveau de `visit`, on écrira dans la variable membre `buffer` à l'aide de `append` de `StringBuilder`. Au niveau de `getResult()`, on récupérera la chaîne du `buffer` à l'aide de `toString` de `StringBuilder`.
 
 ## XX - Geometry.asText()
 
@@ -284,16 +255,16 @@ Remarque : Il faudra redéclarer la méthode `clone()` au niveau de `AbstractGeo
 
 Exemple d'utilisation :
 
-```java
-Geometry g = new Point(new Coordinate(3.0,3.0));
+```ts
+const g = new Point([3.0,3.0]);
 // décoration
 g = new GeometryWithCachedEnvelope(g);
-Envelope a = g.getEnvelope() ; // calcul et stockage dans cachedEnvelope
-Envelope b = g.getEnvelope() ; // renvoi de cachedEnvelope
+const a = g.getEnvelope() ; // calcul et stockage dans cachedEnvelope
+const b = g.getEnvelope() ; // renvoi de cachedEnvelope
 assertSame(a,b);
 ```
 
-Remarque : on traitera l'invalidation du cache en cas de modification de la géométrie originale à la prochaine question.
+Remarque : nous traiterons l'invalidation du cache en cas de modification de la géométrie originale à la prochaine question.
 
 ## XX - GeometryListener
 
@@ -316,18 +287,18 @@ Remarque : `translate` étant la seule fonction capable de modifier une géomét
 
 > Objectif : Patron de conception Composite, Refactoring
 
-Ajouter une classe `GeometryCollection` représentant une géométrie multiple, adapter les autres fonctionnalitées.
+Ajouter une classe `GeometryCollection` représentant une géométrie multiple, adapter les autres fonctionnalités.
 
 ![Schéma UML](schema/mcd-15.png)
 
-Remarque : 
-
-* Le format WKT prendra la forme suivante pour les `GeometryCollection` :
+Remarque : Le format WKT prendra la forme suivante pour les `GeometryCollection` :
 
 ```
 GEOMETRYCOLLECTION EMPTY
 GEOMETRYCOLLECTION(POINT(3.0 4.0),LINESTRING(0.0 0.0,1.0 1.0,5.0 5.0))
 ```
+
+<!--
 
 ## XX - GeometryVisitor renvoyant un résultat
 
@@ -339,7 +310,9 @@ Pour avoir la capacité de renvoyer des résultats avec des types variables :
 * Adapter les visiteurs existants ne renvoyant pas de résultat en implémentant `GeometryVisitor<Void>`.
 * Ajouter une classe `LengthVisitor<Double>` renvoyant la longueur de la géométrie en guise de démonstration (0.0 pour un point)
 
-```java
-LengthVisitor<Double> visitor = new LengthVisitor<Double>();
-Double result = geometry.accept(visitor);
+```ts
+const visitor = new LengthVisitor();
+const result = geometry.accept(visitor);
 ```
+
+-->
