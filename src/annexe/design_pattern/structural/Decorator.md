@@ -10,19 +10,21 @@ Nous avons des personnages dans un jeu modélisé comme suit avec un poids utili
 
 * Une interface Personnage :
 
-```java
+```ts
 interface Personnage {
-    public double getWeight() ;
+    getWeight(): number;
 }
 ```
 
 * Une classe concrète Humain :
 
-```java
+```ts
 class Humain implements Personnage {
-    public double getWeight(){
-        return 80.0 ;
+
+    getWeight(): number {
+        return 80.0;
     }
+
 }
 ```
 
@@ -32,59 +34,54 @@ Nous souhaitons pouvoir modifier les caractéristiques de ces personnages avec l
 
 Nous pouvons implémenter **hériter de l'interface et nous appuyer sur l'instance originale pour l'implémentation** :
 
-```java
+```ts
 class PersonnageAvecHache implements Personnage {
 
-    private Personnage original ;
+    private original: Personnage;
 
-    public PersonnageAvecHache(Personnage original){
-        this.original = original ;
+    constructor(original: Personnage) {
+        this.original = original;
     }
 
-    public double getWeight(){
-        return original.getWeight() + 15.0 ;
+    getWeight(): number {
+        return this.original.getWeight() + 15.0;
     }
 }
 ```
 
 
-```java
+```ts
 class PersonnageAvecChapeau implements Personnage {
 
-    private Personnage original ;
+    private original: Personnage;
 
-    public PersonnageAvecChapeau(Personnage original){
-        this.original = original ;
+    constructor(original: Personnage) {
+        this.original = original;
     }
 
-    public double getWeight(){
-        return original.getWeight() + 2.0 ;
+    public getWeight(): number {
+        return this.original.getWeight() + 2.0;
     }
 }
 ```
 
 A l'usage :
 
-```java
-Personnage personnage = new Humain();
+```ts
+let personnage = new Humain();
 personnage = new PersonnageAvecHache(personnage);
 personnage = new PersonnageAvecChapeau(personnage);
-System.out.println(personnage.getWeight()); // 80 + 15 + 2
+console.log(personnage.getWeight()) // 80 + 15 + 2
 ```
 
 ## Autres cas d'école
 
-* `RetryingHttpRequest` décorant `HttpRequest` avec plusieurs tentatives sur GET 
-* `HideSecretLogger` décorant `Logger` pour masquer des secrets dans les messages des journaux applicatifs
+* `RetryingHttpClient` décorant `HttpClient` avec plusieurs tentatives sur les requêtes GET .
+* `HideSecretLogger` décorant `Logger` pour masquer des secrets dans les messages des journaux applicatifs.
 * [FilteredReportBuilder](https://github.com/IGNF/validator/blob/v4.4.5/validator-core/src/main/java/fr/ign/validator/report/FilteredReportBuilder.java) décorant [ReportBuilder](https://github.com/IGNF/validator/blob/v4.4.5/validator-core/src/main/java/fr/ign/validator/report/ReportBuilder.java) pour limiter le nombre d'erreur d'un même type dans un rapport de validation de données 
 * ...
-
-## Autres exemples en Java
-
-* [BufferedReader/Reader](https://docs.oracle.com/javase/7/docs/api/java/io/BufferedReader.html)
-* [LineNumberReader/BufferedReader](https://docs.oracle.com/javase/7/docs/api/java/io/LineNumberReader.html)
 
 ## Liens utiles
 
 * [fr.wikibooks.org - Décorateur avec exemple en Java avec des composants d'IHM](https://fr.wikibooks.org/wiki/Patrons_de_conception/D%C3%A9corateur#Java)
-
+* [refactoring.guru - Decorator](https://refactoring.guru/fr/design-patterns/decorator)

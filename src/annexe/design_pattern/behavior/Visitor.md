@@ -101,4 +101,8 @@ visitor.visit(Visitable a, Visitable b);
 ```
 
 
+## Liens utiles
+
+* [fr.wikibooks.org - Visiteur](https://fr.wikibooks.org/wiki/Patrons_de_conception/Strat%C3%A9gie)
+* [refactoring.guru - Visiteur](https://refactoring.guru/fr/design-patterns/visitor)
 

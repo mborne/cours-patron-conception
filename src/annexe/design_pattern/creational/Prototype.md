@@ -16,19 +16,21 @@ Toutes les classes dérivées implémentent une méthode "clone()" renvoyant une
 
 Source : https://fr.wikibooks.org/wiki/Patrons_de_conception/Prototype
 
-## Exemple dans l'API Java
-
-Les exemples sont légion, l'API dispose d'une interface Cloneable.
-
-## Mise en garde
+## Mises en garde
 
 * L'**implémentation de clone est délicate!** (ex : sans précaution particulière, deux copies pourront pointer sur le même tableau)
 * Il convient de **copier les variables** membres pour les objets qui peuvent être modifiés après la construction (notion d'[Immutable Objects](http://docs.oracle.com/javase/tutorial/essential/concurrency/immutable.html))
+* La méthode de copie dépendra du langage et le patron prototype ne sera pas toujours le plus adapté.
 
 ## Lien(s) utile(s)
 
-* [rules.sonarsource.com - "clone" should not be overridden](https://rules.sonarsource.com/java/tag/suspicious/RSPEC-2975/) qui détaille les risques en Java et propose des alternatives (constructeur de copie et méthode dédiée à la création d'une copie).
+* [refactoring.guru - Prototype](https://refactoring.guru/fr/design-patterns/prototype)
+* [fr.wikibooks.org - Prototype](https://fr.wikibooks.org/wiki/Patrons_de_conception/Prototype)
 
+Voir aussi :
+
+* [structuredClone](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone) pour JavaScript
+* [copy](https://docs.python.org/fr/3/library/copy.html) pour Python
 
 
 

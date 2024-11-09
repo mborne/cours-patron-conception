@@ -1,6 +1,6 @@
 # Les patrons de conception
 
-[ENSG](https://www.ensg.eu/) janvier 2022
+[ENSG](https://www.ensg.eu/) novembre 2024
 
 ## Resource en ligne
 
@@ -18,3 +18,6 @@ Les éléments de ce cours sont disponibles aux URL suivantes :
 
 Des questions, des remarques, des références manquantes, etc. : [Merci d'ajouter une issue](https://github.com/mborne/cours-patron-conception/issues)
 
+## Licence
+
+[LICENSE](LICENSE)

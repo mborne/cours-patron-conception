@@ -2,7 +2,7 @@
 
 ## Problème
 
-Nous souhaitons pouvoir réaliser des actions en cas d'événement particulier sur un objet (ex : modification de l'état de l'objet).
+Nous souhaitons pouvoir réaliser des actions en cas d'événement particulier sur un objet (ex : mettre à jour une interface en cas de modification de l'état de l'objet).
 
 ## Solution
 
@@ -12,18 +12,18 @@ Nous pouvons procéder comme suit en ajoutant des "observateurs" qui seront noti
 
 Source [<https://fr.wikipedia.org/wiki/Observateur_(patron_de_conception)>](https://fr.wikipedia.org/wiki/Observateur_(patron_de_conception))
 
-## Remarques
+## Variantes
 
-Dans l'API Java, nous trouverons des classes [Observer](https://docs.oracle.com/javase/8/docs/api/java/util/Observer.html) et [Observable](https://docs.oracle.com/javase/8/docs/api/java/util/Observable.html). Toutefois, nous trouverons de **nombreuses variantes pour la gestion des événements** dans les bibliothèques Java et autres langages :
+Ce principe est repris et adapté dans de nombreux langages et cadriciels :
 
-* [WindowListener, ActionListener,...](https://docs.oracle.com/javase/tutorial/uiswing/events/actionlistener.html) au niveau de la gestion des composants graphiques avec AWT.
-* `addEventListener` en JavaScript
-* `trigger/on` avec JQuery
-* `EventListener`, `EventSubscriber`, `EventDispatcher` dans Symfony
-* `signal/slot` dans C++/Qt
-* etc.
+* En JavaScript, avec `addEventListener` en standard sur les objets HTML et `trigger/on` avec JQuery.
+* En PHP, où nous trouverons des concepts proches dans Symfony (`EventListener`, `EventSubscriber`, `EventDispatcher`)
+* En C++, avec les mécanismes `signal/slot` dans Qt
+* ...
 
 ## Liens utiles
 
+* [fr.wikibooks.org - Observateur](https://fr.wikibooks.org/wiki/Patrons_de_conception/Observateur)
+* [refactoring.guru - Observateur](https://refactoring.guru/fr/design-patterns/observer)
 * [Design pattern Observateur en Java : positionnement via un GPS (design-patterns.fr)](http://design-patterns.fr/observateur-en-java)
 

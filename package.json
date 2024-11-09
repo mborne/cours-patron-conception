@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "node build.js",
-    "start": "http-server -p 3000 docs"
+    "start": "http-server -p 3000 public"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
   },
   "homepage": "https://mborne.github.io/cours-patron-conception/",
   "devDependencies": {
-    "@mborne/markdown-to-html": "0.10.1",
+    "@mborne/markdown-to-html": "0.10.4",
     "http-server": "^14.1.1",
     "shelljs": "^0.8.5"
   }

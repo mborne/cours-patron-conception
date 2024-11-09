@@ -25,13 +25,13 @@ A l'usage, nous pourrons mettre en oeuvre deux politiques dans `RegistrationForm
  * Création d'une politique avec peu de contraintes
  * pour les utilisateurs lambda
  */
-PasswordValidator userPasswordValidator = new LengthValidator(8);
+const userPasswordValidator = new LengthValidator(8);
 
 /*
  * Création d'une politique plus contraignante
  * pour les administrateurs
  */
-PasswordValidator adminPasswordValidator = new LengthValidator(12);
+const adminPasswordValidator = new LengthValidator(12);
 adminPasswordValidator.setSuccessor(new HasDigitValidator());
 // ...
 ```

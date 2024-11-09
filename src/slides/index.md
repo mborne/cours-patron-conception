@@ -12,17 +12,17 @@
 
 * [Introduction](#3)
 * [Les bases de la P.O.O.](#6)
-* [Les principes de conception](#9)
-* [Les anti-patrons](#23)
-* [Les patrons de conception](#33)
-* [Les patrons de création](#40)
-* [Les patrons de structure](#41)
-* [Les patrons de comportement](#42)
-* [A vous maintenant!](#43)
-* [Les patrons architecturaux](#44)
-* [Le refactoring](#45)
-* [Encore à vous!](#46)
-* [Conclusion](#47)
+* [Les principes de conception](#11)
+* [Les anti-patrons](#26)
+* [Les patrons de conception](#36)
+* [Les patrons de création](#43)
+* [Les patrons de structure](#44)
+* [Les patrons de comportement](#45)
+* [A vous maintenant!](#46)
+* [Les patrons architecturaux](#47)
+* [Le refactoring](#48)
+* [Encore à vous!](#49)
+* [Conclusion](#50)
 * [Annexes et références](annexe/)
 
 ---
@@ -85,6 +85,43 @@ Nous verrons enfin comment **réfactorer un code existant** avec une partie thé
 
 ## Les bases de la P.O.O.
 
+### Un paradygme omniprésent
+
+De nombreux programmeurs manipulent des objets sans forcément en avoir conscience :
+
+* En appelant, `chaine.upper()` pour transformer une chaîne de caractères en majuscules, nous faisons appel à la **notation pointée** typique de la P.O.O.
+* En Python, tout est objet :
+
+<div class="center">
+    <img src="img/python-tout-objet.png" alt="Illustration de quelques types en Python" height="300" />
+</div>
+
+---
+
+## Les bases de la P.O.O.
+
+### Un paradigme difficile à maîtriser
+
+**Utiliser des classes existantes ne demandera pas d'effort**.
+
+Il sera plus délicat de :
+
+* **Concevoir proprement <u>ses propres classes</u>**
+* **Faire un choix entre la définition d'une classe ou le recours à un autre paradigme** (ex : définition d'une fonction) quand le langage le permet.
+
+Dans ce cours qui présente les patrons de conception, nous allons nous concentrer sur la P.O.O. Nous mentionnerons toutefois la **possibilité de mixer les paradigmes dans la vraie vie** :
+
+```js
+const nombreUtilisateursMajeurs = userRepo.getUsers()
+  .filter(user => user.age >= 18) // programmation fonctionnelle + P.O.O.
+  .count()
+;
+```
+
+---
+
+## Les bases de la P.O.O.
+
 ### Les concepts de base
 
 Les concepts suivants sont normalement connus avant de débuter ce cours :
@@ -93,10 +130,10 @@ Les concepts suivants sont normalement connus avant de débuter ce cours :
 * Les **constructeurs**
 * Les **objets**
 * La **visibilité** (public, private, protected)
-* Les accesseurs (get, set, add, remove,...)
+* Les **accesseurs** (get, set, add, remove,...)
 * Les **relations** (composition, agrégation)
 * L'**héritage** et le **polymorphisme**
-* Les méthodes et classes **abstraites**
+* Les **méthodes et classes abstraites**
 * Les **interfaces**
 * Les **méthodes statiques**
 * Les **attributs statiques**
@@ -109,7 +146,7 @@ Les concepts suivants sont normalement connus avant de débuter ce cours :
 
 Les **concepts de classe, d'attribut et l'héritage sont généralement bien maîtrisés pour modéliser des données** (objet de domaine).
 
-Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la P.O.O.** pour :
+Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la P.O.O.** pour **modéliser des traitements** :
 
 * Se protéger contre des erreurs de programmation
 * S'assurer d'être en mesure de modifier le code sans casser les appels 
@@ -126,7 +163,7 @@ Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la
 
 Les langages qui permettent de définir et manipuler les concepts de base de la P.O.O. sont nombreux (Java, JavaScript (ES6), TypeScript, C++, Python, PHP, Go, Rust,...).
 
-Nous traiterons ce cours avec des exemples et TP en Java en nous concentrant sur ce qui applicable à de nombreux langages.
+Nous traiterons ce cours avec des exemples et TP en TypeScript en nous concentrant sur ce qui applicable à de nombreux langages.
 
 Nous noterons toutefois que **[les langages ont des spécificités](annexe/specificites-langages.html) qui devront être prises en compte et exploitées dans la conception**.
 
@@ -185,8 +222,6 @@ Pour modifier le comportement d'une classe, je peux en hériter et surcharger un
 ]
 
 
-> En Java, nous pourrons toutefois déclarer une classe `final` pour bloquer l'héritage. Nous ne modifierons pas pour autant le code d'une telle classe pour ajouter des fonctionnalités.
-
 ---
 
 ## Les principes de conception
@@ -204,7 +239,6 @@ Cas 2 : J'ajoute une classe à une hiérarchie, je provoque le lancement d'excep
 .good-right[
 Avant d'hériter d'une classe, je m'assure que je pourrai implémenter toutes les méthodes et que ça ne posera pas de problème dans le reste du code.
 
-> Spoiler : Le patron visiteur aidera à se protéger contre le deuxième cas.
 ]
 
 ---
@@ -232,11 +266,22 @@ Je définis une interface pour chaque protocole : `HttpClient`, `FtpClient`, `Ma
 **Il faut dépendre des interfaces, pas des implémentations (classes concrètes).**
 
 .bad-left[
-Je référence des classes (`ArrayList`, `HashMap`...) dans les déclarations des constructeurs et des méthodes.
+Je référence des classes concrètes dans les déclarations des constructeurs et des méthodes :
+
+* `GpsLocationProvider`
+* `GeoplateformeGeocoder`
+* ...
+
+
 ]
 
 .good-right[
-Je référence des interfaces (`List`, `Map`...) dans les déclarations.
+Je référence des interfaces dans les déclarations :
+
+* `LocationProvider`
+* `Geocoder`
+* ...
+
 ]
 
 ---
@@ -264,7 +309,19 @@ Pour réutiliser un code, je le **met en facteur** dans une méthode ou une clas
 
 **Il convient de coder uniquement ce qui est utile, de ne pas ajouter du code en se disant que ça servira un jour.**
 
-> Spoiler : Nous verrons dans le deuxième TP que **rendre immuable ce qui n'a pas besoin d'être modifié après l'initialisation** correspond à ce principe et limite la complexité.
+
+.bad-left[
+* Je produis mes résultats dans de nombreux formats (shapefile, CSV, JSON, GeoJSON, GML,...)
+* Je supporte la 2D et la 3D car certaines de mes sources de données sont en 3D.
+* Je créé une classe `Batiment` avec tous les attributs BDTOPO.
+]
+
+.good-right[
+* Je produis mes résultats dans un nombre limité de formats demandés par les utilisateurs.
+* J'ignore la 3D tant que je ne l'utilise pas dans mon application.
+* Je créé une classe `Batiment` avec les seuls attributs BDTOPO que j'utilise.
+]
+
 
 ---
 
@@ -272,28 +329,29 @@ Pour réutiliser un code, je le **met en facteur** dans une méthode ou une clas
 
 ### Principe d'exposition minimale
 
-**Il convient d'exposer un minimum de fonctionnalités au niveau d'une classe** (i.e. de maximiser l'encapsulation).
+Il convient d'**exposer un minimum de fonctionnalités au niveau d'une classe** (i.e. de maximiser l'encapsulation).
 
-En pratique :
+En pratique, quand le langage le permet (PHP, Java, C++, TypeScript,...) :
 
 * Les **méthodes et attributs sont privés par défaut**
-* Les **accesseurs** sont définis et accessibles **uniquement si c'est nécessaire** (ex : ~~`public Logger getLogger()`~~)
+* Les **accesseurs** sont définis et accessibles **uniquement si c'est nécessaire** (~~`traitement.getLogger()`~~)
 * Une **méthode spécifique est préférée à un accesseur permettant de nombreuses opérations**
-  * Les **collections sont encapsulées** (ex : définir `addPoint(p)` pour permettre l'ajout d'un point à une liste VS définir `getPoints(): List<Point>` et permettre des modifications arbitraires sur la liste)
+  * Les **collections sont encapsulées** (~~`obj.points.add(p)`~~ -> `obj.addPoint(p)` )
+
 
 ---
 
 ## Les principes de conception
 
-### Identifier et encapsuler ce qui varie (1/2)
+### Identifier et encapsuler ce qui varie (1/3)
 
-Cas d'école : J'identifie le besoin d'écrire mes journaux applicatifs (logs) dans la console ou dans un fichier...
+**Cas d'école** : J'identifie le besoin de **produire des journaux applicatifs (logs) plus ou moins détaillés**...
 
-```java
+```ts
 class MaClasse {
 
-    public void faireUnTruc(){
-        System.out.println("Je fais un truc");
+    faireUnTruc(){
+        console.log("Je fais un truc");
         // ...
     }
 
@@ -304,27 +362,58 @@ class MaClasse {
 
 ## Les principes de conception
 
-### Identifier et encapsuler ce qui varie (2/2)
+### Identifier et encapsuler ce qui varie (2/3)
 
-... je fais abstraction sur l'écriture des journaux applicatifs en posant un concept à l'aide d'une classe `Logger` dédiée à l'écriture des logs :
+... je fais abstraction sur l'écriture des journaux applicatifs à l'aide d'une classe `Logger` :
 
-```java
+```ts
 class MaClasse {
 
-    private Logger logger ;
+    logger: Logger;
 
-    public MaClasse(Logger logger){
+    constructor(logger: Logger){
       this.logger = logger;
     }
 
-    public void faireUnTruc(){
-        logger.info("Je fais un truc");
+    faireUnTruc(){
+        this.logger.info("Je fais un truc");
     }
 
 }
 ```
 
-> Spoiler : Nous verrons ce cas de figure en TP où nous ferons le **lien avec la capacité à tester unitairement son code**.
+Je peux ainsi configurer le niveau de production des logs au niveau au niveau de l'instance `logger`.
+
+---
+
+## Les principes de conception
+
+### Identifier et encapsuler ce qui varie (3/3)
+
+Nous remarquerons que cette approche est aussi la clé pour **rendre un code unitairement testable** :
+
+```ts
+class MonTraitement {
+
+  constructor(httpClient: HttpClient){
+    this.httpClient = httpClient;
+  }
+
+  async afficheLesCommunes(codePostal: string): void {
+    const url = 
+      `https://apicarto.ign.fr/api/codes-postaux/communes/${codePostal}`
+    ;
+
+    // Non bouchonnable (appel statique)
+    //const data = await fetch(url);
+
+    // Bouchonnable (mock possible sur httpClient)
+    const data = await this.httpClient.get(url);
+    console.log(data);
+  }
+}
+```
+
 
 ---
 
@@ -337,7 +426,7 @@ class MaClasse {
   * "~~Un `TraitementMetier` est une `BaseDeDonnees`~~" -> "Un `TraitementMetier` utilise une `BaseDeDonnees`".
 * Nous **préférerons toutefois les états aux classes dérivées** :
   * Il sera naturel d'**hériter** d'une `Forme` pour modéliser des `Cercle` et des `Rectangle` avec des **attributs spécifiques** (`rayon` vs `largeur` et `hauteur`)
-  * Il sera préférable d'ajouter des attributs à une classe `Animal` (ex : `type`, `birthDate`,...) plutôt que définir des classes `Chat` et `Chien` dérivées.
+  * Pour une classe `Animal`, nous préférerons l'ajout d'un attribut `type` à la création de classes `Chat` et `Chien` dérivées sans attributs spécifiques.
 
 ---
 
@@ -365,7 +454,7 @@ Avant de mettre un nom sur des modèles de conception, nous allons maintenant **
 
 ### Principe des anti-patrons
 
-* Nommer des erreurs de conception classiques
+* **Nommer** des erreurs de conception classiques
 * Faciliter l'identification des erreurs de conception
 
 ---
@@ -444,9 +533,9 @@ Il peut s'agir d'une bibliothèque, d'une base de données, d'une suite de logic
 
 **Un code non finalisé est mis en production. Il n'est plus possible de le remanier.**
 
-Ce problème pourra concerner aussi bien des bibliothèques que des API WEB ou en ligne de commande (CLI). Il conviendra de **considérer que livrer revient à figer les interfaces publiques**.
+Ce problème pourra concerner aussi bien des bibliothèques que des API WEB ou en ligne de commande (CLI). Il conviendra de considérer que **livrer revient à figer les interfaces publiques**.
 
-> Spoiler : Nous verrons dans la partie [refactoring](refactoring.md) que nous pourrons traiter les changements en gérant proprement des versions.
+> Spoiler : Nous verrons dans la partie [refactoring](refactoring.md) que nous pourrons **traiter les changements en gérant proprement des versions**.
 
 ---
 
@@ -475,13 +564,13 @@ Exemples :
 
 * Il ne faut pas en conclure que l'optimisation doit être ignorée dans la conception!
 * Il faut rester prudent sur cette affirmation pour les bibliothèques de bas niveau!
-* Parfois, on privilégie la performance à la portabilité.
+* Parfois, on privilégie la performance à la généricité.
 
 Proposition de méthode :
 
-* **Se concentrer sur les optimisations globales dans la conception** (choix de structures efficaces, indexations, gestion des caches, etc.).
+* **Se concentrer sur les optimisations globales dans la conception** (choix de structures efficaces, indexation, mise en cache, etc.).
 * Coder en mettant en place des **tests** et des **mesures de performance** (*bench*).
-* **Profiler** et réaliser les **optimisations locales sur les fonctions souvent appelées**.
+* **Profiler** et réaliser les **optimisations locales sur les fonctions souvent appelées**
 
 ---
 
@@ -544,11 +633,11 @@ Le concept de patron sera étendu par la suite et nous trouverons en complément
 
 Les patrons de conception permettront de :
 
-* **Faciliter la compréhension des codes** par l'utilisation d'un **vocabulaire commun** (`clone()`,  `*Builder`, `*Factory`, `*::getInstance`, `addChild`, etc.)
+* **Faciliter la compréhension des codes** par l'utilisation d'un **vocabulaire commun** (`*Builder`, `*Factory`, `addChild`, etc.)
 * **Faciliter la découverte du code et la compréhension des architectures** en standardisant celles-ci (MVC, IoC, MQ, etc.)
 * **Trouver de l'inspiration dans la recherche d'une solution** :
-  * Comment faire un interpréteur?
-  * Comment faire un undo/redo?
+  * Comment implémenter un interpréteur?
+  * Comment implémenter un annuler/refaire?
   * Est-ce qu'il y a un framework MVC avec de l'injection de dépendance pour ce langage?
 
 ---
@@ -557,34 +646,48 @@ Les patrons de conception permettront de :
 
 ### Intérêts des patrons de conception (2/2)
 
-En particulier, la **connaissance des patrons facilitera l'apprentissage la découverte des bibliothèques standards (ex : [OpenJDK](https://devdocs.io/openjdk/)) et frameworks orientés objets** (ex : [GeoTools](https://docs.geotools.org/)).
+En particulier, la **connaissance des patrons facilitera l'apprentissage la découverte des bibliothèques et frameworks orientés objets**.
 
-Pour faire simple, **sans connaissance des patrons, certains choix de conception sembleront inutilement complexes** (̀ex : `new BufferedReader(new FileReader(...))`) et il sera **difficile de trouver comment initialiser les objets**.
+Pour faire simple, **sans connaissance des patrons, certains choix de conception sembleront inutilement complexes** et il sera **difficile de trouver comment initialiser les objets**.
 
 ---
 
 ## Les patrons de création
+
+Nous nous concentrerons sur les patrons de création du GoF ci-après :
 
 * [Singleton](annexe/design_pattern/creational/Singleton.html)
 * [Prototype](annexe/design_pattern/creational/Prototype.html)
 * [Factory (Fabrique)](annexe/design_pattern/creational/Factory.html)
 * [Builder (Monteur)](annexe/design_pattern/creational/Builder.html)
 
+Nous irons un peu plus loin avec :
+
+* [Fluent Interface](annexe/design_pattern/creational/FluentInterface.html)
+* Le [couplage de Fluent Interface et Builder](annexe/design_pattern/creational/FluentInterface.html)
+
 ---
 
 ## Les patrons de structure
+
+Nous nous concentrerons sur les patrons de structure du GoF ci-après :
 
 * [Facade (Façade)](annexe/design_pattern/structural/Facade.html)
 * [Decorator (Décorateur)](annexe/design_pattern/structural/Decorator.html)
 * [Composite (Objet composite)](annexe/design_pattern/structural/Composite.html)
 * [Adapter (Adaptateur)](annexe/design_pattern/structural/Adapter.html)
 * [Bridge (Pont)](annexe/design_pattern/structural/Bridge.html)
+
+Nous noterons qu'il en existe d'autres :
+
 * Proxy
 * Flyweight (Poids-mouche)
 
 ---
 
 ## Les patrons de comportement
+
+Nous nous concentrerons sur les patrons de comportement du GoF ci-après :
 
 * [Iterator (Itérateur)](annexe/design_pattern/behavior/Iterator.html)
 * Template Method (Patron de méthode)
@@ -598,6 +701,7 @@ Pour faire simple, **sans connaissance des patrons, certains choix de conception
 * Interpreter (Interpréteur)
 * Memento (Mémento)
 
+Nous nous intéresserons en complément à :
 
 * [Null Object (objet null)](annexe/design_pattern/behavior/NullObject.html)
 
@@ -617,10 +721,8 @@ Nous avons vu jusque là des patrons de conception à l'échelle de quelques cla
 * [Architecture micro-service](https://learn.microsoft.com/fr-fr/azure/architecture/guide/architecture-styles/microservices)
 * [Model-View-Controller (MVC)](annexe/design_pattern/architectural/MVC.html)
 * [Inversion de contrôle (IoC)](https://github.com/mborne/spring-ioc-principe#readme)
-* [Event-Driven architecture/Message Oriented Middleware (MOM)](https://learn.microsoft.com/fr-fr/azure/architecture/guide/architecture-styles/event-driven)
+* [Event-Driven architecture (EDA)](https://learn.microsoft.com/fr-fr/azure/architecture/guide/architecture-styles/event-driven)
 * [MapReduce](annexe/design_pattern/architectural/MapReduce.html)
-
-> Nous verrons dans le prochain TP que [Spring](https://spring.io/) combine l'utilisation de [Inversion de contrôle (IoC)](https://github.com/mborne/spring-ioc-principe#readme) et [Model-View-Controller (MVC)](annexe/design_pattern/architectural/MVC.html).
 
 ---
 
@@ -643,7 +745,6 @@ Vous pourrez constater :
 * La **difficulté de l'exercice de refactoring** (donc l'intérêt de **respecter dès le début les principes de conception**)
 * Que l'utilisation **de patrons de conception aide à respecter ces principes** (sans résoudre pour autant tous les problèmes)
 * L'intérêt des **tests pour éviter des régressions**
-* Les **limites des tests fonctionnels par rapport aux tests unitaires** (vous devriez être plusieurs à faire la même erreur et avoir du mal à la trouver 😈)
 
 ---
 
@@ -653,9 +754,9 @@ Après ce cours et ces TP, j'espère que vous comprendrez qu'il est **fondamenta
 
 ### Comment progresser?
 
-* Comprendre et apprendre les principaux patrons de conception
+* **Comprendre** et apprendre les principaux patrons de conception
 * **Identifier les patrons de conception dans les codes existants** (rechercher les fabriques, les monteurs, les stratégies, les décorateurs, etc.)
 * **Expérimenter** (et apprendre de ses erreurs)! 
 * **Concevoir** des codes en pensant aux **principes de conception** et **patrons de conception** (sans sombrer dans la paternite)
 * **Concevoir des codes en les testant unitairement** (un code mal conçu ne pouvant être testé unitairement)
-* **Comprendre des architectures existantes** (vous constaterez que les mêmes principes s'appliquent à diverses échelles des systèmes)
+* **Comprendre des architectures existantes** (vous constaterez que **les mêmes principes de conceptions s'appliquent à diverses échelles des systèmes**)

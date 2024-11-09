@@ -6,61 +6,60 @@
 
 ## Cas d'école
 
-Nous disposons d'un algorithme qui effectue la concaténation de chaînes de caractères
-avec un séparateur et prenant en entrée un `Enumeration` :
+Nous travaillons sur un système historique où seules des transformations de coordonnées triviales sont réalisées entre des coordonnées cartographiques et des coordonnées écrans. Nous souhaitons intégrer la gestion des reprojections cartographiques à l'aide d'une bibliothèque mettant à disposition une classe `Proj4Transform` avec quelques différences de conception :
 
-```java
-class EnumerationUtils {
+![UML - Exemple d'incompabilité entre deux interfaces](uml/UML_DP_Adapter_CoordinateTransform.png)
 
-    public static String concat(Enumeration<String> items, String separator){
-        //...
-    }
-
-}
-```
-
-Nous devons appliquer cet algorithme sur un `Iterator<String>` présentant un comportement similaire :
-
-* [Enumeration](https://docs.oracle.com/javase/7/docs/api/java/util/Enumeration.html)
-* [Iterator](https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html)
+En particulier, `Proj4Transform` prend des tableaux en paramètre quand notre système utilise une classe `Coordinate`.
 
 ## Solution
 
-L'idée est la même que pour les adaptateurs dans la vie courante. Nous allons **créer un intermédiaire qui se charger d'adapter les appels** :
+Nous pouvons implémenter `CoordinateTransform` en utilisant une instance de `Proj4Transform` :
 
-```java
-class IteratorToEnumationAdapter implements Enumeration<String> {
+![UML - Solution avec Proj4Adapter](uml/UML_DP_Adapter_CoordinateTransform-solution.png)
 
-    private Iterator<String> adaptee ;
+Nous aurons par exemple le code suivant pour l'adaptation :
 
-    public Adapter(Iterator<String> adaptee){
-        this.adaptee = adaptee ;
+```ts
+class Proj4Adapter {
+
+    proj4Transform: Proj4Transform;
+
+    constructor(proj4Transform: Proj4Transform){
+        this.proj4Transform = proj4Transform;
     }
 
-    public boolean hasMoreElements(){
-        return adaptee.hasNext() ;
+    direct(c: Coordinate){
+        const result = this.proj4Transform.direct([c.x,c.y]);
+        return {
+            x: result[0],
+            y: result[1]
+        }
     }
 
-    public String nextElement(){
-        return adaptee.next() ;
+    inverse(c: Coordinate){
+        const result = this.proj4Transform.inverse([c.x,c.y]);
+        return {
+            x: result[0],
+            y: result[1]
+        }
     }
 
 }
 ```
 
-Nous pourrons appeler l'algorithme comme suit :
+A l'utilisation :
 
-```java
-Iterator<String> items ;
-//...
-System.out.println(EnumerationUtils.concat(
-    new IteratorToEnumationAdapter(items)
-));
+```ts
+const proj4Transform = new Proj4Transform("EPSG:2154","EPSG:3857");
+const transform = new Proj4Adapter(proj4Transform);
 ```
 
-> Remarque : Le livre "tête la première dans les designs patterns" traite le cas inverse et l'adaptation partielle (absence de la fonction "remove" sur les Enumeration)
+## Variantes
+
+Il existe **plusieurs approches pour gérer les traitements asynchrones**. Le concept d'adapteur pourra par exemple être repris dans le cadre de la conversion de callback en [Promise](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Promise).
 
 ## Liens utiles
 
 * [fr.wikibooks.org - Adaptateur](https://fr.wikibooks.org/wiki/Patrons_de_conception/Adaptateur)
-
+* [refactoring.guru - Adaptateur](https://refactoring.guru/fr/design-patterns/adapter)
