@@ -1,29 +1,40 @@
+---
+theme: marp-ensg
+paginate: true
+footer: <a href="#plan">Les patrons de conception</a> - novembre 2024
+header: >
+  <span class="logo logo-left"><a href="https://ensg.eu/fr" target="_blank"><img src="https://mborne.github.io/assets/logo-ensg.svg" alt="ENSG" /></a></span>
+  <span class="logo logo-right"><a href="https://www.ign.fr" target="_blank"><img src="https://mborne.github.io/assets/logo-ign-full.png" alt="ENSG" /></a></span>
+---
+
 # Les patrons de conception
 
 <br />
 
-<div class="center">
-    <img src="img/lego3-selection.jpg" />
+<div class="illustration">
+
+![h:400px](img/lego3-selection.jpg)
+
 </div>
 
 ---
 
 ## Plan
 
-* [Introduction](#3)
-* [Les bases de la P.O.O.](#6)
-* [Les principes de conception](#11)
-* [Les anti-patrons](#26)
-* [Les patrons de conception](#36)
-* [Les patrons de création](#43)
-* [Les patrons de structure](#44)
-* [Les patrons de comportement](#45)
-* [A vous maintenant!](#46)
-* [Les patrons architecturaux](#47)
-* [Le refactoring](#48)
-* [Encore à vous!](#49)
-* [Conclusion](#50)
-* [Annexes et références](annexe/)
+- [Introduction](#introduction)
+- [Les bases de la P.O.O.](#les-bases-de-la-poo)
+- [Les principes de conception](#les-principes-de-conception)
+- [Les anti-patrons](#les-anti-patrons)
+- [Les patrons de conception](#les-patrons-de-conception)
+- [Les patrons de création](#les-patrons-de-création)
+- [Les patrons de structure](#les-patrons-de-structure)
+- [Les patrons de comportement](#les-patrons-de-comportement)
+- [A vous maintenant!](#a-vous-maintenant)
+- [Les patrons architecturaux](#les-patrons-architecturaux)
+- [Le refactoring](#le-refactoring)
+- [Encore à vous!](#encore-à-vous)
+- [Conclusion](#conclusion)
+- [Annexes et références](annexe/)
 
 ---
 
@@ -35,12 +46,12 @@ Il faut avoir en tête **la seule constante du développement : Le changement !*
 
 De nombreux événements conduiront à modifier le code d'une application :
 
-* Modification des fonctionnalités et modèles
-* Changement de cible (desktop, serveur, cloud, mobile, etc.)
-* Augmentation du nombre d'utilisateurs et des volumes de données (parallélisation, etc.)
-* Obsolescence des outils (bibliothèques, frameworks, services tiers, etc.)
-* Choix politique (base de données, opensource, etc.)
-* ...
+- Modification des fonctionnalités et modèles de données
+- Changement de cible (desktop, serveur, mobile, cloud, etc.)
+- Augmentation du nombre d'utilisateurs et des volumes de données (parallélisation, etc.)
+- Obsolescence des outils (bibliothèques, frameworks, services tiers, etc.)
+- Choix politique (base de données, opensource, etc.)
+- ...
 
 **Sans effort de conception, plus le temps passera, plus il sera difficile, coûteux et risqué de traiter ces changements**.
 
@@ -52,14 +63,14 @@ De nombreux événements conduiront à modifier le code d'une application :
 
 Il conviendra de **cibler plusieurs critères qualités qui guideront la conception** :
 
-* **Fiabilité**       : Pouvoir faire tourner le programme sans risque de plantage
-* **Maintenabilité**  : Pouvoir facilement corriger un bug, mettre à jour les dépendances, etc.
-* **Performance**     : Minimiser le temps d'exécution, la consommation de RAM, de stockage, etc.
-* **Évolutivité**     : Pouvoir ajouter facilement des fonctionnalités sans risque de régression.
-* **Réutilisabilité** : Pouvoir réutiliser un code dans un autre contexte.
-* **Portabilité**     : Pouvoir porter facilement un programme développé pour une cible vers une autre.
-* **Testabilité**     : Pouvoir écrire facilement des tests unitaires et fonctionnels pour un programme.
-* ...
+- **Fiabilité**       : Pouvoir faire tourner le programme sans risque de plantage
+- **Maintenabilité**  : Pouvoir facilement corriger un bug, mettre à jour les dépendances, etc.
+- **Performance**     : Minimiser le temps d'exécution, la consommation de RAM, de stockage, etc.
+- **Évolutivité**     : Pouvoir ajouter facilement des fonctionnalités sans risque de régression.
+- **Réutilisabilité** : Pouvoir réutiliser un code dans un autre contexte.
+- **Portabilité**     : Pouvoir porter facilement un programme développé pour une cible vers une autre.
+- **Testabilité**     : Pouvoir écrire facilement des tests unitaires et fonctionnels pour un programme.
+- ...
 
 Nous serons souvent amené à **prioriser ces critères** (ex : privilégier les performances plutôt que la généricité)
 
@@ -71,8 +82,8 @@ Nous serons souvent amené à **prioriser ces critères** (ex : privilégier les
 
 Ce cours s'inspire de la lecture de **"Design patterns: tête la première" de Eric Freeman et Kathy Sierra**. Nous allons d'abord balayer un ensemble de **prérequis** permettant de **comprendre l'intérêt des patrons de conception** :
 
-* **Les concept de base de la P.O.O.**
-* **Les principes de conception**
+- **Les concept de base de la P.O.O.**
+- **Les principes de conception**
 
 Nous verrons quelques **mauvaises pratiques** à travers les **anti-patrons**. Puis,
 nous nous attarderons sur les **bonnes pratiques** avec les principaux **patrons de conception** qui seront mis en pratique avec un premier TP.
@@ -89,8 +100,8 @@ Nous verrons enfin comment **réfactorer un code existant** avec une partie thé
 
 De nombreux programmeurs manipulent des objets sans forcément en avoir conscience :
 
-* En appelant, `chaine.upper()` pour transformer une chaîne de caractères en majuscules, nous faisons appel à la **notation pointée** typique de la P.O.O.
-* En Python, tout est objet :
+- En appelant, `chaine.upper()` pour transformer une chaîne de caractères en majuscules, nous faisons appel à la **notation pointée** typique de la P.O.O.
+- En Python, tout est objet :
 
 <div class="center">
     <img src="img/python-tout-objet.png" alt="Illustration de quelques types en Python" height="300" />
@@ -102,12 +113,15 @@ De nombreux programmeurs manipulent des objets sans forcément en avoir conscien
 
 ### Un paradigme difficile à maîtriser
 
-**Utiliser des classes existantes ne demandera pas d'effort**.
+**Utiliser des classes existantes ne demandera pas d'effort**. Il sera plus délicat de :
 
-Il sera plus délicat de :
+- **Concevoir proprement <u>ses propres classes</u>**
+- **Faire un choix entre la définition d'une classe ou le recours à un autre paradigme** (ex : définition d'une fonction) quand le langage le permet.
+---
 
-* **Concevoir proprement <u>ses propres classes</u>**
-* **Faire un choix entre la définition d'une classe ou le recours à un autre paradigme** (ex : définition d'une fonction) quand le langage le permet.
+## Les bases de la P.O.O.
+
+### Un paradigme qui coexiste avec d'autres...
 
 Dans ce cours qui présente les patrons de conception, nous allons nous concentrer sur la P.O.O. Nous mentionnerons toutefois la **possibilité de mixer les paradigmes dans la vraie vie** :
 
@@ -126,17 +140,17 @@ const nombreUtilisateursMajeurs = userRepo.getUsers()
 
 Les concepts suivants sont normalement connus avant de débuter ce cours :
 
-* Les **classes** avec leurs **attributs** et leurs **méthodes**
-* Les **constructeurs**
-* Les **objets**
-* La **visibilité** (public, private, protected)
-* Les **accesseurs** (get, set, add, remove,...)
-* Les **relations** (composition, agrégation)
-* L'**héritage** et le **polymorphisme**
-* Les **méthodes et classes abstraites**
-* Les **interfaces**
-* Les **méthodes statiques**
-* Les **attributs statiques**
+- Les **classes** avec leurs **attributs** et leurs **méthodes**
+- Les **constructeurs**
+- Les **objets**
+- La **visibilité** (public, private, protected)
+- Les **accesseurs** (get, set, add, remove,...)
+- Les **relations** (composition, agrégation)
+- L'**héritage** et le **polymorphisme**
+- Les **méthodes et classes abstraites**
+- Les **interfaces**
+- Les **méthodes statiques**
+- Les **attributs statiques**
 
 ---
 
@@ -148,10 +162,10 @@ Les **concepts de classe, d'attribut et l'héritage sont généralement bien ma�
 
 Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la P.O.O.** pour **modéliser des traitements** :
 
-* Se protéger contre des erreurs de programmation
-* S'assurer d'être en mesure de modifier le code sans casser les appels 
-* Pouvoir tester unitairement les fonctionnalités (en bouchonnant les autres à l'aide de "mock")
-* ...
+- Se protéger contre des erreurs de programmation
+- S'assurer d'être en mesure de modifier le code sans casser les appels 
+- Pouvoir tester unitairement les fonctionnalités (en bouchonnant les autres à l'aide de "mock")
+- ...
 
 => [Méditons quelques exemples](meditation.md).
 

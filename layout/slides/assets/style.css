@@ -23,7 +23,7 @@ body {
 
 /* header and logos */
 
-.header {
+header {
 	position: absolute;
 	display: block;
 	top: 0;
