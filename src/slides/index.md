@@ -664,7 +664,7 @@ Nous nous concentrerons sur les patrons de création du GoF ci-après :
 Nous irons un peu plus loin avec :
 
 * [Fluent Interface](annexe/design_pattern/creational/FluentInterface.html)
-* Le [couplage de Fluent Interface et Builder](annexe/design_pattern/creational/FluentInterface.html)
+* Le [couplage de Fluent Interface et Builder](annexe/design_pattern/creational/FluentBuilder.html)
 
 ---
 
@@ -719,7 +719,7 @@ Nous avons vu jusque là des patrons de conception à l'échelle de quelques cla
 
 * [Architecture en couches](annexe/design_pattern/architectural/couches.html)
 * [Architecture micro-service](https://learn.microsoft.com/fr-fr/azure/architecture/guide/architecture-styles/microservices)
-* [Model-View-Controller (MVC)](annexe/design_pattern/architectural/MVC.html)
+* [Model-View-Controller (MVC) et ses nombreuses variantes](annexe/design_pattern/architectural/MVC.html) 
 * [Inversion de contrôle (IoC)](https://fr.wikipedia.org/wiki/Inversion_de_contr%C3%B4le) et [injection de dépendance](https://fr.wikipedia.org/wiki/Injection_de_d%C3%A9pendances)
   * [Angular (JavaScript/TypeScript)](https://v17.angular.io/guide/dependency-injection)
   * [Symfony (PHP)](https://symfony.com/doc/current/components/dependency_injection.html#basic-usage)
@@ -762,4 +762,4 @@ Après ce cours et ces TP, j'espère que vous comprendrez qu'il est **fondamenta
 * **Expérimenter** (et apprendre de ses erreurs)! 
 * **Concevoir** des codes en pensant aux **principes de conception** et **patrons de conception** (sans sombrer dans la paternite)
 * **Concevoir des codes en les testant unitairement** (un code mal conçu ne pouvant être testé unitairement)
-* **Comprendre des architectures existantes** (vous constaterez que **les mêmes principes de conceptions s'appliquent à diverses échelles des systèmes**)
+* **Comprendre des architectures existantes** (vous constaterez que **[les mêmes principes de conceptions s'appliquent à diverses échelles des systèmes](https://mborne.github.io/cours-archi-si-geo/#les-principes-darchitecture)**)
