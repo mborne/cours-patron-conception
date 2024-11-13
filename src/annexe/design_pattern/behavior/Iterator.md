@@ -6,7 +6,7 @@ Nous voulons des traitements capables de fonctionner sur tous les types de colle
 
 ## Solution
 
-Le patron de conception itérateur propose de définir une abstraction sur le parcours d'une collection :
+Le patron de conception **itérateur** propose de définir une **abstraction sur le parcours d'une collection** :
 
 ![UML_DP_Iterator](uml/UML_DP_Iterator.png)
 
