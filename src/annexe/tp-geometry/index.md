@@ -52,20 +52,17 @@ Remarques :
 
 > Objectif : Bonne pratique *NonNullObject*
 
-Dans la question précédente, nous remarquons que nous avons des choix à faire dans les constructeurs par défaut de `Point` et `LineString`.
+Dans la question précédente, nous remarquons que nous avons des choix à faire dans les constructeurs par défaut pour `Point` et `LineString` (i.e. cas des appels à `new Point()` et `new LineString()`).
 
-Afin d'éviter d'avoir à tester des `coordinate` ou `points` null, nous allons ajouter le **concept de géométrie vide** :
+Afin d'éviter d'avoir à tester des `coordinates` ou `points` null, nous allons ajouter le **concept de géométrie vide** :
 
-* S'assurer que la variable membre `coordinate` de `Point` n'est jamais nulle.
 * S'assurer que la variable membre `points` de `LineString` n'est jamais nulle (une liste vide est préférable à une valeur nulle).
+* S'assurer que la variable membre `coordinate` de `Point` n'est jamais nulle (utiliser `[]` et adapter `x()` et `y()`)
 * Déclarer `Geometry.isEmpty` et l'implémenter dans `Point` et `LineString`
 
 ![Schéma UML](schema/mcd-02.png)
 
-Remarque : 
-
-* Nous tâcherons de blinder les appels `new Point(null)` et `new LineString(null)`
-* Nous ne traiterons pas le cas d'un appel `new LineString(points)` avec un point null.
+Remarque : Nous ne traiterons pas le cas d'un appel `new LineString(points)` avec un point null.
 
 ## 0.3 - Geometry.translate(dx,dy)
 
@@ -74,8 +71,6 @@ Remarque :
 Ajouter une méthode de permettant de translater une géométrie.
 
 ![Schéma UML](schema/mcd-03.png)
-
-Remarque : Vous serez amené à créer une nouvelle `Coordinate` pour l'implémentation dans `Point`.
 
 ## 0.4 - Geometry.clone()
 
@@ -109,8 +104,8 @@ Nous souhaitons calculer l'emprise d'une géométrie (la bbox). La logique de ca
 
 Nous allons donc procéder comme suit :
 
-* Ajouter une classe `Envelope` représentant une emprise rectangulaire de la géométrie avec le format suivant pour `toString()` : `xMin,yMin,xMax,yMax` (c'est celui de WMS)
-* Ajouter une classe utilitaire `EnvelopeBuilder` qui aura pour rôle de construire cette emprise
+* Ajouter une classe `Envelope` représentant une emprise rectangulaire.
+* Ajouter une classe utilitaire `EnvelopeBuilder` qui aura pour rôle de construire cette emprise.
 
 ![Schéma UML](schema/mcd-05.png)
 
@@ -118,10 +113,11 @@ Exemple d'utilisation :
 
 ```ts
 const builder = new EnvelopeBuilder();
-builder.insert(new Coordinate(0.0,1.0));
-builder.insert(new Coordinate(2.0,0.0));
-builder.insert(new Coordinate(1.0,3.0));
-Envelope result = builder.build();
+builder.insert([0.0,1.0]);
+builder.insert([2.0,0.0]);
+builder.insert([1.0,3.0]);
+// récupération du résultat
+const result = builder.build();
 ```
 
 Remarques : 
@@ -161,7 +157,8 @@ Exemple d'utilisation :
 ```ts
 const g = new Point([3.0,4.0]);
 const writer = new WktWriter();
-assertEquals("POINT(3.0 4.0)", writer.write(g));
+// "POINT(3.0 4.0)"
+const wkt = writer.write(g);
 ```
 
 Remarques :
@@ -196,7 +193,7 @@ Exemple d'utilisation :
 
 ```ts
 const visitor = new LogGeometryVisitor();
-const geometry = new Point(new Coordinate(3.0,4.0));
+const geometry = new Point([3.0,4.0]);
 geometry.accept(visitor);
 ```
 
@@ -217,7 +214,8 @@ Exemple d'utilisation :
 const visitor = new WktVisitor();
 const geometry = new Point([3.0,4.0]);
 geometry.accept(visitor);
-assertEquals( "POINT(3.0 4.0)", visitor.getResult() );
+// "POINT(3.0 4.0)"
+const wkt = visitor.getResult();
 ```
 
 
@@ -259,7 +257,7 @@ const g = new Point([3.0,3.0]);
 g = new GeometryWithCachedEnvelope(g);
 const a = g.getEnvelope() ; // calcul et stockage dans cachedEnvelope
 const b = g.getEnvelope() ; // renvoi de cachedEnvelope
-assertSame(a,b);
+// a et b sont la même instance
 ```
 
 Remarque : Nous invaliderons ce cache dans `translate(dx,dy)`.

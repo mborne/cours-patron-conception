@@ -1,7 +1,5 @@
 # Les patrons de comportement
 
-Nous nous concentrerons sur quelques patrons de comportement du GoF :
-
 * [Iterator (Itérateur)](Iterator.md)
 * Template Method (Patron de méthode)
 * [Strategy (Stratégie)](Strategy.md)
@@ -14,6 +12,6 @@ Nous nous concentrerons sur quelques patrons de comportement du GoF :
 * Interpreter (Interpréteur)
 * Memento (Mémento)
 
-Nous compléterons avec :
+Hors GoF :
 
 * [Null Object (objet null)](NullObject.md)
