@@ -52,9 +52,7 @@ Remarques :
 
 > Objectif : Bonne pratique *NonNullObject*
 
-Dans la question précédente, nous remarquons que nous avons des choix à faire dans les constructeurs par défaut pour `Point` et `LineString` (i.e. cas des appels à `new Point()` et `new LineString()`).
-
-Afin d'éviter d'avoir à tester des `coordinates` ou `points` null, nous allons ajouter le **concept de géométrie vide** :
+Afin d'éviter d'avoir à tester des `coordinates` ou `points` `null` ou `undefined`, nous allons ajouter le **concept de géométrie vide** :
 
 * S'assurer que la variable membre `points` de `LineString` n'est jamais nulle (une liste vide est préférable à une valeur nulle).
 * S'assurer que la variable membre `coordinate` de `Point` n'est jamais nulle (utiliser `[]` et adapter `x()` et `y()`)
@@ -123,7 +121,7 @@ const result = builder.build();
 Remarques : 
 
 * Vous avez la **liberté d'ajouter des variables membres privées** dans `EnvelopeBuilder` pour le calcul.
-* En cas de difficulté pour faire des calculs de min/max optimaux, vous pouvez par exemple vous appuyer sur deux variables privées `xVals` et `yVals` pour exploiter les fonctionnalités standards `Math.min` et `Math.max`. Cette approche ne sera pas "optimale", mais elle peut être un premier jet permettant la mise en oeuvre des tests avant optimisation.
+* En cas de difficulté pour faire des calculs de min/max optimaux, vous pouvez par exemple vous appuyer sur deux variables privées `xVals` et `yVals` pour exploiter les fonctionnalités standards `Math.min` et `Math.max` (cette approche ne sera pas "optimale", mais elle peut être un premier jet permettant la mise en oeuvre des tests avant optimisation).
 
 ## 0.6 - Geometry.getEnvelope() : Envelope
 
