@@ -21,7 +21,7 @@ Nous pouvons implémenter `CoordinateTransform` en utilisant une instance de `Pr
 Nous aurons par exemple le code suivant pour l'adaptation :
 
 ```ts
-class Proj4Adapter {
+class Proj4Adapter implements CoordinateTransform {
 
     proj4Transform: Proj4Transform;
 
@@ -51,7 +51,9 @@ class Proj4Adapter {
 A l'utilisation :
 
 ```ts
+// construction de l'instance à adapter
 const proj4Transform = new Proj4Transform("EPSG:2154","EPSG:3857");
+// encapsulation de l'instance avec l'adaptateur
 const transform = new Proj4Adapter(proj4Transform);
 ```
 
