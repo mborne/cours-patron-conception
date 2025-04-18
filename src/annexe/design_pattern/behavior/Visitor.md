@@ -2,7 +2,7 @@
 
 ## Problème
 
-Nous disposons d'une hiérarchie et nous souhaitons pouvoir profiter du polymorphisme en dehors de la hiérarchie.
+Nous disposons d'une hiérarchie et nous souhaitons pouvoir profiter du polymorphisme pour traiter au cas par cas les différents types en dehors de la hiérarchie.
 
 ## Cas d'école
 
