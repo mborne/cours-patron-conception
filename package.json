@@ -21,6 +21,6 @@
   "devDependencies": {
     "@mborne/markdown-to-html": "0.10.4",
     "http-server": "^14.1.1",
-    "shelljs": "^0.8.5"
+    "shelljs": "^0.10.0"
   }
 }

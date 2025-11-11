@@ -28,7 +28,7 @@ class Triangulation {
 }
 ```
 
-Il sera ainsi **plus simple d'utiliser la bibliothèque** de triangulation. De plus, **le risque de répétition de code ou d'abstraction inverse sera limité**.
+Il sera ainsi **plus simple d'utiliser la bibliothèque** de triangulation et **le risque de répétition de code ou d'abstraction inverse sera limité**.
 
 ## Liens utiles
 

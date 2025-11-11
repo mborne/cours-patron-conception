@@ -122,7 +122,7 @@ Quel est l'apport de la deuxième approche :
 
 ## Intérêt des constructeurs (2/2)
 
-En l'absence du concept de constructeur, nous pouvons définir une fonction utilitaire :
+En l'absence du concept de constructeur, nous pouvons bien sûr définir une fonction utilitaire :
 
 ```c
 Coordinate create_coordinate(double x, double y){
@@ -174,7 +174,7 @@ En effet, après un an, nous aurons envie de **changer la modélisation** pour :
 
 **Permettre l'accès aux données uniquement via une indirection** (ex : `person.getAge()`), c'est **se donner la possibilité de modifier une classe sans casser le code client** (ex : `person.age >= 18`). 
 
-> Dans le cas particulier de Python, il serait en réalité possible d'implémenter `__getattr__` pour éviter un changement cassant.
+> Dans le cas particulier de Python, il serait en réalité possible d'implémenter [`__getattr__`](https://docs.python.org/3/reference/datamodel.html#object.__getattr__) ou d'utiliser le décorateur [@property](https://docs.python.org/3/library/functions.html#property) pour éviter un changement cassant.
 
 ---
 
@@ -186,7 +186,7 @@ Si vous vous imaginez qu'il est si rare que ça de devoir revoir sa copie, notez
   * Devoir remplacer l'envoi de mail par un autre mécanisme de notification (ex : SMS)
   * Devoir remplacer PostgreSQL par MongoDB pour le stockage des données
   * ...
-* Il reste une erreur de modélisation sur la classe précédente...
+* Il reste une erreur de modélisation sur la classe précédente... Vous l'avez?
 
 ---
 

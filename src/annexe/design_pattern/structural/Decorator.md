@@ -32,7 +32,7 @@ Nous souhaitons pouvoir modifier les caractéristiques de ces personnages avec l
 
 ## Solution
 
-Nous pouvons implémenter **hériter de l'interface et nous appuyer sur l'instance originale pour l'implémentation** :
+Nous pouvons **implémenter l'interface en nous appuyant sur une instance existante** comme suit :
 
 ```ts
 class PersonnageAvecHache implements Personnage {

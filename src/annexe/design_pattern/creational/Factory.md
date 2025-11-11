@@ -20,7 +20,7 @@ let animal: Animal = null ;
 if ( typeAnimal == "chat" ){
     animal = new Chat() ;
 }else if (typeAnimal == "chien"){
-    ranimal = new Chien() ;
+    animal = new Chien() ;
 }else{
     throw new AnimalTypeNotFound(typeAnimal);
 }

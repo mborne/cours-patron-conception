@@ -40,7 +40,7 @@ class Geocoder {
 }
 ```
 
-* Définir une **classe Person de modélisant les données** :
+* Définir une **classe Person modélisant les données** :
 
 ```ts
 interface Person {

@@ -36,10 +36,10 @@ Il faut avoir en tête **la seule constante du développement : Le changement !*
 De nombreux événements conduiront à modifier le code d'une application :
 
 * Modification des fonctionnalités et modèles
-* Changement de cible (desktop, serveur, cloud, mobile, etc.)
 * Augmentation du nombre d'utilisateurs et des volumes de données (parallélisation, etc.)
 * Obsolescence des outils (bibliothèques, frameworks, services tiers, etc.)
-* Choix politique (base de données, opensource, etc.)
+* Changement de cible (desktop, serveur, mobile, cloud, etc.)
+* Choix politique (base de données, OpenSource, etc.)
 * ...
 
 **Sans effort de conception, plus le temps passera, plus il sera difficile, coûteux et risqué de traiter ces changements**.
@@ -424,7 +424,7 @@ class MonTraitement {
 * Nous **<u>pourrons</u> hériter d'une classe seulement si nous pouvons dire "EST-UN"** :
   * "Un `Cercle` est une `Forme`"
   * "~~Un `TraitementMetier` est une `BaseDeDonnees`~~" -> "Un `TraitementMetier` utilise une `BaseDeDonnees`".
-* Nous **préférerons toutefois les états aux classes dérivées** :
+* Nous **préférerons les états aux classes dérivées** :
   * Il sera naturel d'**hériter** d'une `Forme` pour modéliser des `Cercle` et des `Rectangle` avec des **attributs spécifiques** (`rayon` vs `largeur` et `hauteur`)
   * Pour une classe `Animal`, nous préférerons l'ajout d'un attribut `type` à la création de classes `Chat` et `Chien` dérivées sans attributs spécifiques.
 
@@ -715,7 +715,7 @@ Pour bien comprendre l'intérêt des patrons de conception, nous allons traiter 
 
 ## Les patrons architecturaux
 
-Nous avons vu jusque là des patrons de conception à l'échelle de quelques classes. Nous soulignerons l'existence de **patron de conception architecturaux** agissant à l'**échelle d'une application ou d'un système** :
+Nous avons vu jusque là des patrons de conception à l'échelle de quelques classes. Nous soulignerons l'existence de **patrons de conception architecturaux** agissant à l'**échelle d'une application ou d'un système** :
 
 * [Architecture en couches](annexe/design_pattern/architectural/couches.html)
 * [Architecture micro-service](https://learn.microsoft.com/fr-fr/azure/architecture/guide/architecture-styles/microservices)
@@ -731,11 +731,11 @@ Nous avons vu jusque là des patrons de conception à l'échelle de quelques cla
 
 ## Le refactoring
 
-Nous noterons que souvent, nous serons face à des applications existantes où il sera potentiellement intéressant de **se mettre en conformité avec des principes de conception** et d'**introduire des patrons de conception**.
+Souvent, nous serons face à des applications existantes où il sera potentiellement intéressant de **se mettre en conformité avec des principes de conception** et d'**introduire des patrons de conception**.
 
 Nous verrons rapidement [les grands principes du refactoring de code](refactoring.md) avant de poursuivre avec un nouveau TP.
 
-Vous pourrez parcourir en autonomie [refactoring.com - Catalogue](http://www.refactoring.com/catalog/) et lire en complément ["Clean Code" de Robert C. Martin résumé derrière ce lien](https://gist.github.com/cedrickchee/55ecfbaac643bf0c24da6874bf4feb08#file-clean_code-md) sera aussi intéressant.
+En complément, vous pourrez parcourir en autonomie [refactoring.com - Catalogue](http://www.refactoring.com/catalog/) et lire ["Clean Code" de Robert C. Martin résumé derrière ce lien](https://gist.github.com/cedrickchee/55ecfbaac643bf0c24da6874bf4feb08#file-clean_code-md).
 
 ---
 

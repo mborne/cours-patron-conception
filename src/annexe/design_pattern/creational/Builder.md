@@ -27,7 +27,7 @@ Source [https://en.wikibooks.org/wiki/Computer_Science_Design_Patterns/Builder](
 
 ### Absence de Director
 
-En pratique, la distinction ne sera pas toujours faite entre "Director" et "Builder". La **terminologie builder est généralisée à la création incrémentale d'objet** :
+**En pratique**, la distinction est rarement faite entre "Director" et "Builder". La **terminologie builder est généralisée à la création incrémentale d'objet** :
 
 * Création ou récupération d'un builder
 * Appels successifs au builder pour fournir les informations permettant de construire l'objet (add, set, etc...)
