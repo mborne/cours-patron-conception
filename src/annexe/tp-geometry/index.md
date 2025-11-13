@@ -121,6 +121,7 @@ const result = builder.build();
 Remarques : 
 
 * Vous avez la **liberté d'ajouter des variables membres privées** dans `EnvelopeBuilder` pour le calcul.
+* `Envelope.toString()` renverra une représentation texte (ex : `[x_min,y_min,x_max,y_max]`) qui pourra faciliter l'écriture des tests.
 * En cas de difficulté pour faire des calculs de min/max optimaux, vous pouvez par exemple vous appuyer sur deux variables privées `xVals` et `yVals` pour exploiter les fonctionnalités standards `Math.min` et `Math.max` (cette approche ne sera pas "optimale", mais elle peut être un premier jet permettant la mise en oeuvre des tests avant optimisation).
 
 ## 0.6 - Geometry.getEnvelope() : Envelope
