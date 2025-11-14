@@ -62,25 +62,25 @@ Ainsi, nous passerons de :
 
 ```java
 const a = new Vertex();
-a.setId("a");
-a.setCoordinate(new Coordinate(0.0, 0.0));
-graph.getVertices().add(a);
+a.id = "a";
+a.coordinates = [0.0, 0.0];
+graph.vertices.push(a);
 
 const b = new Vertex();
-b.setId("b");
-b.setCoordinate(new Coordinate(1.0, 0.0));
-graph.getVertices().add(b);
+b.id = "b";
+b.coordinates = [1.0, 0.0];
+graph.vertices.push(b);
 
 const ab = new Edge(a, b);
-ab.setId("ab");
-graph.getEdges().add(ab);
+ab.id = "ab";
+graph.edges.push(ab);
 ```
 
 à
 
 ```java
-const a = graph.createVertex(new Coordinate(0.0, 0.0),"a");
-const b = graph.createVertex(new Coordinate(1.0, 0.0),"b");
+const a = graph.createVertex([0.0, 0.0],"a");
+const b = graph.createVertex([1.0, 0.0],"b");
 graph.createEdge(a,b,"ab");
 ```
 
