@@ -13,8 +13,5 @@ npm run start
 ## Contrôles des liens
 
 ```bash
-# En ignorant les annexes sur src/slides...
-npx markdown-to-html check src/slides 2>&1 | grep -v annexe
-# En ignorant le retour à la présentation
-npx markdown-to-html check src/annexe 2>&1 | grep -v '../'
+npm test
 ```

@@ -7,12 +7,12 @@
 Les éléments de ce cours sont disponibles aux URL suivantes :
 
 * [Cours sur les patrons de conception](https://mborne.github.io/cours-patron-conception/)
-* [TP - Mise en oeuvre des patterns sur des Geometry](https://mborne.github.io/cours-patron-conception/annexe/tp-geometry/index.html)
+* [TP - Patrons de conception avec des classes géométriques](https://mborne.github.io/architecture/patrons-conception/tp-geometry-ts/)
 
 * [Cours sur le refactoring de code](https://mborne.github.io/cours-patron-conception/refactoring.html)
-* [TP - Refactoring de traitement de graphe](https://mborne.github.io/cours-patron-conception/annexe/tp-graph/index.html)
+* [TP - Refactoring de traitement de graphe](https://mborne.github.io/architecture/refactoring/tp-graph-ts/)
 
-* [Annexes et références](https://mborne.github.io/cours-patron-conception/annexe/index.html)
+* [Annexes et références](https://mborne.github.io/architecture/patrons-conception/)
 
 ## Contact
 

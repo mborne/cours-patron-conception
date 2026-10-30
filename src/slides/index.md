@@ -23,7 +23,7 @@
 * [Le refactoring](#48)
 * [Encore à vous!](#49)
 * [Conclusion](#50)
-* [Annexes et références](annexe/)
+* [Annexes et références](https://mborne.github.io/architecture/patrons-conception/)
 
 ---
 
@@ -165,7 +165,7 @@ Les langages qui permettent de définir et manipuler les concepts de base de la 
 
 Nous traiterons ce cours avec des exemples et TP en TypeScript en nous concentrant sur ce qui applicable à de nombreux langages.
 
-Nous noterons toutefois que **[les langages ont des spécificités](annexe/specificites-langages.html) qui devront être prises en compte et exploitées dans la conception**.
+Nous noterons toutefois que **[les langages ont des spécificités](https://mborne.github.io/architecture/patrons-conception/specificites-langages/) qui devront être prises en compte et exploitées dans la conception**.
 
 ---
 
@@ -439,7 +439,7 @@ Pourquoi? Notez dans un premier temps que :
 * L'**héritage** est une **relation plus forte que la composition** (il est donc plus difficile de s'en libérer)
 * Si vous développez un formulaire, modifier un `type` (affectation) est plus simple que transformer un `Chien` en `Chat` (construction).
 
-> Spoiler : Nous verrons plus tard en détail avec le patron [Strategy](annexe/design_pattern/behavior/Strategy.html) en quoi l'approche par composition est préférable à la surcharge d'une seule méthode pour faire varier le comportement d'une classe.
+> Spoiler : Nous verrons plus tard en détail avec le patron [Strategy](https://mborne.github.io/architecture/patrons-conception/comportement/Strategy/) en quoi l'approche par composition est préférable à la surcharge d'une seule méthode pour faire varier le comportement d'une classe.
 
 
 ---
@@ -656,15 +656,15 @@ Pour faire simple, **sans connaissance des patrons, certains choix de conception
 
 Nous nous concentrerons sur les patrons de création du GoF ci-après :
 
-* [Singleton](annexe/design_pattern/creational/Singleton.html)
-* [Prototype](annexe/design_pattern/creational/Prototype.html)
-* [Factory (Fabrique)](annexe/design_pattern/creational/Factory.html)
-* [Builder (Monteur)](annexe/design_pattern/creational/Builder.html)
+* [Singleton](https://mborne.github.io/architecture/patrons-conception/creation/Singleton/)
+* [Prototype](https://mborne.github.io/architecture/patrons-conception/creation/Prototype/)
+* [Factory (Fabrique)](https://mborne.github.io/architecture/patrons-conception/creation/Factory/)
+* [Builder (Monteur)](https://mborne.github.io/architecture/patrons-conception/creation/Builder/)
 
 Nous irons un peu plus loin avec :
 
-* [Fluent Interface](annexe/design_pattern/creational/FluentInterface.html)
-* Le [couplage de Fluent Interface et Builder](annexe/design_pattern/creational/FluentBuilder.html)
+* [Fluent Interface](https://mborne.github.io/architecture/patrons-conception/creation/FluentInterface/)
+* Le [couplage de Fluent Interface et Builder](https://mborne.github.io/architecture/patrons-conception/creation/FluentBuilder/)
 
 ---
 
@@ -672,11 +672,11 @@ Nous irons un peu plus loin avec :
 
 Nous nous concentrerons sur les patrons de structure du GoF ci-après :
 
-* [Facade (Façade)](annexe/design_pattern/structural/Facade.html)
-* [Decorator (Décorateur)](annexe/design_pattern/structural/Decorator.html)
-* [Composite (Objet composite)](annexe/design_pattern/structural/Composite.html)
-* [Adapter (Adaptateur)](annexe/design_pattern/structural/Adapter.html)
-* [Bridge (Pont)](annexe/design_pattern/structural/Bridge.html)
+* [Facade (Façade)](https://mborne.github.io/architecture/patrons-conception/structure/Facade/)
+* [Decorator (Décorateur)](https://mborne.github.io/architecture/patrons-conception/structure/Decorator/)
+* [Composite (Objet composite)](https://mborne.github.io/architecture/patrons-conception/structure/Composite/)
+* [Adapter (Adaptateur)](https://mborne.github.io/architecture/patrons-conception/structure/Adapter/)
+* [Bridge (Pont)](https://mborne.github.io/architecture/patrons-conception/structure/Bridge/)
 
 Nous noterons qu'il en existe d'autres :
 
@@ -689,13 +689,13 @@ Nous noterons qu'il en existe d'autres :
 
 Nous nous concentrerons sur les patrons de comportement du GoF ci-après :
 
-* [Iterator (Itérateur)](annexe/design_pattern/behavior/Iterator.html)
+* [Iterator (Itérateur)](https://mborne.github.io/architecture/patrons-conception/comportement/Iterator/)
 * Template Method (Patron de méthode)
-* [Strategy (Stratégie)](annexe/design_pattern/behavior/Strategy.html)
-* [Visitor (Visiteur)](annexe/design_pattern/behavior/Visitor.html)
-* [Chain of responsibility (Chaîne de responsabilité)](annexe/design_pattern/behavior/ChainOfResponsibility.html)
-* [Observer (Observateur)](annexe/design_pattern/behavior/Observer.html)
-* [State (État)](annexe/design_pattern/behavior/State.html)
+* [Strategy (Stratégie)](https://mborne.github.io/architecture/patrons-conception/comportement/Strategy/)
+* [Visitor (Visiteur)](https://mborne.github.io/architecture/patrons-conception/comportement/Visitor/)
+* [Chain of responsibility (Chaîne de responsabilité)](https://mborne.github.io/architecture/patrons-conception/comportement/ChainOfResponsibility/)
+* [Observer (Observateur)](https://mborne.github.io/architecture/patrons-conception/comportement/Observer/)
+* [State (État)](https://mborne.github.io/architecture/patrons-conception/comportement/State/)
 * Mediator (Médiateur)
 * Command (Commande)
 * Interpreter (Interpréteur)
@@ -703,13 +703,13 @@ Nous nous concentrerons sur les patrons de comportement du GoF ci-après :
 
 Nous nous intéresserons en complément à :
 
-* [Null Object (objet null)](annexe/design_pattern/behavior/NullObject.html)
+* [Null Object (objet null)](https://mborne.github.io/architecture/patrons-conception/comportement/NullObject/)
 
 ---
 
 ## A vous maintenant!
 
-Pour bien comprendre l'intérêt des patrons de conception, nous allons traiter le [TP - Mise en oeuvre des patrons de conception avec des classes géométriques](annexe/tp-geometry/index.html)
+Pour bien comprendre l'intérêt des patrons de conception, nous allons traiter le [TP - Patrons de conception avec des classes géométriques](https://mborne.github.io/architecture/patrons-conception/tp-geometry-ts/)
 
 ---
 
@@ -717,15 +717,15 @@ Pour bien comprendre l'intérêt des patrons de conception, nous allons traiter 
 
 Nous avons vu jusque là des patrons de conception à l'échelle de quelques classes. Nous soulignerons l'existence de **patrons de conception architecturaux** agissant à l'**échelle d'une application ou d'un système** :
 
-* [Architecture en couches](annexe/design_pattern/architectural/couches.html)
+* [Architecture en couches](https://mborne.github.io/architecture/patrons-conception/architecturaux/couches/)
 * [Architecture micro-service](https://learn.microsoft.com/fr-fr/azure/architecture/guide/architecture-styles/microservices)
-* [Model-View-Controller (MVC) et ses nombreuses variantes](annexe/design_pattern/architectural/MVC.html) 
+* [Model-View-Controller (MVC) et ses nombreuses variantes](https://mborne.github.io/architecture/patrons-conception/architecturaux/MVC/) 
 * [Inversion de contrôle (IoC)](https://fr.wikipedia.org/wiki/Inversion_de_contr%C3%B4le) et [injection de dépendance](https://fr.wikipedia.org/wiki/Injection_de_d%C3%A9pendances)
   * [Angular (JavaScript/TypeScript)](https://v17.angular.io/guide/dependency-injection)
   * [Symfony (PHP)](https://symfony.com/doc/current/components/dependency_injection.html#basic-usage)
 * [Event-Driven architecture (EDA)](https://learn.microsoft.com/fr-fr/azure/architecture/guide/architecture-styles/event-driven)
   * [RabbitMQ Tutorials](https://www.rabbitmq.com/tutorials)
-* [MapReduce](annexe/design_pattern/architectural/MapReduce.html)
+* [MapReduce](https://mborne.github.io/architecture/patrons-conception/architecturaux/MapReduce/)
 
 ---
 
@@ -741,7 +741,7 @@ En complément, vous pourrez parcourir en autonomie [refactoring.com - Catalogue
 
 ## Encore à vous!
 
-Nous allons traiter [TP - Réfactoring sur des traitements de graphe](annexe/tp-graph/index.html) où l'idée est de faire une **mise en situation d'optimisation et d'industrialisation d'un code existant**.
+Nous allons traiter [TP - Réfactoring sur des traitements de graphe](https://mborne.github.io/architecture/refactoring/tp-graph-ts/) où l'idée est de faire une **mise en situation d'optimisation et d'industrialisation d'un code existant**.
 
 Vous pourrez constater :
 
