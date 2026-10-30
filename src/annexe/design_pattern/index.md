@@ -1,4 +1,4 @@
-# Les patrons de conceptions
+# Les patrons de conception
 
 * [Les patrons de création](creational/index.md)
 * [Les patrons de structure](structural/index.md)

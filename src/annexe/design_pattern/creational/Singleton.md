@@ -8,7 +8,7 @@ Nous avons une classe qui ne doit être instanciée qu'une seule fois.
 
 ![UML Singleton](uml/UML_DP_Singleton.png)
 
-Source : https://fr.wikibooks.org/wiki/Patrons_de_conception/Singleton
+Source : [fr.wikibooks.org - Patrons de conception/Singleton](https://fr.wikibooks.org/wiki/Patrons_de_conception/Singleton)
 
 ## Exemple d'implémentation
 

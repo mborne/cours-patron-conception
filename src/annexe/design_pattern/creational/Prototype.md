@@ -14,7 +14,7 @@ Toutes les classes dérivées implémentent une méthode "clone()" renvoyant une
 
 ![UML Prototype](uml/UML_DP_Prototype.png)
 
-Source : https://fr.wikibooks.org/wiki/Patrons_de_conception/Prototype
+Source : [fr.wikibooks.org - Patrons de conception/Prototype](https://fr.wikibooks.org/wiki/Patrons_de_conception/Prototype)
 
 ## Mises en garde
 

@@ -52,7 +52,7 @@ class MonTraitement {
 
 **Problème** : Nous allons multiplier les contrôles `null != this.mailer` et finir par oublier un cas.
 
-# Solution
+## Solution
 
 * Créer un `NullMailer` ne faisant rien comme suit :
 
