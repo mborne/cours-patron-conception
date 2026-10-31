@@ -586,7 +586,7 @@ Il peut s'agir d'une bibliothèque, d'une base de données, d'une suite de logic
 
 Ce problème pourra concerner aussi bien des bibliothèques que des API WEB ou en ligne de commande (CLI). Il conviendra de considérer que **livrer revient à figer les interfaces publiques**.
 
-> Spoiler : nous verrons dans la partie [refactoring](refactoring.md) que nous pourrons **traiter les changements en gérant proprement des versions**.
+> Spoiler : nous verrons dans la partie [refactoring](#le-refactoring) que nous pourrons **traiter les changements en gérant proprement des versions** (voir [mborne.github.io - Le refactoring](https://mborne.github.io/architecture/refactoring/)).
 
 ---
 
@@ -838,9 +838,24 @@ Au-delà des patrons à l'échelle de quelques classes, nous soulignerons l'exis
 
 Souvent, nous serons face à des applications existantes où il sera potentiellement intéressant de **se mettre en conformité avec des principes de conception** et d'**introduire des patrons de conception**.
 
-Nous verrons rapidement [les grands principes du refactoring de code](refactoring.md) avant de poursuivre avec un nouveau TP.
+Les grands principes du refactoring de code sont détaillés dans la fiche [mborne.github.io - Le refactoring](https://mborne.github.io/architecture/refactoring/) que nous parcourrons rapidement avant de poursuivre avec un nouveau TP.
 
-En complément, vous pourrez parcourir en autonomie [refactoring.com - Catalogue](http://www.refactoring.com/catalog/) et lire [« Clean Code » de Robert C. Martin résumé derrière ce lien](https://gist.github.com/cedrickchee/55ecfbaac643bf0c24da6874bf4feb08#file-clean_code-md).
+En complément, vous pourrez parcourir en autonomie [refactoring.com - Catalogue](https://www.refactoring.com/catalog/) et lire [« Clean Code » de Robert C. Martin résumé derrière ce lien](https://gist.github.com/cedrickchee/55ecfbaac643bf0c24da6874bf4feb08#file-clean_code-md).
+
+---
+
+<!-- _class: dense -->
+
+## Les points clés
+
+Voir [mborne.github.io - Le refactoring](https://mborne.github.io/architecture/refactoring/) pour le détail :
+
+- **Améliorer la conception** d'un code existant **sans changer son comportement** pour ses clients
+- **Éviter les changements cassants** et **ne jamais changer un comportement sans changement cassant**
+- **Numéroter les versions** (`<majeur>.<mineur>.<patch>`) et **accompagner le changement** (CHANGELOG, dépréciations, versions de transition)
+- **Distinguer code public (API) et code privé** et ne pas dépendre du code privé des bibliothèques tierces
+- **S'appuyer sur les tests** pour éviter les régressions et sur les **outils** (analyse statique, couverture, intégration continue)
+- **Profiter d'occasions concrètes** (nouvelle fonctionnalité, correction de bug, portage…) pour refactorer
 
 ---
 

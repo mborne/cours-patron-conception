@@ -5,6 +5,7 @@ Les présentations (`src/slides/*.md`) sont rendues avec [Marp](https://marp.app
 * `theme/geodata.css` : thème téléchargé par `npm run theme` (non versionné, figé sur un commit dans `build.js`)
 * `theme/cours.css` : extension du thème pour les besoins du cours (colonnes « à éviter / à privilégier », images centrées, classe `dense`)
 * `marp.config.js` : configuration Marp (réécriture des liens `*.md` en `*.html`)
+* `src/slides/redirections/*.html` : pages de redirection copiées à la racine de `public/` (ex : `refactoring.html` vers la fiche [mborne.github.io - Le refactoring](https://mborne.github.io/architecture/refactoring/))
 
 ## Génération de la présentation
 
