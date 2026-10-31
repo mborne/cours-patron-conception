@@ -49,6 +49,9 @@ async function build() {
     for (const dir of ['img', 'annexe']) {
         fs.cpSync(path.join(SRC_DIR, dir), path.join(PUBLIC_DIR, dir), { recursive: true });
     }
+
+    console.log('copie des redirections (redirections/*.html -> public/*.html)...');
+    fs.cpSync(path.join(SRC_DIR, 'redirections'), PUBLIC_DIR, { recursive: true });
 }
 
 build().catch((err) => {

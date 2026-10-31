@@ -37,8 +37,7 @@ Mickaël Borne
 <div class="col">
 
 6. [Les patrons architecturaux](#les-patrons-architecturaux)
-7. [Le refactoring](#le-refactoring)
-8. [Conclusion](#conclusion)
+7. [Conclusion](#conclusion)
 
 [Annexes et références](https://mborne.github.io/architecture/patrons-conception/)
 
@@ -586,7 +585,7 @@ Il peut s'agir d'une bibliothèque, d'une base de données, d'une suite de logic
 
 Ce problème pourra concerner aussi bien des bibliothèques que des API WEB ou en ligne de commande (CLI). Il conviendra de considérer que **livrer revient à figer les interfaces publiques**.
 
-> Spoiler : nous verrons dans la partie [refactoring](refactoring.md) que nous pourrons **traiter les changements en gérant proprement des versions**.
+> Spoiler : il est possible de **traiter les changements en gérant proprement des versions** (voir [mborne.github.io - Le refactoring](https://mborne.github.io/architecture/refactoring/)).
 
 ---
 
@@ -826,44 +825,6 @@ Au-delà des patrons à l'échelle de quelques classes, nous soulignerons l'exis
 
 ###### 07
 
-# Le **refactoring**
-
-## Améliorer la conception d'applications existantes
-
----
-
-<!-- header: Le refactoring -->
-
-## Pourquoi réfactorer ?
-
-Souvent, nous serons face à des applications existantes où il sera potentiellement intéressant de **se mettre en conformité avec des principes de conception** et d'**introduire des patrons de conception**.
-
-Nous verrons rapidement [les grands principes du refactoring de code](refactoring.md) avant de poursuivre avec un nouveau TP.
-
-En complément, vous pourrez parcourir en autonomie [refactoring.com - Catalogue](http://www.refactoring.com/catalog/) et lire [« Clean Code » de Robert C. Martin résumé derrière ce lien](https://gist.github.com/cedrickchee/55ecfbaac643bf0c24da6874bf4feb08#file-clean_code-md).
-
----
-
-<!-- _class: sable -->
-
-## Encore à vous !
-
-[TP - Refactoring sur des traitements de graphe](https://mborne.github.io/architecture/refactoring/tp-graph-ts/) : une **mise en situation d'optimisation et d'industrialisation d'un code existant**.
-
-Vous pourrez constater :
-
-- La **difficulté de l'exercice de refactoring** (donc l'intérêt de **respecter dès le début les principes de conception**)
-- Que l'utilisation **de patrons de conception aide à respecter ces principes** (sans résoudre pour autant tous les problèmes)
-- L'intérêt des **tests pour éviter des régressions**
-
----
-
-<!-- _class: chapitre -->
-<!-- _paginate: hold -->
-<!-- header: "" -->
-
-###### 08
-
 # **Conclusion**
 
 ---
@@ -877,10 +838,11 @@ Il est **fondamental de respecter les principes de conception** à tous les nive
 
 - **Comprendre** et apprendre les principaux patrons de conception
 - **Identifier les patrons de conception dans les codes existants** (fabriques, monteurs, stratégies, décorateurs…)
-- **Expérimenter** (et apprendre de ses erreurs) !
 - **Concevoir** en pensant aux **principes** et **patrons de conception** (sans sombrer dans la « patternite »)
 - **Concevoir des codes en les testant unitairement** (un code mal conçu ne pouvant être testé unitairement)
+- **Refactorer des codes existants** pour respecter les principes de conception en introduisant au besoin des patrons (voir [le refactoring](https://mborne.github.io/architecture/refactoring/))
 - **Comprendre des architectures existantes** ([les mêmes principes s'appliquent à diverses échelles des systèmes](https://mborne.github.io/cours-archi-si-geo/#les-principes-darchitecture))
+- **Expérimenter** (et apprendre de ses erreurs) !
 
 ---
 
