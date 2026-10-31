@@ -2,3 +2,6 @@
 *.bkp
 *.dia~
 /public/
+/theme/geodata.css
+/theme/geodata.css.ref
+/preview/

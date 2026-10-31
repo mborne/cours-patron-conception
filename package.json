@@ -4,8 +4,10 @@
   "description": "ENSG - cours patron conception",
   "main": "index.js",
   "scripts": {
+    "theme": "node build.js --theme-only",
     "build": "node build.js",
     "start": "http-server -p 3000 public",
+    "preview": "npm run theme && marp --config-file marp.config.js --images png --allow-local-files --output preview/",
     "test": "markdown-link-check -c markdown-link-check.config.json src/slides"
   },
   "repository": {
@@ -20,9 +22,8 @@
   },
   "homepage": "https://mborne.github.io/cours-patron-conception/",
   "devDependencies": {
-    "@mborne/markdown-to-html": "0.10.4",
+    "@marp-team/marp-cli": "^4.5.1",
     "http-server": "^14.1.1",
-    "markdown-link-check": "^3.14.2",
-    "shelljs": "^0.10.0"
+    "markdown-link-check": "^3.14.2"
   }
 }

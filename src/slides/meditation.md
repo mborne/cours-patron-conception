@@ -1,26 +1,49 @@
-# Méditation
+---
+marp: true
+theme: cours
+paginate: true
+lang: fr
+title: Méditation sur les concepts de la P.O.O.
+footer: Les patrons de conception — Mickaël Borne — novembre 2026
+---
 
-Quelques exemples à méditer pour bien **comprendre l'intérêt
-des différents concepts de la P.O.O.**
+<!-- _class: titre -->
+<!-- _paginate: skip -->
+<!-- _footer: "" -->
 
-* Intérêt des classes et des attributs
-* Intérêt des constructeurs
-* Intérêt de l'encapsulation
-* Mise en garde sur encapsulation
-* Intérêt du polymorphisme
-* Intérêt des interfaces
-* Mise en garde sur les interface
-* Intérêt des classes abstraites
+###### Les patrons de conception
+
+# **Méditation**
+
+## Comprendre l'intérêt des différents concepts de la P.O.O.
 
 ---
 
+<!-- _class: aside -->
+
+> [← Retour au cours](index.md#les-bases-de-la-poo)
+
+## Quelques exemples à méditer
+
+- Intérêt des classes et des attributs
+- Intérêt des constructeurs
+- Intérêt de l'encapsulation
+- Mise en garde sur l'encapsulation
+- Intérêt du polymorphisme
+- Intérêt des interfaces
+- Mise en garde sur les interfaces
+- Intérêt des classes abstraites
+
+---
+
+<!-- _class: colonnes dense -->
+
 ## Intérêt des classes et des attributs (1/2)
 
-Pour comprendre l'**intérêt des classes et des attributs**, il faut d'abord comprendre l'intérêt de la possibilité de définir un type utilisateur (ex : `struct` en C).
+Il faut d'abord comprendre l'intérêt de pouvoir définir un type utilisateur (ex : `struct` en C). Prenons le cas d'une fonction qui teste si deux intervalles s'intersectent :
 
-Prenons le cas d'une fonction qui teste si deux intervals s'intersectent :
+<div class="col">
 
-.pull-left[
 Sans :
 
 ```c
@@ -28,12 +51,13 @@ bool intersects(
     double x1, double y1,
     double x2, double y2
 ){
-    // 
+    //
 }
 ```
-]
 
-.pull-right[
+</div>
+<div class="col">
+
 Avec :
 
 ```c
@@ -42,37 +66,38 @@ struct Interval {
     double upper ;
 }
 
-bool intersects(
-    Interval a, 
-    Interval b
-){
-    // 
+bool intersects(Interval a, Interval b){
+    //
 }
 ```
-]
 
-Quel est l'apport de la deuxième approche en matière d'**abstraction**, de **capacité à nommer les concepts**?
+</div>
+
+Quel est l'apport de la deuxième approche en matière d'**abstraction**, de **capacité à nommer les concepts** ?
 
 ---
 
+<!-- _class: colonnes dense -->
+
 ## Intérêt des classes et des attributs (2/2)
 
-Prenons un autre cas d'école où un utilitaire produit un chaîne de caractères sous la forme `"[x,y]"` :
+Prenons un autre cas d'école où un utilitaire produit une chaîne de caractères sous la forme `"[x,y]"` :
 
-.pull-left[
+<div class="col">
+
 Sans :
 
 ```c
 string to_json(
     double x,
-    double y 
+    double y
 ) {
     //...
 }
 ```
-]
 
-.pull-right[
+</div>
+<div class="col">
 
 Avec :
 
@@ -82,22 +107,24 @@ struct Coordinate {
     double y ;
 }
 
-string to_json(
-    Coordinate coordinate
-){
+string to_json(Coordinate coordinate){
     //...
 }
 ```
-]
 
+</div>
 
-Si nous ajoutons un Z optionnel, **combien d'appels faudra-t'il modifier** pour traiter les cas 2D et 3D de manière transparente?
+Si nous ajoutons un Z optionnel, **combien d'appels faudra-t-il modifier** pour traiter les cas 2D et 3D de manière transparente ?
 
 ---
 
+<!-- _class: colonnes -->
+
 ## Intérêt des constructeurs (1/2)
 
-Pour comprendre l'**intérêt des constructeurs**, il faut s'intéresser à la **sécurisation de l'initialisation des objets**.
+Il faut s'intéresser à la **sécurisation de l'initialisation des objets**.
+
+<div class="col">
 
 Sans :
 
@@ -107,16 +134,21 @@ c.x = 3.0;
 c.y = 4.0;
 ```
 
+</div>
+<div class="col">
+
 Avec :
 
 ```java
 Coordinate c = new Coordinate(3.0,4.0) ;
 ```
 
+</div>
+
 Quel est l'apport de la deuxième approche :
 
-* Pour **éviter les erreurs de codage** (ex : oubli d'affectation du "y")?
-* Pour **permettre l'ajout d'une propriété optionnelle** (ex : un "z" défini à `NaN` pour les coordonnées 2D)?
+- Pour **éviter les erreurs de codage** (ex : oubli d'affectation du « y ») ?
+- Pour **permettre l'ajout d'une propriété optionnelle** (ex : un « z » défini à `NaN` en 2D) ?
 
 ---
 
@@ -137,44 +169,50 @@ Le **concept de constructeur impose tout simplement l'utilisation de cette fonct
 
 ---
 
+<!-- _class: colonnes dense -->
+
 ## Intérêt de l'encapsulation (1/3)
 
-Avec une classe représentant une personne modélisée comme suit, nous pouvons **nous demander à quoi bon vouloir définir des d'attributs privés** :
+Avec une classe représentant une personne modélisée comme suit, nous pouvons **nous demander à quoi bon définir des attributs privés** :
 
-.center[
-![Exemple de classe Personne](img/class-person.png)
+<div class="col center">
 
-> [github.com - Asabeneh/30-Days-Of-Python - Class Constructor](https://github.com/Asabeneh/30-Days-Of-Python/blob/master/21_Day_Classes_and_objects/21_classes_and_objects.md#class-constructor)
+![h:190 Exemple de classe Personne](img/class-person.png)
 
-]
+<span class="legende">[github.com - Asabeneh/30-Days-Of-Python - Class Constructor](https://github.com/Asabeneh/30-Days-Of-Python/blob/master/21_Day_Classes_and_objects/21_classes_and_objects.md#class-constructor)</span>
+
+</div>
+<div class="col">
 
 Après tout :
 
-* Il est plus simple d'appeler partout dans le programme `user.age` plutôt que `user.getAge()`
-* Certains langages tels Python ne proposent pas le mot clé `private` (c'est dire l'utilité de la chose...)
+- Il est plus simple d'appeler partout `user.age` plutôt que `user.getAge()`
+- Certains langages tels Python ne proposent pas le mot clé `private`
 
-Pour comprendre l'intérêt de ce mot clé, imaginons que :
+Pour comprendre l'intérêt de ce mot clé, imaginons que nous stockons des personnes ainsi modélisées dans des fichiers… et que nous laissons passer un an.
 
-* Nous stockons des personnes ainsi modélisées dans des fichiers
-* Nous laissons passer un an...
-
+</div>
 
 ---
 
+<!-- _class: colonnes dense -->
+
 ## Intérêt de l'encapsulation (2/3)
 
-En effet, après un an, nous aurons envie de **changer la modélisation** pour :
+Après un an, nous aurons envie de **changer la modélisation** pour stocker la date de naissance (invariant temporel) et calculer l'âge à partir de celle-ci.
 
-* Stocker la date de naissance (invariant temporel)
-* Calculer l'age à partir de la date de naissance
+<div class="col center">
 
-.center[
-![Exemple de classe Personne v2](img/class-person-v2.png)
-]
+![w:540 Exemple de classe Personne v2](img/class-person-v2.png)
 
-**Permettre l'accès aux données uniquement via une indirection** (ex : `person.getAge()`), c'est **se donner la possibilité de modifier une classe sans casser le code client** (ex : `person.age >= 18`). 
+</div>
+<div class="col">
 
-> Dans le cas particulier de Python, il serait en réalité possible d'implémenter [`__getattr__`](https://docs.python.org/3/reference/datamodel.html#object.__getattr__) ou d'utiliser le décorateur [@property](https://docs.python.org/3/library/functions.html#property) pour éviter un changement cassant.
+**Permettre l'accès aux données uniquement via une indirection** (ex : `person.getAge()`), c'est **se donner la possibilité de modifier une classe sans casser le code client** (ex : `person.age >= 18`).
+
+</div>
+
+> En Python, il serait possible d'implémenter [`__getattr__`](https://docs.python.org/3/reference/datamodel.html#object.__getattr__) ou d'utiliser le décorateur [@property](https://docs.python.org/3/library/functions.html#property) pour éviter un changement cassant.
 
 ---
 
@@ -182,61 +220,68 @@ En effet, après un an, nous aurons envie de **changer la modélisation** pour :
 
 Si vous vous imaginez qu'il est si rare que ça de devoir revoir sa copie, notez que :
 
-* Nous sommes sur un cas très simple! Vous pouvez imaginer :
-  * Devoir remplacer l'envoi de mail par un autre mécanisme de notification (ex : SMS)
-  * Devoir remplacer PostgreSQL par MongoDB pour le stockage des données
-  * ...
-* Il reste une erreur de modélisation sur la classe précédente... Vous l'avez?
+- Nous sommes sur un cas très simple ! Vous pouvez imaginer :
+  - Devoir remplacer l'envoi de mail par un autre mécanisme de notification (ex : SMS)
+  - Devoir remplacer PostgreSQL par MongoDB pour le stockage des données
+- Il reste une erreur de modélisation sur la classe précédente… Vous l'avez ?
 
 ---
 
-## Mise en garde sur encapsulation
+## Mise en garde sur l'encapsulation
 
 Les **accesseurs et mécanismes de visibilité** donneront la **liberté de modifier l'implémentation des classes**. En limitant la surface d'exposition, nous limiterons le risque de changement cassant.
 
-Toutefois, **il ne suffit pas de mettre mécaniquement des "getters" et "setters" sur tous les attributs** pour résoudre tous les problèmes car **certains accesseurs exposeront trop d'informations sur la structure interne**.
+Toutefois, **il ne suffit pas de mettre mécaniquement des « getters » et « setters » sur tous les attributs** : **certains accesseurs exposeront trop d'informations sur la structure interne**.
 
-Il sera plutôt question d'**exposer uniquement ce qui doit l'être**.
-
-En outre, en fonction des langages, **l'encapsulation pourra prendre différentes formes** (exemple : une fonction non exposée à l'aide de `export` en TypeScript).
+Il sera plutôt question d'**exposer uniquement ce qui doit l'être**. En outre, **l'encapsulation pourra prendre différentes formes** selon le langage (ex : une fonction non exposée à l'aide de `export` en TypeScript).
 
 ---
+
+<!-- _class: colonnes dense -->
 
 ## Intérêt du polymorphisme
 
-Quel est l'intérêt de l'utilisation d'une méthode abstraite `render` dans la hiérarchie suivante :
+Quel est l'intérêt de l'utilisation d'une méthode abstraite `render` dans la hiérarchie suivante ?
 
-.center[
-![Exemple de polymorphisme](img/shape-render.png)
-]
+<div class="col center">
 
-Quel est l'**apport de l'utilisation du polymorphisme par rapport à la conditionnelle** dans l'approche ci-après?
+![h:300 Exemple de polymorphisme](img/shape-render.png)
+
+</div>
+<div class="col">
+
+Quel est l'**apport du polymorphisme par rapport à la conditionnelle** ci-après ?
 
 ```js
 function render(canvas: Canvas, shape: Shape){
-    if ( shape instanceof Circle ){
-        // dessin d'un cercle dans le canvas
-    }else if ( shape instanceof Rectangle ){
-        // dessin d'un rectangle dans le canvas
-    }else{
-        throw new TypeNotSupportedError(shape);
-    }
+  if ( shape instanceof Circle ){
+    // dessin d'un cercle
+  }else if ( shape instanceof Rectangle ){
+    // dessin d'un rectangle
+  }else{
+    throw new TypeNotSupportedError(shape);
+  }
 }
 ```
 
+</div>
 
 ---
 
+<!-- _class: colonnes dense -->
+
 ## Intérêt des interfaces
 
+Le **concept d'interface** permet de **définir le contrat qui sera respecté par les classes dérivées**.
 
-Dans de nombreux langages, nous trouvons le **concept d'interface** permettant de **définir le contrat qui sera respecté par les classes dérivées**.
+<div class="col center">
 
-Avec des langages tels Java ou PHP, il sera uniquement possible de **définir la liste des méthodes supportées** :
+Avec Java ou PHP, il sera uniquement possible de **définir la liste des méthodes supportées** :
 
-.center[
-![Exemple d'interface](img/interface-shape.png)
-]
+![h:150 Exemple d'interface](img/interface-shape.png)
+
+</div>
+<div class="col">
 
 Avec TypeScript, nous pourrons aussi spécifier des attributs :
 
@@ -247,21 +292,23 @@ interface Shape {
 }
 ```
 
+</div>
+
 ---
 
-## Mise en garde sur les interface (1/2)
+## Mise en garde sur les interfaces (1/2)
 
 **Il ne suffira pas de définir aveuglément des interfaces** pour avoir de la souplesse sur l'implémentation :
 
-* Concevoir une interface revient à faire des choix
-* Ces choix peuvent impacter les performances
-* L'implémentation de certaines interfaces est plus complexes que d'autres
+- Concevoir une interface revient à faire des choix
+- Ces choix peuvent impacter les performances
+- L'implémentation de certaines interfaces est plus complexe que d'autres
 
-=> Il faudra bien **réfléchir aux implications des choix effectués dans la conception de l'interface**.
+→ Il faudra bien **réfléchir aux implications des choix effectués dans la conception de l'interface**.
 
 ---
 
-## Mise en garde sur les interface (2/2)
+## Mise en garde sur les interfaces (2/2)
 
 Par exemple, en renvoyant un tableau, nous imposerons le chargement en RAM :
 
@@ -277,13 +324,19 @@ Nous verrons qu'il sera souvent pertinent de **permettre seulement l'itération 
 
 ## Intérêt des classes abstraites
 
-Certains langages tels Java, PHP, TypeScript,... permettent de définir des **classes abstraites**, c'est à dire des classes où **certaines méthodes sont déclarées sans être implémentées**.
-
-Elles seront principalement utilisées pour **mettre en facteur l'implémentation commune à plusieurs classes concrètes** :
+Certains langages (Java, PHP, TypeScript…) permettent de définir des **classes abstraites** où **certaines méthodes sont déclarées sans être implémentées**. Elles serviront principalement à **mettre en facteur l'implémentation commune à plusieurs classes concrètes** :
 
 <div class="center">
-    <img src="img/logger-heritage-3-niveaux.png" alt="Exemple d'héritage à trois niveaux" height="300px"/>
-    <br />
-    <span>Exemple d'héritage à trois niveaux : Une interface / Une classe abstraite pour l'implémentation commune / Les classes concrètes</span>
+    <img src="img/logger-heritage-3-niveaux.png" alt="Exemple d'héritage à trois niveaux" height="260" />
+    <span class="legende">Une interface / une classe abstraite pour l'implémentation commune / les classes concrètes</span>
 </div>
 
+---
+
+<!-- _class: fin -->
+<!-- _paginate: skip -->
+<!-- _footer: "" -->
+
+# **Retour au cours**
+
+[Les patrons de conception](index.md#les-bases-de-la-poo)

@@ -1,0 +1,7 @@
+{
+    "markdown.marp.themes": [
+        "./theme/geodata.css",
+        "./theme/cours.css"
+    ],
+    "markdown.marp.enableHtml": true
+}
