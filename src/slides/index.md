@@ -4,7 +4,7 @@ theme: cours
 paginate: true
 lang: fr
 title: Les patrons de conception
-footer: Les patrons de conception — Mickaël Borne
+footer: Les patrons de conception — Mickaël Borne — novembre 2026
 ---
 
 <!-- _class: titre -->
@@ -14,6 +14,8 @@ footer: Les patrons de conception — Mickaël Borne
 ###### Cours
 
 # Les patrons **de conception**
+
+novembre 2026
 
 Mickaël Borne
 

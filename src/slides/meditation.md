@@ -4,7 +4,7 @@ theme: cours
 paginate: true
 lang: fr
 title: Méditation sur les concepts de la P.O.O.
-footer: Les patrons de conception — Mickaël Borne
+footer: Les patrons de conception — Mickaël Borne — novembre 2026
 ---
 
 <!-- _class: titre -->
