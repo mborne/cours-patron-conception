@@ -17,11 +17,3 @@ convert(
     path.resolve(__dirname,'layout/slides'),
     options
 );
-
-console.log('src/annexe -> docs/annexe with default layout...');
-convert(
-    path.resolve(__dirname,'src/annexe'),
-    path.resolve(__dirname,'public/annexe'),
-    path.resolve(__dirname,'layout/annexe'),
-    options
-);
