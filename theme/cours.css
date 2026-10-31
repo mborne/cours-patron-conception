@@ -1,0 +1,66 @@
+/**
+ * @theme cours
+ *
+ * Extension du thème "geodata" (charte Géodata Paris, récupéré par `npm run theme`)
+ * pour les besoins spécifiques du cours.
+ */
+
+@import 'geodata';
+
+/* ---------- Deux colonnes : les éléments hors colonnes occupent toute la largeur ---------- */
+
+section.colonnes {
+  grid-template-rows: none;
+  grid-auto-rows: min-content;
+  row-gap: 0;
+}
+
+section.colonnes > :not(.col):not(header):not(footer) {
+  grid-column: 1 / -1;
+}
+
+/* ---------- Comparaisons "à éviter" / "à privilégier" ---------- */
+
+.col.eviter,
+.col.privilegier {
+  border-top: 5px solid;
+  padding-top: 0.5em;
+}
+
+.col.eviter {
+  border-color: var(--gp-magenta);
+}
+
+.col.privilegier {
+  border-color: var(--gp-bleu);
+}
+
+.col.eviter > h4 {
+  color: var(--gp-magenta);
+}
+
+/* ---------- Images centrées avec légende ---------- */
+
+.center {
+  text-align: center;
+}
+
+.center img {
+  max-height: 340px;
+}
+
+.legende {
+  display: block;
+  font-size: 18px;
+  color: var(--gp-texte);
+}
+
+/* ---------- Texte réduit pour les diapositives denses ---------- */
+
+section.dense {
+  font-size: 22px;
+}
+
+section.dense pre {
+  font-size: 17px;
+}
