@@ -31,21 +31,21 @@ Bien que certains concepts soient les mêmes, nous traiterons principalement le 
 
 <div class="col">
 
-* Principe
-* Notion de changement cassant
-* Notion de changement de comportement
-* Numérotation des versions
-* Accompagnement du changement
+- Principe
+- Notion de changement cassant
+- Notion de changement de comportement
+- Numérotation des versions
+- Accompagnement du changement
 
 </div>
 <div class="col">
 
-* Gestion de l'historique
-* Code public et privé (notion d'API)
-* Importance des tests
-* Techniques de refactoring
-* Quand refactorer ?
-* Quels outils ?
+- Gestion de l'historique
+- Code public et privé (notion d'API)
+- Importance des tests
+- Techniques de refactoring
+- Quand refactorer ?
+- Quels outils ?
 
 </div>
 
@@ -55,8 +55,8 @@ Bien que certains concepts soient les mêmes, nous traiterons principalement le 
 
 Améliorer la conception d'un code existant pour :
 
-* Le rendre plus robuste (correction de bug)
-* Le rendre plus générique (réponse à de nouvelles fonctionnalités)
+- Le rendre plus robuste (correction de bug)
+- Le rendre plus générique (réponse à de nouvelles fonctionnalités)
 
 ---
 
@@ -84,14 +84,14 @@ Le but : forcer la prise en compte des modifications dans les codes clients.
 
 Il sera important de :
 
-* Tagger/Releaser des versions stables des codes
-* Adopter une convention de nommage pour les versions
+- Tagger/Releaser des versions stables des codes
+- Adopter une convention de nommage pour les versions
 
 La convention généralement utilisée est `<major>.<minor>.<patch>` (exemple : « 1.2.5 ») où :
 
-* L'incrémentation de `<major>` traduit une version majeure porteuse de changement cassant
-* `<minor>` traduit des ajouts de fonctionnalités sans changement cassant
-* `<patch>` traduit une correction de bug sans ajout de fonctionnalité
+- L'incrémentation de `<major>` traduit une version majeure porteuse de changement cassant
+- `<minor>` traduit des ajouts de fonctionnalités sans changement cassant
+- `<patch>` traduit une correction de bug sans ajout de fonctionnalité
 
 Elle est connue sous le nom de [gestion sémantique de version](https://semver.org/lang/fr/) et permet aux clients de **maîtriser les montées en version tout en récupérant automatiquement les correctifs**.
 
@@ -101,9 +101,9 @@ Elle est connue sous le nom de [gestion sémantique de version](https://semver.o
 
 Plusieurs dispositifs d'accompagnement sont envisageables et fréquents :
 
-* Les fichiers **CHANGELOG** décrivent les changements et adaptations à réaliser
-* Les **fonctionnalités qui vont être supprimées** peuvent être **marquées comme dépréciées** dans des versions intermédiaires
-* Des **versions dédiées aux changements majeurs** peuvent être développées
+- Les fichiers **CHANGELOG** décrivent les changements et adaptations à réaliser
+- Les **fonctionnalités qui vont être supprimées** peuvent être **marquées comme dépréciées** dans des versions intermédiaires
+- Des **versions dédiées aux changements majeurs** peuvent être développées
 
 > Par exemple, une version 2.8 peut apporter les nouveautés de la 3.0 et marquer comme dépréciées les fonctionnalités supprimées en 3.0 (bonne pratique du framework PHP Symfony).
 
@@ -115,8 +115,8 @@ La **gestion des versions** est intimement liée à la **gestion de l'historique
 
 Voir :
 
-* [A successful Git branching model, Vincent Driessen](http://nvie.com/posts/a-successful-git-branching-model/)
-* [git-flow](http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/)
+- [A successful Git branching model, Vincent Driessen](http://nvie.com/posts/a-successful-git-branching-model/)
+- [git-flow](http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/)
 
 ---
 
@@ -144,9 +144,9 @@ Outre l'introduction de patrons de conception (ex : une fabrique pour éviter de
 
 À l'instar des patrons de conception, **ces techniques peuvent être cataloguées**. Quelques exemples sur [refactoring.com - Catalogue](http://www.refactoring.com/catalog/) :
 
-* [Renommage d'une variable](https://www.refactoring.com/catalog/renameVariable.html)
-* [Suppression d'un setter](https://www.refactoring.com/catalog/removeSettingMethod.html)
-* [Extraction d'une méthode](https://www.refactoring.com/catalog/extractFunction.html)
+- [Renommage d'une variable](https://www.refactoring.com/catalog/renameVariable.html)
+- [Suppression d'un setter](https://www.refactoring.com/catalog/removeSettingMethod.html)
+- [Extraction d'une méthode](https://www.refactoring.com/catalog/extractFunction.html)
 
 ---
 
@@ -156,10 +156,10 @@ Un code est rarement totalement satisfaisant, mais le luxe de pouvoir réfactore
 
 Généralement, nous profiterons d'occasions concrètes pour améliorer le code :
 
-* Industrialisation de prototype (travaux de recherche par ex.)
-* Ajout de fonctionnalités à l'occasion d'une nouvelle version
-* Correction de bug, optimisation
-* Portage de l'application (Android, Windows → Linux…)
+- Industrialisation de prototype (travaux de recherche par ex.)
+- Ajout de fonctionnalités à l'occasion d'une nouvelle version
+- Correction de bug, optimisation
+- Portage de l'application (Android, Windows → Linux…)
 
 ---
 
@@ -167,10 +167,10 @@ Généralement, nous profiterons d'occasions concrètes pour améliorer le code 
 
 Plusieurs familles d'outils peuvent aider à maintenir ou améliorer la qualité d'un code :
 
-* Les outils de **mise en forme automatique du code**
-* Les outils d'**analyse statique de code** (ex : SonarQube)
-* Les outils de **génération de couverture par les tests** (ex : [nyc](https://github.com/istanbuljs/nyc#readme))
-* Les outils d'**intégration continue** (ex : GitLab-CI, GitHub Actions, Jenkins…)
+- Les outils de **mise en forme automatique du code**
+- Les outils d'**analyse statique de code** (ex : SonarQube)
+- Les outils de **génération de couverture par les tests** (ex : [nyc](https://github.com/istanbuljs/nyc#readme))
+- Les outils d'**intégration continue** (ex : GitLab-CI, GitHub Actions, Jenkins…)
 
 ---
 
@@ -180,4 +180,4 @@ Plusieurs familles d'outils peuvent aider à maintenir ou améliorer la qualité
 
 # **Retour au cours**
 
-[Les patrons de conception](index.md#54)
+[Les patrons de conception](index.md#le-refactoring)

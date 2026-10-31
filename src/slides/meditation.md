@@ -21,18 +21,18 @@ footer: Les patrons de conception — Mickaël Borne
 
 <!-- _class: aside -->
 
-> [← Retour au cours](index.md#12)
+> [← Retour au cours](index.md#les-bases-de-la-poo)
 
 ## Quelques exemples à méditer
 
-* Intérêt des classes et des attributs
-* Intérêt des constructeurs
-* Intérêt de l'encapsulation
-* Mise en garde sur l'encapsulation
-* Intérêt du polymorphisme
-* Intérêt des interfaces
-* Mise en garde sur les interfaces
-* Intérêt des classes abstraites
+- Intérêt des classes et des attributs
+- Intérêt des constructeurs
+- Intérêt de l'encapsulation
+- Mise en garde sur l'encapsulation
+- Intérêt du polymorphisme
+- Intérêt des interfaces
+- Mise en garde sur les interfaces
+- Intérêt des classes abstraites
 
 ---
 
@@ -147,8 +147,8 @@ Coordinate c = new Coordinate(3.0,4.0) ;
 
 Quel est l'apport de la deuxième approche :
 
-* Pour **éviter les erreurs de codage** (ex : oubli d'affectation du « y ») ?
-* Pour **permettre l'ajout d'une propriété optionnelle** (ex : un « z » défini à `NaN` en 2D) ?
+- Pour **éviter les erreurs de codage** (ex : oubli d'affectation du « y ») ?
+- Pour **permettre l'ajout d'une propriété optionnelle** (ex : un « z » défini à `NaN` en 2D) ?
 
 ---
 
@@ -186,8 +186,8 @@ Avec une classe représentant une personne modélisée comme suit, nous pouvons 
 
 Après tout :
 
-* Il est plus simple d'appeler partout `user.age` plutôt que `user.getAge()`
-* Certains langages tels Python ne proposent pas le mot clé `private`
+- Il est plus simple d'appeler partout `user.age` plutôt que `user.getAge()`
+- Certains langages tels Python ne proposent pas le mot clé `private`
 
 Pour comprendre l'intérêt de ce mot clé, imaginons que nous stockons des personnes ainsi modélisées dans des fichiers… et que nous laissons passer un an.
 
@@ -220,10 +220,10 @@ Après un an, nous aurons envie de **changer la modélisation** pour stocker la 
 
 Si vous vous imaginez qu'il est si rare que ça de devoir revoir sa copie, notez que :
 
-* Nous sommes sur un cas très simple ! Vous pouvez imaginer :
-  * Devoir remplacer l'envoi de mail par un autre mécanisme de notification (ex : SMS)
-  * Devoir remplacer PostgreSQL par MongoDB pour le stockage des données
-* Il reste une erreur de modélisation sur la classe précédente… Vous l'avez ?
+- Nous sommes sur un cas très simple ! Vous pouvez imaginer :
+  - Devoir remplacer l'envoi de mail par un autre mécanisme de notification (ex : SMS)
+  - Devoir remplacer PostgreSQL par MongoDB pour le stockage des données
+- Il reste une erreur de modélisation sur la classe précédente… Vous l'avez ?
 
 ---
 
@@ -300,9 +300,9 @@ interface Shape {
 
 **Il ne suffira pas de définir aveuglément des interfaces** pour avoir de la souplesse sur l'implémentation :
 
-* Concevoir une interface revient à faire des choix
-* Ces choix peuvent impacter les performances
-* L'implémentation de certaines interfaces est plus complexe que d'autres
+- Concevoir une interface revient à faire des choix
+- Ces choix peuvent impacter les performances
+- L'implémentation de certaines interfaces est plus complexe que d'autres
 
 → Il faudra bien **réfléchir aux implications des choix effectués dans la conception de l'interface**.
 
@@ -339,4 +339,4 @@ Certains langages (Java, PHP, TypeScript…) permettent de définir des **classe
 
 # **Retour au cours**
 
-[Les patrons de conception](index.md#12)
+[Les patrons de conception](index.md#les-bases-de-la-poo)

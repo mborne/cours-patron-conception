@@ -25,18 +25,18 @@ Mickaël Borne
 
 <div class="col">
 
-1. [Introduction](#3)
-2. [Les bases de la P.O.O.](#8)
-3. [Les principes de conception](#14)
-4. [Les anti-patrons](#29)
-5. [Les patrons de conception](#39)
+1. [Introduction](#introduction)
+2. [Les bases de la P.O.O.](#les-bases-de-la-poo)
+3. [Les principes de conception](#les-principes-de-conception)
+4. [Les anti-patrons](#les-anti-patrons)
+5. [Les patrons de conception](#les-patrons-de-conception-1)
 
 </div>
 <div class="col">
 
-6. [Les patrons architecturaux](#50)
-7. [Le refactoring](#52)
-8. [Conclusion](#55)
+6. [Les patrons architecturaux](#les-patrons-architecturaux)
+7. [Le refactoring](#le-refactoring)
+8. [Conclusion](#conclusion)
 
 [Annexes et références](https://mborne.github.io/architecture/patrons-conception/)
 
@@ -61,11 +61,11 @@ Il faut avoir en tête **la seule constante du développement : le changement !*
 
 De nombreux événements conduiront à modifier le code d'une application :
 
-* Modification des fonctionnalités et modèles
-* Augmentation du nombre d'utilisateurs et des volumes de données
-* Obsolescence des outils (bibliothèques, frameworks, services tiers…)
-* Changement de cible (desktop, serveur, mobile, cloud…)
-* Choix politique (base de données, OpenSource…)
+- Modification des fonctionnalités et modèles
+- Augmentation du nombre d'utilisateurs et des volumes de données
+- Obsolescence des outils (bibliothèques, frameworks, services tiers…)
+- Changement de cible (desktop, serveur, mobile, cloud…)
+- Choix politique (base de données, OpenSource…)
 
 ---
 
@@ -81,13 +81,13 @@ De nombreux événements conduiront à modifier le code d'une application :
 
 Il conviendra de **cibler plusieurs critères qualités qui guideront la conception** :
 
-* **Fiabilité** : faire tourner le programme sans risque de plantage
-* **Maintenabilité** : corriger facilement un bug, mettre à jour les dépendances…
-* **Performance** : minimiser le temps d'exécution, la consommation de RAM, de stockage…
-* **Évolutivité** : ajouter facilement des fonctionnalités sans risque de régression
-* **Réutilisabilité** : réutiliser un code dans un autre contexte
-* **Portabilité** : porter facilement un programme d'une cible vers une autre
-* **Testabilité** : écrire facilement des tests unitaires et fonctionnels
+- **Fiabilité** : faire tourner le programme sans risque de plantage
+- **Maintenabilité** : corriger facilement un bug, mettre à jour les dépendances…
+- **Performance** : minimiser le temps d'exécution, la consommation de RAM, de stockage…
+- **Évolutivité** : ajouter facilement des fonctionnalités sans risque de régression
+- **Réutilisabilité** : réutiliser un code dans un autre contexte
+- **Portabilité** : porter facilement un programme d'une cible vers une autre
+- **Testabilité** : écrire facilement des tests unitaires et fonctionnels
 
 Nous serons souvent amenés à **prioriser ces critères** (ex : privilégier les performances plutôt que la généricité).
 
@@ -97,11 +97,11 @@ Nous serons souvent amenés à **prioriser ces critères** (ex : privilégier le
 
 Ce cours s'inspire de **« Design patterns : tête la première »** d'Eric Freeman et Kathy Sierra. Nous verrons :
 
-* Les **prérequis** pour **comprendre l'intérêt des patrons de conception** : les concepts de base de la P.O.O. et les **principes de conception**
-* Les **mauvaises pratiques** à travers les **anti-patrons**
-* Les **bonnes pratiques** avec les principaux **patrons de conception** (TP)
-* Ces mêmes principes à l'échelle du système avec les **patrons architecturaux**
-* Comment **réfactorer un code existant** (TP)
+- Les **prérequis** pour **comprendre l'intérêt des patrons de conception** : les concepts de base de la P.O.O. et les **principes de conception**
+- Les **mauvaises pratiques** à travers les **anti-patrons**
+- Les **bonnes pratiques** avec les principaux **patrons de conception** (TP)
+- Ces mêmes principes à l'échelle du système avec les **patrons architecturaux**
+- Comment **réfactorer un code existant** (TP)
 
 ---
 
@@ -121,8 +121,8 @@ Ce cours s'inspire de **« Design patterns : tête la première »** d'Eric Free
 
 De nombreux programmeurs manipulent des objets sans forcément en avoir conscience :
 
-* En appelant `chaine.upper()` pour transformer une chaîne de caractères en majuscules, nous faisons appel à la **notation pointée** typique de la P.O.O.
-* En Python, tout est objet :
+- En appelant `chaine.upper()` pour transformer une chaîne de caractères en majuscules, nous faisons appel à la **notation pointée** typique de la P.O.O.
+- En Python, tout est objet :
 
 <div class="center">
     <img src="img/python-tout-objet.png" alt="Illustration de quelques types en Python" height="200" />
@@ -134,8 +134,8 @@ De nombreux programmeurs manipulent des objets sans forcément en avoir conscien
 
 **Utiliser des classes existantes ne demandera pas d'effort**. Il sera plus délicat de :
 
-* **Concevoir proprement <u>ses propres classes</u>**
-* **Choisir entre la définition d'une classe et un autre paradigme** (ex : une fonction) quand le langage le permet
+- **Concevoir proprement <u>ses propres classes</u>**
+- **Choisir entre la définition d'une classe et un autre paradigme** (ex : une fonction) quand le langage le permet
 
 Nous nous concentrerons sur la P.O.O. en mentionnant la **possibilité de mixer les paradigmes** :
 
@@ -156,21 +156,21 @@ Les concepts suivants sont normalement connus avant de débuter ce cours :
 
 <div class="col">
 
-* Les **classes** avec leurs **attributs** et leurs **méthodes**
-* Les **constructeurs**
-* Les **objets**
-* La **visibilité** (public, private, protected)
-* Les **accesseurs** (get, set, add, remove…)
-* Les **relations** (composition, agrégation)
+- Les **classes** avec leurs **attributs** et leurs **méthodes**
+- Les **constructeurs**
+- Les **objets**
+- La **visibilité** (public, private, protected)
+- Les **accesseurs** (get, set, add, remove…)
+- Les **relations** (composition, agrégation)
 
 </div>
 <div class="col">
 
-* L'**héritage** et le **polymorphisme**
-* Les **méthodes et classes abstraites**
-* Les **interfaces**
-* Les **méthodes statiques**
-* Les **attributs statiques**
+- L'**héritage** et le **polymorphisme**
+- Les **méthodes et classes abstraites**
+- Les **interfaces**
+- Les **méthodes statiques**
+- Les **attributs statiques**
 
 </div>
 
@@ -182,9 +182,9 @@ Les **concepts de classe, d'attribut et l'héritage sont généralement bien ma�
 
 Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la P.O.O.** pour **modéliser des traitements** :
 
-* Se protéger contre des erreurs de programmation
-* S'assurer d'être en mesure de modifier le code sans casser les appels
-* Pouvoir tester unitairement les fonctionnalités (en bouchonnant les autres à l'aide de « mock »)
+- Se protéger contre des erreurs de programmation
+- S'assurer d'être en mesure de modifier le code sans casser les appels
+- Pouvoir tester unitairement les fonctionnalités (en bouchonnant les autres à l'aide de « mock »)
 
 → [Méditons quelques exemples](meditation.md)
 
@@ -218,11 +218,11 @@ Nous noterons toutefois que **[les langages ont des spécificités](https://mbor
 
 Nous allons commencer par **5 principes fondamentaux** regroupés dans l'acronyme **SOLID** :
 
-* **S**ingle Responsibility Principle (SRP, **responsabilité unique**)
-* **O**pen Closed Principle (OCP, **ouvert/fermé**)
-* **L**iskov Substitution Principle (LSP, **substitution de Liskov**)
-* **I**nterface Segregation Principle (ISP, **ségrégation des interfaces**)
-* **D**ependency Inversion Principle (DIP, **inversion des dépendances**)
+- **S**ingle Responsibility Principle (SRP, **responsabilité unique**)
+- **O**pen Closed Principle (OCP, **ouvert/fermé**)
+- **L**iskov Substitution Principle (LSP, **substitution de Liskov**)
+- **I**nterface Segregation Principle (ISP, **ségrégation des interfaces**)
+- **D**ependency Inversion Principle (DIP, **inversion des dépendances**)
 
 ---
 
@@ -243,8 +243,8 @@ Cette classe permet la lecture des communes à partir d'un fichier [ADMINEXPRESS
 
 #### À privilégier
 
-* Cette classe permet le calcul des statistiques sur une liste de communes
-* Cette classe lit les communes à partir d'un fichier [ADMINEXPRESS](https://geoservices.ign.fr/adminexpress)
+- Cette classe permet le calcul des statistiques sur une liste de communes
+- Cette classe lit les communes à partir d'un fichier [ADMINEXPRESS](https://geoservices.ign.fr/adminexpress)
 
 </div>
 
@@ -333,8 +333,8 @@ Je définis une interface pour chaque protocole : `HttpClient`, `FtpClient`, `Ma
 
 Je référence des classes concrètes dans les déclarations des constructeurs et des méthodes :
 
-* `GpsLocationProvider`
-* `GeoplateformeGeocoder`
+- `GpsLocationProvider`
+- `GeoplateformeGeocoder`
 
 </div>
 <div class="col privilegier">
@@ -343,8 +343,8 @@ Je référence des classes concrètes dans les déclarations des constructeurs e
 
 Je référence des interfaces dans les déclarations :
 
-* `LocationProvider`
-* `Geocoder`
+- `LocationProvider`
+- `Geocoder`
 
 </div>
 
@@ -383,18 +383,18 @@ Pour réutiliser un code, je le **mets en facteur** dans une méthode ou une cla
 
 #### À éviter
 
-* Je produis mes résultats dans de nombreux formats (shapefile, CSV, JSON, GeoJSON, GML…)
-* Je supporte la 2D et la 3D car certaines de mes sources de données sont en 3D
-* Je crée une classe `Batiment` avec tous les attributs BDTOPO
+- Je produis mes résultats dans de nombreux formats (shapefile, CSV, JSON, GeoJSON, GML…)
+- Je supporte la 2D et la 3D car certaines de mes sources de données sont en 3D
+- Je crée une classe `Batiment` avec tous les attributs BDTOPO
 
 </div>
 <div class="col privilegier">
 
 #### À privilégier
 
-* Je produis mes résultats dans un nombre limité de formats demandés par les utilisateurs
-* J'ignore la 3D tant que je ne l'utilise pas dans mon application
-* Je crée une classe `Batiment` avec les seuls attributs BDTOPO que j'utilise
+- Je produis mes résultats dans un nombre limité de formats demandés par les utilisateurs
+- J'ignore la 3D tant que je ne l'utilise pas dans mon application
+- Je crée une classe `Batiment` avec les seuls attributs BDTOPO que j'utilise
 
 </div>
 
@@ -406,10 +406,10 @@ Il convient d'**exposer un minimum de fonctionnalités au niveau d'une classe** 
 
 En pratique, quand le langage le permet (PHP, Java, C++, TypeScript…) :
 
-* Les **méthodes et attributs sont privés par défaut**
-* Les **accesseurs** sont définis **uniquement si c'est nécessaire** (~~`traitement.getLogger()`~~)
-* Une **méthode spécifique est préférée à un accesseur permettant de nombreuses opérations**
-  * Les **collections sont encapsulées** (~~`obj.points.add(p)`~~ → `obj.addPoint(p)`)
+- Les **méthodes et attributs sont privés par défaut**
+- Les **accesseurs** sont définis **uniquement si c'est nécessaire** (~~`traitement.getLogger()`~~)
+- Une **méthode spécifique est préférée à un accesseur permettant de nombreuses opérations**
+  - Les **collections sont encapsulées** (~~`obj.points.add(p)`~~ → `obj.addPoint(p)`)
 
 ---
 
@@ -482,12 +482,12 @@ class MonTraitement {
 
 ## Préférer la composition à l'héritage (1/2)
 
-* Nous **<u>pourrons</u> hériter d'une classe seulement si nous pouvons dire « EST-UN »** :
-  * « Un `Cercle` est une `Forme` »
-  * « ~~Un `TraitementMetier` est une `BaseDeDonnees`~~ » → « Un `TraitementMetier` utilise une `BaseDeDonnees` »
-* Nous **préférerons les états aux classes dérivées** :
-  * Il sera naturel d'**hériter** d'une `Forme` pour modéliser des `Cercle` et des `Rectangle` avec des **attributs spécifiques** (`rayon` vs `largeur` et `hauteur`)
-  * Pour une classe `Animal`, nous préférerons l'ajout d'un attribut `type` à la création de classes `Chat` et `Chien` dérivées sans attributs spécifiques
+- Nous **<u>pourrons</u> hériter d'une classe seulement si nous pouvons dire « EST-UN »** :
+  - « Un `Cercle` est une `Forme` »
+  - « ~~Un `TraitementMetier` est une `BaseDeDonnees`~~ » → « Un `TraitementMetier` utilise une `BaseDeDonnees` »
+- Nous **préférerons les états aux classes dérivées** :
+  - Il sera naturel d'**hériter** d'une `Forme` pour modéliser des `Cercle` et des `Rectangle` avec des **attributs spécifiques** (`rayon` vs `largeur` et `hauteur`)
+  - Pour une classe `Animal`, nous préférerons l'ajout d'un attribut `type` à la création de classes `Chat` et `Chien` dérivées sans attributs spécifiques
 
 ---
 
@@ -495,8 +495,8 @@ class MonTraitement {
 
 Pourquoi ? Notez dans un premier temps que :
 
-* L'**héritage** est une **relation plus forte que la composition** (il est donc plus difficile de s'en libérer)
-* Si vous développez un formulaire, modifier un `type` (affectation) est plus simple que transformer un `Chien` en `Chat` (construction)
+- L'**héritage** est une **relation plus forte que la composition** (il est donc plus difficile de s'en libérer)
+- Si vous développez un formulaire, modifier un `type` (affectation) est plus simple que transformer un `Chien` en `Chat` (construction)
 
 > Spoiler : nous verrons plus tard avec le patron [Strategy](https://mborne.github.io/architecture/patrons-conception/comportement/Strategy/) en quoi la composition est préférable à la surcharge d'une méthode pour faire varier le comportement d'une classe.
 
@@ -518,8 +518,8 @@ Pourquoi ? Notez dans un premier temps que :
 
 ## Principe des anti-patrons
 
-* **Nommer** des erreurs de conception classiques
-* Faciliter l'identification des erreurs de conception
+- **Nommer** des erreurs de conception classiques
+- Faciliter l'identification des erreurs de conception
 
 ---
 
@@ -529,8 +529,8 @@ Pourquoi ? Notez dans un premier temps que :
 
 Par exemple :
 
-* Développer son propre système pour l'écriture des journaux applicatifs
-* Développer son propre système d'exécution de tests unitaires
+- Développer son propre système pour l'écriture des journaux applicatifs
+- Développer son propre système d'exécution de tests unitaires
 
 ---
 
@@ -540,8 +540,8 @@ Par exemple :
 
 En conséquence, il est difficile de :
 
-* Modifier une partie du code sans en altérer le fonctionnement
-* Trouver la cause d'un bug
+- Modifier une partie du code sans en altérer le fonctionnement
+- Trouver la cause d'un bug
 
 > Spoiler : nous verrons que les patrons architecturaux amènent un cadre permettant d'éviter ce problème.
 
@@ -594,14 +594,14 @@ Ce problème pourra concerner aussi bien des bibliothèques que des API WEB ou e
 
 **« Premature optimization is the root of all evil » (Donald Knuth)**
 
-* Gaspillage d'énergie pour des gains médiocres (voire négatifs)
-* Complexité rendant impossible les optimisations globales
-* Complexité mettant en péril la qualité du logiciel (stabilité, maintenabilité, portabilité…)
+- Gaspillage d'énergie pour des gains médiocres (voire négatifs)
+- Complexité rendant impossible les optimisations globales
+- Complexité mettant en péril la qualité du logiciel (stabilité, maintenabilité, portabilité…)
 
 Exemples :
 
-* Optimiser le parcours séquentiel d'un tableau au point qu'il devient impossible d'exploiter un index spatial
-* « Je n'ai pas besoin des arcs entrants pour cet algorithme, je développe une classe dédiée pour ce graphe afin de consommer moins de mémoire ! ». Bilan : le programme réel passe son temps à faire des copies de graphes.
+- Optimiser le parcours séquentiel d'un tableau au point qu'il devient impossible d'exploiter un index spatial
+- « Je n'ai pas besoin des arcs entrants pour cet algorithme, je développe une classe dédiée pour ce graphe afin de consommer moins de mémoire ! ». Bilan : le programme réel passe son temps à faire des copies de graphes.
 
 ---
 
@@ -611,15 +611,15 @@ Exemples :
 
 « Premature optimization is the root of all evil » (Donald Knuth) **mais :**
 
-* Il ne faut pas en conclure que l'optimisation doit être ignorée dans la conception !
-* Il faut rester prudent sur cette affirmation pour les bibliothèques de bas niveau !
-* Parfois, on privilégie la performance à la généricité.
+- Il ne faut pas en conclure que l'optimisation doit être ignorée dans la conception !
+- Il faut rester prudent sur cette affirmation pour les bibliothèques de bas niveau !
+- Parfois, on privilégie la performance à la généricité.
 
 Proposition de méthode :
 
-* **Se concentrer sur les optimisations globales dans la conception** (choix de structures efficaces, indexation, mise en cache…)
-* Coder en mettant en place des **tests** et des **mesures de performance** (*bench*)
-* **Profiler** et réaliser les **optimisations locales sur les fonctions souvent appelées**
+- **Se concentrer sur les optimisations globales dans la conception** (choix de structures efficaces, indexation, mise en cache…)
+- Coder en mettant en place des **tests** et des **mesures de performance** (*bench*)
+- **Profiler** et réaliser les **optimisations locales sur les fonctions souvent appelées**
 
 ---
 
@@ -649,10 +649,10 @@ Un **patron de conception** est la **description d'une solution réutilisable po
 
 Ces patrons obéiront au formalisme suivant :
 
-* Un **nom**
-* Un **problème**
-* Une **solution**
-* Des **conséquences** (avantages et inconvénients)
+- Un **nom**
+- Un **problème**
+- Une **solution**
+- Des **conséquences** (avantages et inconvénients)
 
 ---
 
@@ -660,9 +660,9 @@ Ces patrons obéiront au formalisme suivant :
 
 Le « Gang of Four » définit trois familles de patrons de conception :
 
-* Les **patrons de création** (*creational patterns*) qui décrivent des **techniques d'initialisation des objets**
-* Les **patrons de structure** (*structural patterns*) qui décrivent des **organisations classiques de classes**
-* Les **patrons de comportement** (*behavioral patterns*) qui décrivent des **méthodes de communication entre objets**
+- Les **patrons de création** (*creational patterns*) qui décrivent des **techniques d'initialisation des objets**
+- Les **patrons de structure** (*structural patterns*) qui décrivent des **organisations classiques de classes**
+- Les **patrons de comportement** (*behavioral patterns*) qui décrivent des **méthodes de communication entre objets**
 
 ---
 
@@ -670,9 +670,9 @@ Le « Gang of Four » définit trois familles de patrons de conception :
 
 Le concept de patron sera étendu par la suite et nous trouverons en complément :
 
-* Des **patrons architecturaux** qui traitent des styles d'architecture de logiciel (MVC, micro-service…)
-* Des familles de **patrons spécifiques à des domaines d'application** (cloud, big-data…)
-* Des familles de **patrons spécifiques à des frameworks** (Spring…)
+- Des **patrons architecturaux** qui traitent des styles d'architecture de logiciel (MVC, micro-service…)
+- Des familles de **patrons spécifiques à des domaines d'application** (cloud, big-data…)
+- Des familles de **patrons spécifiques à des frameworks** (Spring…)
 
 ---
 
@@ -680,11 +680,11 @@ Le concept de patron sera étendu par la suite et nous trouverons en complément
 
 Les patrons de conception permettront de :
 
-* **Faciliter la compréhension des codes** par l'utilisation d'un **vocabulaire commun** (`*Builder`, `*Factory`, `addChild`…)
-* **Faciliter la découverte du code et la compréhension des architectures** en standardisant celles-ci (MVC, IoC, MQ…)
-* **Trouver de l'inspiration dans la recherche d'une solution** :
-  * Comment implémenter un interpréteur ? un annuler/refaire ?
-  * Existe-t-il un framework MVC avec injection de dépendance pour ce langage ?
+- **Faciliter la compréhension des codes** par l'utilisation d'un **vocabulaire commun** (`*Builder`, `*Factory`, `addChild`…)
+- **Faciliter la découverte du code et la compréhension des architectures** en standardisant celles-ci (MVC, IoC, MQ…)
+- **Trouver de l'inspiration dans la recherche d'une solution** :
+  - Comment implémenter un interpréteur ? un annuler/refaire ?
+  - Existe-t-il un framework MVC avec injection de dépendance pour ce langage ?
 
 ---
 
@@ -704,18 +704,18 @@ Nous nous concentrerons sur les patrons de création du GoF ci-après :
 
 <div class="col">
 
-* [Singleton](https://mborne.github.io/architecture/patrons-conception/creation/Singleton/)
-* [Prototype](https://mborne.github.io/architecture/patrons-conception/creation/Prototype/)
-* [Factory (Fabrique)](https://mborne.github.io/architecture/patrons-conception/creation/Factory/)
-* [Builder (Monteur)](https://mborne.github.io/architecture/patrons-conception/creation/Builder/)
+- [Singleton](https://mborne.github.io/architecture/patrons-conception/creation/Singleton/)
+- [Prototype](https://mborne.github.io/architecture/patrons-conception/creation/Prototype/)
+- [Factory (Fabrique)](https://mborne.github.io/architecture/patrons-conception/creation/Factory/)
+- [Builder (Monteur)](https://mborne.github.io/architecture/patrons-conception/creation/Builder/)
 
 </div>
 <div class="col">
 
 Nous irons un peu plus loin avec :
 
-* [Fluent Interface](https://mborne.github.io/architecture/patrons-conception/creation/FluentInterface/)
-* Le [couplage de Fluent Interface et Builder](https://mborne.github.io/architecture/patrons-conception/creation/FluentBuilder/)
+- [Fluent Interface](https://mborne.github.io/architecture/patrons-conception/creation/FluentInterface/)
+- Le [couplage de Fluent Interface et Builder](https://mborne.github.io/architecture/patrons-conception/creation/FluentBuilder/)
 
 </div>
 
@@ -729,19 +729,19 @@ Nous nous concentrerons sur les patrons de structure du GoF ci-après :
 
 <div class="col">
 
-* [Facade (Façade)](https://mborne.github.io/architecture/patrons-conception/structure/Facade/)
-* [Decorator (Décorateur)](https://mborne.github.io/architecture/patrons-conception/structure/Decorator/)
-* [Composite (Objet composite)](https://mborne.github.io/architecture/patrons-conception/structure/Composite/)
-* [Adapter (Adaptateur)](https://mborne.github.io/architecture/patrons-conception/structure/Adapter/)
-* [Bridge (Pont)](https://mborne.github.io/architecture/patrons-conception/structure/Bridge/)
+- [Facade (Façade)](https://mborne.github.io/architecture/patrons-conception/structure/Facade/)
+- [Decorator (Décorateur)](https://mborne.github.io/architecture/patrons-conception/structure/Decorator/)
+- [Composite (Objet composite)](https://mborne.github.io/architecture/patrons-conception/structure/Composite/)
+- [Adapter (Adaptateur)](https://mborne.github.io/architecture/patrons-conception/structure/Adapter/)
+- [Bridge (Pont)](https://mborne.github.io/architecture/patrons-conception/structure/Bridge/)
 
 </div>
 <div class="col">
 
 Nous noterons qu'il en existe d'autres :
 
-* Proxy
-* Flyweight (Poids-mouche)
+- Proxy
+- Flyweight (Poids-mouche)
 
 </div>
 
@@ -755,25 +755,25 @@ Nous nous concentrerons sur les patrons de comportement du GoF ci-après :
 
 <div class="col">
 
-* [Iterator (Itérateur)](https://mborne.github.io/architecture/patrons-conception/comportement/Iterator/)
-* Template Method (Patron de méthode)
-* [Strategy (Stratégie)](https://mborne.github.io/architecture/patrons-conception/comportement/Strategy/)
-* [Visitor (Visiteur)](https://mborne.github.io/architecture/patrons-conception/comportement/Visitor/)
-* [Chain of responsibility (Chaîne de responsabilité)](https://mborne.github.io/architecture/patrons-conception/comportement/ChainOfResponsibility/)
-* [Observer (Observateur)](https://mborne.github.io/architecture/patrons-conception/comportement/Observer/)
+- [Iterator (Itérateur)](https://mborne.github.io/architecture/patrons-conception/comportement/Iterator/)
+- Template Method (Patron de méthode)
+- [Strategy (Stratégie)](https://mborne.github.io/architecture/patrons-conception/comportement/Strategy/)
+- [Visitor (Visiteur)](https://mborne.github.io/architecture/patrons-conception/comportement/Visitor/)
+- [Chain of responsibility (Chaîne de responsabilité)](https://mborne.github.io/architecture/patrons-conception/comportement/ChainOfResponsibility/)
+- [Observer (Observateur)](https://mborne.github.io/architecture/patrons-conception/comportement/Observer/)
 
 </div>
 <div class="col">
 
-* [State (État)](https://mborne.github.io/architecture/patrons-conception/comportement/State/)
-* Mediator (Médiateur)
-* Command (Commande)
-* Interpreter (Interpréteur)
-* Memento (Mémento)
+- [State (État)](https://mborne.github.io/architecture/patrons-conception/comportement/State/)
+- Mediator (Médiateur)
+- Command (Commande)
+- Interpreter (Interpréteur)
+- Memento (Mémento)
 
 Nous nous intéresserons en complément à :
 
-* [Null Object (objet null)](https://mborne.github.io/architecture/patrons-conception/comportement/NullObject/)
+- [Null Object (objet null)](https://mborne.github.io/architecture/patrons-conception/comportement/NullObject/)
 
 </div>
 
@@ -806,15 +806,15 @@ Pour bien comprendre l'intérêt des patrons de conception, nous allons traiter 
 
 Au-delà des patrons à l'échelle de quelques classes, nous soulignerons l'existence de **patrons architecturaux** agissant à l'**échelle d'une application ou d'un système** :
 
-* [Architecture en couches](https://mborne.github.io/architecture/patrons-conception/architecturaux/couches/)
-* [Architecture micro-service](https://learn.microsoft.com/fr-fr/azure/architecture/guide/architecture-styles/microservices)
-* [Model-View-Controller (MVC) et ses nombreuses variantes](https://mborne.github.io/architecture/patrons-conception/architecturaux/MVC/)
-* [Inversion de contrôle (IoC)](https://fr.wikipedia.org/wiki/Inversion_de_contr%C3%B4le) et [injection de dépendance](https://fr.wikipedia.org/wiki/Injection_de_d%C3%A9pendances)
-  * [Angular (JavaScript/TypeScript)](https://v17.angular.io/guide/dependency-injection)
-  * [Symfony (PHP)](https://symfony.com/doc/current/components/dependency_injection.html#basic-usage)
-* [Event-Driven architecture (EDA)](https://learn.microsoft.com/fr-fr/azure/architecture/guide/architecture-styles/event-driven)
-  * [RabbitMQ Tutorials](https://www.rabbitmq.com/tutorials)
-* [MapReduce](https://mborne.github.io/architecture/patrons-conception/architecturaux/MapReduce/)
+- [Architecture en couches](https://mborne.github.io/architecture/patrons-conception/architecturaux/couches/)
+- [Architecture micro-service](https://learn.microsoft.com/fr-fr/azure/architecture/guide/architecture-styles/microservices)
+- [Model-View-Controller (MVC) et ses nombreuses variantes](https://mborne.github.io/architecture/patrons-conception/architecturaux/MVC/)
+- [Inversion de contrôle (IoC)](https://fr.wikipedia.org/wiki/Inversion_de_contr%C3%B4le) et [injection de dépendance](https://fr.wikipedia.org/wiki/Injection_de_d%C3%A9pendances)
+  - [Angular (JavaScript/TypeScript)](https://v17.angular.io/guide/dependency-injection)
+  - [Symfony (PHP)](https://symfony.com/doc/current/components/dependency_injection.html#basic-usage)
+- [Event-Driven architecture (EDA)](https://learn.microsoft.com/fr-fr/azure/architecture/guide/architecture-styles/event-driven)
+  - [RabbitMQ Tutorials](https://www.rabbitmq.com/tutorials)
+- [MapReduce](https://mborne.github.io/architecture/patrons-conception/architecturaux/MapReduce/)
 
 ---
 
@@ -850,9 +850,9 @@ En complément, vous pourrez parcourir en autonomie [refactoring.com - Catalogue
 
 Vous pourrez constater :
 
-* La **difficulté de l'exercice de refactoring** (donc l'intérêt de **respecter dès le début les principes de conception**)
-* Que l'utilisation **de patrons de conception aide à respecter ces principes** (sans résoudre pour autant tous les problèmes)
-* L'intérêt des **tests pour éviter des régressions**
+- La **difficulté de l'exercice de refactoring** (donc l'intérêt de **respecter dès le début les principes de conception**)
+- Que l'utilisation **de patrons de conception aide à respecter ces principes** (sans résoudre pour autant tous les problèmes)
+- L'intérêt des **tests pour éviter des régressions**
 
 ---
 
@@ -873,12 +873,12 @@ Vous pourrez constater :
 
 Il est **fondamental de respecter les principes de conception** à tous les niveaux du système et **les patrons de conception peuvent vous aider** :
 
-* **Comprendre** et apprendre les principaux patrons de conception
-* **Identifier les patrons de conception dans les codes existants** (fabriques, monteurs, stratégies, décorateurs…)
-* **Expérimenter** (et apprendre de ses erreurs) !
-* **Concevoir** en pensant aux **principes** et **patrons de conception** (sans sombrer dans la « patternite »)
-* **Concevoir des codes en les testant unitairement** (un code mal conçu ne pouvant être testé unitairement)
-* **Comprendre des architectures existantes** ([les mêmes principes s'appliquent à diverses échelles des systèmes](https://mborne.github.io/cours-archi-si-geo/#les-principes-darchitecture))
+- **Comprendre** et apprendre les principaux patrons de conception
+- **Identifier les patrons de conception dans les codes existants** (fabriques, monteurs, stratégies, décorateurs…)
+- **Expérimenter** (et apprendre de ses erreurs) !
+- **Concevoir** en pensant aux **principes** et **patrons de conception** (sans sombrer dans la « patternite »)
+- **Concevoir des codes en les testant unitairement** (un code mal conçu ne pouvant être testé unitairement)
+- **Comprendre des architectures existantes** ([les mêmes principes s'appliquent à diverses échelles des systèmes](https://mborne.github.io/cours-archi-si-geo/#les-principes-darchitecture))
 
 ---
 
