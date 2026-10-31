@@ -838,11 +838,11 @@ Il est **fondamental de respecter les principes de conception** à tous les nive
 
 - **Comprendre** et apprendre les principaux patrons de conception
 - **Identifier les patrons de conception dans les codes existants** (fabriques, monteurs, stratégies, décorateurs…)
-- **Refactorer des codes existants** pour respecter les principes de conception en introduisant au besoin des patrons (voir [le refactoring](https://mborne.github.io/architecture/refactoring/))
-- **Expérimenter** (et apprendre de ses erreurs) !
 - **Concevoir** en pensant aux **principes** et **patrons de conception** (sans sombrer dans la « patternite »)
 - **Concevoir des codes en les testant unitairement** (un code mal conçu ne pouvant être testé unitairement)
+- **Refactorer des codes existants** pour respecter les principes de conception en introduisant au besoin des patrons (voir [le refactoring](https://mborne.github.io/architecture/refactoring/))
 - **Comprendre des architectures existantes** ([les mêmes principes s'appliquent à diverses échelles des systèmes](https://mborne.github.io/cours-archi-si-geo/#les-principes-darchitecture))
+- **Expérimenter** (et apprendre de ses erreurs) !
 
 ---
 
