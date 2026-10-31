@@ -28,7 +28,7 @@ Mickaël Borne
 <div class="col">
 
 1. [Introduction](#introduction)
-2. [Les bases de la P.O.O.](#les-bases-de-la-poo)
+2. [La programmation orientée objet (POO)](#la-programmation-orientée-objet-poo)
 3. [Les principes de conception](#les-principes-de-conception)
 4. [Les anti-patrons](#les-anti-patrons)
 5. [Les patrons de conception](#les-patrons-de-conception-1)
@@ -98,7 +98,7 @@ Nous serons souvent amenés à **prioriser ces critères** (ex : privilégier le
 
 Ce cours s'inspire de **« Design patterns : tête la première »** d'Eric Freeman et Kathy Sierra. Nous verrons :
 
-- Les **prérequis** pour **comprendre l'intérêt des patrons de conception** : les concepts de base de la P.O.O. et les **principes de conception**
+- Les **prérequis** pour **comprendre l'intérêt des patrons de conception** : les concepts de base de la POO et les **principes de conception**
 - Les **mauvaises pratiques** à travers les **anti-patrons**
 - Les **bonnes pratiques** avec les principaux **patrons de conception** (TP)
 - Ces mêmes principes à l'échelle du système avec les **patrons architecturaux**
@@ -112,17 +112,17 @@ Ce cours s'inspire de **« Design patterns : tête la première »** d'Eric Free
 
 ###### 02
 
-# Les bases **de la P.O.O.**
+# La programmation **orientée objet (POO)**
 
 ---
 
-<!-- header: Les bases de la P.O.O. -->
+<!-- header: La programmation orientée objet (POO) -->
 
 ## Un paradigme omniprésent
 
 De nombreux programmeurs manipulent des objets sans forcément en avoir conscience :
 
-- En appelant `chaine.upper()` pour transformer une chaîne de caractères en majuscules, nous faisons appel à la **notation pointée** typique de la P.O.O.
+- En appelant `chaine.upper()` pour transformer une chaîne de caractères en majuscules, nous faisons appel à la **notation pointée** typique de la POO
 - En Python, tout est objet :
 
 <div class="center">
@@ -138,11 +138,11 @@ De nombreux programmeurs manipulent des objets sans forcément en avoir conscien
 - **Concevoir proprement <u>ses propres classes</u>**
 - **Choisir entre la définition d'une classe et un autre paradigme** (ex : une fonction) quand le langage le permet
 
-Nous nous concentrerons sur la P.O.O. en mentionnant la **possibilité de mixer les paradigmes** :
+Nous nous concentrerons sur la POO en mentionnant la **possibilité de mixer les paradigmes** :
 
 ```js
 const nombreUtilisateursMajeurs = userRepo.getUsers()
-  .filter(user => user.age >= 18) // programmation fonctionnelle + P.O.O.
+  .filter(user => user.age >= 18) // programmation fonctionnelle + POO
   .count()
 ;
 ```
@@ -181,19 +181,19 @@ Les concepts suivants sont normalement connus avant de débuter ce cours :
 
 Les **concepts de classe, d'attribut et l'héritage sont généralement bien maîtrisés pour modéliser des données** (objet de domaine).
 
-Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la P.O.O.** pour **modéliser des traitements** :
+Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la POO** pour **modéliser des traitements** :
 
 - Se protéger contre des erreurs de programmation
 - S'assurer d'être en mesure de modifier le code sans casser les appels
 - Pouvoir tester unitairement les fonctionnalités (en bouchonnant les autres à l'aide de « mock »)
 
-→ [Méditons quelques exemples](meditation.md)
+→ [Méditons quelques exemples](poo.md)
 
 ---
 
 ## Une conception à adapter au langage
 
-Les langages qui permettent de définir et manipuler les concepts de base de la P.O.O. sont nombreux (Java, JavaScript (ES6), TypeScript, C++, Python, PHP, Go, Rust…).
+Les langages qui permettent de définir et manipuler les concepts de base de la POO sont nombreux (Java, JavaScript (ES6), TypeScript, C++, Python, PHP, Go, Rust…).
 
 Nous traiterons ce cours avec des exemples et TP en TypeScript en nous concentrant sur ce qui est applicable à de nombreux langages.
 
@@ -209,7 +209,7 @@ Nous noterons toutefois que **[les langages ont des spécificités](https://mbor
 
 # Les principes **de conception**
 
-## Des principes qui s'ajoutent aux principes de base de la P.O.O. (abstraction, encapsulation…)
+## Des principes qui s'ajoutent aux principes de base de la POO (abstraction, encapsulation…)
 
 ---
 

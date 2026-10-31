@@ -3,7 +3,7 @@ marp: true
 theme: cours
 paginate: true
 lang: fr
-title: Méditation sur les concepts de la P.O.O.
+title: Comprendre la POO
 footer: Les patrons de conception — Mickaël Borne — novembre 2026
 ---
 
@@ -13,15 +13,15 @@ footer: Les patrons de conception — Mickaël Borne — novembre 2026
 
 ###### Les patrons de conception
 
-# **Méditation**
+# **Comprendre la POO**
 
-## Comprendre l'intérêt des différents concepts de la P.O.O.
+## Comprendre l'intérêt des différents concepts de la POO
 
 ---
 
 <!-- _class: aside -->
 
-> [← Retour au cours](index.md#les-bases-de-la-poo)
+> [← Retour au cours](index.md#la-programmation-orientée-objet-poo)
 
 ## Quelques exemples à méditer
 
@@ -339,4 +339,4 @@ Certains langages (Java, PHP, TypeScript…) permettent de définir des **classe
 
 # **Retour au cours**
 
-[Les patrons de conception](index.md#les-bases-de-la-poo)
+[Les patrons de conception](index.md#la-programmation-orientée-objet-poo)
