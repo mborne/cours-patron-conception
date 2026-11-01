@@ -55,6 +55,12 @@ section.colonnes > :not(.col):not(header):not(footer) {
   color: var(--gp-texte);
 }
 
+/* ---------- Notes en texte réduit ---------- */
+
+.note {
+  font-size: 18px;
+}
+
 /* ---------- Texte réduit pour les diapositives denses ---------- */
 
 section.dense {

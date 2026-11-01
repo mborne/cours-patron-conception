@@ -132,25 +132,19 @@ De nombreux programmeurs manipulent des objets sans forcément en avoir conscien
 
 ## Un paradigme difficile à maîtriser
 
-**Utiliser des classes existantes ne demandera pas d'effort**. Il sera plus délicat de :
+**Utiliser des classes existantes demandera peu d'effort**. Il sera plus délicat de **concevoir proprement <u>ses propres classes</u>** :
 
-- **Concevoir proprement <u>ses propres classes</u>**
-- **Choisir entre la définition d'une classe et un autre paradigme** (ex : une fonction) quand le langage le permet
+- **Répartir les responsabilités** entre les classes
+- **Choisir les bonnes relations** (héritage, composition…)
+- **Faciliter les évolutions** sans tout réécrire
 
-Nous nous concentrerons sur la POO en mentionnant la **possibilité de mixer les paradigmes** :
-
-```js
-const nombreUtilisateursMajeurs = userRepo.getUsers()
-  .filter(user => user.age >= 18) // programmation fonctionnelle + POO
-  .count()
-;
-```
+> *Spoiler* : c'est précisément l'objet des **principes de conception** et des **patrons de conception** que nous verrons par la suite !
 
 ---
 
 <!-- _class: colonnes -->
 
-## Les concepts de base
+## Des concepts à connaître
 
 Les concepts suivants sont normalement connus avant de débuter ce cours :
 
@@ -176,13 +170,13 @@ Les concepts suivants sont normalement connus avant de débuter ce cours :
 
 ---
 
-## Bien comprendre l'intérêt de ces concepts !
+## Des concepts à comprendre
 
-Les **concepts de classe, d'attribut et l'héritage sont généralement bien maîtrisés pour modéliser des données** (objet de domaine).
+Les **concepts de classe, d'attribut et d'héritage sont généralement bien maîtrisés pour modéliser des données** (objet de domaine).
 
 Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la POO** pour **modéliser des traitements** :
 
-- Se protéger contre des erreurs de programmation
+- Se protéger contre des erreurs de programmation (ex : visibilité, encapsulation)
 - S'assurer d'être en mesure de modifier le code sans casser les appels
 - Pouvoir tester unitairement les fonctionnalités (en bouchonnant les autres à l'aide de « mock »)
 
@@ -190,13 +184,58 @@ Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la
 
 ---
 
-## Une conception à adapter au langage
+## Une conception à adapter au langage (1/3)
 
-Les langages qui permettent de définir et manipuler les concepts de base de la POO sont nombreux (Java, JavaScript (ES6), TypeScript, C++, Python, PHP, Go, Rust…).
+Les langages qui permettent de définir et manipuler les concepts de base de la POO sont nombreux (Java, JavaScript (ES6), TypeScript, C++, Python, PHP…).
 
-Nous traiterons ce cours avec des exemples et TP en TypeScript en nous concentrant sur ce qui est applicable à de nombreux langages.
+Ce cours s'appuiera sur des exemples et TP en **TypeScript**, en se concentrant sur ce qui est applicable à de nombreux langages.
 
-Nous noterons toutefois que **[les langages ont des spécificités](https://mborne.github.io/architecture/patrons-conception/specificites-langages/) qui devront être prises en compte et exploitées dans la conception**.
+<div class="note">
+
+> - **Pourquoi TypeScript ?** Typage statique, interfaces et classes abstraites, syntaxe proche de Java et C#, exécution dans le navigateur et avec Node.js
+> - **Pourquoi pas Java ?** Le cours et les TP étaient jadis en Java (qui a le mérite d'être assez proche de la théorie)… Ne me dites pas que vous en faites encore 😅
+> - **Pourquoi pas Python ?** Syntaxe moins naturelle (`self` explicite, absence de mots-clés pour la visibilité et les interfaces…)
+> - **Pourquoi pas C++ ?** Risque de traiter principalement des spécificités du langage (gestion de la mémoire, `const`, passage par copie ou par référence…)
+> - **Pourquoi pas Rust ?** Il faudrait d'abord maîtriser la propriété (~ `std::unique_ptr` par défaut) et l'emprunt des variables, ainsi que les traits en l'absence de classes et d'héritage… 😉
+
+</div>
+
+---
+
+## Une conception à adapter au langage (2/3)
+
+Comme l'illustre la difficulté de faire ce choix, **[les langages ont des spécificités](https://mborne.github.io/architecture/patrons-conception/specificites-langages/) qui devront être prises en compte et exploitées dans la conception**, en particulier :
+
+- Le **typage statique ou dynamique** (vérification des types à la compilation ou à l'exécution)
+- La **signature des méthodes** (surcharge possible ou unicité des noms)
+- La **gestion de la mémoire** (ramasse-miettes, comptage de références, libération manuelle, notion de propriété (Rust)…)
+- La présence de **concepts complémentaires** (propriétés, annotations…) et de **patrons intégrés** (Iterator, Prototype…)
+
+<div class="note">
+
+> *Note* : certains patrons de conception que nous verrons par la suite ne seront pas adaptés à tous les langages ou demanderont des adaptations.
+
+</div>
+
+---
+
+## Une conception à adapter au langage (3/3)
+
+Aussi, la plupart des langages sont désormais **multi-paradigmes** (Python, JavaScript, PHP, C++…). Il faudra parfois **choisir entre la définition d'une classe et celle d'une simple fonction**.
+
+**Dans ce cours, nous nous concentrerons sur des approches purement POO**, mais vous constaterez qu'il est possible de **mixer les paradigmes** :
+
+```ts
+const nombreUtilisateursMajeurs = userRepo.getUsers() // POO
+  .filter(user => user.age >= 18) // programmation fonctionnelle
+  .length;
+```
+
+<div class="note">
+
+> *Note* : certains patrons de conception que nous verrons par la suite sont aujourd'hui simplifiés, voire rendus inutiles, par les concepts apparus dans les langages (lambdas, *generics*, générateurs…).
+
+</div>
 
 ---
 
@@ -498,7 +537,7 @@ Pourquoi ? Notez dans un premier temps que :
 - L'**héritage** est une **relation plus forte que la composition** (il est donc plus difficile de s'en libérer)
 - Si vous développez un formulaire, modifier un `type` (affectation) est plus simple que transformer un `Chien` en `Chat` (construction)
 
-> Spoiler : nous verrons plus tard avec les patrons [Template Method](https://mborne.github.io/architecture/patrons-conception/comportement/TemplateMethod/) et [Strategy](https://mborne.github.io/architecture/patrons-conception/comportement/Strategy/) en quoi la composition est préférable à la surcharge d'une méthode pour faire varier le comportement d'une classe.
+> *Spoiler* : nous verrons plus tard avec les patrons [Template Method](https://mborne.github.io/architecture/patrons-conception/comportement/TemplateMethod/) et [Strategy](https://mborne.github.io/architecture/patrons-conception/comportement/Strategy/) en quoi la composition est préférable à la surcharge d'une méthode pour faire varier le comportement d'une classe.
 
 ---
 
@@ -543,7 +582,7 @@ En conséquence, il est difficile de :
 - Modifier une partie du code sans en altérer le fonctionnement
 - Trouver la cause d'un bug
 
-> Spoiler : nous verrons que les patrons architecturaux amènent un cadre permettant d'éviter ce problème.
+> *Spoiler* : nous verrons que les patrons architecturaux amènent un cadre permettant d'éviter ce problème.
 
 ---
 
@@ -561,7 +600,7 @@ Un **composant ne fournit pas les abstractions nécessaires**, mais seulement le
 
 **Les abstractions sont développées dans les clients**.
 
-> Spoiler : nous verrons comment le patron façade permet d'y remédier.
+> *Spoiler* : nous verrons comment le patron façade permet d'y remédier.
 
 ---
 
@@ -584,7 +623,7 @@ Il peut s'agir d'une bibliothèque, d'une base de données, d'une suite de logic
 
 Ce problème pourra concerner aussi bien des bibliothèques que des API WEB ou en ligne de commande (CLI). Il conviendra de considérer que **livrer revient à figer les interfaces publiques**.
 
-> Spoiler : il est possible de **traiter les changements en gérant proprement des versions** (voir [mborne.github.io - Le refactoring](https://mborne.github.io/architecture/refactoring/)).
+> *Spoiler* : il est possible de **traiter les changements en gérant proprement des versions** (voir [mborne.github.io - Le refactoring](https://mborne.github.io/architecture/refactoring/)).
 
 ---
 
