@@ -498,7 +498,7 @@ Pourquoi ? Notez dans un premier temps que :
 - L'**héritage** est une **relation plus forte que la composition** (il est donc plus difficile de s'en libérer)
 - Si vous développez un formulaire, modifier un `type` (affectation) est plus simple que transformer un `Chien` en `Chat` (construction)
 
-> Spoiler : nous verrons plus tard avec le patron [Strategy](https://mborne.github.io/architecture/patrons-conception/comportement/Strategy/) en quoi la composition est préférable à la surcharge d'une méthode pour faire varier le comportement d'une classe.
+> Spoiler : nous verrons plus tard avec les patrons [Template Method](https://mborne.github.io/architecture/patrons-conception/comportement/TemplateMethod/) et [Strategy](https://mborne.github.io/architecture/patrons-conception/comportement/Strategy/) en quoi la composition est préférable à la surcharge d'une méthode pour faire varier le comportement d'une classe.
 
 ---
 
@@ -756,7 +756,7 @@ Nous nous concentrerons sur les patrons de comportement du GoF ci-après :
 <div class="col">
 
 - [Iterator (Itérateur)](https://mborne.github.io/architecture/patrons-conception/comportement/Iterator/)
-- Template Method (Patron de méthode)
+- [Template Method (Patron de méthode)](https://mborne.github.io/architecture/patrons-conception/comportement/TemplateMethod/)
 - [Strategy (Stratégie)](https://mborne.github.io/architecture/patrons-conception/comportement/Strategy/)
 - [Visitor (Visiteur)](https://mborne.github.io/architecture/patrons-conception/comportement/Visitor/)
 - [Chain of responsibility (Chaîne de responsabilité)](https://mborne.github.io/architecture/patrons-conception/comportement/ChainOfResponsibility/)
