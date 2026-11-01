@@ -132,7 +132,7 @@ De nombreux programmeurs manipulent des objets sans forcément en avoir conscien
 
 ## Un paradigme difficile à maîtriser
 
-**Utiliser des classes existantes ne demandera pas d'effort**. Il sera plus délicat de **concevoir proprement <u>ses propres classes</u>** :
+**Utiliser des classes existantes demandera peu d'effort**. Il sera plus délicat de **concevoir proprement <u>ses propres classes</u>** :
 
 - **Répartir les responsabilités** entre les classes
 - **Choisir les bonnes relations** (héritage, composition…)
@@ -172,11 +172,11 @@ Les concepts suivants sont normalement connus avant de débuter ce cours :
 
 ## Des concepts à comprendre
 
-Les **concepts de classe, d'attribut et l'héritage sont généralement bien maîtrisés pour modéliser des données** (objet de domaine).
+Les **concepts de classe, d'attribut et d'héritage sont généralement bien maîtrisés pour modéliser des données** (objet de domaine).
 
 Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la POO** pour **modéliser des traitements** :
 
-- Se protéger contre des erreurs de programmation
+- Se protéger contre des erreurs de programmation (ex : visibilité, encapsulation)
 - S'assurer d'être en mesure de modifier le code sans casser les appels
 - Pouvoir tester unitairement les fonctionnalités (en bouchonnant les autres à l'aide de « mock »)
 
@@ -186,15 +186,25 @@ Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la
 
 ## Une conception à adapter au langage (1/3)
 
-Les langages qui permettent de définir et manipuler les concepts de base de la POO sont nombreux (Java, JavaScript (ES6), TypeScript, C++, Python, PHP, Go, Rust…).
+Les langages qui permettent de définir et manipuler les concepts de base de la POO sont nombreux (Java, JavaScript (ES6), TypeScript, C++, Python, PHP…).
 
-Nous traiterons ce cours avec des exemples et TP en TypeScript en nous concentrant sur ce qui est applicable à de nombreux langages.
+Ce cours s'appuiera sur des exemples et TP en **TypeScript**, en se concentrant sur ce qui est applicable à de nombreux langages.
+
+<div class="note">
+
+> - **Pourquoi TypeScript ?** Typage statique, interfaces et classes abstraites, syntaxe proche de Java et C#, exécution dans le navigateur et avec Node.js
+> - **Pourquoi pas Java ?** Le cours et les TP étaient jadis en Java (qui a le mérite d'être assez proche de la théorie)… Ne me dites pas que vous en faites encore 😅
+> - **Pourquoi pas Python ?** Syntaxe moins naturelle (`self` explicite, absence de mots-clés pour la visibilité et les interfaces…)
+> - **Pourquoi pas C++ ?** Risque de traiter principalement des spécificités du langage (gestion de la mémoire, `const`, passage par copie ou par référence…)
+> - **Pourquoi pas Rust ?** Il faudrait d'abord maîtriser la propriété (~ `std::unique_ptr` par défaut) et l'emprunt des variables, ainsi que les traits en l'absence de classes et d'héritage… 😉
+
+</div>
 
 ---
 
 ## Une conception à adapter au langage (2/3)
 
-Nous noterons toutefois que **[les langages ont des spécificités](https://mborne.github.io/architecture/patrons-conception/specificites-langages/) qui devront être prises en compte et exploitées dans la conception**, en particulier :
+Comme l'illustre la difficulté de faire ce choix, **[les langages ont des spécificités](https://mborne.github.io/architecture/patrons-conception/specificites-langages/) qui devront être prises en compte et exploitées dans la conception**, en particulier :
 
 - Le **typage statique ou dynamique** (vérification des types à la compilation ou à l'exécution)
 - La **signature des méthodes** (surcharge possible ou unicité des noms)
@@ -213,13 +223,12 @@ Nous noterons toutefois que **[les langages ont des spécificités](https://mbor
 
 Aussi, la plupart des langages sont désormais **multi-paradigmes** (Python, JavaScript, PHP, C++…). Il faudra parfois **choisir entre la définition d'une classe et celle d'une simple fonction**.
 
-**Dans ce cours, nous nous limiterons à des approches purement POO**, mais vous constaterez qu'il est possible de **mixer les paradigmes** :
+**Dans ce cours, nous nous concentrerons sur des approches purement POO**, mais vous constaterez qu'il est possible de **mixer les paradigmes** :
 
-```js
+```ts
 const nombreUtilisateursMajeurs = userRepo.getUsers() // POO
   .filter(user => user.age >= 18) // programmation fonctionnelle
-  .length
-;
+  .length;
 ```
 
 <div class="note">
