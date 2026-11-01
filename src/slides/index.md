@@ -132,17 +132,26 @@ De nombreux programmeurs manipulent des objets sans forcément en avoir conscien
 
 ## Un paradigme difficile à maîtriser
 
-**Utiliser des classes existantes ne demandera pas d'effort**. Il sera plus délicat de :
+**Utiliser des classes existantes ne demandera pas d'effort**. Il sera plus délicat de **concevoir proprement <u>ses propres classes</u>** :
 
-- **Concevoir proprement <u>ses propres classes</u>**
-- **Choisir entre la définition d'une classe et un autre paradigme** (ex : une fonction) quand le langage le permet
+- **Répartir les responsabilités** entre les classes
+- **Choisir les bonnes relations** (héritage, composition…)
+- **Faciliter les évolutions** sans tout réécrire
 
-Nous nous concentrerons sur la POO en mentionnant la **possibilité de mixer les paradigmes** :
+> *Spoiler* : c'est précisément l'objet des **principes de conception** et des **patrons de conception** que nous verrons par la suite !
+
+---
+
+## Un paradigme qui cohabite avec d'autres
+
+La plupart des langages sont **multi-paradigmes** (Python, JavaScript, PHP, C++…). Il faudra parfois **choisir entre la définition d'une classe et celle d'une simple fonction**.
+
+**Dans ce cours, nous nous limiterons à des approches purement POO**, mais vous constaterez qu'il est possible de **mixer les paradigmes** :
 
 ```js
-const nombreUtilisateursMajeurs = userRepo.getUsers()
-  .filter(user => user.age >= 18) // programmation fonctionnelle + POO
-  .count()
+const nombreUtilisateursMajeurs = userRepo.getUsers() // POO
+  .filter(user => user.age >= 18) // programmation fonctionnelle
+  .length
 ;
 ```
 
@@ -150,7 +159,7 @@ const nombreUtilisateursMajeurs = userRepo.getUsers()
 
 <!-- _class: colonnes -->
 
-## Les concepts de base
+## Des concepts à connaître
 
 Les concepts suivants sont normalement connus avant de débuter ce cours :
 
@@ -176,7 +185,7 @@ Les concepts suivants sont normalement connus avant de débuter ce cours :
 
 ---
 
-## Bien comprendre l'intérêt de ces concepts !
+## Des concepts à comprendre
 
 Les **concepts de classe, d'attribut et l'héritage sont généralement bien maîtrisés pour modéliser des données** (objet de domaine).
 
@@ -498,7 +507,7 @@ Pourquoi ? Notez dans un premier temps que :
 - L'**héritage** est une **relation plus forte que la composition** (il est donc plus difficile de s'en libérer)
 - Si vous développez un formulaire, modifier un `type` (affectation) est plus simple que transformer un `Chien` en `Chat` (construction)
 
-> Spoiler : nous verrons plus tard avec les patrons [Template Method](https://mborne.github.io/architecture/patrons-conception/comportement/TemplateMethod/) et [Strategy](https://mborne.github.io/architecture/patrons-conception/comportement/Strategy/) en quoi la composition est préférable à la surcharge d'une méthode pour faire varier le comportement d'une classe.
+> *Spoiler* : nous verrons plus tard avec les patrons [Template Method](https://mborne.github.io/architecture/patrons-conception/comportement/TemplateMethod/) et [Strategy](https://mborne.github.io/architecture/patrons-conception/comportement/Strategy/) en quoi la composition est préférable à la surcharge d'une méthode pour faire varier le comportement d'une classe.
 
 ---
 
@@ -543,7 +552,7 @@ En conséquence, il est difficile de :
 - Modifier une partie du code sans en altérer le fonctionnement
 - Trouver la cause d'un bug
 
-> Spoiler : nous verrons que les patrons architecturaux amènent un cadre permettant d'éviter ce problème.
+> *Spoiler* : nous verrons que les patrons architecturaux amènent un cadre permettant d'éviter ce problème.
 
 ---
 
@@ -561,7 +570,7 @@ Un **composant ne fournit pas les abstractions nécessaires**, mais seulement le
 
 **Les abstractions sont développées dans les clients**.
 
-> Spoiler : nous verrons comment le patron façade permet d'y remédier.
+> *Spoiler* : nous verrons comment le patron façade permet d'y remédier.
 
 ---
 
@@ -584,7 +593,7 @@ Il peut s'agir d'une bibliothèque, d'une base de données, d'une suite de logic
 
 Ce problème pourra concerner aussi bien des bibliothèques que des API WEB ou en ligne de commande (CLI). Il conviendra de considérer que **livrer revient à figer les interfaces publiques**.
 
-> Spoiler : il est possible de **traiter les changements en gérant proprement des versions** (voir [mborne.github.io - Le refactoring](https://mborne.github.io/architecture/refactoring/)).
+> *Spoiler* : il est possible de **traiter les changements en gérant proprement des versions** (voir [mborne.github.io - Le refactoring](https://mborne.github.io/architecture/refactoring/)).
 
 ---
 
