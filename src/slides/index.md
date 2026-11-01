@@ -808,10 +808,9 @@ Au-delà des patrons à l'échelle de quelques classes, nous soulignerons l'exis
 
 - [Injection de dépendance](https://mborne.github.io/architecture/patrons-conception/architecturaux/InjectionDependances/)
 - [Architecture en couches](https://mborne.github.io/architecture/patrons-conception/architecturaux/couches/)
-- [Architecture micro-service](https://learn.microsoft.com/fr-fr/azure/architecture/guide/architecture-styles/microservices)
+- [Architecture micro-service](https://mborne.github.io/architecture/patrons-conception/architecturaux/microservices/)
 - [Model-View-Controller (MVC) et ses nombreuses variantes](https://mborne.github.io/architecture/patrons-conception/architecturaux/MVC/)
-- [Event-Driven architecture (EDA)](https://learn.microsoft.com/fr-fr/azure/architecture/guide/architecture-styles/event-driven)
-  - [RabbitMQ Tutorials](https://www.rabbitmq.com/tutorials)
+- [Event-Driven architecture (EDA)](https://mborne.github.io/architecture/patrons-conception/architecturaux/EDA/)
 - [MapReduce](https://mborne.github.io/architecture/patrons-conception/architecturaux/MapReduce/)
 
 ---
