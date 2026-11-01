@@ -142,21 +142,6 @@ De nombreux programmeurs manipulent des objets sans forcément en avoir conscien
 
 ---
 
-## Un paradigme qui cohabite avec d'autres
-
-La plupart des langages sont **multi-paradigmes** (Python, JavaScript, PHP, C++…). Il faudra parfois **choisir entre la définition d'une classe et celle d'une simple fonction**.
-
-**Dans ce cours, nous nous limiterons à des approches purement POO**, mais vous constaterez qu'il est possible de **mixer les paradigmes** :
-
-```js
-const nombreUtilisateursMajeurs = userRepo.getUsers() // POO
-  .filter(user => user.age >= 18) // programmation fonctionnelle
-  .length
-;
-```
-
----
-
 <!-- _class: colonnes -->
 
 ## Des concepts à connaître
@@ -199,13 +184,49 @@ Il convient toutefois de **bien comprendre l'intérêt des autres concepts de la
 
 ---
 
-## Une conception à adapter au langage
+## Une conception à adapter au langage (1/3)
 
 Les langages qui permettent de définir et manipuler les concepts de base de la POO sont nombreux (Java, JavaScript (ES6), TypeScript, C++, Python, PHP, Go, Rust…).
 
 Nous traiterons ce cours avec des exemples et TP en TypeScript en nous concentrant sur ce qui est applicable à de nombreux langages.
 
-Nous noterons toutefois que **[les langages ont des spécificités](https://mborne.github.io/architecture/patrons-conception/specificites-langages/) qui devront être prises en compte et exploitées dans la conception**.
+---
+
+## Une conception à adapter au langage (2/3)
+
+Nous noterons toutefois que **[les langages ont des spécificités](https://mborne.github.io/architecture/patrons-conception/specificites-langages/) qui devront être prises en compte et exploitées dans la conception**, en particulier :
+
+- Le **typage statique ou dynamique** (vérification des types à la compilation ou à l'exécution)
+- La **signature des méthodes** (surcharge possible ou unicité des noms)
+- La **gestion de la mémoire** (ramasse-miettes, comptage de références, libération manuelle, notion de propriété (Rust)…)
+- La présence de **concepts complémentaires** (propriétés, annotations…) et de **patrons intégrés** (Iterator, Prototype…)
+
+<div class="note">
+
+> *Note* : certains patrons de conception que nous verrons par la suite ne seront pas adaptés à tous les langages ou demanderont des adaptations.
+
+</div>
+
+---
+
+## Une conception à adapter au langage (3/3)
+
+Aussi, la plupart des langages sont désormais **multi-paradigmes** (Python, JavaScript, PHP, C++…). Il faudra parfois **choisir entre la définition d'une classe et celle d'une simple fonction**.
+
+**Dans ce cours, nous nous limiterons à des approches purement POO**, mais vous constaterez qu'il est possible de **mixer les paradigmes** :
+
+```js
+const nombreUtilisateursMajeurs = userRepo.getUsers() // POO
+  .filter(user => user.age >= 18) // programmation fonctionnelle
+  .length
+;
+```
+
+<div class="note">
+
+> *Note* : certains patrons de conception que nous verrons par la suite sont aujourd'hui simplifiés, voire rendus inutiles, par les concepts apparus dans les langages (lambdas, *generics*, générateurs…).
+
+</div>
 
 ---
 
