@@ -98,11 +98,10 @@ Nous serons souvent amenés à **prioriser ces critères** (ex : privilégier le
 
 Ce cours s'inspire de **« Design patterns : tête la première »** d'Eric Freeman et Kathy Sierra. Nous verrons :
 
-- Les **prérequis** pour **comprendre l'intérêt des patrons de conception** : les concepts de base de la POO et les **principes de conception**
+- Les **prérequis** pour **comprendre l'intérêt des patrons de conception** : La **programmation orientée objet (POO)** et les **principes de conception**
 - Les **mauvaises pratiques** à travers les **anti-patrons**
 - Les **bonnes pratiques** avec les principaux **patrons de conception** (TP)
-- Ces mêmes principes à l'échelle du système avec les **patrons architecturaux**
-- Comment **réfactorer un code existant** (TP)
+- Quelques **patrons architecturaux**
 
 ---
 
@@ -602,7 +601,7 @@ Ce problème pourra concerner aussi bien des bibliothèques que des API WEB ou e
 Exemples :
 
 - Optimiser le parcours séquentiel d'un tableau au point qu'il devient impossible d'exploiter un index spatial
-- « Je n'ai pas besoin des arcs entrants pour cet algorithme, je développe une classe dédiée pour ce graphe afin de consommer moins de mémoire ! ». Bilan : le programme réel passe son temps à faire des copies de graphes.
+- « Je n'ai pas besoin des arcs entrants pour cet algorithme, je développe une classe dédiée pour ce graphe afin de consommer moins de mémoire ! ». Bilan : le programme réel qui fait appel à plusieurs algorithmes doit faire des copies de graphes.
 
 ---
 
