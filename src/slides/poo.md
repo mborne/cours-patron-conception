@@ -40,7 +40,7 @@ footer: Les patrons de conception — Mickaël Borne — novembre 2026
 
 ## Intérêt des classes et des attributs (1/2)
 
-Il faut d'abord comprendre l'intérêt de pouvoir définir un type utilisateur (ex : `struct` en C). Prenons le cas d'une fonction qui teste si deux intervalles s'intersectent :
+Pour comprendre l'intérêt des classes, il faut d'abord comprendre l'intérêt de **pouvoir définir un type utilisateur** (ex : `struct` en C). Prenons le cas d'une fonction qui teste si deux intervalles s'intersectent :
 
 <div class="col">
 
@@ -81,7 +81,7 @@ Quel est l'apport de la deuxième approche en matière d'**abstraction**, de **c
 
 ## Intérêt des classes et des attributs (2/2)
 
-Prenons un autre cas d'école où un utilitaire produit une chaîne de caractères sous la forme `"[x,y]"` :
+Prenons un autre cas d'école où un utilitaire convertit des coordonnées en une chaîne de caractères sous la forme `"[x,y]"` :
 
 <div class="col">
 
@@ -122,11 +122,11 @@ Si nous ajoutons un Z optionnel, **combien d'appels faudra-t-il modifier** pour 
 
 ## Intérêt des constructeurs (1/2)
 
-Il faut s'intéresser à la **sécurisation de l'initialisation des objets**.
+Pour comprendre l'intérêt des constructeurs, il faut s'intéresser à la **sécurisation de l'initialisation des objets**. Restons sur les cas des coordonnées :
 
 <div class="col">
 
-Sans :
+Sans constructeur :
 
 ```c
 Coordinate c ;
@@ -137,7 +137,7 @@ c.y = 4.0;
 </div>
 <div class="col">
 
-Avec :
+Avec un constructeur :
 
 ```java
 Coordinate c = new Coordinate(3.0,4.0) ;
@@ -223,7 +223,7 @@ Si vous vous imaginez qu'il est si rare que ça de devoir revoir sa copie, notez
 - Nous sommes sur un cas très simple ! Vous pouvez imaginer :
   - Devoir remplacer l'envoi de mail par un autre mécanisme de notification (ex : SMS)
   - Devoir remplacer PostgreSQL par MongoDB pour le stockage des données
-- Il reste une erreur de modélisation sur la classe précédente… Vous l'avez ?
+- Il reste un point discutable dans la modélisation de la classe `Person`… Vous l'avez ?
 
 ---
 
