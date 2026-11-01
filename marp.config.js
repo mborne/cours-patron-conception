@@ -5,7 +5,7 @@
  */
 
 /*
- * Réécriture des liens entre présentations : "meditation.md" -> "meditation.html"
+ * Réécriture des liens entre présentations : "poo.md" -> "poo.html"
  * (les sources restent navigables sur GitHub et vérifiables par markdown-link-check).
  */
 function mdLinksToHtml(md) {
